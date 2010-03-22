@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Origami::Array</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Origami::Array</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/sources/parser/array_rb.html">
+                sources/parser/array.rb
+                </a>
+        <br />
+                <a href="../../files/sources/parser/obfuscation_rb.html">
+                sources/parser/obfuscation.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                ::Array
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Class representing an <a href="Array.html">Array</a> <a
+href="Object.html">Object</a>. Arrays contain a set of <a
+href="Object.html">Object</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000298">+</a>&nbsp;&nbsp;
+      <a href="#M000299">&lt;&lt;</a>&nbsp;&nbsp;
+      <a href="#M000300">[]=</a>&nbsp;&nbsp;
+      <a href="#M000295">new</a>&nbsp;&nbsp;
+      <a href="#M000296">pre_build</a>&nbsp;&nbsp;
+      <a href="#M000302">real_type</a>&nbsp;&nbsp;
+      <a href="#M000297">to_a</a>&nbsp;&nbsp;
+      <a href="#M000303">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000301">value</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="Object.html">Origami::Object</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000295" class="method-detail">
+        <a name="M000295"></a>
+
+        <div class="method-heading">
+          <a href="#M000295" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(data = [])</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a <a href="Array.html#M000295">new</a> <a href="PDF.html">PDF</a>
+<a href="Array.html">Array</a> <a href="Object.html">Object</a>.
+</p>
+<table>
+<tr><td valign="top"><em>data</em>:</td><td>An array of objects.
+
+</td></tr>
+</table>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000295-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000295-source">
+<pre>
+    <span class="ruby-comment cmt"># File sources/parser/array.rb, line 48</span>
+48:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">data</span> = [])
+49:       
+50:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>)
+51:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type Array, received #{data.class}.&quot;</span>
+52:       <span class="ruby-keyword kw">end</span>
+53:       
+54:       <span class="ruby-keyword kw">super</span>()
+55: 
+56:       <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+57:       <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span>
+58:         <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-identifier">data</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">to_o</span>
+59:         <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+60:       <span class="ruby-keyword kw">end</span>
+61:       
+62:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000298" class="method-detail">
+        <a name="M000298"></a>
+
+        <div class="method-heading">
+          <a href="#M000298" class="method-signature">
+          <span class="method-name">+</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000298-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000298-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/array.rb, line 112</span>
+112:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">other</span>)
+113:       
+114:       <span class="ruby-identifier">a</span> = <span class="ruby-constant">Origami</span><span class="ruby-operator">::</span><span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_a</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">to_a</span>,  <span class="ruby-identifier">is_indirect?</span>)
+115:       <span class="ruby-identifier">a</span>.<span class="ruby-identifier">no</span>, <span class="ruby-identifier">a</span>.<span class="ruby-identifier">generation</span> = <span class="ruby-ivar">@no</span>, <span class="ruby-ivar">@generation</span>
+116:       
+117:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">a</span>
+118:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000299" class="method-detail">
+        <a name="M000299"></a>
+
+        <div class="method-heading">
+          <a href="#M000299" class="method-signature">
+          <span class="method-name">&lt;&lt;</span><span class="method-args">(item)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000299-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000299-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/array.rb, line 120</span>
+120:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">item</span>)
+121:       <span class="ruby-identifier">obj</span> = <span class="ruby-identifier">item</span>.<span class="ruby-identifier">to_o</span>
+122:       <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-keyword kw">self</span>
+123: 
+124:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">obj</span>)
+125:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000300" class="method-detail">
+        <a name="M000300"></a>
+
+        <div class="method-heading">
+          <a href="#M000300" class="method-signature">
+          <span class="method-name">[]=</span><span class="method-args">(key,val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000300-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000300-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/array.rb, line 127</span>
+127:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">key</span>,<span class="ruby-identifier">val</span>)
+128:       <span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_o</span>, <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_o</span>
+129:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_o</span>,<span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_o</span>)
+130: 
+131:       <span class="ruby-identifier">val</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-keyword kw">self</span>
+132: 
+133:       <span class="ruby-identifier">val</span>
+134:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000296" class="method-detail">
+        <a name="M000296"></a>
+
+        <div class="method-heading">
+          <a href="#M000296" class="method-signature">
+          <span class="method-name">pre_build</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000296-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000296-source">
+<pre>
+    <span class="ruby-comment cmt"># File sources/parser/array.rb, line 64</span>
+64:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
+65:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">map!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">to_o</span>}
+66:       
+67:       <span class="ruby-keyword kw">super</span>
+68:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000302" class="method-detail">
+        <a name="M000302"></a>
+
+        <div class="method-heading">
+          <a href="#M000302" class="method-signature">
+          <span class="method-name">real_type</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000302-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000302-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/array.rb, line 138</span>
+138:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Origami</span><span class="ruby-operator">::</span><span class="ruby-constant">Array</span> <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000297" class="method-detail">
+        <a name="M000297"></a>
+
+        <div class="method-heading">
+          <a href="#M000297" class="method-signature">
+          <span class="method-name">to_a</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts self into a Ruby array.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000297-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000297-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/array.rb, line 96</span>
+ 96:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_a</span>
+ 97:       <span class="ruby-keyword kw">super</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+ 98:         <span class="ruby-identifier">item</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Origami</span><span class="ruby-operator">::</span><span class="ruby-constant">Object</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">item</span>
+ 99:       }
+100:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000303" class="method-detail">
+        <a name="M000303"></a>
+
+        <div class="method-heading">
+          <a href="#M000303" class="method-signature">
+          <span class="method-name">to_obfuscated_str</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000303-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000303-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/obfuscation.rb, line 132</span>
+132:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>
+133:       <span class="ruby-identifier">content</span> = <span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Obfuscator</span>.<span class="ruby-identifier">junk_spaces</span>
+134:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>
+135:         <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">to_o</span>.<span class="ruby-identifier">to_obfuscated_str</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Obfuscator</span>.<span class="ruby-identifier">junk_spaces</span>
+136:       }
+137: 
+138:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">last</span>
+139: 
+140:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">content</span>)
+141:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000301" class="method-detail">
+        <a name="M000301"></a>
+
+        <div class="method-heading">
+          <span class="method-name">value</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Array.html#M000297">to_a</a>
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

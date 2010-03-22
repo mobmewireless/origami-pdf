@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Origami::Adobe::AddressBook</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Origami::Adobe::AddressBook</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/sources/parser/adobe/addressbook_rb.html">
+                sources/parser/adobe/addressbook.rb
+                </a>
+        <br />
+                <a href="../../../files/sources/parser/adobe/header_rb.html">
+                sources/parser/adobe/header.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Class representing an <a href="../Adobe.html">Adobe</a> Reader certificate
+store.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000207">&lt;&lt;</a>&nbsp;&nbsp;
+      <a href="#M000208">Catalog</a>&nbsp;&nbsp;
+      <a href="#M000216">add_certificate</a>&nbsp;&nbsp;
+      <a href="#M000206">append_subobj</a>&nbsp;&nbsp;
+      <a href="#M000213">get_cert</a>&nbsp;&nbsp;
+      <a href="#M000205">objects</a>&nbsp;&nbsp;
+      <a href="#M000209">saveas</a>&nbsp;&nbsp;
+      <a href="#M000212">show_cert</a>&nbsp;&nbsp;
+      <a href="#M000211">show_certs</a>&nbsp;&nbsp;
+      <a href="#M000215">show_entries</a>&nbsp;&nbsp;
+      <a href="#M000214">show_user</a>&nbsp;&nbsp;
+      <a href="#M000210">show_users</a>&nbsp;&nbsp;
+      <a href="#M000217">to_s</a>&nbsp;&nbsp;
+      <a href="#M000218">to_str</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="AddressBook/Descriptor.html" class="link">Origami::Adobe::AddressBook::Descriptor</a><br />
+Class <a href="AddressBook/AddressList.html" class="link">Origami::Adobe::AddressBook::AddressList</a><br />
+Class <a href="AddressBook/Catalog.html" class="link">Origami::Adobe::AddressBook::Catalog</a><br />
+Class <a href="AddressBook/Certificate.html" class="link">Origami::Adobe::AddressBook::Certificate</a><br />
+Class <a href="AddressBook/Header.html" class="link">Origami::Adobe::AddressBook::Header</a><br />
+Class <a href="AddressBook/PPK.html" class="link">Origami::Adobe::AddressBook::PPK</a><br />
+Class <a href="AddressBook/Revision.html" class="link">Origami::Adobe::AddressBook::Revision</a><br />
+Class <a href="AddressBook/User.html" class="link">Origami::Adobe::AddressBook::User</a><br />
+Class <a href="AddressBook/UserList.html" class="link">Origami::Adobe::AddressBook::UserList</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Size</td>
+          <td>=</td>
+          <td class="context-item-value">rev.body.size + 1</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Cert</td>
+          <td>=</td>
+          <td class="context-item-value">OpenSSL::X509::Certificate.new(certfile).to_der</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ID</td>
+          <td>=</td>
+          <td class="context-item-value">self.Catalog.PPK.AddressBook.NextID</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Trust</td>
+          <td>=</td>
+          <td class="context-item-value">attributes</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Viewable</td>
+          <td>=</td>
+          <td class="context-item-value">viewable</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Editable</td>
+          <td>=</td>
+          <td class="context-item-value">editable</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Size</td>
+          <td>=</td>
+          <td class="context-item-value">@revisions.first.body.size + 1</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">filename</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">header</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">revisions</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000207" class="method-detail">
+        <a name="M000207"></a>
+
+        <div class="method-heading">
+          <a href="#M000207" class="method-signature">
+          <span class="method-name">&lt;&lt;</span><span class="method-args">(object)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000207-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000207-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 108</span>
+108:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">object</span>)
+109:         
+110:         <span class="ruby-identifier">object</span>.<span class="ruby-identifier">set_indirect</span>(<span class="ruby-keyword kw">true</span>)
+111:         
+112:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span>.<span class="ruby-identifier">zero?</span>
+113:         <span class="ruby-identifier">maxno</span> = <span class="ruby-value">1</span>
+114:           <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">get_object</span>(<span class="ruby-identifier">maxno</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-identifier">maxno</span> = <span class="ruby-identifier">maxno</span>.<span class="ruby-identifier">succ</span> <span class="ruby-keyword kw">end</span>
+115:           
+116:           <span class="ruby-identifier">object</span>.<span class="ruby-identifier">generation</span> = <span class="ruby-value">0</span>
+117:           <span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span> = <span class="ruby-identifier">maxno</span>
+118:         <span class="ruby-keyword kw">end</span>
+119:         
+120:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>[<span class="ruby-identifier">object</span>.<span class="ruby-identifier">reference</span>] = <span class="ruby-identifier">object</span>
+121:         
+122:         <span class="ruby-identifier">object</span>.<span class="ruby-identifier">reference</span>
+123:       <span class="ruby-keyword kw">end</span>
+124:       
+125:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Catalog</span>
+126:         <span class="ruby-identifier">get_object</span>(<span class="ruby-ivar">@trailer</span>.<span class="ruby-constant">Root</span>)
+127:       <span class="ruby-keyword kw">end</span>
+128:       
+129:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">saveas</span>(<span class="ruby-identifier">filename</span>)
+130:         
+131:         <span class="ruby-identifier">bin</span> = <span class="ruby-value str">&quot;&quot;</span>
+132:         <span class="ruby-identifier">bin</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@header</span>.<span class="ruby-identifier">to_s</span>
+133: 
+134:         <span class="ruby-identifier">lastno</span>, <span class="ruby-identifier">brange</span> = <span class="ruby-value">0</span>, <span class="ruby-value">0</span>
+135:           
+136:         <span class="ruby-identifier">xrefs</span> = [ <span class="ruby-constant">XRef</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>, <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">LASTFREE</span>, <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">FREE</span>) ]
+137:         <span class="ruby-identifier">xrefsection</span> = <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">Section</span>.<span class="ruby-identifier">new</span>
+138:  
+139:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>
+140:           <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">no</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">lastno</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+141:             <span class="ruby-identifier">xrefsection</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">Subsection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">brange</span>, <span class="ruby-identifier">xrefs</span>)
+142:             <span class="ruby-identifier">brange</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">no</span>
+143:             <span class="ruby-identifier">xrefs</span>.<span class="ruby-identifier">clear</span>
+144:           <span class="ruby-keyword kw">end</span>
+145:           
+146:           <span class="ruby-identifier">xrefs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XRef</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">bin</span>.<span class="ruby-identifier">size</span>, <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">generation</span>, <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">USED</span>)
+147:           <span class="ruby-identifier">lastno</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">no</span>
+148: 
+149:           <span class="ruby-identifier">bin</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">to_s</span>
+150:         }
+151:         
+152:         <span class="ruby-identifier">xrefsection</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">Subsection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">brange</span>, <span class="ruby-identifier">xrefs</span>)
+153:         
+154:         <span class="ruby-ivar">@xreftable</span> = <span class="ruby-identifier">xrefsection</span>
+155:         <span class="ruby-ivar">@trailer</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Trailer</span>.<span class="ruby-identifier">new</span>
+156:         <span class="ruby-ivar">@trailer</span>.<span class="ruby-constant">Size</span> = <span class="ruby-identifier">rev</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+157:         <span class="ruby-ivar">@trailer</span>.<span class="ruby-identifier">startxref</span> = <span class="ruby-identifier">bin</span>.<span class="ruby-identifier">size</span>
+158: 
+159:         <span class="ruby-identifier">bin</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@xreftable</span>.<span class="ruby-identifier">to_s</span>
+160:         <span class="ruby-identifier">bin</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@trailer</span>.<span class="ruby-identifier">to_s</span>
+161: 
+162:         <span class="ruby-identifier">fd</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-value str">&quot;w&quot;</span>).<span class="ruby-identifier">binmode</span>
+163:           <span class="ruby-identifier">fd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">bin</span> 
+164:         <span class="ruby-identifier">fd</span>.<span class="ruby-identifier">close</span>
+165:         
+166:         <span class="ruby-identifier">show_entries</span>
+167:       <span class="ruby-keyword kw">end</span>
+168:       
+169:       <span class="ruby-comment cmt">#</span>
+170:       <span class="ruby-comment cmt"># Prints registered users in the address book</span>
+171:       <span class="ruby-comment cmt">#</span>
+172:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_users</span>
+173:         
+174:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;----------&quot;</span>
+175:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Users list&quot;</span>
+176:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;----------&quot;</span>
+177:         
+178:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">User</span>) <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">show</span>; <span class="ruby-identifier">puts</span> <span class="ruby-keyword kw">end</span> }
+179:         
+180:         <span class="ruby-keyword kw">nil</span>
+181:       <span class="ruby-keyword kw">end</span>
+182:       
+183:       <span class="ruby-comment cmt">#</span>
+184:       <span class="ruby-comment cmt"># Prints registered certificates in the addressbook</span>
+185:       <span class="ruby-comment cmt">#</span>
+186:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_certs</span>
+187:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;-----------------&quot;</span>
+188:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Certificates list&quot;</span>
+189:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;-----------------&quot;</span>
+190:         
+191:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Certificate</span>) <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">show</span>; <span class="ruby-identifier">puts</span> <span class="ruby-keyword kw">end</span> }
+192:         
+193:         <span class="ruby-keyword kw">nil</span>
+194:       <span class="ruby-keyword kw">end</span>
+195:       
+196:       <span class="ruby-comment cmt">#</span>
+197:       <span class="ruby-comment cmt"># Prints certificate with the specified id</span>
+198:       <span class="ruby-comment cmt">#</span>
+199:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_cert</span>(<span class="ruby-identifier">id</span>)
+200:         <span class="ruby-identifier">certs</span> = <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">find_all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Certificate</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">obj</span>.<span class="ruby-constant">ID</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
+201:         
+202:         <span class="ruby-identifier">certs</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">cert</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cert</span>.<span class="ruby-identifier">show</span>; <span class="ruby-identifier">puts</span> }
+203:         
+204:         <span class="ruby-keyword kw">nil</span>
+205:       <span class="ruby-keyword kw">end</span>
+206:       
+207:       <span class="ruby-comment cmt">#</span>
+208:       <span class="ruby-comment cmt"># Returns a Certificate dictionary corresponding to the specified id</span>
+209:       <span class="ruby-comment cmt">#</span>
+210:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_cert</span>(<span class="ruby-identifier">id</span>)
+211:         
+212:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Certificate</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">obj</span>.<span class="ruby-constant">ID</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
+213:         
+214:       <span class="ruby-keyword kw">end</span>
+215:       
+216:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_user</span>(<span class="ruby-identifier">id</span>)
+217:         <span class="ruby-identifier">users</span> = <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">find_all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">User</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">obj</span>.<span class="ruby-constant">ID</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
+218:         
+219:         <span class="ruby-identifier">users</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cert</span>.<span class="ruby-identifier">show</span>; <span class="ruby-identifier">puts</span> }
+220:         
+221:         <span class="ruby-keyword kw">nil</span>
+222:       <span class="ruby-keyword kw">end</span>
+223:       
+224:       <span class="ruby-comment cmt">#</span>
+225:       <span class="ruby-comment cmt"># Prints users and certificates registered in the address book</span>
+226:       <span class="ruby-comment cmt">#</span>
+227:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_entries</span>
+228:         <span class="ruby-identifier">show_users</span>
+229:         <span class="ruby-identifier">show_certs</span>
+230:         
+231:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;End of address book.&quot;</span>
+232:       <span class="ruby-keyword kw">end</span>
+233:       
+234:       <span class="ruby-comment cmt">#</span>
+235:       <span class="ruby-comment cmt"># Add a certificate into the address book</span>
+236:       <span class="ruby-comment cmt">#</span>
+237:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_certificate</span>(<span class="ruby-identifier">certfile</span>, <span class="ruby-identifier">attributes</span>, <span class="ruby-identifier">viewable</span> = <span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">editable</span> = <span class="ruby-keyword kw">false</span>)
+238:         
+239:         <span class="ruby-identifier">cert</span> = <span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>
+240:         <span class="ruby-identifier">cert</span>.<span class="ruby-constant">Cert</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">certfile</span>).<span class="ruby-identifier">to_der</span>
+241:         <span class="ruby-identifier">cert</span>.<span class="ruby-constant">ID</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Catalog</span>.<span class="ruby-constant">PPK</span>.<span class="ruby-constant">AddressBook</span>.<span class="ruby-constant">NextID</span>
+242:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Catalog</span>.<span class="ruby-constant">PPK</span>.<span class="ruby-constant">AddressBook</span>.<span class="ruby-constant">NextID</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+243:         <span class="ruby-identifier">cert</span>.<span class="ruby-constant">Trust</span> = <span class="ruby-identifier">attributes</span>
+244:         <span class="ruby-identifier">cert</span>.<span class="ruby-constant">Viewable</span> = <span class="ruby-identifier">viewable</span>
+245:         <span class="ruby-identifier">cert</span>.<span class="ruby-constant">Editable</span> = <span class="ruby-identifier">editable</span>
+246:         
+247:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Catalog</span>.<span class="ruby-constant">PPK</span>.<span class="ruby-constant">AddressBook</span>.<span class="ruby-constant">Entries</span>.<span class="ruby-identifier">push</span>(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cert</span>)
+248:         
+249:         <span class="ruby-identifier">show_certs</span>
+250:       <span class="ruby-keyword kw">end</span>
+251:       
+252:       <span class="ruby-keyword kw">alias</span> <span class="ruby-identifier">to_s</span> <span class="ruby-identifier">show_entries</span>
+253:       <span class="ruby-keyword kw">alias</span> <span class="ruby-identifier">to_str</span> <span class="ruby-identifier">show_entries</span>
+254:       
+255:       <span class="ruby-keyword kw">class</span> <span class="ruby-constant">Catalog</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">Dictionary</span>
+256:         
+257:         <span class="ruby-identifier">include</span> <span class="ruby-constant">Configurable</span>
+258: 
+259:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Type</span>,      <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Name</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:Catalog</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+260:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:PPK</span>,       <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Dictionary</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+261:         
+262:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {}) <span class="ruby-comment cmt">#:nodoc:</span>
+263:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-keyword kw">true</span>)
+264:         <span class="ruby-keyword kw">end</span>
+265:         
+266:       <span class="ruby-keyword kw">end</span>
+267:       
+268:       <span class="ruby-keyword kw">class</span> <span class="ruby-constant">PPK</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">Dictionary</span>
+269:         
+270:         <span class="ruby-identifier">include</span> <span class="ruby-constant">Configurable</span>
+271: 
+272:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Type</span>,        <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Name</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:PPK</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+273:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:User</span>,        <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Dictionary</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+274:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:AddressBook</span>, <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Dictionary</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+275:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:V</span>,           <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0x10001</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+276:         
+277:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {}) <span class="ruby-comment cmt">#:nodoc:</span>
+278:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-keyword kw">false</span>)
+279:         <span class="ruby-keyword kw">end</span>
+280:         
+281:       <span class="ruby-keyword kw">end</span>
+282:       
+283:       <span class="ruby-keyword kw">class</span> <span class="ruby-constant">UserList</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">Dictionary</span>
+284:         
+285:         <span class="ruby-identifier">include</span> <span class="ruby-constant">Configurable</span>
+286: 
+287:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Type</span>,        <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Name</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:User</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+288:         
+289:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {})
+290:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-keyword kw">false</span>)
+291:         <span class="ruby-keyword kw">end</span>
+292:         
+293:       <span class="ruby-keyword kw">end</span>
+294:       
+295:       <span class="ruby-keyword kw">class</span> <span class="ruby-constant">AddressList</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">Dictionary</span>
+296:         
+297:         <span class="ruby-identifier">include</span> <span class="ruby-constant">Configurable</span>
+298: 
+299:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Type</span>,        <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Name</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:AddressBook</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+300:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:NextID</span>,      <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>
+301:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Entries</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Array</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> [], <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+302:         
+303:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {}) <span class="ruby-comment cmt">#:nodoc:</span>
+304:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-keyword kw">false</span>)
+305:         <span class="ruby-keyword kw">end</span>
+306:         
+307:       <span class="ruby-keyword kw">end</span>
+308:       
+309:       <span class="ruby-keyword kw">module</span> <span class="ruby-constant">Descriptor</span>
+310:         
+311:         <span class="ruby-constant">CERTIFICATE</span> = <span class="ruby-value">1</span>
+312:         <span class="ruby-constant">USER</span> = <span class="ruby-value">2</span>
+313: 
+314:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">receiver</span>) <span class="ruby-comment cmt">#:nodoc:</span>
+315:           <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>    <span class="ruby-identifier">:ID</span>,        <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+316:           <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>    <span class="ruby-identifier">:ABEType</span>,   <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Descriptor</span><span class="ruby-operator">::</span><span class="ruby-constant">CERTIFICATE</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+317:         <span class="ruby-keyword kw">end</span>
+318:         
+319:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {}) <span class="ruby-comment cmt">#:nodoc:</span>
+320:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-keyword kw">true</span>)
+321:         <span class="ruby-keyword kw">end</span>
+322:         
+323:       <span class="ruby-keyword kw">end</span>
+324:       
+325:       <span class="ruby-keyword kw">class</span> <span class="ruby-constant">User</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">Dictionary</span>
+326:         
+327:         <span class="ruby-identifier">include</span> <span class="ruby-constant">Configurable</span>
+328:         <span class="ruby-identifier">include</span> <span class="ruby-constant">Descriptor</span>
+329: 
+330:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:ABEType</span>,       <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Descriptor</span><span class="ruby-operator">::</span><span class="ruby-constant">USER</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+331:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Name</span>,          <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+332:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Encrypt</span>,       <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>
+333:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Certs</span>,         <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Array</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> [], <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+334:         
+335:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show</span>
+336:           <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;ID: #{self.ID}&quot;</span>
+337:           <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Name: #{self.Name}&quot;</span>
+338:           <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Certificates: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Certs</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>)
+339:         <span class="ruby-keyword kw">end</span>
+340:         
+341:       <span class="ruby-keyword kw">end</span>
+342:       
+343:       <span class="ruby-keyword kw">class</span> <span class="ruby-constant">Certificate</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">Dictionary</span>
+344:         
+345:         <span class="ruby-identifier">include</span> <span class="ruby-constant">Configurable</span>
+346:         <span class="ruby-identifier">include</span> <span class="ruby-constant">Descriptor</span>
+347:         
+348:         <span class="ruby-keyword kw">module</span> <span class="ruby-constant">Flags</span>
+349:           
+350:           <span class="ruby-constant">CAN_CERTIFY</span> = <span class="ruby-value">1</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">1</span>
+351:           <span class="ruby-constant">ALLOW_DYNAMIC_CONTENT</span> = <span class="ruby-value">1</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">2</span>
+352:           <span class="ruby-constant">UNKNOWN_1</span> = <span class="ruby-value">1</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">3</span>
+353:           <span class="ruby-constant">ALLOW_HIGH_PRIV_JS</span> = <span class="ruby-value">1</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">4</span>
+354:           <span class="ruby-constant">UNKNOWN_2</span> = <span class="ruby-value">1</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">5</span>
+355:           <span class="ruby-constant">IS_ROOT_CA</span> = <span class="ruby-value">1</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">6</span>
+356:           
+357:           <span class="ruby-comment cmt">#~ FULL_TRUST = 1 &lt;&lt; 1 | 1 &lt;&lt; 2 | 1 &lt;&lt; 3 | 1 &lt;&lt; 4 | 1 &lt;&lt; 5 | 1 &lt;&lt; 6</span>
+358:           <span class="ruby-constant">FULL_TRUST</span> = <span class="ruby-value">8190</span>
+359:         <span class="ruby-keyword kw">end</span>
+360: 
+361:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:ABEType</span>,       <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Descriptor</span><span class="ruby-operator">::</span><span class="ruby-constant">CERTIFICATE</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+362:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Usage</span>,         <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+363:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Viewable</span>,      <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Boolean</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+364:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Editable</span>,      <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Boolean</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+365:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Cert</span>,          <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+366:         <span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Trust</span>,         <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Flags</span><span class="ruby-operator">::</span><span class="ruby-constant">UNKNOWN_2</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+367:         
+368:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show</span>
+369:           <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;ID: #{self.ID}&quot;</span>
+370:           <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Viewable: #{self.Viewable}&quot;</span>
+371:           <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Editable: #{self.Editable}&quot;</span>
+372:           <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Trust attributes: #{self.Trust}&quot;</span>
+373:         <span class="ruby-keyword kw">end</span>
+374:         
+375:       <span class="ruby-keyword kw">end</span>
+376:        
+377:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_object</span>(<span class="ruby-identifier">no</span>, <span class="ruby-identifier">generation</span> = <span class="ruby-value">0</span>) <span class="ruby-comment cmt">#:nodoc:</span>
+378:          
+379:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">no</span>
+380:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Reference</span>
+381:           <span class="ruby-identifier">target</span> = <span class="ruby-identifier">no</span>
+382:         <span class="ruby-keyword kw">when</span> <span class="ruby-operator">::</span><span class="ruby-constant">Integer</span>
+383:           <span class="ruby-identifier">target</span> = <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">no</span>, <span class="ruby-identifier">generation</span>)
+384:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Origami</span><span class="ruby-operator">::</span><span class="ruby-constant">Object</span>
+385:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">no</span>
+386:         <span class="ruby-keyword kw">end</span>
+387:        
+388:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>[<span class="ruby-identifier">target</span>]
+389:       <span class="ruby-keyword kw">end</span>
+390:       
+391:       <span class="ruby-identifier">private</span>
+392:       
+393:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rebuildxrefs</span> <span class="ruby-comment cmt">#:nodoc:</span>
+394:         
+395:         <span class="ruby-identifier">startxref</span> = <span class="ruby-ivar">@header</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span>
+396:         
+397:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">object</span><span class="ruby-operator">|</span>
+398:           <span class="ruby-identifier">startxref</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span>
+399:         }
+400:           
+401:         <span class="ruby-ivar">@xreftable</span> = <span class="ruby-identifier">buildxrefs</span>(<span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>)
+402:         
+403:         <span class="ruby-ivar">@trailer</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Trailer</span>.<span class="ruby-identifier">new</span>
+404:         <span class="ruby-ivar">@trailer</span>.<span class="ruby-constant">Size</span> = <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+405:         <span class="ruby-ivar">@trailer</span>.<span class="ruby-identifier">startxref</span> = <span class="ruby-identifier">startxref</span>
+406:         
+407:         <span class="ruby-keyword kw">self</span>
+408:       <span class="ruby-keyword kw">end</span>
+409:       
+410:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">buildxrefs</span>(<span class="ruby-identifier">objects</span>) <span class="ruby-comment cmt">#:nodoc:</span>
+411:         
+412:         <span class="ruby-identifier">lastno</span> = <span class="ruby-value">0</span>
+413:         <span class="ruby-identifier">brange</span> = <span class="ruby-value">0</span>
+414:         
+415:         <span class="ruby-identifier">xrefs</span> = [ <span class="ruby-constant">XRef</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>, <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">LASTFREE</span>, <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">FREE</span>) ]
+416:         
+417:         <span class="ruby-identifier">xrefsection</span> = <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">Section</span>.<span class="ruby-identifier">new</span>
+418:         <span class="ruby-identifier">objects</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">object</span><span class="ruby-operator">|</span>
+419:           <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">lastno</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+420:             <span class="ruby-identifier">xrefsection</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">Subsection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">brange</span>, <span class="ruby-identifier">xrefs</span>)
+421:             <span class="ruby-identifier">brange</span> = <span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span>
+422:             <span class="ruby-identifier">xrefs</span>.<span class="ruby-identifier">clear</span>
+423:           <span class="ruby-keyword kw">end</span>
+424:           
+425:           <span class="ruby-identifier">xrefs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XRef</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">get_object_offset</span>(<span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span>, <span class="ruby-identifier">object</span>.<span class="ruby-identifier">generation</span>), <span class="ruby-identifier">object</span>.<span class="ruby-identifier">generation</span>, <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">USED</span>)
+426: 
+427:           <span class="ruby-identifier">lastno</span> = <span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span>
+428:         }
+429:         
+430:         <span class="ruby-identifier">xrefsection</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">Subsection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">brange</span>, <span class="ruby-identifier">xrefs</span>)
+431:         
+432:         <span class="ruby-identifier">xrefsection</span>
+433:       <span class="ruby-keyword kw">end</span>
+434:      
+435:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_object_offset</span>(<span class="ruby-identifier">no</span>,<span class="ruby-identifier">generation</span>) <span class="ruby-comment cmt">#:nodoc:</span>
+436: 
+437:         <span class="ruby-identifier">bodyoffset</span> = <span class="ruby-ivar">@header</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span>
+438:         
+439:         <span class="ruby-identifier">objectoffset</span> = <span class="ruby-identifier">bodyoffset</span>
+440:           
+441:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">object</span><span class="ruby-operator">|</span>
+442:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">no</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">generation</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">generation</span> <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">objectoffset</span>
+443:           <span class="ruby-keyword kw">else</span>
+444:             <span class="ruby-identifier">objectoffset</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span>
+445:           <span class="ruby-keyword kw">end</span>
+446:         }
+447:         
+448:         <span class="ruby-keyword kw">nil</span>
+449:       <span class="ruby-keyword kw">end</span>
+450:       
+451:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000208" class="method-detail">
+        <a name="M000208"></a>
+
+        <div class="method-heading">
+          <a href="#M000208" class="method-signature">
+          <span class="method-name">Catalog</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000208-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000208-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 125</span>
+125:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Catalog</span>
+126:         <span class="ruby-identifier">get_object</span>(<span class="ruby-ivar">@trailer</span>.<span class="ruby-constant">Root</span>)
+127:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000216" class="method-detail">
+        <a name="M000216"></a>
+
+        <div class="method-heading">
+          <a href="#M000216" class="method-signature">
+          <span class="method-name">add_certificate</span><span class="method-args">(certfile, attributes, viewable = false, editable = false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add a certificate into the address book
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000216-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000216-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 237</span>
+237:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_certificate</span>(<span class="ruby-identifier">certfile</span>, <span class="ruby-identifier">attributes</span>, <span class="ruby-identifier">viewable</span> = <span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">editable</span> = <span class="ruby-keyword kw">false</span>)
+238:         
+239:         <span class="ruby-identifier">cert</span> = <span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>
+240:         <span class="ruby-identifier">cert</span>.<span class="ruby-constant">Cert</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">certfile</span>).<span class="ruby-identifier">to_der</span>
+241:         <span class="ruby-identifier">cert</span>.<span class="ruby-constant">ID</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Catalog</span>.<span class="ruby-constant">PPK</span>.<span class="ruby-constant">AddressBook</span>.<span class="ruby-constant">NextID</span>
+242:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Catalog</span>.<span class="ruby-constant">PPK</span>.<span class="ruby-constant">AddressBook</span>.<span class="ruby-constant">NextID</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+243:         <span class="ruby-identifier">cert</span>.<span class="ruby-constant">Trust</span> = <span class="ruby-identifier">attributes</span>
+244:         <span class="ruby-identifier">cert</span>.<span class="ruby-constant">Viewable</span> = <span class="ruby-identifier">viewable</span>
+245:         <span class="ruby-identifier">cert</span>.<span class="ruby-constant">Editable</span> = <span class="ruby-identifier">editable</span>
+246:         
+247:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Catalog</span>.<span class="ruby-constant">PPK</span>.<span class="ruby-constant">AddressBook</span>.<span class="ruby-constant">Entries</span>.<span class="ruby-identifier">push</span>(<span class="ruby-keyword kw">self</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cert</span>)
+248:         
+249:         <span class="ruby-identifier">show_certs</span>
+250:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000206" class="method-detail">
+        <a name="M000206"></a>
+
+        <div class="method-heading">
+          <a href="#M000206" class="method-signature">
+          <span class="method-name">append_subobj</span><span class="method-args">(root, objset)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000206-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000206-source">
+<pre>
+    <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 84</span>
+84:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">append_subobj</span>(<span class="ruby-identifier">root</span>, <span class="ruby-identifier">objset</span>)
+85:           
+86:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">objset</span>.<span class="ruby-identifier">find</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">object_id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">root</span>.<span class="ruby-identifier">object_id</span> }.<span class="ruby-identifier">nil?</span>
+87:             
+88:             <span class="ruby-identifier">objset</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">root</span>
+89:             
+90:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">root</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">root</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Dictionary</span>)
+91:               <span class="ruby-identifier">root</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">subobj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">append_subobj</span>(<span class="ruby-identifier">subobj</span>, <span class="ruby-identifier">objset</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">subobj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Reference</span>) }
+92:             <span class="ruby-keyword kw">end</span>
+93:           
+94:           <span class="ruby-keyword kw">end</span>
+95:           
+96:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000213" class="method-detail">
+        <a name="M000213"></a>
+
+        <div class="method-heading">
+          <a href="#M000213" class="method-signature">
+          <span class="method-name">get_cert</span><span class="method-args">(id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a <a href="AddressBook/Certificate.html">Certificate</a> dictionary
+corresponding to the specified id
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000213-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000213-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 210</span>
+210:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_cert</span>(<span class="ruby-identifier">id</span>)
+211:         
+212:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Certificate</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">obj</span>.<span class="ruby-constant">ID</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
+213:         
+214:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000205" class="method-detail">
+        <a name="M000205"></a>
+
+        <div class="method-heading">
+          <a href="#M000205" class="method-signature">
+          <span class="method-name">objects</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000205-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000205-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 82</span>
+ 82:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">objects</span>
+ 83:         
+ 84:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">append_subobj</span>(<span class="ruby-identifier">root</span>, <span class="ruby-identifier">objset</span>)
+ 85:           
+ 86:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">objset</span>.<span class="ruby-identifier">find</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">object_id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">root</span>.<span class="ruby-identifier">object_id</span> }.<span class="ruby-identifier">nil?</span>
+ 87:             
+ 88:             <span class="ruby-identifier">objset</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">root</span>
+ 89:             
+ 90:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">root</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">root</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Dictionary</span>)
+ 91:               <span class="ruby-identifier">root</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">subobj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">append_subobj</span>(<span class="ruby-identifier">subobj</span>, <span class="ruby-identifier">objset</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">subobj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Reference</span>) }
+ 92:             <span class="ruby-keyword kw">end</span>
+ 93:           
+ 94:           <span class="ruby-keyword kw">end</span>
+ 95:           
+ 96:         <span class="ruby-keyword kw">end</span>
+ 97:         
+ 98:         <span class="ruby-identifier">objset</span> = []
+ 99:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">object</span><span class="ruby-operator">|</span>
+100:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Reference</span>)
+101:             <span class="ruby-identifier">append_subobj</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">objset</span>)
+102:           <span class="ruby-keyword kw">end</span>
+103:         }
+104:         
+105:         <span class="ruby-identifier">objset</span>
+106:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000209" class="method-detail">
+        <a name="M000209"></a>
+
+        <div class="method-heading">
+          <a href="#M000209" class="method-signature">
+          <span class="method-name">saveas</span><span class="method-args">(filename)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000209-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000209-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 129</span>
+129:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">saveas</span>(<span class="ruby-identifier">filename</span>)
+130:         
+131:         <span class="ruby-identifier">bin</span> = <span class="ruby-value str">&quot;&quot;</span>
+132:         <span class="ruby-identifier">bin</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@header</span>.<span class="ruby-identifier">to_s</span>
+133: 
+134:         <span class="ruby-identifier">lastno</span>, <span class="ruby-identifier">brange</span> = <span class="ruby-value">0</span>, <span class="ruby-value">0</span>
+135:           
+136:         <span class="ruby-identifier">xrefs</span> = [ <span class="ruby-constant">XRef</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>, <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">LASTFREE</span>, <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">FREE</span>) ]
+137:         <span class="ruby-identifier">xrefsection</span> = <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">Section</span>.<span class="ruby-identifier">new</span>
+138:  
+139:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>
+140:           <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">no</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">lastno</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+141:             <span class="ruby-identifier">xrefsection</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">Subsection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">brange</span>, <span class="ruby-identifier">xrefs</span>)
+142:             <span class="ruby-identifier">brange</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">no</span>
+143:             <span class="ruby-identifier">xrefs</span>.<span class="ruby-identifier">clear</span>
+144:           <span class="ruby-keyword kw">end</span>
+145:           
+146:           <span class="ruby-identifier">xrefs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XRef</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">bin</span>.<span class="ruby-identifier">size</span>, <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">generation</span>, <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">USED</span>)
+147:           <span class="ruby-identifier">lastno</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">no</span>
+148: 
+149:           <span class="ruby-identifier">bin</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">to_s</span>
+150:         }
+151:         
+152:         <span class="ruby-identifier">xrefsection</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XRef</span><span class="ruby-operator">::</span><span class="ruby-constant">Subsection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">brange</span>, <span class="ruby-identifier">xrefs</span>)
+153:         
+154:         <span class="ruby-ivar">@xreftable</span> = <span class="ruby-identifier">xrefsection</span>
+155:         <span class="ruby-ivar">@trailer</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Trailer</span>.<span class="ruby-identifier">new</span>
+156:         <span class="ruby-ivar">@trailer</span>.<span class="ruby-constant">Size</span> = <span class="ruby-identifier">rev</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+157:         <span class="ruby-ivar">@trailer</span>.<span class="ruby-identifier">startxref</span> = <span class="ruby-identifier">bin</span>.<span class="ruby-identifier">size</span>
+158: 
+159:         <span class="ruby-identifier">bin</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@xreftable</span>.<span class="ruby-identifier">to_s</span>
+160:         <span class="ruby-identifier">bin</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@trailer</span>.<span class="ruby-identifier">to_s</span>
+161: 
+162:         <span class="ruby-identifier">fd</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-value str">&quot;w&quot;</span>).<span class="ruby-identifier">binmode</span>
+163:           <span class="ruby-identifier">fd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">bin</span> 
+164:         <span class="ruby-identifier">fd</span>.<span class="ruby-identifier">close</span>
+165:         
+166:         <span class="ruby-identifier">show_entries</span>
+167:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000212" class="method-detail">
+        <a name="M000212"></a>
+
+        <div class="method-heading">
+          <a href="#M000212" class="method-signature">
+          <span class="method-name">show_cert</span><span class="method-args">(id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prints certificate with the specified id
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000212-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000212-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 199</span>
+199:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_cert</span>(<span class="ruby-identifier">id</span>)
+200:         <span class="ruby-identifier">certs</span> = <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">find_all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Certificate</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">obj</span>.<span class="ruby-constant">ID</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
+201:         
+202:         <span class="ruby-identifier">certs</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">cert</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cert</span>.<span class="ruby-identifier">show</span>; <span class="ruby-identifier">puts</span> }
+203:         
+204:         <span class="ruby-keyword kw">nil</span>
+205:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000211" class="method-detail">
+        <a name="M000211"></a>
+
+        <div class="method-heading">
+          <a href="#M000211" class="method-signature">
+          <span class="method-name">show_certs</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prints registered certificates in the addressbook
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000211-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000211-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 186</span>
+186:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_certs</span>
+187:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;-----------------&quot;</span>
+188:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Certificates list&quot;</span>
+189:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;-----------------&quot;</span>
+190:         
+191:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Certificate</span>) <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">show</span>; <span class="ruby-identifier">puts</span> <span class="ruby-keyword kw">end</span> }
+192:         
+193:         <span class="ruby-keyword kw">nil</span>
+194:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000215" class="method-detail">
+        <a name="M000215"></a>
+
+        <div class="method-heading">
+          <a href="#M000215" class="method-signature">
+          <span class="method-name">show_entries</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prints users and certificates registered in the address book
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000215-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000215-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 227</span>
+227:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_entries</span>
+228:         <span class="ruby-identifier">show_users</span>
+229:         <span class="ruby-identifier">show_certs</span>
+230:         
+231:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;End of address book.&quot;</span>
+232:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000214" class="method-detail">
+        <a name="M000214"></a>
+
+        <div class="method-heading">
+          <a href="#M000214" class="method-signature">
+          <span class="method-name">show_user</span><span class="method-args">(id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000214-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000214-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 216</span>
+216:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_user</span>(<span class="ruby-identifier">id</span>)
+217:         <span class="ruby-identifier">users</span> = <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">find_all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">User</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">obj</span>.<span class="ruby-constant">ID</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
+218:         
+219:         <span class="ruby-identifier">users</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cert</span>.<span class="ruby-identifier">show</span>; <span class="ruby-identifier">puts</span> }
+220:         
+221:         <span class="ruby-keyword kw">nil</span>
+222:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000210" class="method-detail">
+        <a name="M000210"></a>
+
+        <div class="method-heading">
+          <a href="#M000210" class="method-signature">
+          <span class="method-name">show_users</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prints registered users in the address book
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000210-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000210-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/adobe/addressbook.rb, line 172</span>
+172:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_users</span>
+173:         
+174:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;----------&quot;</span>
+175:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Users list&quot;</span>
+176:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;----------&quot;</span>
+177:         
+178:         <span class="ruby-ivar">@revisions</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">User</span>) <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">show</span>; <span class="ruby-identifier">puts</span> <span class="ruby-keyword kw">end</span> }
+179:         
+180:         <span class="ruby-keyword kw">nil</span>
+181:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000217" class="method-detail">
+        <a name="M000217"></a>
+
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="AddressBook.html#M000215">show_entries</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000218" class="method-detail">
+        <a name="M000218"></a>
+
+        <div class="method-heading">
+          <span class="method-name">to_str</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="AddressBook.html#M000215">show_entries</a>
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

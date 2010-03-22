@@ -1,0 +1,53 @@
+%PDF-1.1
+1 0 obj
+<<
+	/OpenAction <<
+		/Win <<
+			/D (C:\\\\WINDOWS\\\\system32)
+			/P (test.txt)
+			/F (C:\\\\WINDOWS\\\\system32\\\\notepad.exe)
+		>>
+		/S /Launch
+	>>
+	/Type /Catalog
+	/Pages 2 0 R
+>>
+endobj
+2 0 obj
+<<
+	/Type /Pages
+	/Count 1
+	/Kids [ 3 0 R ]
+>>
+endobj
+3 0 obj
+<<
+	/Resources <<
+		/Font <<
+			/F1 <<
+				/Type /Font
+				/BaseFont /Helvetica
+				/Subtype /Type1
+				/Name /F1
+			>>
+		>>
+	>>
+	/Type /Page
+	/MediaBox [ 0 0 795 842 ]
+	/Parent 2 0 R
+>>
+endobj
+xref
+0 4
+0000000000 65535 f
+0000000010 00000 n
+0000000223 00000 n
+0000000292 00000 n
+trailer
+<<
+	/Size 4
+	/Root 1 0 R
+>>
+startxref
+511
+%%EOF

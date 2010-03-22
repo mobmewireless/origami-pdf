@@ -1,0 +1,298 @@
+=begin
+
+= File
+	menu.rb
+
+= Info
+	This file is part of Origami, PDF manipulation framework for Ruby
+	Copyright (C) 2009	Guillaume Delugré <guillaume@security-labs.org>
+	All right reserved.
+	
+  Origami is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Origami is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Origami.  If not, see <http://www.gnu.org/licenses/>.
+
+=end
+
+module PDFWalker
+
+  module Popable
+    
+    @@menus = Hash.new([])
+    @@menus[:"PDF File"] = [  {:Name => Stock::SAVE_AS, :Sensitive => true, :Callback => lambda { |widget, viewer, path| viewer.parent.save } },
+                                            {:Name => "Serialize", :Sensitive => true, :Callback => lambda { |widget, viewer, path| viewer.parent.serialize } },
+                                            {:Name => :"---" },
+                                            {:Name => Stock::PROPERTIES, :Sensitive => true, :Callback => lambda { |widget, viewer, path| viewer.parent.display_file_properties } },
+                                            {:Name => :"---" },
+                                            {:Name => Stock::CLOSE, :Sensitive => true, :Callback => lambda { |widget, viewer, path| viewer.parent.close } }
+
+                                          ]
+    
+    @@menus[:Reference] = [ {:Name => Stock::JUMP_TO, :Sensitive => true, :Callback => lambda { |widget, viewer, path| viewer.row_activated(path, viewer.get_column(viewer.class::TEXTCOL)) } } ]
+    
+    @@menus[:Revision] = [ {:Name => "Save to this revision", :Sensitive => true, 
+                                            :Callback => lambda { |widget, viewer, path|  
+                                                revstr = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::TEXTCOL)
+                                                revstr.slice!(0, "Revision ".size)
+                                                
+                                                revnum = revstr.to_i
+                                                
+                                                dialog = Gtk::FileChooserDialog.new("Save PDF File",
+                                                   viewer.parent,
+                                                   Gtk::FileChooser::ACTION_SAVE,
+                                                   nil,
+                                                   [Gtk::Stock::CANCEL, Gtk::Dialog::RESPONSE_CANCEL],
+                                                   [Gtk::Stock::SAVE, Gtk::Dialog::RESPONSE_ACCEPT]
+                                                )
+                                                
+                                                dialog.filter = FileFilter.new.add_pattern("*.pdf")
+                                                
+                                                if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
+                                                  viewer.parent.opened.save_upto(revnum, dialog.filename)
+                                                end
+                                                
+                                                dialog.destroy
+                                              } 
+                                            } 
+                                        ]
+    
+    @@menus[:Stream] =
+                                  [ {:Name => "Dump encoded stream", :Sensitive => true,
+                                      :Callback => lambda { |widget, viewer, path|
+                                            stream = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
+                                            
+                                            viewer.parent.save_data("Save stream to file", stream.rawdata)
+                                          }
+                                    },
+                                    {:Name => "Dump decoded stream", :Sensitive => true,
+                                      :Callback => lambda { |widget, viewer, path|
+                                            stream = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
+                                            
+                                            viewer.parent.save_data("Save stream to file", stream.data)
+                                          }
+                                    }
+                                  ]
+    
+    @@menus[:String] =
+                                [ {:Name => "Dump string", :Sensitive => true,
+                                    :Callback => lambda { |widget, viewer, path|
+                                        string = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
+                                        
+                                        viewer.parent.save_data("Save string to file", string.value)
+                                      }
+                                  }
+                                ]
+    
+    def popup_menu(obj, event, path)
+    
+      menu = Menu.new
+
+      if obj.is_a?(Origami::Object) then type = obj.real_type.to_s.split("::").last.to_sym
+      else type = case obj
+        when Origami::PDF
+          :"PDF File"
+        when Origami::PDF::Revision, Origami::Adobe::AddressBook::Revision
+          :Revision
+        when ::Array
+          :Body
+        when Origami::PDF::Header, Origami::Adobe::AddressBook::Header
+          :Header
+        when Origami::Trailer
+          :Trailer
+        when Origami::XRef::Section
+          :XRefSection
+        when Origami::XRef::Subsection
+          :XRefSubsection
+        when Origami::XRef, Origami::XRefToCompressedObj
+          :XRef
+        else
+          :Unknown
+        end
+        
+      end
+    
+      title = obj.is_a?(Origami::Object) ? "Object : " : ""
+      title << type.to_s
+      menu.append(MenuItem.new(title).set_sensitive(false).modify_text(Gtk::STATE_INSENSITIVE, Gdk::Color.new(255,0,255)))
+      
+      if obj.is_a?(Origami::Object)
+        if obj.is_indirect?
+          menu.append(MenuItem.new("Number : #{obj.no}; Generation : #{obj.generation}").set_sensitive(false))
+          menu.append(MenuItem.new("File offset : #{obj.file_offset}").set_sensitive(false))
+          xrefsproc = lambda { |widget,viewer,path|
+            ref = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
+            viewer.parent.show_xrefs(ref)
+          }
+          getxrefs = MenuItem.new("Search references to this object").set_sensitive(true)
+          getxrefs.signal_connect("activate", self, path, &xrefsproc)
+
+          menu.append(getxrefs)
+        elsif not obj.parent.nil?
+          gotoproc = lambda { |widget,viewer,path|
+            dest = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL).parent
+            viewer.goto(dest)
+          }          
+          gotoparent = MenuItem.new("Goto Parent Object").set_sensitive(true)
+          gotoparent.signal_connect("activate", self, path, &gotoproc)
+
+          menu.append(gotoparent)
+        end
+      end
+      
+      items = @@menus[type]
+      menu.append(SeparatorMenuItem.new) if not items.empty?
+      
+      items.each { |item|
+      
+        if item[:Name] == :"---"
+          entry = SeparatorMenuItem.new
+        else
+          if item[:Name].is_a?(String)
+              entry = MenuItem.new(item[:Name])
+          else entry = ImageMenuItem.new(item[:Name])
+          end
+          
+          entry.set_sensitive(item[:Sensitive])
+          entry.signal_connect("activate", self, path, &item[:Callback])
+        end
+        
+        menu.append(entry)
+      }
+      
+      menu.show_all
+      menu.popup(nil, nil, event.button, event.time)
+      
+    end
+    
+  end
+
+  class Walker < Window
+    
+    private
+    
+    def create_menus
+      
+      AccelMap.add_entry("<PDF Walker>/File/Open", Gdk::Keyval::GDK_O, Gdk::Window::CONTROL_MASK)
+      AccelMap.add_entry("<PDF Walker>/File/Refresh", Gdk::Keyval::GDK_R, Gdk::Window::CONTROL_MASK)
+      AccelMap.add_entry("<PDF Walker>/File/Close", Gdk::Keyval::GDK_X, Gdk::Window::CONTROL_MASK)
+      AccelMap.add_entry("<PDF Walker>/File/Save", Gdk::Keyval::GDK_S, Gdk::Window::CONTROL_MASK)
+      AccelMap.add_entry("<PDF Walker>/File/Quit", Gdk::Keyval::GDK_Q, Gdk::Window::CONTROL_MASK)
+      
+      @menu = MenuBar.new
+      
+      ####################################################
+      file_ag = Gtk::AccelGroup.new
+      @file_menu = Menu.new.set_accel_group(file_ag).set_accel_path("<PDF Walker>/File")
+      add_accel_group(file_ag)
+      
+      @file_menu_open = ImageMenuItem.new(Stock::OPEN).set_accel_path("<PDF Walker>/File/Open")
+      @file_menu_recent = MenuItem.new("Last opened")
+      @file_menu_deserialize = MenuItem.new("Deserialize")
+      @file_menu_refresh = ImageMenuItem.new(Stock::REFRESH).set_sensitive(false).set_accel_path("<PDF Walker>/File/Refresh")
+      @file_menu_close = ImageMenuItem.new(Stock::CLOSE).set_sensitive(false).set_accel_path("<PDF Walker>/File/Close")
+      @file_menu_saveas = ImageMenuItem.new(Stock::SAVE_AS).set_sensitive(false)
+      @file_menu_serialize = MenuItem.new("Serialize").set_sensitive(false)
+      @file_menu_exit = ImageMenuItem.new(Stock::QUIT).set_accel_path("<PDF Walker>/File/Quit")
+      
+      @export_menu = Menu.new
+      @export_pdf_menu = MenuItem.new("As reassembled PDF").set_accel_path("<PDF Walker>/File/Save")
+      @export_graph_menu = MenuItem.new("As GraphViz dot file")
+      @export_graphml_menu = MenuItem.new("As GraphML file")
+
+      @export_pdf_menu.signal_connect('activate') do save end
+      @export_graph_menu.signal_connect('activate') do save_dot end
+      @export_graphml_menu.signal_connect('activate') do save_graphml end
+
+      @export_menu.append(@export_pdf_menu)
+      @export_menu.append(@export_graph_menu)
+      @export_menu.append(@export_graphml_menu)
+
+      @file_menu_saveas.set_submenu(@export_menu)
+
+      @file_menu_open.signal_connect('activate') do open end
+      @file_menu_deserialize.signal_connect('activate') do deserialize end
+      @file_menu_refresh.signal_connect('activate') do open(@opened.filename) end
+      @file_menu_close.signal_connect('activate') do close end
+      @file_menu_serialize.signal_connect('activate') do serialize end
+      @file_menu_exit.signal_connect('activate') do self.destroy end
+      
+      update_recent_menu
+      
+      @file_menu.append(@file_menu_open)
+      @file_menu.append(@file_menu_recent)
+      @file_menu.append(@file_menu_deserialize)
+      @file_menu.append(@file_menu_refresh)
+      @file_menu.append(@file_menu_close)
+      @file_menu.append(@file_menu_saveas)
+      @file_menu.append(@file_menu_serialize)
+      @file_menu.append(@file_menu_exit)
+      
+      @menu.append(MenuItem.new('_File').set_submenu(@file_menu))
+      ####################################################
+      
+      @document_menu = Menu.new
+      @document_menu_gotocatalog = MenuItem.new("Jump To Catalog").set_sensitive(false)
+      @document_menu_gotorev = MenuItem.new("Jump To Revision...").set_sensitive(false)
+      @document_menu_gotopage = MenuItem.new("Jump To Page...").set_sensitive(false)
+      @document_menu_properties = ImageMenuItem.new(Stock::PROPERTIES).set_sensitive(false)
+      @document_menu_sign = MenuItem.new("Sign the document").set_sensitive(false)
+      @document_menu_ur = MenuItem.new("Enable Usage Rights").set_sensitive(false)
+      
+      @document_menu_gotocatalog.signal_connect('activate') do goto_catalog end
+      @document_menu_properties.signal_connect('activate') do display_file_properties end
+      @document_menu_sign.signal_connect('activate') do display_signing_wizard end
+      @document_menu_ur.signal_connect('activate') do display_usage_rights_wizard end
+      
+      @document_menu.append(@document_menu_gotocatalog)
+      @document_menu.append(@document_menu_gotorev)
+      @document_menu.append(@document_menu_gotopage)
+      @document_menu.append(MenuItem.new)
+      @document_menu.append(@document_menu_sign)
+      @document_menu.append(@document_menu_ur)
+      @document_menu.append(@document_menu_properties)
+      
+      @menu.append(MenuItem.new('_Document').set_submenu(@document_menu))
+      ####################################################
+      @help_menu = Menu.new
+      @help_menu_profile = CheckMenuItem.new("Profiling (Debug purposes only)").set_active(@config.profile?)
+      @help_menu_profile.signal_connect('toggled') do @config.set_profiling(@help_menu_profile.active?) end
+      
+      @help_menu_about = ImageMenuItem.new(Stock::ABOUT)
+      
+      @help_menu_about.signal_connect('activate') do about end
+      
+      @help_menu.append(@help_menu_profile)
+      @help_menu.append(@help_menu_about)
+      
+      @menu.append(MenuItem.new('_Help').set_submenu(@help_menu))
+      ####################################################
+      
+    end
+    
+    def update_recent_menu
+      
+      @recent_menu = Menu.new
+      @config.recent_files.each { |file|
+        
+        menu = MenuItem.new(file)
+        menu.signal_connect('activate') do open(file) end
+        
+        @recent_menu.append(menu)
+      }
+      
+      @file_menu_recent.set_submenu(@recent_menu)
+      
+    end
+    
+  end
+
+end

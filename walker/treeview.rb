@@ -1,0 +1,385 @@
+=begin
+
+= File
+	treeview.rb
+
+= Info
+	This file is part of Origami, PDF manipulation framework for Ruby
+	Copyright (C) 2009	Guillaume Delugré <guillaume@security-labs.org>
+	All right reserved.
+	
+  Origami is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Origami is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Origami.  If not, see <http://www.gnu.org/licenses/>.
+
+=end
+
+module PDFWalker
+
+  class Walker < Window
+    
+    private
+    
+    def create_treeview
+      
+      @treeview = PDFTree.new(self).set_headers_visible(false)
+                                       
+      colcontent = Gtk::TreeViewColumn.new("Names", Gtk::CellRendererText.new.set_foreground_set(true), 
+                                       :text => PDFTree::TEXTCOL,
+                                       :weight => PDFTree::WEIGHTCOL,
+                                       :style => PDFTree::STYLECOL,
+                                       :foreground => PDFTree::FGCOL)
+      
+      @treeview.append_column(colcontent)
+      
+    end
+    
+  end
+  
+  class PDFTree < TreeView
+    
+    include Popable
+	  
+    OBJCOL = 0
+    TEXTCOL = 1
+    WEIGHTCOL = 2
+    STYLECOL = 3
+    FGCOL = 4
+    
+    @@appearance = Hash.new({ :Color => "black", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_NORMAL })
+    
+    attr_reader :parent
+    
+    def initialize(parent)
+      
+      @parent = parent
+      
+      reset_appearance
+      
+      @treestore = TreeStore.new(Object::Object, String, Pango::FontDescription::Weight, Pango::FontDescription::Style, String)
+      super(@treestore)
+      
+      signal_connect('cursor-changed') {
+        
+        if selection.selected
+          obj = @treestore.get_value(selection.selected, OBJCOL)
+          
+          parent.hexview.load(obj)
+          parent.objectview.load(obj)
+        end
+        
+      }
+      
+      signal_connect('row-activated') { |tree, path, column|
+      
+        if selection.selected
+          
+          obj = @treestore.get_value(selection.selected, OBJCOL)
+          
+          if row_expanded?(path)
+            collapse_row(path)
+          else
+            expand_row(path, false)
+          end
+          
+          if obj.is_a?(Origami::Reference)
+            goto(obj.solve)
+          end
+      
+        end
+      }
+      
+      add_events(Gdk::Event::BUTTON_PRESS_MASK)
+      signal_connect('button_press_event') { |widget, event|
+        
+        if event.button == 3 && parent.opened
+          
+          path = get_path(event.x,event.y).first
+          set_cursor(path, nil, false)
+          
+          obj = @treestore.get_value(@treestore.get_iter(path), OBJCOL)
+          popup_menu(obj, event, path)
+
+        end
+        
+      }
+      
+    end
+    
+    def clear
+      
+      @treestore.clear
+      
+    end
+    
+    def goto(obj)
+      
+      if obj.is_a?(TreePath)
+        set_cursor(obj, nil, false)
+      else
+        @treestore.each { |model, path, iter|
+          
+          current_obj = @treestore.get_value(iter, OBJCOL)
+          
+          if obj.equal?(current_obj)
+            if not row_expanded?(path) then expand_to_path(path) end
+            
+            if cursor.first then @parent.explorer_history << cursor.first end
+            set_cursor(path, nil, false)
+            
+            return
+          end
+        }
+        
+        @parent.error("Object not found : #{ref.class.to_s}")
+      end
+      
+    end
+    
+    def load(pdf)
+      
+      if pdf
+        self.clear
+        
+        begin
+          #
+          # Create root entry
+          #
+          root = @treestore.append(nil)
+          @treestore.set_value(root, OBJCOL, pdf)
+        
+          set_node(root, :Filename, pdf.filename)
+        
+          #
+          # Create header entry
+          #
+          header = @treestore.append(root)
+          @treestore.set_value(header, OBJCOL, pdf.header)
+        
+          set_node(header, :Header, "Header (version #{pdf.header.majorversion}.#{pdf.header.minorversion})")
+        
+          no = 1
+          pdf.revisions.each { |revision|
+        
+            load_revision(root, no, revision)
+            no = no + 1
+        
+          }
+        
+          set_model(@treestore)
+        
+        ensure
+          expand(@treestore.iter_first, 3)
+          set_cursor(@treestore.iter_first.path, nil, false)
+        end
+      end
+    
+    end
+  
+    private
+    
+    def expand(row, depth)
+      
+      if row and depth != 0
+        
+        while true
+          expand_row(row.path, false)
+          expand(row.first_child, depth - 1)
+          
+          break if not row.next!
+        end
+        
+      end
+      
+    end
+    
+    def load_revision(root, no, revision)
+    
+      revroot = @treestore.append(root)
+      @treestore.set_value(revroot, OBJCOL, revision)
+      
+      set_node(revroot, :Revision, "Revision #{no}")
+      
+      load_body(revroot, revision.body.values)
+      
+      load_xrefs(revroot, revision.xreftable)
+      
+      load_trailer(revroot, revision.trailer)
+      
+    end
+  
+    def load_body(rev, body)
+      
+      bodyroot = @treestore.append(rev)
+      @treestore.set_value(bodyroot, OBJCOL, body)
+      
+      set_node(bodyroot, :Body, "Body")
+      
+      body.sort_by{|obj| obj.file_offset}.each { |object|
+        begin
+          load_object(bodyroot, object)
+        rescue Exception => e
+          msg = "#{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"
+          
+          @parent.error(msg)
+          next
+        end
+      }
+    
+    end
+  
+    def load_object(container, object, name = nil)
+        
+      obj = @treestore.append(container)
+      @treestore.set_value(obj, OBJCOL, object)
+      
+      type = object.real_type.to_s.split('::').last.to_sym
+      
+      if name.nil?
+        name = case object
+        when Origami::String
+          '"' + object.value + '"'
+        when Origami::Number, Name
+          object.value.to_s
+        else
+          object.type.to_s
+        end
+      end
+
+      set_node(obj, type, name)
+      
+      if object.is_a?(Stream)
+        
+        load_object(obj, object.dictionary, "Stream Dictionary")
+       
+        # Processing with an XRef or Object Stream
+        if object.is_a?(ObjectStream)
+          object.each { |embeddedobj|
+            load_object(obj, embeddedobj)
+          }
+
+        elsif object.is_a?(XRefStream)
+          object.each { |xref|
+            load_xrefstm(obj, xref)
+          }
+        end
+      
+      elsif object.is_a? Origami::Array
+        object.each { |subobject|
+          load_object(obj, subobject)
+        }
+      elsif object.is_a? Origami::Dictionary
+        object.each_key { |subkey|
+          load_object(obj, object[subkey.value], subkey.value.to_s)
+        }
+      end
+    
+    end
+
+    def load_xrefstm(stm, embxref)
+      
+      xref = @treestore.append(stm)
+      @treestore.set_value(xref, OBJCOL, embxref)
+
+      if embxref.is_a?(XRef)
+        set_node(xref, :XRef, embxref.to_s.chomp)
+      else
+        set_node(xref, :XRef, "xref to ObjectStream #{embxref.objstmno}, object index #{embxref.index}")
+      end
+
+    end
+    
+    def load_xrefs(rev, table)
+      
+      if table
+        
+        section = @treestore.append(rev)
+        @treestore.set_value(section, OBJCOL, table)
+        
+        set_node(section, :XRefSection, "XRef section")
+        
+        table.each { |subtable|
+        
+          subsection = @treestore.append(section)
+          @treestore.set_value(subsection, OBJCOL, subtable)
+          
+          set_node(subsection, :XRefSubSection, "#{subtable.range.begin} #{subtable.range.end - subtable.range.begin + 1}")
+          
+          subtable.each { |entry|
+            
+            xref = @treestore.append(subsection)
+            @treestore.set_value(xref, OBJCOL, entry)
+            
+            set_node(xref, :XRef, entry.to_s.chomp)
+            
+          }
+        
+        }
+        
+      end
+      
+    end
+      
+    def load_trailer(rev, trailer)
+      
+      trailerroot = @treestore.append(rev)
+      @treestore.set_value(trailerroot, OBJCOL, trailer)
+      
+      set_node(trailerroot, :Trailer, "Trailer")
+      
+      unless trailer.dictionary.nil?
+        load_object(trailerroot, trailer.dictionary)
+      end
+      
+    end
+    
+    def reset_appearance
+      
+      @@appearance[:Filename] = {:Color => "black", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:Header] = {:Color => "darkgreen", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:Revision] = {:Color => "blue", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:Body] = {:Color => "purple", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:XRefSection] = {:Color => "purple", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:XRefSubSection] = {:Color => "brown", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:XRef] = {:Color => "gray20", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:Trailer] = {:Color => "purple", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:StartXref] = {:Color => "black", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:String] = {:Color => "red", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_ITALIC}
+      @@appearance[:Name] = {:Color => "gray", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_ITALIC}
+      @@appearance[:Number] = {:Color => "orange", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:Dictionary] = {:Color => "brown", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:Stream] = {:Color => "darkcyan", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:StreamData] = {:Color => "darkcyan", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_OBLIQUE}
+      @@appearance[:Array] = {:Color => "darkgreen", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:Reference] = {:Color => "black", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_OBLIQUE}
+      @@appearance[:Boolean] = {:Color => "deeppink", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_NORMAL}
+      
+    end
+    
+    def get_object_appearance(type)
+      @@appearance[type]
+    end
+    
+    def set_node(node, type, text)
+      
+      @treestore.set_value(node, TEXTCOL, text)
+      
+      app = get_object_appearance(type)
+      @treestore.set_value(node, WEIGHTCOL, app[:Weight])
+      @treestore.set_value(node, STYLECOL, app[:Style])
+      @treestore.set_value(node, FGCOL, app[:Color])
+      
+    end
+  
+  end
+
+end

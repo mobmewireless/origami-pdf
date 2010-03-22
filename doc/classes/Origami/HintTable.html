@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Origami::HintTable</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Origami::HintTable</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/sources/parser/linearization_rb.html">
+                sources/parser/linearization.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000173">included</a>&nbsp;&nbsp;
+      <a href="#M000174">new</a>&nbsp;&nbsp;
+      <a href="#M000175">to_s</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="HintTable/ClassMethods.html" class="link">Origami::HintTable::ClassMethods</a><br />
+Class <a href="HintTable/PageOffsetTable.html" class="link">Origami::HintTable::PageOffsetTable</a><br />
+Class <a href="HintTable/SharedObjectTable.html" class="link">Origami::HintTable::SharedObjectTable</a><br />
+
+    </div>
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">entries</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">header_items</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000173" class="method-detail">
+        <a name="M000173"></a>
+
+        <div class="method-heading">
+          <a href="#M000173" class="method-signature">
+          <span class="method-name">included</span><span class="method-args">(receiver)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000173-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000173-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/linearization.rb, line 145</span>
+145:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">receiver</span>)
+146:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@header_items_size</span>, {})
+147:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@entry_items_size</span>, {})
+148:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">ClassMethods</span>)
+149:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000174" class="method-detail">
+        <a name="M000174"></a>
+
+        <div class="method-heading">
+          <a href="#M000174" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000174-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000174-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/linearization.rb, line 154</span>
+154:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+155:       <span class="ruby-ivar">@header_items</span> = {}
+156:       <span class="ruby-ivar">@entries</span> = []
+157:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000175" class="method-detail">
+        <a name="M000175"></a>
+
+        <div class="method-heading">
+          <a href="#M000175" class="method-signature">
+          <span class="method-name">to_s</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000175-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000175-source">
+<pre>
+     <span class="ruby-comment cmt"># File sources/parser/linearization.rb, line 159</span>
+159:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+160:       
+161:       <span class="ruby-identifier">data</span> = <span class="ruby-value str">&quot;&quot;</span>
+162: 
+163:       <span class="ruby-identifier">nitems</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">nb_header_items</span>
+164:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">no</span> <span class="ruby-keyword kw">in</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">nitems</span>)
+165:         <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@header_items</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
+166:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHintTable</span>, <span class="ruby-node">&quot;Missing item #{no} in header section of #{self.class}&quot;</span>
+167:         <span class="ruby-keyword kw">end</span>
+168: 
+169:         <span class="ruby-identifier">value</span> = <span class="ruby-ivar">@header_items</span>[<span class="ruby-identifier">no</span>]
+170:         <span class="ruby-identifier">item_size</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">get_header_item_size</span>(<span class="ruby-identifier">no</span>)
+171:         
+172:         <span class="ruby-identifier">item_size</span> = ((<span class="ruby-identifier">item_size</span> <span class="ruby-operator">+</span> <span class="ruby-value">7</span>) <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-value">3</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">3</span>
+173:         <span class="ruby-identifier">item_data</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">2</span>)
+174:         <span class="ruby-identifier">item_data</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">item_size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">item_data</span>.<span class="ruby-identifier">size</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">item_data</span>
+175: 
+176:         <span class="ruby-identifier">data</span> <span class="ruby-operator">&lt;&lt;</span> [ <span class="ruby-identifier">item_data</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;B*&quot;</span>)
+177:       <span class="ruby-keyword kw">end</span>
+178:       
+179:       <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+180:       <span class="ruby-identifier">nitems</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">nb_entry_items</span>
+181:       <span class="ruby-ivar">@entries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>
+182:         <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">no</span> <span class="ruby-keyword kw">in</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">items</span>)
+183:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
+184:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHintTable</span>, <span class="ruby-node">&quot;Missing item #{no} in entry #{i} of #{self.class}&quot;</span>
+185:           <span class="ruby-keyword kw">end</span>
+186: 
+187:           <span class="ruby-identifier">value</span> = <span class="ruby-identifier">entry</span>[<span class="ruby-identifier">no</span>]
+188:           <span class="ruby-identifier">item_size</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">get_entry_item_size</span>(<span class="ruby-identifier">no</span>)
+189:           
+190:           <span class="ruby-identifier">item_size</span> = ((<span class="ruby-identifier">item_size</span> <span class="ruby-operator">+</span> <span class="ruby-value">7</span>) <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-value">3</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">3</span>
+191:           <span class="ruby-identifier">item_data</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">2</span>)
+192:           <span class="ruby-identifier">item_data</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">item_size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">item_data</span>.<span class="ruby-identifier">size</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">item_data</span>
+193: 
+194:           <span class="ruby-identifier">data</span> <span class="ruby-operator">&lt;&lt;</span> [ <span class="ruby-identifier">item_data</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;B*&quot;</span>)
+195:         <span class="ruby-keyword kw">end</span>
+196: 
+197:         <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+198:       <span class="ruby-keyword kw">end</span>
+199: 
+200:       <span class="ruby-identifier">data</span>
+201:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

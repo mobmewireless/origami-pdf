@@ -1,0 +1,28 @@
+CHANGELOG
+=========
+
+15/09/09:
+  - [sources/parser] 
+      Renamed 'Action::WindowsApplication' to 'Action::Launch::WindowsLaunchParams'
+      Basic support for graphics drawing : lines, colors, shading, shapes...
+      Support for numerical functions.
+      Support for date strings.
+      Added PDF#insert_page(index, page) method.
+      Added a forms widgets template.
+      Ability to delinearize documents.
+      Fixed various bugs.
+
+06/07/09:
+  - [sources/parser] 
+      Support for XRef streams. 
+      Support for Object streams creation. 
+      Support for PNG stream predictor functions.
+  - [sources/scripts/scan] Added a scanning script.
+  - [sources/scripts/antivir] Added an cleaning script.
+  - [sources/scripts/metadata] Metadata printer.
+  - [sources/samples/open] Various methods to trigger an action at the document opening.
+
+19/06/09:
+  - [sources/scripts/crypto]  Added an encryption script.
+  - [sources/parser] Bugfix in Array handling.
+
