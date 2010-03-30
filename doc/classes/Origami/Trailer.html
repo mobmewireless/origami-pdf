@@ -55,12 +55,12 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/trailer_rb.html">
-                sources/parser/trailer.rb
+                <a href="../../files/origami/obfuscation_rb.html">
+                origami/obfuscation.rb
                 </a>
         <br />
-                <a href="../../files/sources/parser/obfuscation_rb.html">
-                sources/parser/obfuscation.rb
+                <a href="../../files/origami/trailer_rb.html">
+                origami/trailer.rb
                 </a>
         <br />
             </td>
@@ -99,13 +99,13 @@ href="Trailer.html">Trailer</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000444">[]</a>&nbsp;&nbsp;
-      <a href="#M000445">[]=</a>&nbsp;&nbsp;
-      <a href="#M000446">dictionary=</a>&nbsp;&nbsp;
-      <a href="#M000447">has_dictionary?</a>&nbsp;&nbsp;
-      <a href="#M000443">new</a>&nbsp;&nbsp;
-      <a href="#M000449">to_obfuscated_str</a>&nbsp;&nbsp;
-      <a href="#M000448">to_s</a>&nbsp;&nbsp;
+      <a href="#M000650">[]</a>&nbsp;&nbsp;
+      <a href="#M000651">[]=</a>&nbsp;&nbsp;
+      <a href="#M000652">dictionary=</a>&nbsp;&nbsp;
+      <a href="#M000653">has_dictionary?</a>&nbsp;&nbsp;
+      <a href="#M000649">new</a>&nbsp;&nbsp;
+      <a href="#M000648">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000654">to_s</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -157,18 +157,18 @@ href="Trailer.html">Trailer</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000443" class="method-detail">
-        <a name="M000443"></a>
+      <div id="method-M000649" class="method-detail">
+        <a name="M000649"></a>
 
         <div class="method-heading">
-          <a href="#M000443" class="method-signature">
+          <a href="#M000649" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(startxref = 0, dictionary = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Trailer.html#M000443">new</a> <a
+Creates a <a href="Trailer.html#M000649">new</a> <a
 href="Trailer.html">Trailer</a>.
 </p>
 <table>
@@ -182,10 +182,10 @@ href="Dictionary.html">Dictionary</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000443-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000443-source">
+            onclick="toggleCode('M000649-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000649-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/trailer.rb, line 112</span>
+     <span class="ruby-comment cmt"># File origami/trailer.rb, line 112</span>
 112:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">startxref</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">dictionary</span> = {})
 113:      
 114:       <span class="ruby-ivar">@startxref</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">dictionary</span> = <span class="ruby-identifier">startxref</span>, <span class="ruby-identifier">dictionary</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Dictionary</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">dictionary</span>)
@@ -197,21 +197,21 @@ href="Dictionary.html">Dictionary</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000444" class="method-detail">
-        <a name="M000444"></a>
+      <div id="method-M000650" class="method-detail">
+        <a name="M000650"></a>
 
         <div class="method-heading">
-          <a href="#M000444" class="method-signature">
+          <a href="#M000650" class="method-signature">
           <span class="method-name">[]</span><span class="method-args">(key)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000444-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000444-source">
+            onclick="toggleCode('M000650-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000650-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/trailer.rb, line 134</span>
+     <span class="ruby-comment cmt"># File origami/trailer.rb, line 134</span>
 134:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">key</span>)
 135:       <span class="ruby-ivar">@dictionary</span>[<span class="ruby-identifier">key</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_dictionary?</span>
 136:     <span class="ruby-keyword kw">end</span>
@@ -220,21 +220,21 @@ href="Dictionary.html">Dictionary</a>.
         </div>
       </div>
 
-      <div id="method-M000445" class="method-detail">
-        <a name="M000445"></a>
+      <div id="method-M000651" class="method-detail">
+        <a name="M000651"></a>
 
         <div class="method-heading">
-          <a href="#M000445" class="method-signature">
+          <a href="#M000651" class="method-signature">
           <span class="method-name">[]=</span><span class="method-args">(key,val)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000445-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000445-source">
+            onclick="toggleCode('M000651-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000651-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/trailer.rb, line 138</span>
+     <span class="ruby-comment cmt"># File origami/trailer.rb, line 138</span>
 138:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">key</span>,<span class="ruby-identifier">val</span>)
 139:       <span class="ruby-ivar">@dictionary</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">val</span>
 140:     <span class="ruby-keyword kw">end</span>
@@ -243,21 +243,21 @@ href="Dictionary.html">Dictionary</a>.
         </div>
       </div>
 
-      <div id="method-M000446" class="method-detail">
-        <a name="M000446"></a>
+      <div id="method-M000652" class="method-detail">
+        <a name="M000652"></a>
 
         <div class="method-heading">
-          <a href="#M000446" class="method-signature">
+          <a href="#M000652" class="method-signature">
           <span class="method-name">dictionary=</span><span class="method-args">(dict)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000446-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000446-source">
+            onclick="toggleCode('M000652-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000652-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/trailer.rb, line 142</span>
+     <span class="ruby-comment cmt"># File origami/trailer.rb, line 142</span>
 142:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dictionary=</span>(<span class="ruby-identifier">dict</span>)
 143:       <span class="ruby-identifier">dict</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">dict</span>
 144:       <span class="ruby-ivar">@dictionary</span> = <span class="ruby-identifier">dict</span>
@@ -267,21 +267,21 @@ href="Dictionary.html">Dictionary</a>.
         </div>
       </div>
 
-      <div id="method-M000447" class="method-detail">
-        <a name="M000447"></a>
+      <div id="method-M000653" class="method-detail">
+        <a name="M000653"></a>
 
         <div class="method-heading">
-          <a href="#M000447" class="method-signature">
+          <a href="#M000653" class="method-signature">
           <span class="method-name">has_dictionary?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000447-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000447-source">
+            onclick="toggleCode('M000653-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000653-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/trailer.rb, line 147</span>
+     <span class="ruby-comment cmt"># File origami/trailer.rb, line 147</span>
 147:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_dictionary?</span>
 148:       <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@dictionary</span>.<span class="ruby-identifier">nil?</span>
 149:     <span class="ruby-keyword kw">end</span>
@@ -290,41 +290,41 @@ href="Dictionary.html">Dictionary</a>.
         </div>
       </div>
 
-      <div id="method-M000449" class="method-detail">
-        <a name="M000449"></a>
+      <div id="method-M000648" class="method-detail">
+        <a name="M000648"></a>
 
         <div class="method-heading">
-          <a href="#M000449" class="method-signature">
+          <a href="#M000648" class="method-signature">
           <span class="method-name">to_obfuscated_str</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000449-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000449-source">
+            onclick="toggleCode('M000648-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000648-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/obfuscation.rb, line 224</span>
-224:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>
-225:       <span class="ruby-identifier">content</span> = <span class="ruby-value str">&quot;&quot;</span>
-226:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">has_dictionary?</span>
-227:         <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@dictionary</span>.<span class="ruby-identifier">to_obfuscated_str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span>
-228:       <span class="ruby-keyword kw">end</span>
-229: 
-230:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XREF_TOKEN</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@startxref</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span>
-231: 
-232:       <span class="ruby-identifier">content</span>
-233:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/obfuscation.rb, line 220</span>
+220:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>
+221:       <span class="ruby-identifier">content</span> = <span class="ruby-value str">&quot;&quot;</span>
+222:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">has_dictionary?</span>
+223:         <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@dictionary</span>.<span class="ruby-identifier">to_obfuscated_str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span>
+224:       <span class="ruby-keyword kw">end</span>
+225: 
+226:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">XREF_TOKEN</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@startxref</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span>
+227: 
+228:       <span class="ruby-identifier">content</span>
+229:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000448" class="method-detail">
-        <a name="M000448"></a>
+      <div id="method-M000654" class="method-detail">
+        <a name="M000654"></a>
 
         <div class="method-heading">
-          <a href="#M000448" class="method-signature">
+          <a href="#M000654" class="method-signature">
           <span class="method-name">to_s</span><span class="method-args">()</span>
           </a>
         </div>
@@ -334,10 +334,10 @@ href="Dictionary.html">Dictionary</a>.
 Outputs self into <a href="PDF.html">PDF</a> code.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000448-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000448-source">
+            onclick="toggleCode('M000654-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000654-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/trailer.rb, line 154</span>
+     <span class="ruby-comment cmt"># File origami/trailer.rb, line 154</span>
 154:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
 155:       
 156:       <span class="ruby-identifier">content</span> = <span class="ruby-value str">&quot;&quot;</span>

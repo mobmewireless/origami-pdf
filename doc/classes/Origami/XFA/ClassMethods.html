@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../files/sources/parser/xfa_rb.html">
-                sources/parser/xfa.rb
+                <a href="../../../files/origami/xfa_rb.html">
+                origami/xfa.rb
                 </a>
         <br />
             </td>
@@ -80,8 +80,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000204">mime_type</a>&nbsp;&nbsp;
-      <a href="#M000203">xfa_attribute</a>&nbsp;&nbsp;
+      <a href="#M000415">mime_type</a>&nbsp;&nbsp;
+      <a href="#M000413">xfa_attribute</a>&nbsp;&nbsp;
+      <a href="#M000414">xfa_node</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -103,53 +104,88 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000204" class="method-detail">
-        <a name="M000204"></a>
+      <div id="method-M000415" class="method-detail">
+        <a name="M000415"></a>
 
         <div class="method-heading">
-          <a href="#M000204" class="method-signature">
+          <a href="#M000415" class="method-signature">
           <span class="method-name">mime_type</span><span class="method-args">(type)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000204-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000204-source">
+            onclick="toggleCode('M000415-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000415-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/xfa.rb, line 44</span>
-44:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">mime_type</span>(<span class="ruby-identifier">type</span>)
-45:         <span class="ruby-identifier">send</span>(<span class="ruby-identifier">:define_method</span>, <span class="ruby-value str">&quot;mime_type&quot;</span>) { <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">type</span> }
-46:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/xfa.rb, line 74</span>
+74:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">mime_type</span>(<span class="ruby-identifier">type</span>)
+75:         <span class="ruby-identifier">send</span>(<span class="ruby-identifier">:define_method</span>, <span class="ruby-value str">&quot;mime_type&quot;</span>) { <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">type</span> }
+76:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000203" class="method-detail">
-        <a name="M000203"></a>
+      <div id="method-M000413" class="method-detail">
+        <a name="M000413"></a>
 
         <div class="method-heading">
-          <a href="#M000203" class="method-signature">
+          <a href="#M000413" class="method-signature">
           <span class="method-name">xfa_attribute</span><span class="method-args">(name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000203-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000203-source">
+            onclick="toggleCode('M000413-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000413-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/xfa.rb, line 34</span>
-34:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">xfa_attribute</span>(<span class="ruby-identifier">name</span>)
-35: 
-36:         <span class="ruby-identifier">read_xml_attr</span> = <span class="ruby-identifier">lambda</span> { <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>] }
-37:         <span class="ruby-identifier">write_xml_attr</span> = <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>] = <span class="ruby-identifier">value</span> }
-38: 
-39:         <span class="ruby-identifier">send</span>(<span class="ruby-identifier">:define_method</span>, <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">read_xml_attr</span>)
-40:         <span class="ruby-identifier">send</span>(<span class="ruby-identifier">:define_method</span>, <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;=&quot;</span>, <span class="ruby-identifier">write_xml_attr</span>)
-41: 
-42:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/xfa.rb, line 48</span>
+48:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">xfa_attribute</span>(<span class="ruby-identifier">name</span>)
+49: 
+50:         <span class="ruby-identifier">read_xml_attr</span> = <span class="ruby-identifier">lambda</span> { <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>] }
+51:         <span class="ruby-identifier">write_xml_attr</span> = <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>] = <span class="ruby-identifier">value</span> }
+52: 
+53:         <span class="ruby-identifier">send</span>(<span class="ruby-identifier">:define_method</span>, <span class="ruby-node">&quot;attr_#{name.to_s}&quot;</span>, <span class="ruby-identifier">read_xml_attr</span>)
+54:         <span class="ruby-identifier">send</span>(<span class="ruby-identifier">:define_method</span>, <span class="ruby-node">&quot;attr_#{name.to_s}=&quot;</span>, <span class="ruby-identifier">write_xml_attr</span>)
+55: 
+56:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000414" class="method-detail">
+        <a name="M000414"></a>
+
+        <div class="method-heading">
+          <a href="#M000414" class="method-signature">
+          <span class="method-name">xfa_node</span><span class="method-args">(name, type, range = (0..(1.0/0)))</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000414-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000414-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/xfa.rb, line 58</span>
+58:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">xfa_node</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">range</span> = (<span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-value">1.0</span><span class="ruby-operator">/</span><span class="ruby-value">0</span>)))
+59:         <span class="ruby-identifier">add_child</span> = <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-operator">*</span><span class="ruby-identifier">attr</span><span class="ruby-operator">|</span>
+60:           <span class="ruby-identifier">elt</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">add_element</span>(<span class="ruby-identifier">type</span>.<span class="ruby-identifier">new</span>)
+61: 
+62:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">attr</span>.<span class="ruby-identifier">empty?</span>
+63:             <span class="ruby-identifier">attr</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+64:               <span class="ruby-identifier">elt</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span>] = <span class="ruby-identifier">v</span>
+65:             <span class="ruby-keyword kw">end</span>
+66:           <span class="ruby-keyword kw">end</span>
+67: 
+68:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">elt</span>
+69:         }
+70: 
+71:         <span class="ruby-identifier">send</span>(<span class="ruby-identifier">:define_method</span>, <span class="ruby-node">&quot;add_#{name}&quot;</span>, <span class="ruby-identifier">add_child</span>)
+72:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

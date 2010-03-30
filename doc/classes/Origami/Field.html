@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/acroform_rb.html">
-                sources/parser/acroform.rb
+                <a href="../../files/origami/acroform_rb.html">
+                origami/acroform.rb
                 </a>
         <br />
             </td>
@@ -80,12 +80,12 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000195">included</a>&nbsp;&nbsp;
-      <a href="#M000200">onCalculate</a>&nbsp;&nbsp;
-      <a href="#M000198">onFormat</a>&nbsp;&nbsp;
-      <a href="#M000197">onKeyStroke</a>&nbsp;&nbsp;
-      <a href="#M000199">onValidate</a>&nbsp;&nbsp;
-      <a href="#M000196">pre_build</a>&nbsp;&nbsp;
+      <a href="#M000416">included</a>&nbsp;&nbsp;
+      <a href="#M000421">onCalculate</a>&nbsp;&nbsp;
+      <a href="#M000419">onFormat</a>&nbsp;&nbsp;
+      <a href="#M000418">onKeyStroke</a>&nbsp;&nbsp;
+      <a href="#M000420">onValidate</a>&nbsp;&nbsp;
+      <a href="#M000417">pre_build</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -102,10 +102,7 @@
       Module <a href="Field/Flags.html" class="link">Origami::Field::Flags</a><br />
 Module <a href="Field/TextAlign.html" class="link">Origami::Field::TextAlign</a><br />
 Module <a href="Field/Type.html" class="link">Origami::Field::Type</a><br />
-Class <a href="Field/AdditionalActions.html" class="link">Origami::Field::AdditionalActions</a><br />
-Class <a href="Field/CertificateSeedValue.html" class="link">Origami::Field::CertificateSeedValue</a><br />
-Class <a href="Field/SignatureLock.html" class="link">Origami::Field::SignatureLock</a><br />
-Class <a href="Field/SignatureSeedValue.html" class="link">Origami::Field::SignatureSeedValue</a><br />
+Class <a href="Field/Subform.html" class="link">Origami::Field::Subform</a><br />
 
     </div>
 
@@ -152,41 +149,41 @@ Class <a href="Field/SignatureSeedValue.html" class="link">Origami::Field::Signa
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000195" class="method-detail">
-        <a name="M000195"></a>
+      <div id="method-M000416" class="method-detail">
+        <a name="M000416"></a>
 
         <div class="method-heading">
-          <a href="#M000195" class="method-signature">
+          <a href="#M000416" class="method-signature">
           <span class="method-name">included</span><span class="method-args">(receiver)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000195-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000195-source">
+            onclick="toggleCode('M000416-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000416-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/acroform.rb, line 123</span>
-123:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">receiver</span>)
-124: 
-125:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:FT</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Name</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Type</span><span class="ruby-operator">::</span><span class="ruby-constant">TEXT</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
-126:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Parent</span>, <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Dictionary</span>
-127:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Kids</span>,   <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Array</span>
-128:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:T</span>,      <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">String</span>
-129:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:TU</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">:Version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1.3&quot;</span>
-130:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:TM</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">:Version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1.3&quot;</span>
-131:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Ff</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-132:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:V</span>,      <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Object</span>
-133:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:DV</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Object</span>
-134:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:AA</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Dictionary</span>, <span class="ruby-identifier">:Version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1.2&quot;</span>
-135: 
-136:       <span class="ruby-comment cmt"># Variable text fields</span>
-137:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:DA</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;/F1 10 Tf 0 g&quot;</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
-138:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Q</span>,      <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">TextAlign</span><span class="ruby-operator">::</span><span class="ruby-constant">LEFT</span>
-139:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:DS</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ByteString</span>, <span class="ruby-identifier">:Version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1.5&quot;</span>
-140:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:RV</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-constant">String</span>, <span class="ruby-constant">Stream</span> ], <span class="ruby-identifier">:Version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1.5&quot;</span>
-141:         
-142:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/acroform.rb, line 118</span>
+118:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">receiver</span>)
+119: 
+120:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:FT</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Name</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Type</span><span class="ruby-operator">::</span><span class="ruby-constant">TEXT</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+121:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Parent</span>, <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Dictionary</span>
+122:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Kids</span>,   <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Array</span>
+123:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:T</span>,      <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">String</span>
+124:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:TU</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">:Version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1.3&quot;</span>
+125:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:TM</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">:Version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1.3&quot;</span>
+126:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Ff</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+127:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:V</span>,      <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Object</span>
+128:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:DV</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Object</span>
+129:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:AA</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Dictionary</span>, <span class="ruby-identifier">:Version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1.2&quot;</span>
+130: 
+131:       <span class="ruby-comment cmt"># Variable text fields</span>
+132:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:DA</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;/F1 10 Tf 0 g&quot;</span>, <span class="ruby-identifier">:Required</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>
+133:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:Q</span>,      <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Integer</span>, <span class="ruby-identifier">:Default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">TextAlign</span><span class="ruby-operator">::</span><span class="ruby-constant">LEFT</span>
+134:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:DS</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ByteString</span>, <span class="ruby-identifier">:Version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1.5&quot;</span>
+135:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">field</span>   <span class="ruby-identifier">:RV</span>,     <span class="ruby-identifier">:Type</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-constant">String</span>, <span class="ruby-constant">Stream</span> ], <span class="ruby-identifier">:Version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;1.5&quot;</span>
+136:         
+137:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -194,149 +191,149 @@ Class <a href="Field/SignatureSeedValue.html" class="link">Origami::Field::Signa
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000200" class="method-detail">
-        <a name="M000200"></a>
+      <div id="method-M000421" class="method-detail">
+        <a name="M000421"></a>
 
         <div class="method-heading">
-          <a href="#M000200" class="method-signature">
+          <a href="#M000421" class="method-signature">
           <span class="method-name">onCalculate</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000200-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000200-source">
+            onclick="toggleCode('M000421-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000421-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/acroform.rb, line 186</span>
-186:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onCalculate</span>(<span class="ruby-identifier">action</span>)
-187:     
-188:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-189:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-190:       <span class="ruby-keyword kw">end</span>
-191:       
-192:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-193:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">C</span> = <span class="ruby-identifier">action</span>
-194:         
-195:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/acroform.rb, line 181</span>
+181:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onCalculate</span>(<span class="ruby-identifier">action</span>)
+182:     
+183:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+184:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+185:       <span class="ruby-keyword kw">end</span>
+186:       
+187:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+188:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">C</span> = <span class="ruby-identifier">action</span>
+189:         
+190:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000198" class="method-detail">
-        <a name="M000198"></a>
+      <div id="method-M000419" class="method-detail">
+        <a name="M000419"></a>
 
         <div class="method-heading">
-          <a href="#M000198" class="method-signature">
+          <a href="#M000419" class="method-signature">
           <span class="method-name">onFormat</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000198-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000198-source">
+            onclick="toggleCode('M000419-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000419-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/acroform.rb, line 164</span>
-164:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onFormat</span>(<span class="ruby-identifier">action</span>)
-165:     
-166:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-167:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-168:       <span class="ruby-keyword kw">end</span>
-169:       
-170:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-171:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">F</span> = <span class="ruby-identifier">action</span>
-172:         
-173:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/acroform.rb, line 159</span>
+159:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onFormat</span>(<span class="ruby-identifier">action</span>)
+160:     
+161:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+162:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+163:       <span class="ruby-keyword kw">end</span>
+164:       
+165:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+166:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">F</span> = <span class="ruby-identifier">action</span>
+167:         
+168:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000197" class="method-detail">
-        <a name="M000197"></a>
+      <div id="method-M000418" class="method-detail">
+        <a name="M000418"></a>
 
         <div class="method-heading">
-          <a href="#M000197" class="method-signature">
+          <a href="#M000418" class="method-signature">
           <span class="method-name">onKeyStroke</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000197-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000197-source">
+            onclick="toggleCode('M000418-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000418-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/acroform.rb, line 153</span>
-153:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onKeyStroke</span>(<span class="ruby-identifier">action</span>)
-154:     
-155:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-156:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-157:       <span class="ruby-keyword kw">end</span>
-158:       
-159:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-160:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">K</span> = <span class="ruby-identifier">action</span>
-161:         
-162:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/acroform.rb, line 148</span>
+148:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onKeyStroke</span>(<span class="ruby-identifier">action</span>)
+149:     
+150:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+151:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+152:       <span class="ruby-keyword kw">end</span>
+153:       
+154:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+155:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">K</span> = <span class="ruby-identifier">action</span>
+156:         
+157:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000199" class="method-detail">
-        <a name="M000199"></a>
+      <div id="method-M000420" class="method-detail">
+        <a name="M000420"></a>
 
         <div class="method-heading">
-          <a href="#M000199" class="method-signature">
+          <a href="#M000420" class="method-signature">
           <span class="method-name">onValidate</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000199-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000199-source">
+            onclick="toggleCode('M000420-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000420-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/acroform.rb, line 175</span>
-175:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onValidate</span>(<span class="ruby-identifier">action</span>)
-176:     
-177:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-178:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-179:       <span class="ruby-keyword kw">end</span>
-180:       
-181:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-182:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">V</span> = <span class="ruby-identifier">action</span>
-183:         
-184:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/acroform.rb, line 170</span>
+170:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onValidate</span>(<span class="ruby-identifier">action</span>)
+171:     
+172:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+173:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+174:       <span class="ruby-keyword kw">end</span>
+175:       
+176:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+177:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">V</span> = <span class="ruby-identifier">action</span>
+178:         
+179:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000196" class="method-detail">
-        <a name="M000196"></a>
+      <div id="method-M000417" class="method-detail">
+        <a name="M000417"></a>
 
         <div class="method-heading">
-          <a href="#M000196" class="method-signature">
+          <a href="#M000417" class="method-signature">
           <span class="method-name">pre_build</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000196-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000196-source">
+            onclick="toggleCode('M000417-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000417-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/acroform.rb, line 144</span>
-144:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
-145:       
-146:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">T</span>
-147:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">T</span> = <span class="ruby-node">&quot;undef#{::Array.new(5) {(0x30 + rand(10)).chr}.join}&quot;</span>
-148:       <span class="ruby-keyword kw">end</span>
-149:       
-150:       <span class="ruby-keyword kw">super</span>
-151:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/acroform.rb, line 139</span>
+139:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
+140:       
+141:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">T</span>
+142:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">T</span> = <span class="ruby-node">&quot;undef#{::Array.new(5) {(0x30 + rand(10)).chr}.join}&quot;</span>
+143:       <span class="ruby-keyword kw">end</span>
+144:       
+145:       <span class="ruby-keyword kw">super</span>
+146:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

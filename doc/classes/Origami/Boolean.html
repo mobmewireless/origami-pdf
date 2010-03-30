@@ -55,12 +55,12 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/obfuscation_rb.html">
-                sources/parser/obfuscation.rb
+                <a href="../../files/origami/obfuscation_rb.html">
+                origami/obfuscation.rb
                 </a>
         <br />
-                <a href="../../files/sources/parser/boolean_rb.html">
-                sources/parser/boolean.rb
+                <a href="../../files/origami/boolean_rb.html">
+                origami/boolean.rb
                 </a>
         <br />
             </td>
@@ -100,12 +100,12 @@ href="Object.html">Object</a> can be <b>true</b> or <b>false</b>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000455">==</a>&nbsp;&nbsp;
-      <a href="#M000453">false?</a>&nbsp;&nbsp;
-      <a href="#M000450">new</a>&nbsp;&nbsp;
-      <a href="#M000452">real_type</a>&nbsp;&nbsp;
-      <a href="#M000454">true?</a>&nbsp;&nbsp;
-      <a href="#M000451">value</a>&nbsp;&nbsp;
+      <a href="#M000647">==</a>&nbsp;&nbsp;
+      <a href="#M000645">false?</a>&nbsp;&nbsp;
+      <a href="#M000642">new</a>&nbsp;&nbsp;
+      <a href="#M000644">real_type</a>&nbsp;&nbsp;
+      <a href="#M000646">true?</a>&nbsp;&nbsp;
+      <a href="#M000643">value</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -147,30 +147,30 @@ href="Object.html">Object</a> can be <b>true</b> or <b>false</b>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000450" class="method-detail">
-        <a name="M000450"></a>
+      <div id="method-M000642" class="method-detail">
+        <a name="M000642"></a>
 
         <div class="method-heading">
-          <a href="#M000450" class="method-signature">
+          <a href="#M000642" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(value)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Boolean.html#M000450">new</a> <a
-href="Boolean.html">Boolean</a> <a href="Boolean.html#M000451">value</a>.
+Creates a <a href="Boolean.html#M000642">new</a> <a
+href="Boolean.html">Boolean</a> <a href="Boolean.html#M000643">value</a>.
 </p>
 <table>
-<tr><td valign="top"><em><a href="Boolean.html#M000451">value</a></em>:</td><td><b>true</b> or <b>false</b>.
+<tr><td valign="top"><em><a href="Boolean.html#M000643">value</a></em>:</td><td><b>true</b> or <b>false</b>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000450-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000450-source">
+            onclick="toggleCode('M000642-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000642-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/boolean.rb, line 47</span>
+    <span class="ruby-comment cmt"># File origami/boolean.rb, line 47</span>
 47:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">value</span>)
 48:       
 49:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">TrueClass</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">FalseClass</span>)
@@ -188,21 +188,21 @@ href="Boolean.html">Boolean</a> <a href="Boolean.html#M000451">value</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000455" class="method-detail">
-        <a name="M000455"></a>
+      <div id="method-M000647" class="method-detail">
+        <a name="M000647"></a>
 
         <div class="method-heading">
-          <a href="#M000455" class="method-signature">
+          <a href="#M000647" class="method-signature">
           <span class="method-name">==</span><span class="method-args">(bool)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000455-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000455-source">
+            onclick="toggleCode('M000647-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000647-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/boolean.rb, line 90</span>
+    <span class="ruby-comment cmt"># File origami/boolean.rb, line 90</span>
 90:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">bool</span>)
 91:       <span class="ruby-ivar">@value</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">bool</span>
 92:     <span class="ruby-keyword kw">end</span>
@@ -211,21 +211,21 @@ href="Boolean.html">Boolean</a> <a href="Boolean.html#M000451">value</a>.
         </div>
       </div>
 
-      <div id="method-M000453" class="method-detail">
-        <a name="M000453"></a>
+      <div id="method-M000645" class="method-detail">
+        <a name="M000645"></a>
 
         <div class="method-heading">
-          <a href="#M000453" class="method-signature">
+          <a href="#M000645" class="method-signature">
           <span class="method-name">false?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000453-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000453-source">
+            onclick="toggleCode('M000645-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000645-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/boolean.rb, line 82</span>
+    <span class="ruby-comment cmt"># File origami/boolean.rb, line 82</span>
 82:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">false?</span>
 83:       <span class="ruby-ivar">@value</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span>
 84:     <span class="ruby-keyword kw">end</span>
@@ -234,42 +234,42 @@ href="Boolean.html">Boolean</a> <a href="Boolean.html#M000451">value</a>.
         </div>
       </div>
 
-      <div id="method-M000452" class="method-detail">
-        <a name="M000452"></a>
+      <div id="method-M000644" class="method-detail">
+        <a name="M000644"></a>
 
         <div class="method-heading">
-          <a href="#M000452" class="method-signature">
+          <a href="#M000644" class="method-signature">
           <span class="method-name">real_type</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000452-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000452-source">
+            onclick="toggleCode('M000644-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000644-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/boolean.rb, line 80</span>
+    <span class="ruby-comment cmt"># File origami/boolean.rb, line 80</span>
 80:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Boolean</span> <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000454" class="method-detail">
-        <a name="M000454"></a>
+      <div id="method-M000646" class="method-detail">
+        <a name="M000646"></a>
 
         <div class="method-heading">
-          <a href="#M000454" class="method-signature">
+          <a href="#M000646" class="method-signature">
           <span class="method-name">true?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000454-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000454-source">
+            onclick="toggleCode('M000646-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000646-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/boolean.rb, line 86</span>
+    <span class="ruby-comment cmt"># File origami/boolean.rb, line 86</span>
 86:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">true?</span>
 87:       <span class="ruby-ivar">@value</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span>
 88:     <span class="ruby-keyword kw">end</span>
@@ -278,11 +278,11 @@ href="Boolean.html">Boolean</a> <a href="Boolean.html#M000451">value</a>.
         </div>
       </div>
 
-      <div id="method-M000451" class="method-detail">
-        <a name="M000451"></a>
+      <div id="method-M000643" class="method-detail">
+        <a name="M000643"></a>
 
         <div class="method-heading">
-          <a href="#M000451" class="method-signature">
+          <a href="#M000643" class="method-signature">
           <span class="method-name">value</span><span class="method-args">()</span>
           </a>
         </div>
@@ -293,10 +293,10 @@ Converts self into a Ruby boolean, that is TrueClass or FalseClass
 instance.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000451-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000451-source">
+            onclick="toggleCode('M000643-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000643-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/boolean.rb, line 76</span>
+    <span class="ruby-comment cmt"># File origami/boolean.rb, line 76</span>
 76:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
 77:       <span class="ruby-ivar">@value</span>
 78:     <span class="ruby-keyword kw">end</span>

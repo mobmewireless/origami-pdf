@@ -20,7 +20,6 @@ require 'test/unit'
       assert_nothing_raised do
         @target.append_page(page = Page.new)
         page.add_annot(sigannot)
-        @target.add_field(sigannot)
 
         @target.sign(@cert, @key, [], sigannot, "France", "fred@security-labs.org", "Proof of Concept (owned)")
       end

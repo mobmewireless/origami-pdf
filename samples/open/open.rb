@@ -1,6 +1,4 @@
 #!/usr/bin/ruby 
-# -*- coding: iso-8859-1 -*-
-
 #
 # - /OpenAction
 #     - execute directly the expected command
@@ -15,16 +13,16 @@
 # objet visible sur la 1ère page
 #
 
-$: << "../../../sources/parser"
-
-require 'parser.rb'
-
+begin
+  require 'origami'
+rescue LoadError
+  ORIGAMIDIR = "#{File.dirname(__FILE__)}/../.."
+  $: << ORIGAMIDIR
+  require 'origami'
+end
 include Origami
 
 OUTPUTFILE = "#{File.basename(__FILE__, ".rb")}"
-
-
-puts "Now generating a new PDF file from scratch!"
 
 ######
 # Injected functions to trigger our javascript when the document is
@@ -77,6 +75,7 @@ end
 ######
 def populate(method, desc)
 
+  puts "Now generating a new PDF file from scratch!"
   pdf = PDF.new
 
   contents = ContentStream.new

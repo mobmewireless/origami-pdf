@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../files/sources/parser/annotations_rb.html">
-                sources/parser/annotations.rb
+                <a href="../../../files/origami/annotations_rb.html">
+                origami/annotations.rb
                 </a>
         <br />
             </td>
@@ -65,9 +65,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="Annotation.html">
                 Annotation
-               </a>
             </td>
         </tr>
         </table>
@@ -94,7 +92,7 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000243">pre_build</a>&nbsp;&nbsp;
+      <a href="#M000483">pre_build</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -129,35 +127,35 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000243" class="method-detail">
-        <a name="M000243"></a>
+      <div id="method-M000483" class="method-detail">
+        <a name="M000483"></a>
 
         <div class="method-heading">
-          <a href="#M000243" class="method-signature">
+          <a href="#M000483" class="method-signature">
           <span class="method-name">pre_build</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000243-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000243-source">
+            onclick="toggleCode('M000483-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000483-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 324</span>
-324:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
-325:          
-326:         <span class="ruby-identifier">model</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">StateModel</span>
-327:         <span class="ruby-identifier">state</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">State</span>
-328:         
-329:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">model</span>
-330:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Marked&quot;</span>
-331:           <span class="ruby-identifier">state</span> = <span class="ruby-value str">&quot;Unmarked&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span>.<span class="ruby-identifier">nil?</span>
-332:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Review&quot;</span>
-333:           <span class="ruby-identifier">state</span> = <span class="ruby-value str">&quot;None&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span>.<span class="ruby-identifier">nil?</span>
-334:         <span class="ruby-keyword kw">end</span>
-335: 
-336:         <span class="ruby-keyword kw">super</span>
-337:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 320</span>
+320:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
+321:          
+322:         <span class="ruby-identifier">model</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">StateModel</span>
+323:         <span class="ruby-identifier">state</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">State</span>
+324:         
+325:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">model</span>
+326:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Marked&quot;</span>
+327:           <span class="ruby-identifier">state</span> = <span class="ruby-value str">&quot;Unmarked&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span>.<span class="ruby-identifier">nil?</span>
+328:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Review&quot;</span>
+329:           <span class="ruby-identifier">state</span> = <span class="ruby-value str">&quot;None&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span>.<span class="ruby-identifier">nil?</span>
+330:         <span class="ruby-keyword kw">end</span>
+331: 
+332:         <span class="ruby-keyword kw">super</span>
+333:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

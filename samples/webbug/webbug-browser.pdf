@@ -1,90 +1,108 @@
 %PDF-1.1
 1 0 obj
 <<
-	/Type /Catalog
 	/OpenAction <<
+		/URI (http://localhost/webbug-browser.html)
 		/S /URI
 		/IsMap false
-		/URI (http://localhost/webbug-browser.html)
 	>>
 	/Pages 2 0 R
+	/Type /Catalog
 >>
 endobj
 2 0 obj
 <<
+	/Count 1
 	/Kids [ 3 0 R ]
 	/Type /Pages
-	/Count 1
 >>
 endobj
 3 0 obj
 <<
-	/Type /Page
-	/Parent 2 0 R
 	/MediaBox [ 0 0 795 842 ]
+	/Parent 2 0 R
+	/Contents 4 0 R
 	/Resources <<
 		/Font <<
-			/F1 5 0 R
+			/F1 <<
+				/Name /F1
+				/BaseFont /Helvetica
+				/Subtype /Type1
+				/Type /Font
+			>>
 		>>
 	>>
-	/Contents 4 0 R
+	/Type /Page
 >>
 endobj
 4 0 obj
 <<
-	/Length 923
+	/Length 861
 >>stream
 BT
-/F1 30 Tf 270 750 Td 20 TL
-1 Tr (webbug-browser.pdf) Tj 
+/F1 30 Tf
+270 750 Td
+20 TL
+1 Tr
+(webbug-browser.pdf) Tj
 ET
 BT
-/F1 15 Tf 156 690 Td 20 TL
-0 Tr (When opened, this PDF connects to "home") Tj 
+/F1 15 Tf
+156 690 Td
+0 Tr
+(When opened, this PDF connects to "home") Tj
 ET
 BT
-/F1 12 Tf 156 670 Td 20 TL
-(Click "Allow":) Tj 
+/F1 12 Tf
+156 670 Td
+(Click "Allow":) Tj
 ET
 BT
-/F1 12 Tf 156 650 Td 20 TL
-(  1. Starts your default browser) Tj 
+156 650 Td
+(  1. Starts your default browser) Tj
 ET
 BT
-/F1 12 Tf 156 630 Td 20 TL
-(  1. Connects to http://localhost/webbug-browser.html) Tj 
+156 630 Td
+(  1. Connects to http://localhost/webbug-browser.html) Tj
 ET
 BT
-/F1 14 Tf 75 580 Td 20 TL
-2 Tr (Comments:) Tj 
+/F1 14 Tf
+75 580 Td
+2 Tr
+(Comments:) Tj
 ET
 BT
-/F1 12 Tf 75 560 Td 20 TL
-0 Tr (Windows:) Tj (  - Foxit : opens the default browser without any user confirmation \(!\)) ' (  - Acrobat Reader 8: a pop-up spreads asking if it can connect, then Internet Explorer is connected.) ' () ' () ' (Mac:) ' (  - Preview: nothing happens) ' (  - Acrobat Reader 8: a pop-up spreads asking if it can connect, then Safari is connected) ' () ' (Linux:) ' (  - poppler: nothing happens) ' (  - Acrobat Reader [7, 8]: a pop-up spreads asking if it can connect) ' 
+/F1 12 Tf
+75 560 Td
+0 Tr
+(Windows:) Tj
+(  - Foxit : opens the default browser without any user confirmation \(!\)) '
+(  - Acrobat Reader 8: a pop-up spreads asking if it can connect, then Internet Explorer is connected.) '
+() '
+() '
+(Mac:) '
+(  - Preview: nothing happens) '
+(  - Acrobat Reader 8: a pop-up spreads asking if it can connect, then Safari is connected) '
+() '
+(Linux:) '
+(  - poppler: nothing happens) '
+(  - Acrobat Reader [7, 8]: a pop-up spreads asking if it can connect) '
 ET
+
 endstream
 endobj
-5 0 obj
-<<
-	/Name /F1
-	/Subtype /Type1
-	/Type /Font
-	/BaseFont /Helvetica
->>
-endobj
 xref
-0 6
+0 5
 0000000000 65535 f
 0000000010 00000 n
 0000000163 00000 n
 0000000232 00000 n
-0000000386 00000 n
-0000001367 00000 n
+0000000469 00000 n
 trailer
 <<
 	/Root 1 0 R
-	/Size 6
+	/Size 5
 >>
 startxref
-1459
+1388
 %%EOF

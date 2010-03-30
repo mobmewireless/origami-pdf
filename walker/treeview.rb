@@ -5,20 +5,20 @@
 
 = Info
 	This file is part of Origami, PDF manipulation framework for Ruby
-	Copyright (C) 2009	Guillaume Delugré <guillaume@security-labs.org>
+	Copyright (C) 2010	Guillaume Delugré <guillaume@security-labs.org>
 	All right reserved.
 	
   Origami is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
+  it under the terms of the GNU Lesser General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
 
   Origami is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+  GNU Lesser General Public License for more details.
 
-  You should have received a copy of the GNU General Public License
+  You should have received a copy of the GNU Lesser General Public License
   along with Origami.  If not, see <http://www.gnu.org/licenses/>.
 
 =end
@@ -33,11 +33,14 @@ module PDFWalker
       
       @treeview = PDFTree.new(self).set_headers_visible(false)
                                        
-      colcontent = Gtk::TreeViewColumn.new("Names", Gtk::CellRendererText.new.set_foreground_set(true), 
+      colcontent = Gtk::TreeViewColumn.new("Names", 
+        Gtk::CellRendererText.new.set_foreground_set(true).set_background_set(true), 
                                        :text => PDFTree::TEXTCOL,
                                        :weight => PDFTree::WEIGHTCOL,
                                        :style => PDFTree::STYLECOL,
-                                       :foreground => PDFTree::FGCOL)
+                                       :foreground => PDFTree::FGCOL,
+                                       :background => PDFTree::BGCOL
+      )
       
       @treeview.append_column(colcontent)
       
@@ -54,6 +57,7 @@ module PDFWalker
     WEIGHTCOL = 2
     STYLECOL = 3
     FGCOL = 4
+    BGCOL = 5
     
     @@appearance = Hash.new({ :Color => "black", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_NORMAL })
     
@@ -65,7 +69,7 @@ module PDFWalker
       
       reset_appearance
       
-      @treestore = TreeStore.new(Object::Object, String, Pango::FontDescription::Weight, Pango::FontDescription::Style, String)
+      @treestore = TreeStore.new(Object::Object, String, Pango::FontDescription::Weight, Pango::FontDescription::Style, String, String)
       super(@treestore)
       
       signal_connect('cursor-changed') {
@@ -126,12 +130,16 @@ module PDFWalker
       if obj.is_a?(TreePath)
         set_cursor(obj, nil, false)
       else
+        if obj.is_a?(Name) and obj.parent.is_a?(Dictionary) and obj.parent.has_key?(obj)
+          obj = obj.parent[obj]
+        end
+
         @treestore.each { |model, path, iter|
           
           current_obj = @treestore.get_value(iter, OBJCOL)
           
           if obj.equal?(current_obj)
-            if not row_expanded?(path) then expand_to_path(path) end
+            expand_to_path(path) unless row_expanded?(path) 
             
             if cursor.first then @parent.explorer_history << cursor.first end
             set_cursor(path, nil, false)
@@ -140,9 +148,27 @@ module PDFWalker
           end
         }
         
-        @parent.error("Object not found : #{ref.class.to_s}")
+        @parent.error("Object not found : #{obj}")
       end
       
+    end
+
+    def highlight(obj, color)
+      if obj.is_a?(Name) and obj.parent.is_a?(Dictionary) and obj.parent.has_key?(obj)
+        obj = obj.parent[obj]
+      end
+
+      @treestore.each { |model, path, iter|
+        current_obj = @treestore.get_value(iter, OBJCOL)
+        
+        if obj.equal?(current_obj)
+          @treestore.set_value(iter, BGCOL, color)
+          expand_to_path(path) unless row_expanded?(path)
+          return
+        end
+      }
+      
+      @parent.error("Object not found : #{obj}")
     end
     
     def load(pdf)

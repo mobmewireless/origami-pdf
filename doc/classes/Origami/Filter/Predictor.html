@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../files/sources/parser/filters_rb.html">
-                sources/parser/filters.rb
+                <a href="../../../files/origami/filters_rb.html">
+                origami/filters.rb
                 </a>
         <br />
             </td>
@@ -80,10 +80,10 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000147">do_png_post_prediction</a>&nbsp;&nbsp;
-      <a href="#M000148">do_png_pre_prediction</a>&nbsp;&nbsp;
-      <a href="#M000146">do_post_prediction</a>&nbsp;&nbsp;
-      <a href="#M000145">do_pre_prediction</a>&nbsp;&nbsp;
+      <a href="#M000387">do_png_post_prediction</a>&nbsp;&nbsp;
+      <a href="#M000388">do_png_pre_prediction</a>&nbsp;&nbsp;
+      <a href="#M000386">do_post_prediction</a>&nbsp;&nbsp;
+      <a href="#M000385">do_pre_prediction</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -153,21 +153,21 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000147" class="method-detail">
-        <a name="M000147"></a>
+      <div id="method-M000387" class="method-detail">
+        <a name="M000387"></a>
 
         <div class="method-heading">
-          <a href="#M000147" class="method-signature">
+          <a href="#M000387" class="method-signature">
           <span class="method-name">do_png_post_prediction</span><span class="method-args">(data, bpp, bpr)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000147-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000147-source">
+            onclick="toggleCode('M000387-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000387-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/filters.rb, line 117</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 117</span>
 117:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">do_png_post_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">bpp</span>, <span class="ruby-identifier">bpr</span>)
 118: 
 119:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
@@ -223,21 +223,21 @@
         </div>
       </div>
 
-      <div id="method-M000148" class="method-detail">
-        <a name="M000148"></a>
+      <div id="method-M000388" class="method-detail">
+        <a name="M000388"></a>
 
         <div class="method-heading">
-          <a href="#M000148" class="method-signature">
+          <a href="#M000388" class="method-signature">
           <span class="method-name">do_png_pre_prediction</span><span class="method-args">(data, predictor, bpp, bpr)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000148-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000148-source">
+            onclick="toggleCode('M000388-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000388-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/filters.rb, line 168</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 168</span>
 168:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">do_png_pre_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">predictor</span>, <span class="ruby-identifier">bpp</span>, <span class="ruby-identifier">bpr</span>)
 169:         
 170:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
@@ -274,7 +274,7 @@
 201:                 ) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
 202:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_NONE</span>
 203:             <span class="ruby-keyword kw">else</span>
-204:               <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Unknown PNG predictor : #{predictor}&quot;</span>
+204:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-node">&quot;Unsupported PNG predictor : #{predictor}&quot;</span>
 205:             <span class="ruby-keyword kw">end</span>
 206:             
 207:           <span class="ruby-keyword kw">end</span>
@@ -292,21 +292,21 @@
         </div>
       </div>
 
-      <div id="method-M000146" class="method-detail">
-        <a name="M000146"></a>
+      <div id="method-M000386" class="method-detail">
+        <a name="M000386"></a>
 
         <div class="method-heading">
-          <a href="#M000146" class="method-signature">
+          <a href="#M000386" class="method-signature">
           <span class="method-name">do_post_prediction</span><span class="method-args">(data, predictor = NONE, colors = 1, bpc = 8, columns = 1)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000146-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000146-source">
+            onclick="toggleCode('M000386-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000386-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/filters.rb, line 83</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 83</span>
  83:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">do_post_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">predictor</span> = <span class="ruby-constant">NONE</span>, <span class="ruby-identifier">colors</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">bpc</span> = <span class="ruby-value">8</span>, <span class="ruby-identifier">columns</span> = <span class="ruby-value">1</span>)
  84: 
  85:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">data</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">predictor</span> <span class="ruby-operator">==</span> <span class="ruby-constant">NONE</span>
@@ -326,10 +326,10 @@
  99:         <span class="ruby-identifier">bpp</span> = (<span class="ruby-identifier">colors</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpc</span> <span class="ruby-operator">+</span> <span class="ruby-value">7</span>) <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-value">3</span>
 100: 
 101:         <span class="ruby-comment cmt"># bytes per row</span>
-102:         <span class="ruby-identifier">bpr</span> = ((<span class="ruby-identifier">nvals</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpc</span> <span class="ruby-operator">+</span> <span class="ruby-value">7</span>) <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-value">3</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">bpp</span>
+102:         <span class="ruby-identifier">bpr</span> = ((<span class="ruby-identifier">nvals</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpc</span> <span class="ruby-operator">+</span> <span class="ruby-value">7</span>) <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-value">3</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
 103: 
 104:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">bpr</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-105:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-value str">&quot;Invalid data size&quot;</span>
+105:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-node">&quot;Invalid data size #{data.size}, should be multiple of bpr=#{bpr}&quot;</span>
 106:         <span class="ruby-keyword kw">end</span>
 107: 
 108:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">predictor</span> <span class="ruby-operator">==</span> <span class="ruby-constant">TIFF</span>
@@ -337,7 +337,7 @@
 110:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">predictor</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">10</span> <span class="ruby-comment cmt"># PNG</span>
 111:           <span class="ruby-identifier">do_png_post_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">bpp</span>, <span class="ruby-identifier">bpr</span>)
 112:         <span class="ruby-keyword kw">else</span>
-113:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-value str">&quot;Unknown predictor&quot;</span>
+113:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-node">&quot;Unknown predictor : #{predictor}&quot;</span>
 114:         <span class="ruby-keyword kw">end</span>
 115:       <span class="ruby-keyword kw">end</span>
 </pre>
@@ -345,21 +345,21 @@
         </div>
       </div>
 
-      <div id="method-M000145" class="method-detail">
-        <a name="M000145"></a>
+      <div id="method-M000385" class="method-detail">
+        <a name="M000385"></a>
 
         <div class="method-heading">
-          <a href="#M000145" class="method-signature">
+          <a href="#M000385" class="method-signature">
           <span class="method-name">do_pre_prediction</span><span class="method-args">(data, predictor = NONE, colors = 1, bpc = 8, columns = 1)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000145-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000145-source">
+            onclick="toggleCode('M000385-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000385-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/filters.rb, line 49</span>
+    <span class="ruby-comment cmt"># File origami/filters.rb, line 49</span>
 49:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">do_pre_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">predictor</span> = <span class="ruby-constant">NONE</span>, <span class="ruby-identifier">colors</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">bpc</span> = <span class="ruby-value">8</span>, <span class="ruby-identifier">columns</span> = <span class="ruby-value">1</span>)
 50:       
 51:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">data</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">predictor</span> <span class="ruby-operator">==</span> <span class="ruby-constant">NONE</span>
@@ -382,7 +382,7 @@
 68:         <span class="ruby-identifier">bpr</span> = (<span class="ruby-identifier">nvals</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpc</span> <span class="ruby-operator">+</span> <span class="ruby-value">7</span>) <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-value">3</span>
 69: 
 70:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">bpr</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-71:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-value str">&quot;Invalid data size&quot;</span>
+71:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-node">&quot;Invalid data size #{data.size}, should be multiple of bpr=#{bpr}&quot;</span>
 72:         <span class="ruby-keyword kw">end</span>
 73: 
 74:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">predictor</span> <span class="ruby-operator">==</span> <span class="ruby-constant">TIFF</span>
@@ -390,7 +390,7 @@
 76:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">predictor</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">10</span> <span class="ruby-comment cmt"># PNG</span>
 77:           <span class="ruby-identifier">do_png_pre_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">predictor</span>, <span class="ruby-identifier">bpp</span>, <span class="ruby-identifier">bpr</span>)
 78:         <span class="ruby-keyword kw">else</span>
-79:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-value str">&quot;Unknown predictor&quot;</span>
+79:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-node">&quot;Unknown predictor : #{predictor}&quot;</span>
 80:         <span class="ruby-keyword kw">end</span>
 81:      <span class="ruby-keyword kw">end</span>
 </pre>

@@ -55,12 +55,12 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/stream_rb.html">
-                sources/parser/stream.rb
+                <a href="../../files/origami/stream_rb.html">
+                origami/stream.rb
                 </a>
         <br />
-                <a href="../../files/sources/parser/obfuscation_rb.html">
-                sources/parser/obfuscation.rb
+                <a href="../../files/origami/obfuscation_rb.html">
+                origami/obfuscation.rb
                 </a>
         <br />
             </td>
@@ -88,8 +88,8 @@
       <p>
 Class representing a <a href="PDF.html">PDF</a> <a
 href="Stream.html">Stream</a> <a href="Object.html">Object</a>. Streams can
-be used to hold any kind of <a href="Stream.html#M000471">data</a>,
-especially binary <a href="Stream.html#M000471">data</a>.
+be used to hold any kind of <a href="Stream.html#M000677">data</a>,
+especially binary <a href="Stream.html#M000677">data</a>.
 </p>
 
     </div>
@@ -101,18 +101,18 @@ especially binary <a href="Stream.html#M000471">data</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000471">data</a>&nbsp;&nbsp;
-      <a href="#M000472">data=</a>&nbsp;&nbsp;
-      <a href="#M000475">decode!</a>&nbsp;&nbsp;
-      <a href="#M000476">encode!</a>&nbsp;&nbsp;
-      <a href="#M000467">new</a>&nbsp;&nbsp;
-      <a href="#M000469">post_build</a>&nbsp;&nbsp;
-      <a href="#M000468">pre_build</a>&nbsp;&nbsp;
-      <a href="#M000473">rawdata</a>&nbsp;&nbsp;
-      <a href="#M000474">rawdata=</a>&nbsp;&nbsp;
-      <a href="#M000477">real_type</a>&nbsp;&nbsp;
-      <a href="#M000470">set_predictor</a>&nbsp;&nbsp;
-      <a href="#M000478">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000677">data</a>&nbsp;&nbsp;
+      <a href="#M000678">data=</a>&nbsp;&nbsp;
+      <a href="#M000681">decode!</a>&nbsp;&nbsp;
+      <a href="#M000682">encode!</a>&nbsp;&nbsp;
+      <a href="#M000673">new</a>&nbsp;&nbsp;
+      <a href="#M000675">post_build</a>&nbsp;&nbsp;
+      <a href="#M000674">pre_build</a>&nbsp;&nbsp;
+      <a href="#M000679">rawdata</a>&nbsp;&nbsp;
+      <a href="#M000680">rawdata=</a>&nbsp;&nbsp;
+      <a href="#M000683">real_type</a>&nbsp;&nbsp;
+      <a href="#M000676">set_predictor</a>&nbsp;&nbsp;
+      <a href="#M000684">to_obfuscated_str</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -173,23 +173,23 @@ especially binary <a href="Stream.html#M000471">data</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000467" class="method-detail">
-        <a name="M000467"></a>
+      <div id="method-M000673" class="method-detail">
+        <a name="M000673"></a>
 
         <div class="method-heading">
-          <a href="#M000467" class="method-signature">
+          <a href="#M000673" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(data = &quot;&quot;, dictionary = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Stream.html#M000467">new</a> <a href="PDF.html">PDF</a>
+Creates a <a href="Stream.html#M000673">new</a> <a href="PDF.html">PDF</a>
 <a href="Stream.html">Stream</a>.
 </p>
 <table>
-<tr><td valign="top"><em><a href="Stream.html#M000471">data</a></em>:</td><td>The <a href="Stream.html">Stream</a> uncompressed <a
-href="Stream.html#M000471">data</a>.
+<tr><td valign="top"><em><a href="Stream.html#M000677">data</a></em>:</td><td>The <a href="Stream.html">Stream</a> uncompressed <a
+href="Stream.html#M000677">data</a>.
 
 </td></tr>
 <tr><td valign="top"><em>dictionary</em>:</td><td>A hash representing the <a href="Stream.html">Stream</a> attributes.
@@ -197,10 +197,10 @@ href="Stream.html#M000471">data</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000467-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000467-source">
+            onclick="toggleCode('M000673-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000673-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 75</span>
+    <span class="ruby-comment cmt"># File origami/stream.rb, line 75</span>
 75:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">data</span> = <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">dictionary</span> = {})
 76:         <span class="ruby-keyword kw">super</span>()
 77:         
@@ -216,11 +216,11 @@ href="Stream.html#M000471">data</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000471" class="method-detail">
-        <a name="M000471"></a>
+      <div id="method-M000677" class="method-detail">
+        <a name="M000677"></a>
 
         <div class="method-heading">
-          <a href="#M000471" class="method-signature">
+          <a href="#M000677" class="method-signature">
           <span class="method-name">data</span><span class="method-args">()</span>
           </a>
         </div>
@@ -230,10 +230,10 @@ href="Stream.html#M000471">data</a>.
 Returns the uncompressed stream content.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000471-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000471-source">
+            onclick="toggleCode('M000677-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000677-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 162</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 162</span>
 162:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">data</span>
 163:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">decode!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">nil?</span>
 164:       
@@ -244,11 +244,11 @@ Returns the uncompressed stream content.
         </div>
       </div>
 
-      <div id="method-M000472" class="method-detail">
-        <a name="M000472"></a>
+      <div id="method-M000678" class="method-detail">
+        <a name="M000678"></a>
 
         <div class="method-heading">
-          <a href="#M000472" class="method-signature">
+          <a href="#M000678" class="method-signature">
           <span class="method-name">data=</span><span class="method-args">(str)</span>
           </a>
         </div>
@@ -258,16 +258,16 @@ Returns the uncompressed stream content.
 Sets the uncompressed stream content.
 </p>
 <table>
-<tr><td valign="top"><em>str</em>:</td><td>The <a href="Stream.html#M000467">new</a> uncompressed <a
-href="Stream.html#M000471">data</a>.
+<tr><td valign="top"><em>str</em>:</td><td>The <a href="Stream.html#M000673">new</a> uncompressed <a
+href="Stream.html#M000677">data</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000472-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000472-source">
+            onclick="toggleCode('M000678-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000678-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 172</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 172</span>
 172:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">data=</span>(<span class="ruby-identifier">str</span>)      
 173:       <span class="ruby-ivar">@rawdata</span> = <span class="ruby-keyword kw">nil</span>
 174:       <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">str</span>
@@ -277,24 +277,24 @@ href="Stream.html#M000471">data</a>.
         </div>
       </div>
 
-      <div id="method-M000475" class="method-detail">
-        <a name="M000475"></a>
+      <div id="method-M000681" class="method-detail">
+        <a name="M000681"></a>
 
         <div class="method-heading">
-          <a href="#M000475" class="method-signature">
+          <a href="#M000681" class="method-signature">
           <span class="method-name">decode!</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Uncompress the stream <a href="Stream.html#M000471">data</a>.
+Uncompress the stream <a href="Stream.html#M000677">data</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000475-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000475-source">
+            onclick="toggleCode('M000681-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000681-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 198</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 198</span>
 198:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode!</span>
 199:       
 200:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@rawdata</span>
@@ -327,24 +327,24 @@ Uncompress the stream <a href="Stream.html#M000471">data</a>.
         </div>
       </div>
 
-      <div id="method-M000476" class="method-detail">
-        <a name="M000476"></a>
+      <div id="method-M000682" class="method-detail">
+        <a name="M000682"></a>
 
         <div class="method-heading">
-          <a href="#M000476" class="method-signature">
+          <a href="#M000682" class="method-signature">
           <span class="method-name">encode!</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Compress the stream <a href="Stream.html#M000471">data</a>.
+Compress the stream <a href="Stream.html#M000677">data</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000476-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000476-source">
+            onclick="toggleCode('M000682-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000682-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 229</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 229</span>
 229:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode!</span>
 230:       
 231:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@data</span>
@@ -380,21 +380,21 @@ Compress the stream <a href="Stream.html#M000471">data</a>.
         </div>
       </div>
 
-      <div id="method-M000469" class="method-detail">
-        <a name="M000469"></a>
+      <div id="method-M000675" class="method-detail">
+        <a name="M000675"></a>
 
         <div class="method-heading">
-          <a href="#M000469" class="method-signature">
+          <a href="#M000675" class="method-signature">
           <span class="method-name">post_build</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000469-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000469-source">
+            onclick="toggleCode('M000675-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000675-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 90</span>
+    <span class="ruby-comment cmt"># File origami/stream.rb, line 90</span>
 90:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post_build</span>
 91:      
 92:       <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Length</span>.<span class="ruby-identifier">nil?</span>
@@ -408,21 +408,21 @@ Compress the stream <a href="Stream.html#M000471">data</a>.
         </div>
       </div>
 
-      <div id="method-M000468" class="method-detail">
-        <a name="M000468"></a>
+      <div id="method-M000674" class="method-detail">
+        <a name="M000674"></a>
 
         <div class="method-heading">
-          <a href="#M000468" class="method-signature">
+          <a href="#M000674" class="method-signature">
           <span class="method-name">pre_build</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000468-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000468-source">
+            onclick="toggleCode('M000674-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000674-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 84</span>
+    <span class="ruby-comment cmt"># File origami/stream.rb, line 84</span>
 84:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
 85:       <span class="ruby-identifier">encode!</span>
 86:      
@@ -433,11 +433,11 @@ Compress the stream <a href="Stream.html#M000471">data</a>.
         </div>
       </div>
 
-      <div id="method-M000473" class="method-detail">
-        <a name="M000473"></a>
+      <div id="method-M000679" class="method-detail">
+        <a name="M000679"></a>
 
         <div class="method-heading">
-          <a href="#M000473" class="method-signature">
+          <a href="#M000679" class="method-signature">
           <span class="method-name">rawdata</span><span class="method-args">()</span>
           </a>
         </div>
@@ -447,10 +447,10 @@ Compress the stream <a href="Stream.html#M000471">data</a>.
 Returns the raw compressed stream content.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000473-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000473-source">
+            onclick="toggleCode('M000679-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000679-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 180</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 180</span>
 180:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rawdata</span>
 181:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">encode!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@rawdata</span>.<span class="ruby-identifier">nil?</span> 
 182:        
@@ -461,11 +461,11 @@ Returns the raw compressed stream content.
         </div>
       </div>
 
-      <div id="method-M000474" class="method-detail">
-        <a name="M000474"></a>
+      <div id="method-M000680" class="method-detail">
+        <a name="M000680"></a>
 
         <div class="method-heading">
-          <a href="#M000474" class="method-signature">
+          <a href="#M000680" class="method-signature">
           <span class="method-name">rawdata=</span><span class="method-args">(str)</span>
           </a>
         </div>
@@ -475,16 +475,16 @@ Returns the raw compressed stream content.
 Sets the raw compressed stream content.
 </p>
 <table>
-<tr><td valign="top"><em>str</em>:</td><td>the <a href="Stream.html#M000467">new</a> raw <a
-href="Stream.html#M000471">data</a>.
+<tr><td valign="top"><em>str</em>:</td><td>the <a href="Stream.html#M000673">new</a> raw <a
+href="Stream.html#M000677">data</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000474-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000474-source">
+            onclick="toggleCode('M000680-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000680-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 190</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 190</span>
 190:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rawdata=</span>(<span class="ruby-identifier">str</span>)
 191:       <span class="ruby-ivar">@rawdata</span> = <span class="ruby-identifier">str</span>
 192:       <span class="ruby-ivar">@data</span> = <span class="ruby-keyword kw">nil</span>
@@ -494,42 +494,42 @@ href="Stream.html#M000471">data</a>.
         </div>
       </div>
 
-      <div id="method-M000477" class="method-detail">
-        <a name="M000477"></a>
+      <div id="method-M000683" class="method-detail">
+        <a name="M000683"></a>
 
         <div class="method-heading">
-          <a href="#M000477" class="method-signature">
+          <a href="#M000683" class="method-signature">
           <span class="method-name">real_type</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000477-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000477-source">
+            onclick="toggleCode('M000683-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000683-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 284</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 284</span>
 284:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Stream</span> <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000470" class="method-detail">
-        <a name="M000470"></a>
+      <div id="method-M000676" class="method-detail">
+        <a name="M000676"></a>
 
         <div class="method-heading">
-          <a href="#M000470" class="method-signature">
+          <a href="#M000676" class="method-signature">
           <span class="method-name">set_predictor</span><span class="method-args">(predictor, colors = 1, bitspercomponent = 8, columns = 1)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000470-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000470-source">
+            onclick="toggleCode('M000676-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000676-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/stream.rb, line 138</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 138</span>
 138:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_predictor</span>(<span class="ruby-identifier">predictor</span>, <span class="ruby-identifier">colors</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">bitspercomponent</span> = <span class="ruby-value">8</span>, <span class="ruby-identifier">columns</span> = <span class="ruby-value">1</span>)
 139:       
 140:       <span class="ruby-identifier">filters</span> = <span class="ruby-ivar">@dictionary</span>[<span class="ruby-identifier">:Filter</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">filters</span> <span class="ruby-operator">:</span> [ <span class="ruby-ivar">@dictionary</span>[<span class="ruby-identifier">:Filter</span>] ]
@@ -551,31 +551,31 @@ href="Stream.html#M000471">data</a>.
         </div>
       </div>
 
-      <div id="method-M000478" class="method-detail">
-        <a name="M000478"></a>
+      <div id="method-M000684" class="method-detail">
+        <a name="M000684"></a>
 
         <div class="method-heading">
-          <a href="#M000478" class="method-signature">
+          <a href="#M000684" class="method-signature">
           <span class="method-name">to_obfuscated_str</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000478-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000478-source">
+            onclick="toggleCode('M000684-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000684-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/obfuscation.rb, line 202</span>
-202:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>
-203:       <span class="ruby-identifier">content</span> = <span class="ruby-value str">&quot;&quot;</span>
-204:       
-205:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@dictionary</span>.<span class="ruby-identifier">to_obfuscated_str</span>
-206:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;stream&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">EOL</span>
-207:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">rawdata</span>
-208:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">last</span>
-209:       
-210:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">content</span>)
-211:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/obfuscation.rb, line 206</span>
+206:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>
+207:       <span class="ruby-identifier">content</span> = <span class="ruby-value str">&quot;&quot;</span>
+208:       
+209:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@dictionary</span>.<span class="ruby-identifier">to_obfuscated_str</span>
+210:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;stream&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">EOL</span>
+211:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">rawdata</span>
+212:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">last</span>
+213:       
+214:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">content</span>)
+215:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

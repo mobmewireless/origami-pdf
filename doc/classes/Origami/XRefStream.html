@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/xreftable_rb.html">
-                sources/parser/xreftable.rb
+                <a href="../../files/origami/xreftable_rb.html">
+                origami/xreftable.rb
                 </a>
         <br />
             </td>
@@ -95,10 +95,11 @@ href="Stream.html">Stream</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000429">&lt;&lt;</a>&nbsp;&nbsp;
-      <a href="#M000430">each</a>&nbsp;&nbsp;
-      <a href="#M000431">find</a>&nbsp;&nbsp;
-      <a href="#M000428">new</a>&nbsp;&nbsp;
+      <a href="#M000635">&lt;&lt;</a>&nbsp;&nbsp;
+      <a href="#M000638">clear</a>&nbsp;&nbsp;
+      <a href="#M000636">each</a>&nbsp;&nbsp;
+      <a href="#M000637">find</a>&nbsp;&nbsp;
+      <a href="#M000634">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -174,21 +175,21 @@ href="Stream.html">Stream</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000428" class="method-detail">
-        <a name="M000428"></a>
+      <div id="method-M000634" class="method-detail">
+        <a name="M000634"></a>
 
         <div class="method-heading">
-          <a href="#M000428" class="method-signature">
+          <a href="#M000634" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(data = &quot;&quot;, dictionary = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000428-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000428-source">
+            onclick="toggleCode('M000634-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000634-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xreftable.rb, line 337</span>
+     <span class="ruby-comment cmt"># File origami/xreftable.rb, line 337</span>
 337:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">data</span> = <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">dictionary</span> = {})
 338:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">dictionary</span>)
 339: 
@@ -201,11 +202,11 @@ href="Stream.html">Stream</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000429" class="method-detail">
-        <a name="M000429"></a>
+      <div id="method-M000635" class="method-detail">
+        <a name="M000635"></a>
 
         <div class="method-heading">
-          <a href="#M000429" class="method-signature">
+          <a href="#M000635" class="method-signature">
           <span class="method-name">&lt;&lt;</span><span class="method-args">(xref)</span>
           </a>
         </div>
@@ -216,10 +217,10 @@ Adds an <a href="XRef.html">XRef</a> to this <a
 href="Stream.html">Stream</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000429-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000429-source">
+            onclick="toggleCode('M000635-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000635-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xreftable.rb, line 357</span>
+     <span class="ruby-comment cmt"># File origami/xreftable.rb, line 357</span>
 357:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">xref</span>)
 358:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@xrefs</span>.<span class="ruby-identifier">nil?</span>
 359: 
@@ -230,25 +231,49 @@ href="Stream.html">Stream</a>.
         </div>
       </div>
 
-      <div id="method-M000430" class="method-detail">
-        <a name="M000430"></a>
+      <div id="method-M000638" class="method-detail">
+        <a name="M000638"></a>
 
         <div class="method-heading">
-          <a href="#M000430" class="method-signature">
+          <a href="#M000638" class="method-signature">
+          <span class="method-name">clear</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000638-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000638-source">
+<pre>
+     <span class="ruby-comment cmt"># File origami/xreftable.rb, line 392</span>
+392:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clear</span>
+393:       <span class="ruby-ivar">@rawdata</span> = <span class="ruby-value str">&quot;&quot;</span>
+394:       <span class="ruby-ivar">@xrefs</span> = []
+395:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000636" class="method-detail">
+        <a name="M000636"></a>
+
+        <div class="method-heading">
+          <a href="#M000636" class="method-signature">
           <span class="method-name">each</span><span class="method-args">(&amp;b)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Iterates over <a href="XRefStream.html#M000430">each</a> <a
+Iterates over <a href="XRefStream.html#M000636">each</a> <a
 href="XRef.html">XRef</a> present in the stream.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000430-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000430-source">
+            onclick="toggleCode('M000636-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000636-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xreftable.rb, line 366</span>
+     <span class="ruby-comment cmt"># File origami/xreftable.rb, line 366</span>
 366:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
 367:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@xrefs</span>.<span class="ruby-identifier">nil?</span>
 368: 
@@ -259,11 +284,11 @@ href="XRef.html">XRef</a> present in the stream.
         </div>
       </div>
 
-      <div id="method-M000431" class="method-detail">
-        <a name="M000431"></a>
+      <div id="method-M000637" class="method-detail">
+        <a name="M000637"></a>
 
         <div class="method-heading">
-          <a href="#M000431" class="method-signature">
+          <a href="#M000637" class="method-signature">
           <span class="method-name">find</span><span class="method-args">(no)</span>
           </a>
         </div>
@@ -273,10 +298,10 @@ href="XRef.html">XRef</a> present in the stream.
 Returns an <a href="XRef.html">XRef</a> matching this object number.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000431-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000431-source">
+            onclick="toggleCode('M000637-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000637-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xreftable.rb, line 375</span>
+     <span class="ruby-comment cmt"># File origami/xreftable.rb, line 375</span>
 375:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span>(<span class="ruby-identifier">no</span>)
 376:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@xrefs</span>.<span class="ruby-identifier">nil?</span>
 377: 

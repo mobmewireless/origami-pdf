@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/page_rb.html">
-                sources/parser/page.rb
+                <a href="../../files/origami/page_rb.html">
+                origami/page.rb
                 </a>
         <br />
             </td>
@@ -95,11 +95,12 @@ href="PDF.html">PDF</a> document.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000460">add_annot</a>&nbsp;&nbsp;
-      <a href="#M000458">new</a>&nbsp;&nbsp;
-      <a href="#M000462">onClose</a>&nbsp;&nbsp;
-      <a href="#M000461">onOpen</a>&nbsp;&nbsp;
-      <a href="#M000459">pre_build</a>&nbsp;&nbsp;
+      <a href="#M000663">add_annot</a>&nbsp;&nbsp;
+      <a href="#M000664">add_flash_application</a>&nbsp;&nbsp;
+      <a href="#M000661">new</a>&nbsp;&nbsp;
+      <a href="#M000666">onClose</a>&nbsp;&nbsp;
+      <a href="#M000665">onOpen</a>&nbsp;&nbsp;
+      <a href="#M000662">pre_build</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -112,6 +113,7 @@ href="PDF.html">PDF</a> document.
 
       <div id="includes-list">
         <span class="include-name"><a href="Configurable.html">Configurable</a></span>
+        <span class="include-name"><a href="ResourcesHolder.html">ResourcesHolder</a></span>
       </div>
     </div>
 
@@ -143,6 +145,121 @@ href="PDF.html">PDF</a> document.
           <td>=</td>
           <td class="context-item-value">action</td>
         </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Params</td>
+          <td>=</td>
+          <td class="context-item-value">Annotation::RichMedia::Parameters.new</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Binding</td>
+          <td>=</td>
+          <td class="context-item-value">Annotation::RichMedia::Parameters::Binding::BACKGROUND</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">FlashVars</td>
+          <td>=</td>
+          <td class="context-item-value">params[:flash_vars]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Asset</td>
+          <td>=</td>
+          <td class="context-item-value">content</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Instances</td>
+          <td>=</td>
+          <td class="context-item-value">[ rminstance ]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Subtype</td>
+          <td>=</td>
+          <td class="context-item-value">type</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">RichMediaContent</td>
+          <td>=</td>
+          <td class="context-item-value">Annotation::RichMedia::Content.new.set_indirect(true)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Assets</td>
+          <td>=</td>
+          <td class="context-item-value">NameTreeNode.new</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Names</td>
+          <td>=</td>
+          <td class="context-item-value">NameLeaf.new(content.F.value =&gt; content)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Configurations</td>
+          <td>=</td>
+          <td class="context-item-value">[ rmconfig ]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">RichMediaSettings</td>
+          <td>=</td>
+          <td class="context-item-value">Annotation::RichMedia::Settings.new</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Activation</td>
+          <td>=</td>
+          <td class="context-item-value">Annotation::RichMedia::Activation.new</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Condition</td>
+          <td>=</td>
+          <td class="context-item-value">params[:activation]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Configuration</td>
+          <td>=</td>
+          <td class="context-item-value">rmconfig</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Animation</td>
+          <td>=</td>
+          <td class="context-item-value">Annotation::RichMedia::Animation.new(:PlayCount =&gt; -1, :Subtype =&gt; :Linear, :Speed =&gt; 1.0)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Presentation</td>
+          <td>=</td>
+          <td class="context-item-value">Annotation::RichMedia::Presentation.new</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Style</td>
+          <td>=</td>
+          <td class="context-item-value">Annotation::RichMedia::Presentation::WINDOWED if params[:windowed]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Transparent</td>
+          <td>=</td>
+          <td class="context-item-value">params[:transparent]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">NavigationPane</td>
+          <td>=</td>
+          <td class="context-item-value">params[:navigation_pane]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Toolbar</td>
+          <td>=</td>
+          <td class="context-item-value">params[:toolbar]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">PassContextClick</td>
+          <td>=</td>
+          <td class="context-item-value">params[:pass_context_click]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Deactivation</td>
+          <td>=</td>
+          <td class="context-item-value">Annotation::RichMedia::Deactivation.new</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Condition</td>
+          <td>=</td>
+          <td class="context-item-value">params[:deactivation]</td>
+        </tr>
         </table>
       </div>
     </div>
@@ -156,26 +273,26 @@ href="PDF.html">PDF</a> document.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000458" class="method-detail">
-        <a name="M000458"></a>
+      <div id="method-M000661" class="method-detail">
+        <a name="M000661"></a>
 
         <div class="method-heading">
-          <a href="#M000458" class="method-signature">
+          <a href="#M000661" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(hash = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000458-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000458-source">
+            onclick="toggleCode('M000661-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000661-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 283</span>
-283:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {})
-284:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">hash</span>)
-285:       
-286:       <span class="ruby-identifier">set_indirect</span>(<span class="ruby-keyword kw">true</span>)
-287:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 317</span>
+317:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {})
+318:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">hash</span>)
+319:       
+320:       <span class="ruby-identifier">set_indirect</span>(<span class="ruby-keyword kw">true</span>)
+321:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -183,11 +300,11 @@ href="PDF.html">PDF</a> document.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000460" class="method-detail">
-        <a name="M000460"></a>
+      <div id="method-M000663" class="method-detail">
+        <a name="M000663"></a>
 
         <div class="method-heading">
-          <a href="#M000460" class="method-signature">
+          <a href="#M000663" class="method-signature">
           <span class="method-name">add_annot</span><span class="method-args">(*annotations)</span>
           </a>
         </div>
@@ -198,108 +315,149 @@ Add an <a href="Annotation.html">Annotation</a> to the <a
 href="Page.html">Page</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000460-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000460-source">
+            onclick="toggleCode('M000663-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000663-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 298</span>
-298:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_annot</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">annotations</span>)
-299:       
-300:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">annotations</span>.<span class="ruby-identifier">all?</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">annot</span><span class="ruby-operator">|</span> <span class="ruby-identifier">annot</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Annotation</span><span class="ruby-operator">::</span><span class="ruby-constant">Annotation</span>)}
-301:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Annotation object must be passed.&quot;</span>
-302:       <span class="ruby-keyword kw">end</span>
-303:       
-304:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Annots</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
-305:       <span class="ruby-identifier">annotations</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">annot</span><span class="ruby-operator">|</span> 
-306:         <span class="ruby-identifier">annot</span>.<span class="ruby-constant">P</span> = <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_indirect?</span>
-307:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Annots</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">annot</span> 
-308:       <span class="ruby-keyword kw">end</span>
-309:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 332</span>
+332:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_annot</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">annotations</span>)
+333:       
+334:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">annotations</span>.<span class="ruby-identifier">all?</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">annot</span><span class="ruby-operator">|</span> <span class="ruby-identifier">annot</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Annotation</span>)}
+335:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;Only Annotation objects must be passed.&quot;</span>
+336:       <span class="ruby-keyword kw">end</span>
+337:       
+338:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Annots</span> <span class="ruby-operator">||=</span> []
+339: 
+340:       <span class="ruby-identifier">annotations</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">annot</span><span class="ruby-operator">|</span> 
+341:         <span class="ruby-identifier">annot</span>.<span class="ruby-constant">P</span> = <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_indirect?</span>
+342:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Annots</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">annot</span> 
+343:       <span class="ruby-keyword kw">end</span>
+344:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000462" class="method-detail">
-        <a name="M000462"></a>
+      <div id="method-M000664" class="method-detail">
+        <a name="M000664"></a>
 
         <div class="method-heading">
-          <a href="#M000462" class="method-signature">
+          <a href="#M000664" class="method-signature">
+          <span class="method-name">add_flash_application</span><span class="method-args">(swfspec, params = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000664-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000664-source">
+<pre>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 346</span>
+346:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_flash_application</span>(<span class="ruby-identifier">swfspec</span>, <span class="ruby-identifier">params</span> = {})
+347:       
+348:       <span class="ruby-identifier">options</span> =
+349:       {
+350:         <span class="ruby-identifier">:windowed</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>,
+351:         <span class="ruby-identifier">:transparent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>,
+352:         <span class="ruby-identifier">:navigation_pane</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>,
+353:         <span class="ruby-identifier">:toolbar</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>,
+354:         <span class="ruby-identifier">:pass_context_click</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>,
+355:         <span class="ruby-identifier">:activation</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Annotation</span><span class="ruby-operator">::</span><span class="ruby-constant">RichMedia</span><span class="ruby-operator">::</span><span class="ruby-constant">Activation</span><span class="ruby-operator">::</span><span class="ruby-constant">PAGE_OPEN</span>,
+356:         <span class="ruby-identifier">:deactivation</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Annotation</span><span class="ruby-operator">::</span><span class="ruby-constant">RichMedia</span><span class="ruby-operator">::</span><span class="ruby-constant">Deactivation</span><span class="ruby-operator">::</span><span class="ruby-constant">PAGE_CLOSE</span>,
+357:         <span class="ruby-identifier">:flash_vars</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>
+358:       }
+359:       <span class="ruby-identifier">options</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">params</span>)
+360:     
+361:       <span class="ruby-identifier">annot</span> = <span class="ruby-identifier">create_richmedia</span>(<span class="ruby-identifier">:Flash</span>, <span class="ruby-identifier">swfspec</span>, <span class="ruby-identifier">options</span>)
+362:       <span class="ruby-identifier">add_annot</span>(<span class="ruby-identifier">annot</span>)
+363: 
+364:       <span class="ruby-identifier">annot</span>
+365:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000666" class="method-detail">
+        <a name="M000666"></a>
+
+        <div class="method-heading">
+          <a href="#M000666" class="method-signature">
           <span class="method-name">onClose</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000462-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000462-source">
+            onclick="toggleCode('M000666-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000666-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 323</span>
-323:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onClose</span>(<span class="ruby-identifier">action</span>)
-324:       
-325:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-326:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-327:       <span class="ruby-keyword kw">end</span>
-328:       
-329:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">PageAdditionalActions</span>.<span class="ruby-identifier">new</span>
-330:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">C</span> = <span class="ruby-identifier">action</span>
-331:       
-332:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 379</span>
+379:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onClose</span>(<span class="ruby-identifier">action</span>)
+380:       
+381:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+382:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+383:       <span class="ruby-keyword kw">end</span>
+384:       
+385:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">PageAdditionalActions</span>.<span class="ruby-identifier">new</span>
+386:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">C</span> = <span class="ruby-identifier">action</span>
+387:       
+388:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000461" class="method-detail">
-        <a name="M000461"></a>
+      <div id="method-M000665" class="method-detail">
+        <a name="M000665"></a>
 
         <div class="method-heading">
-          <a href="#M000461" class="method-signature">
+          <a href="#M000665" class="method-signature">
           <span class="method-name">onOpen</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000461-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000461-source">
+            onclick="toggleCode('M000665-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000665-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 311</span>
-311:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onOpen</span>(<span class="ruby-identifier">action</span>)
-312:       
-313:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-314:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-315:       <span class="ruby-keyword kw">end</span>
-316:       
-317:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">PageAdditionalActions</span>.<span class="ruby-identifier">new</span>
-318:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">O</span> = <span class="ruby-identifier">action</span>
-319:       
-320:       <span class="ruby-keyword kw">self</span>
-321:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 367</span>
+367:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onOpen</span>(<span class="ruby-identifier">action</span>)
+368:       
+369:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+370:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+371:       <span class="ruby-keyword kw">end</span>
+372:       
+373:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">PageAdditionalActions</span>.<span class="ruby-identifier">new</span>
+374:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">O</span> = <span class="ruby-identifier">action</span>
+375:       
+376:       <span class="ruby-keyword kw">self</span>
+377:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000459" class="method-detail">
-        <a name="M000459"></a>
+      <div id="method-M000662" class="method-detail">
+        <a name="M000662"></a>
 
         <div class="method-heading">
-          <a href="#M000459" class="method-signature">
+          <a href="#M000662" class="method-signature">
           <span class="method-name">pre_build</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000459-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000459-source">
+            onclick="toggleCode('M000662-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000662-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 289</span>
-289:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
-290:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> = <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">pre_build</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">has_field?</span>(<span class="ruby-identifier">:Resources</span>)
-291: 
-292:       <span class="ruby-keyword kw">super</span>
-293:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 323</span>
+323:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
+324:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> = <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">pre_build</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">has_field?</span>(<span class="ruby-identifier">:Resources</span>)
+325: 
+326:       <span class="ruby-keyword kw">super</span>
+327:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

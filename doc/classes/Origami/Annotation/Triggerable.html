@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../files/sources/parser/annotations_rb.html">
-                sources/parser/annotations.rb
+                <a href="../../../files/origami/annotations_rb.html">
+                origami/annotations.rb
                 </a>
         <br />
             </td>
@@ -80,16 +80,16 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000231">onBlur</a>&nbsp;&nbsp;
-      <a href="#M000230">onFocus</a>&nbsp;&nbsp;
-      <a href="#M000228">onMouseDown</a>&nbsp;&nbsp;
-      <a href="#M000227">onMouseOut</a>&nbsp;&nbsp;
-      <a href="#M000226">onMouseOver</a>&nbsp;&nbsp;
-      <a href="#M000229">onMouseUp</a>&nbsp;&nbsp;
-      <a href="#M000233">onPageClose</a>&nbsp;&nbsp;
-      <a href="#M000235">onPageInvisible</a>&nbsp;&nbsp;
-      <a href="#M000232">onPageOpen</a>&nbsp;&nbsp;
-      <a href="#M000234">onPageVisible</a>&nbsp;&nbsp;
+      <a href="#M000477">onBlur</a>&nbsp;&nbsp;
+      <a href="#M000476">onFocus</a>&nbsp;&nbsp;
+      <a href="#M000474">onMouseDown</a>&nbsp;&nbsp;
+      <a href="#M000473">onMouseOut</a>&nbsp;&nbsp;
+      <a href="#M000472">onMouseOver</a>&nbsp;&nbsp;
+      <a href="#M000475">onMouseUp</a>&nbsp;&nbsp;
+      <a href="#M000479">onPageClose</a>&nbsp;&nbsp;
+      <a href="#M000481">onPageInvisible</a>&nbsp;&nbsp;
+      <a href="#M000478">onPageOpen</a>&nbsp;&nbsp;
+      <a href="#M000480">onPageVisible</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -169,301 +169,301 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000231" class="method-detail">
-        <a name="M000231"></a>
+      <div id="method-M000477" class="method-detail">
+        <a name="M000477"></a>
 
         <div class="method-heading">
-          <a href="#M000231" class="method-signature">
+          <a href="#M000477" class="method-signature">
           <span class="method-name">onBlur</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000231-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000231-source">
+            onclick="toggleCode('M000477-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000477-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 87</span>
-87:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onBlur</span>(<span class="ruby-identifier">action</span>)        
-88:         
-89:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-90:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-91:         <span class="ruby-keyword kw">end</span>
-92:         
-93:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-94:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">Bl</span> = <span class="ruby-identifier">action</span>
-95:         
-96:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 129</span>
+129:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onBlur</span>(<span class="ruby-identifier">action</span>)        
+130:         
+131:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+132:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+133:         <span class="ruby-keyword kw">end</span>
+134:         
+135:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+136:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">Bl</span> = <span class="ruby-identifier">action</span>
+137:         
+138:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000230" class="method-detail">
-        <a name="M000230"></a>
+      <div id="method-M000476" class="method-detail">
+        <a name="M000476"></a>
 
         <div class="method-heading">
-          <a href="#M000230" class="method-signature">
+          <a href="#M000476" class="method-signature">
           <span class="method-name">onFocus</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000230-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000230-source">
+            onclick="toggleCode('M000476-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000476-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 76</span>
-76:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onFocus</span>(<span class="ruby-identifier">action</span>)        
-77:         
-78:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-79:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-80:         <span class="ruby-keyword kw">end</span>
-81:         
-82:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-83:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">Fo</span> = <span class="ruby-identifier">action</span>
-84:         
-85:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 118</span>
+118:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onFocus</span>(<span class="ruby-identifier">action</span>)        
+119:         
+120:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+121:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+122:         <span class="ruby-keyword kw">end</span>
+123:         
+124:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+125:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">Fo</span> = <span class="ruby-identifier">action</span>
+126:         
+127:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000228" class="method-detail">
-        <a name="M000228"></a>
+      <div id="method-M000474" class="method-detail">
+        <a name="M000474"></a>
 
         <div class="method-heading">
-          <a href="#M000228" class="method-signature">
+          <a href="#M000474" class="method-signature">
           <span class="method-name">onMouseDown</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000228-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000228-source">
+            onclick="toggleCode('M000474-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000474-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 54</span>
-54:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onMouseDown</span>(<span class="ruby-identifier">action</span>)        
-55:         
-56:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-57:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-58:         <span class="ruby-keyword kw">end</span>
-59:         
-60:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-61:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">D</span> = <span class="ruby-identifier">action</span>
-62:         
-63:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 96</span>
+ 96:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onMouseDown</span>(<span class="ruby-identifier">action</span>)        
+ 97:         
+ 98:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+ 99:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+100:         <span class="ruby-keyword kw">end</span>
+101:         
+102:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+103:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">D</span> = <span class="ruby-identifier">action</span>
+104:         
+105:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000227" class="method-detail">
-        <a name="M000227"></a>
+      <div id="method-M000473" class="method-detail">
+        <a name="M000473"></a>
 
         <div class="method-heading">
-          <a href="#M000227" class="method-signature">
+          <a href="#M000473" class="method-signature">
           <span class="method-name">onMouseOut</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000227-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000227-source">
+            onclick="toggleCode('M000473-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000473-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 43</span>
-43:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onMouseOut</span>(<span class="ruby-identifier">action</span>)        
-44:         
-45:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-46:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-47:         <span class="ruby-keyword kw">end</span>
-48:         
-49:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-50:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">X</span> = <span class="ruby-identifier">action</span>
-51:         
-52:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/annotations.rb, line 85</span>
+85:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onMouseOut</span>(<span class="ruby-identifier">action</span>)        
+86:         
+87:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+88:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+89:         <span class="ruby-keyword kw">end</span>
+90:         
+91:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+92:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">X</span> = <span class="ruby-identifier">action</span>
+93:         
+94:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000226" class="method-detail">
-        <a name="M000226"></a>
+      <div id="method-M000472" class="method-detail">
+        <a name="M000472"></a>
 
         <div class="method-heading">
-          <a href="#M000226" class="method-signature">
+          <a href="#M000472" class="method-signature">
           <span class="method-name">onMouseOver</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000226-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000226-source">
+            onclick="toggleCode('M000472-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000472-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 32</span>
-32:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onMouseOver</span>(<span class="ruby-identifier">action</span>)        
-33:         
-34:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-35:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-36:         <span class="ruby-keyword kw">end</span>
-37:         
-38:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-39:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">E</span> = <span class="ruby-identifier">action</span>
-40:         
-41:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/annotations.rb, line 74</span>
+74:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onMouseOver</span>(<span class="ruby-identifier">action</span>)        
+75:         
+76:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+77:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+78:         <span class="ruby-keyword kw">end</span>
+79:         
+80:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+81:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">E</span> = <span class="ruby-identifier">action</span>
+82:         
+83:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000229" class="method-detail">
-        <a name="M000229"></a>
+      <div id="method-M000475" class="method-detail">
+        <a name="M000475"></a>
 
         <div class="method-heading">
-          <a href="#M000229" class="method-signature">
+          <a href="#M000475" class="method-signature">
           <span class="method-name">onMouseUp</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000229-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000229-source">
+            onclick="toggleCode('M000475-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000475-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 65</span>
-65:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onMouseUp</span>(<span class="ruby-identifier">action</span>)        
-66:         
-67:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-68:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-69:         <span class="ruby-keyword kw">end</span>
-70:         
-71:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-72:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">U</span> = <span class="ruby-identifier">action</span>
-73:         
-74:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 107</span>
+107:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onMouseUp</span>(<span class="ruby-identifier">action</span>)        
+108:         
+109:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+110:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+111:         <span class="ruby-keyword kw">end</span>
+112:         
+113:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+114:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">U</span> = <span class="ruby-identifier">action</span>
+115:         
+116:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000233" class="method-detail">
-        <a name="M000233"></a>
+      <div id="method-M000479" class="method-detail">
+        <a name="M000479"></a>
 
         <div class="method-heading">
-          <a href="#M000233" class="method-signature">
+          <a href="#M000479" class="method-signature">
           <span class="method-name">onPageClose</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000233-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000233-source">
+            onclick="toggleCode('M000479-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000479-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 109</span>
-109:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onPageClose</span>(<span class="ruby-identifier">action</span>)        
-110:         
-111:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-112:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-113:         <span class="ruby-keyword kw">end</span>
-114:         
-115:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-116:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">PC</span> = <span class="ruby-identifier">action</span>
-117:         
-118:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 151</span>
+151:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onPageClose</span>(<span class="ruby-identifier">action</span>)        
+152:         
+153:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+154:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+155:         <span class="ruby-keyword kw">end</span>
+156:         
+157:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+158:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">PC</span> = <span class="ruby-identifier">action</span>
+159:         
+160:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000235" class="method-detail">
-        <a name="M000235"></a>
+      <div id="method-M000481" class="method-detail">
+        <a name="M000481"></a>
 
         <div class="method-heading">
-          <a href="#M000235" class="method-signature">
+          <a href="#M000481" class="method-signature">
           <span class="method-name">onPageInvisible</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000235-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000235-source">
+            onclick="toggleCode('M000481-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000481-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 131</span>
-131:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onPageInvisible</span>(<span class="ruby-identifier">action</span>)        
-132:         
-133:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-134:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-135:         <span class="ruby-keyword kw">end</span>
-136:         
-137:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-138:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">PI</span> = <span class="ruby-identifier">action</span>
-139:         
-140:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 173</span>
+173:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onPageInvisible</span>(<span class="ruby-identifier">action</span>)        
+174:         
+175:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+176:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+177:         <span class="ruby-keyword kw">end</span>
+178:         
+179:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+180:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">PI</span> = <span class="ruby-identifier">action</span>
+181:         
+182:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000232" class="method-detail">
-        <a name="M000232"></a>
+      <div id="method-M000478" class="method-detail">
+        <a name="M000478"></a>
 
         <div class="method-heading">
-          <a href="#M000232" class="method-signature">
+          <a href="#M000478" class="method-signature">
           <span class="method-name">onPageOpen</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000232-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000232-source">
+            onclick="toggleCode('M000478-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000478-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 98</span>
- 98:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onPageOpen</span>(<span class="ruby-identifier">action</span>)        
- 99:         
-100:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-101:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-102:         <span class="ruby-keyword kw">end</span>
-103:         
-104:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-105:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">PO</span> = <span class="ruby-identifier">action</span>
-106:         
-107:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 140</span>
+140:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onPageOpen</span>(<span class="ruby-identifier">action</span>)        
+141:         
+142:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+143:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+144:         <span class="ruby-keyword kw">end</span>
+145:         
+146:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+147:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">PO</span> = <span class="ruby-identifier">action</span>
+148:         
+149:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000234" class="method-detail">
-        <a name="M000234"></a>
+      <div id="method-M000480" class="method-detail">
+        <a name="M000480"></a>
 
         <div class="method-heading">
-          <a href="#M000234" class="method-signature">
+          <a href="#M000480" class="method-signature">
           <span class="method-name">onPageVisible</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000234-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000234-source">
+            onclick="toggleCode('M000480-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000480-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/annotations.rb, line 120</span>
-120:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onPageVisible</span>(<span class="ruby-identifier">action</span>)        
-121:         
-122:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span><span class="ruby-operator">::</span><span class="ruby-constant">Action</span>)
-123:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-124:         <span class="ruby-keyword kw">end</span>
-125:         
-126:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
-127:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">PV</span> = <span class="ruby-identifier">action</span>
-128:         
-129:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 162</span>
+162:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onPageVisible</span>(<span class="ruby-identifier">action</span>)        
+163:         
+164:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+165:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+166:         <span class="ruby-keyword kw">end</span>
+167:         
+168:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">AdditionalActions</span>.<span class="ruby-identifier">new</span>
+169:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">AA</span>.<span class="ruby-constant">PV</span> = <span class="ruby-identifier">action</span>
+170:         
+171:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

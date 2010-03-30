@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../../files/sources/parser/xfa_rb.html">
-                sources/parser/xfa.rb
+                <a href="../../../../files/origami/xfa_rb.html">
+                origami/xfa.rb
                 </a>
         <br />
             </td>
@@ -92,11 +92,11 @@ An XDF <em>pdf</em> element encloses a <a href="PDF.html">PDF</a> packet.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000133">enclose_pdf</a>&nbsp;&nbsp;
-      <a href="#M000136">enclosed_pdf</a>&nbsp;&nbsp;
-      <a href="#M000134">has_enclosed_pdf?</a>&nbsp;&nbsp;
-      <a href="#M000132">new</a>&nbsp;&nbsp;
-      <a href="#M000135">remove_enclosed_pdf</a>&nbsp;&nbsp;
+      <a href="#M000199">enclose_pdf</a>&nbsp;&nbsp;
+      <a href="#M000202">enclosed_pdf</a>&nbsp;&nbsp;
+      <a href="#M000200">has_enclosed_pdf?</a>&nbsp;&nbsp;
+      <a href="#M000198">new</a>&nbsp;&nbsp;
+      <a href="#M000201">remove_enclosed_pdf</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -118,26 +118,26 @@ An XDF <em>pdf</em> element encloses a <a href="PDF.html">PDF</a> packet.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000132" class="method-detail">
-        <a name="M000132"></a>
+      <div id="method-M000198" class="method-detail">
+        <a name="M000198"></a>
 
         <div class="method-heading">
-          <a href="#M000132" class="method-signature">
+          <a href="#M000198" class="method-signature">
           <span class="method-name">new</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000132-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000132-source">
+            onclick="toggleCode('M000198-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000198-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xfa.rb, line 132</span>
-132:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
-133:           <span class="ruby-keyword kw">super</span>(<span class="ruby-value str">&quot;pdf&quot;</span>)
-134: 
-135:           <span class="ruby-identifier">add_attribute</span> <span class="ruby-value str">'xmlns'</span>, <span class="ruby-value str">'http://ns.adobe.com/xdp/pdf/'</span>
-136:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/xfa.rb, line 822</span>
+822:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+823:           <span class="ruby-keyword kw">super</span>(<span class="ruby-value str">&quot;pdf&quot;</span>)
+824: 
+825:           <span class="ruby-identifier">add_attribute</span> <span class="ruby-value str">'xmlns'</span>, <span class="ruby-value str">'http://ns.adobe.com/xdp/pdf/'</span>
+826:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -145,106 +145,106 @@ An XDF <em>pdf</em> element encloses a <a href="PDF.html">PDF</a> packet.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000133" class="method-detail">
-        <a name="M000133"></a>
+      <div id="method-M000199" class="method-detail">
+        <a name="M000199"></a>
 
         <div class="method-heading">
-          <a href="#M000133" class="method-signature">
+          <a href="#M000199" class="method-signature">
           <span class="method-name">enclose_pdf</span><span class="method-args">(pdfdata)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000133-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000133-source">
+            onclick="toggleCode('M000199-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000199-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xfa.rb, line 138</span>
-138:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">enclose_pdf</span>(<span class="ruby-identifier">pdfdata</span>)
-139:           <span class="ruby-identifier">require</span> <span class="ruby-value str">'base64'</span>
-140:           <span class="ruby-identifier">b64data</span> = <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">encode64</span>(<span class="ruby-identifier">pdfdata</span>).<span class="ruby-identifier">chomp!</span>
-141:          
-142:           <span class="ruby-identifier">doc</span> = <span class="ruby-identifier">elements</span>[<span class="ruby-value str">'document'</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">add_element</span>(<span class="ruby-value str">'document'</span>)
-143:           <span class="ruby-identifier">chunk</span> = <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">elements</span>[<span class="ruby-value str">'chunk'</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">add_element</span>(<span class="ruby-value str">'chunk'</span>)
-144: 
-145:           <span class="ruby-identifier">chunk</span>.<span class="ruby-identifier">text</span> = <span class="ruby-identifier">b64data</span>
-146: 
-147:           <span class="ruby-keyword kw">self</span>
-148:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/xfa.rb, line 828</span>
+828:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">enclose_pdf</span>(<span class="ruby-identifier">pdfdata</span>)
+829:           <span class="ruby-identifier">require</span> <span class="ruby-value str">'base64'</span>
+830:           <span class="ruby-identifier">b64data</span> = <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">encode64</span>(<span class="ruby-identifier">pdfdata</span>).<span class="ruby-identifier">chomp!</span>
+831:          
+832:           <span class="ruby-identifier">doc</span> = <span class="ruby-identifier">elements</span>[<span class="ruby-value str">'document'</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">add_element</span>(<span class="ruby-value str">'document'</span>)
+833:           <span class="ruby-identifier">chunk</span> = <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">elements</span>[<span class="ruby-value str">'chunk'</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">add_element</span>(<span class="ruby-value str">'chunk'</span>)
+834: 
+835:           <span class="ruby-identifier">chunk</span>.<span class="ruby-identifier">text</span> = <span class="ruby-identifier">b64data</span>
+836: 
+837:           <span class="ruby-keyword kw">self</span>
+838:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000136" class="method-detail">
-        <a name="M000136"></a>
+      <div id="method-M000202" class="method-detail">
+        <a name="M000202"></a>
 
         <div class="method-heading">
-          <a href="#M000136" class="method-signature">
+          <a href="#M000202" class="method-signature">
           <span class="method-name">enclosed_pdf</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000136-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000136-source">
+            onclick="toggleCode('M000202-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000202-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xfa.rb, line 160</span>
-160:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">enclosed_pdf</span>
-161:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">has_enclosed_pdf?</span>
-162: 
-163:           <span class="ruby-identifier">require</span> <span class="ruby-value str">'base64'</span>
-164:           <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>(<span class="ruby-identifier">elements</span>[<span class="ruby-value str">'document/chunk'</span>].<span class="ruby-identifier">text</span>)
-165:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/xfa.rb, line 850</span>
+850:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">enclosed_pdf</span>
+851:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">has_enclosed_pdf?</span>
+852: 
+853:           <span class="ruby-identifier">require</span> <span class="ruby-value str">'base64'</span>
+854:           <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>(<span class="ruby-identifier">elements</span>[<span class="ruby-value str">'document/chunk'</span>].<span class="ruby-identifier">text</span>)
+855:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000134" class="method-detail">
-        <a name="M000134"></a>
+      <div id="method-M000200" class="method-detail">
+        <a name="M000200"></a>
 
         <div class="method-heading">
-          <a href="#M000134" class="method-signature">
+          <a href="#M000200" class="method-signature">
           <span class="method-name">has_enclosed_pdf?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000134-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000134-source">
+            onclick="toggleCode('M000200-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000200-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xfa.rb, line 150</span>
-150:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_enclosed_pdf?</span>
-151:           <span class="ruby-identifier">chunk</span> = <span class="ruby-identifier">elements</span>[<span class="ruby-value str">'document/chunk'</span>]
-152: 
-153:           <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">chunk</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">chunk</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">nil?</span>
-154:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/xfa.rb, line 840</span>
+840:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_enclosed_pdf?</span>
+841:           <span class="ruby-identifier">chunk</span> = <span class="ruby-identifier">elements</span>[<span class="ruby-value str">'document/chunk'</span>]
+842: 
+843:           <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">chunk</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">chunk</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">nil?</span>
+844:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000135" class="method-detail">
-        <a name="M000135"></a>
+      <div id="method-M000201" class="method-detail">
+        <a name="M000201"></a>
 
         <div class="method-heading">
-          <a href="#M000135" class="method-signature">
+          <a href="#M000201" class="method-signature">
           <span class="method-name">remove_enclosed_pdf</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000135-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000135-source">
+            onclick="toggleCode('M000201-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000201-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xfa.rb, line 156</span>
-156:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remove_enclosed_pdf</span>
-157:           <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">'document'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_enclosed_pdf?</span>
-158:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/xfa.rb, line 846</span>
+846:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remove_enclosed_pdf</span>
+847:           <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">'document'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_enclosed_pdf?</span>
+848:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

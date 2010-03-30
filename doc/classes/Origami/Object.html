@@ -55,8 +55,12 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/object_rb.html">
-                sources/parser/object.rb
+                <a href="../../files/origami/object_rb.html">
+                origami/object.rb
+                </a>
+        <br />
+                <a href="../../files/origami/obfuscation_rb.html">
+                origami/obfuscation.rb
                 </a>
         <br />
             </td>
@@ -117,24 +121,25 @@ declares a set of primitive object types :
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000251">&lt;=&gt;</a>&nbsp;&nbsp;
-      <a href="#M000253">copy</a>&nbsp;&nbsp;
-      <a href="#M000256">indirect_parent</a>&nbsp;&nbsp;
-      <a href="#M000252">is_indirect?</a>&nbsp;&nbsp;
-      <a href="#M000247">new</a>&nbsp;&nbsp;
-      <a href="#M000264">output</a>&nbsp;&nbsp;
-      <a href="#M000259">pdf</a>&nbsp;&nbsp;
-      <a href="#M000250">post_build</a>&nbsp;&nbsp;
-      <a href="#M000249">pre_build</a>&nbsp;&nbsp;
-      <a href="#M000262">real_type</a>&nbsp;&nbsp;
-      <a href="#M000254">reference</a>&nbsp;&nbsp;
-      <a href="#M000248">set_indirect</a>&nbsp;&nbsp;
-      <a href="#M000260">set_pdf</a>&nbsp;&nbsp;
-      <a href="#M000258">size</a>&nbsp;&nbsp;
-      <a href="#M000257">to_o</a>&nbsp;&nbsp;
-      <a href="#M000263">to_s</a>&nbsp;&nbsp;
-      <a href="#M000261">type</a>&nbsp;&nbsp;
-      <a href="#M000255">xrefs</a>&nbsp;&nbsp;
+      <a href="#M000007">&lt;=&gt;</a>&nbsp;&nbsp;
+      <a href="#M000009">copy</a>&nbsp;&nbsp;
+      <a href="#M000012">indirect_parent</a>&nbsp;&nbsp;
+      <a href="#M000008">is_indirect?</a>&nbsp;&nbsp;
+      <a href="#M000003">new</a>&nbsp;&nbsp;
+      <a href="#M000020">output</a>&nbsp;&nbsp;
+      <a href="#M000015">pdf</a>&nbsp;&nbsp;
+      <a href="#M000006">post_build</a>&nbsp;&nbsp;
+      <a href="#M000005">pre_build</a>&nbsp;&nbsp;
+      <a href="#M000018">real_type</a>&nbsp;&nbsp;
+      <a href="#M000010">reference</a>&nbsp;&nbsp;
+      <a href="#M000004">set_indirect</a>&nbsp;&nbsp;
+      <a href="#M000016">set_pdf</a>&nbsp;&nbsp;
+      <a href="#M000014">size</a>&nbsp;&nbsp;
+      <a href="#M000013">to_o</a>&nbsp;&nbsp;
+      <a href="#M000021">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000019">to_s</a>&nbsp;&nbsp;
+      <a href="#M000017">type</a>&nbsp;&nbsp;
+      <a href="#M000011">xrefs</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -189,31 +194,31 @@ declares a set of primitive object types :
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000247" class="method-detail">
-        <a name="M000247"></a>
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
 
         <div class="method-heading">
-          <a href="#M000247" class="method-signature">
+          <a href="#M000003" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(*cons)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Object.html#M000247">new</a> <a href="PDF.html">PDF</a>
+Creates a <a href="Object.html#M000003">new</a> <a href="PDF.html">PDF</a>
 <a href="Object.html">Object</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000247-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000247-source">
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 259</span>
-259:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">cons</span>)
-260:       <span class="ruby-ivar">@indirect</span> = <span class="ruby-keyword kw">false</span>
-261:       <span class="ruby-ivar">@no</span>, <span class="ruby-ivar">@generation</span> = <span class="ruby-value">0</span>, <span class="ruby-value">0</span>
-262:       
-263:       <span class="ruby-keyword kw">super</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">cons</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">cons</span>.<span class="ruby-identifier">empty?</span>
-264:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 260</span>
+260:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">cons</span>)
+261:       <span class="ruby-ivar">@indirect</span> = <span class="ruby-keyword kw">false</span>
+262:       <span class="ruby-ivar">@no</span>, <span class="ruby-ivar">@generation</span> = <span class="ruby-value">0</span>, <span class="ruby-value">0</span>
+263:       
+264:       <span class="ruby-keyword kw">super</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">cons</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">cons</span>.<span class="ruby-identifier">empty?</span>
+265:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -221,11 +226,11 @@ Creates a <a href="Object.html#M000247">new</a> <a href="PDF.html">PDF</a>
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000251" class="method-detail">
-        <a name="M000251"></a>
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
 
         <div class="method-heading">
-          <a href="#M000251" class="method-signature">
+          <a href="#M000007" class="method-signature">
           <span class="method-name">&lt;=&gt;</span><span class="method-args">(obj)</span>
           </a>
         </div>
@@ -235,49 +240,49 @@ Creates a <a href="Object.html#M000247">new</a> <a href="PDF.html">PDF</a>
 Compare two objects from their respective numbers.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000251-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000251-source">
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 298</span>
-298:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;=&gt;</span>(<span class="ruby-identifier">obj</span>)
-299:       [<span class="ruby-ivar">@no</span>, <span class="ruby-ivar">@generation</span>] <span class="ruby-operator">&lt;=&gt;</span> [<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">no</span>, <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">generation</span>]
-300:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 299</span>
+299:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;=&gt;</span>(<span class="ruby-identifier">obj</span>)
+300:       [<span class="ruby-ivar">@no</span>, <span class="ruby-ivar">@generation</span>] <span class="ruby-operator">&lt;=&gt;</span> [<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">no</span>, <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">generation</span>]
+301:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000253" class="method-detail">
-        <a name="M000253"></a>
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
 
         <div class="method-heading">
-          <a href="#M000253" class="method-signature">
+          <a href="#M000009" class="method-signature">
           <span class="method-name">copy</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Deep <a href="Object.html#M000253">copy</a> of an object.
+Deep <a href="Object.html#M000009">copy</a> of an object.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000253-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000253-source">
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 312</span>
-312:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">copy</span>
-313:       <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-keyword kw">self</span>))
-314:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 313</span>
+313:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">copy</span>
+314:       <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-keyword kw">self</span>))
+315:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000256" class="method-detail">
-        <a name="M000256"></a>
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
 
         <div class="method-heading">
-          <a href="#M000256" class="method-signature">
+          <a href="#M000012" class="method-signature">
           <span class="method-name">indirect_parent</span><span class="method-args">()</span>
           </a>
         </div>
@@ -288,26 +293,26 @@ Returns the indirect object which contains this object. If the current
 object is already indirect, returns self.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000256-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000256-source">
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 350</span>
-350:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">indirect_parent</span> 
-351:       <span class="ruby-identifier">obj</span> = <span class="ruby-keyword kw">self</span>
-352:       <span class="ruby-identifier">obj</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">parent</span> <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_indirect?</span>
-353:         
-354:       <span class="ruby-identifier">obj</span>
-355:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 351</span>
+351:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">indirect_parent</span> 
+352:       <span class="ruby-identifier">obj</span> = <span class="ruby-keyword kw">self</span>
+353:       <span class="ruby-identifier">obj</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">parent</span> <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_indirect?</span>
+354:         
+355:       <span class="ruby-identifier">obj</span>
+356:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000252" class="method-detail">
-        <a name="M000252"></a>
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
 
         <div class="method-heading">
-          <a href="#M000252" class="method-signature">
+          <a href="#M000008" class="method-signature">
           <span class="method-name">is_indirect?</span><span class="method-args">()</span>
           </a>
         </div>
@@ -318,20 +323,20 @@ Returns whether the objects is indirect, which means that it is not
 embedded into another object.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000252-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000252-source">
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 305</span>
-305:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_indirect?</span>
-306:       <span class="ruby-ivar">@indirect</span>
-307:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 306</span>
+306:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_indirect?</span>
+307:       <span class="ruby-ivar">@indirect</span>
+308:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000264" class="method-detail">
-        <a name="M000264"></a>
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
 
         <div class="method-heading">
           <span class="method-name">output</span><span class="method-args">(data)</span>
@@ -339,16 +344,16 @@ embedded into another object.
       
         <div class="method-description">
           <p>
-Alias for <a href="Object.html#M000263">to_s</a>
+Alias for <a href="Object.html#M000019">to_s</a>
 </p>
         </div>
       </div>
 
-      <div id="method-M000259" class="method-detail">
-        <a name="M000259"></a>
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
 
         <div class="method-heading">
-          <a href="#M000259" class="method-signature">
+          <a href="#M000015" class="method-signature">
           <span class="method-name">pdf</span><span class="method-args">()</span>
           </a>
         </div>
@@ -358,26 +363,26 @@ Alias for <a href="Object.html#M000263">to_s</a>
 Returns the <a href="PDF.html">PDF</a> which the object belongs to.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000259-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000259-source">
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 374</span>
-374:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pdf</span>
-375:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span> <span class="ruby-keyword kw">then</span> <span class="ruby-ivar">@pdf</span>
-376:       <span class="ruby-keyword kw">else</span>
-377:         <span class="ruby-ivar">@parent</span>.<span class="ruby-identifier">pdf</span>
-378:       <span class="ruby-keyword kw">end</span>
-379:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 375</span>
+375:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pdf</span>
+376:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span> <span class="ruby-keyword kw">then</span> <span class="ruby-ivar">@pdf</span>
+377:       <span class="ruby-keyword kw">else</span>
+378:         <span class="ruby-ivar">@parent</span>.<span class="ruby-identifier">pdf</span>
+379:       <span class="ruby-keyword kw">end</span>
+380:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000250" class="method-detail">
-        <a name="M000250"></a>
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
 
         <div class="method-heading">
-          <a href="#M000250" class="method-signature">
+          <a href="#M000006" class="method-signature">
           <span class="method-name">post_build</span><span class="method-args">()</span>
           </a>
         </div>
@@ -388,23 +393,23 @@ Generic method called just after the object is finalized. At this time, any
 indirect object has its own number and generation identifier.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000250-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000250-source">
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 291</span>
-291:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post_build</span>
-292:       <span class="ruby-keyword kw">self</span>
-293:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 292</span>
+292:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post_build</span>
+293:       <span class="ruby-keyword kw">self</span>
+294:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000249" class="method-detail">
-        <a name="M000249"></a>
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
 
         <div class="method-heading">
-          <a href="#M000249" class="method-signature">
+          <a href="#M000005" class="method-signature">
           <span class="method-name">pre_build</span><span class="method-args">()</span>
           </a>
         </div>
@@ -415,20 +420,20 @@ Generic method called just before the object is finalized. At this time, no
 number nor generation allocation has yet been done.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000249-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000249-source">
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 283</span>
-283:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
-284:       <span class="ruby-keyword kw">self</span>
-285:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 284</span>
+284:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
+285:       <span class="ruby-keyword kw">self</span>
+286:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000262" class="method-detail">
-        <a name="M000262"></a>
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
 
         <div class="method-heading">
           <span class="method-name">real_type</span><span class="method-args">()</span>
@@ -436,51 +441,51 @@ number nor generation allocation has yet been done.
       
         <div class="method-description">
           <p>
-Alias for <a href="Object.html#M000261">type</a>
+Alias for <a href="Object.html#M000017">type</a>
 </p>
         </div>
       </div>
 
-      <div id="method-M000254" class="method-detail">
-        <a name="M000254"></a>
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
 
         <div class="method-heading">
-          <a href="#M000254" class="method-signature">
+          <a href="#M000010" class="method-signature">
           <span class="method-name">reference</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns an indirect <a href="Object.html#M000254">reference</a> to this
+Returns an indirect <a href="Object.html#M000010">reference</a> to this
 object, or a <a href="Null.html">Null</a> object is this object is not
 indirect.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000254-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000254-source">
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 319</span>
-319:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reference</span>
-320:       <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span>
-321:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObject</span>, <span class="ruby-value str">&quot;Cannot reference a direct object&quot;</span>
-322:       <span class="ruby-keyword kw">end</span>
-323: 
-324:       <span class="ruby-identifier">ref</span> = <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@no</span>, <span class="ruby-ivar">@generation</span>)
-325:       <span class="ruby-identifier">ref</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-keyword kw">self</span>
-326: 
-327:       <span class="ruby-identifier">ref</span>
-328:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 320</span>
+320:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reference</span>
+321:       <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span>
+322:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObject</span>, <span class="ruby-value str">&quot;Cannot reference a direct object&quot;</span>
+323:       <span class="ruby-keyword kw">end</span>
+324: 
+325:       <span class="ruby-identifier">ref</span> = <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@no</span>, <span class="ruby-ivar">@generation</span>)
+326:       <span class="ruby-identifier">ref</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-keyword kw">self</span>
+327: 
+328:       <span class="ruby-identifier">ref</span>
+329:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000248" class="method-detail">
-        <a name="M000248"></a>
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
 
         <div class="method-heading">
-          <a href="#M000248" class="method-signature">
+          <a href="#M000004" class="method-signature">
           <span class="method-name">set_indirect</span><span class="method-args">(dir)</span>
           </a>
         </div>
@@ -491,81 +496,81 @@ Sets whether the object is indirect or not. Indirect objects are allocated
 numbers at build time.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000248-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000248-source">
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 270</span>
-270:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_indirect</span>(<span class="ruby-identifier">dir</span>)
-271:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">dir</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span>  <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">dir</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span>
-272:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;The argument must be boolean&quot;</span>
-273:       <span class="ruby-keyword kw">end</span>
-274:       
-275:       <span class="ruby-ivar">@indirect</span> = <span class="ruby-identifier">dir</span>
-276:       <span class="ruby-keyword kw">self</span>
-277:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 271</span>
+271:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_indirect</span>(<span class="ruby-identifier">dir</span>)
+272:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">dir</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span>  <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">dir</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span>
+273:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;The argument must be boolean&quot;</span>
+274:       <span class="ruby-keyword kw">end</span>
+275:       
+276:       <span class="ruby-ivar">@indirect</span> = <span class="ruby-identifier">dir</span>
+277:       <span class="ruby-keyword kw">self</span>
+278:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000260" class="method-detail">
-        <a name="M000260"></a>
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
 
         <div class="method-heading">
-          <a href="#M000260" class="method-signature">
+          <a href="#M000016" class="method-signature">
           <span class="method-name">set_pdf</span><span class="method-args">(pdf)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000260-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000260-source">
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 381</span>
-381:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_pdf</span>(<span class="ruby-identifier">pdf</span>)
-382:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span> <span class="ruby-keyword kw">then</span> <span class="ruby-ivar">@pdf</span> = <span class="ruby-identifier">pdf</span>
-383:       <span class="ruby-keyword kw">else</span>
-384:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObject</span>, <span class="ruby-value str">&quot;You cannot set the PDF parent of a direct object&quot;</span>
-385:       <span class="ruby-keyword kw">end</span>
-386:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 382</span>
+382:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_pdf</span>(<span class="ruby-identifier">pdf</span>)
+383:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span> <span class="ruby-keyword kw">then</span> <span class="ruby-ivar">@pdf</span> = <span class="ruby-identifier">pdf</span>
+384:       <span class="ruby-keyword kw">else</span>
+385:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObject</span>, <span class="ruby-value str">&quot;You cannot set the PDF parent of a direct object&quot;</span>
+386:       <span class="ruby-keyword kw">end</span>
+387:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000258" class="method-detail">
-        <a name="M000258"></a>
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
 
         <div class="method-heading">
-          <a href="#M000258" class="method-signature">
+          <a href="#M000014" class="method-signature">
           <span class="method-name">size</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns the <a href="Object.html#M000258">size</a> of this object once
+Returns the <a href="Object.html#M000014">size</a> of this object once
 converted to <a href="PDF.html">PDF</a> code.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000258-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000258-source">
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 367</span>
-367:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">size</span>
-368:       <span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span>
-369:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 368</span>
+368:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">size</span>
+369:       <span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span>
+370:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000257" class="method-detail">
-        <a name="M000257"></a>
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
 
         <div class="method-heading">
-          <a href="#M000257" class="method-signature">
+          <a href="#M000013" class="method-signature">
           <span class="method-name">to_o</span><span class="method-args">()</span>
           </a>
         </div>
@@ -575,23 +580,37 @@ converted to <a href="PDF.html">PDF</a> code.
 Returns self.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000257-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000257-source">
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 360</span>
-360:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_o</span>
-361:       <span class="ruby-keyword kw">self</span>
-362:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 361</span>
+361:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_o</span>
+362:       <span class="ruby-keyword kw">self</span>
+363:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000263" class="method-detail">
-        <a name="M000263"></a>
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
 
         <div class="method-heading">
-          <a href="#M000263" class="method-signature">
+          <span class="method-name">to_obfuscated_str</span><span class="method-args">(data)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Object.html#M000019">to_s</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+          <a href="#M000019" class="method-signature">
           <span class="method-name">to_s</span><span class="method-args">(data)</span>
           </a>
         </div>
@@ -606,56 +625,56 @@ Outputs this object into <a href="PDF.html">PDF</a> code.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000263-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000263-source">
+            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000019-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 470</span>
-470:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">data</span>)
-471:       
-472:       <span class="ruby-identifier">content</span> = <span class="ruby-value str">&quot;&quot;</span>
-473:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{no} #{generation} obj&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span>
-474:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data</span>
-475:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;endobj&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span>
-476:       
-477:       <span class="ruby-identifier">content</span>
-478:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 471</span>
+471:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">data</span>)
+472:       
+473:       <span class="ruby-identifier">content</span> = <span class="ruby-value str">&quot;&quot;</span>
+474:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{no} #{generation} obj&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span>
+475:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data</span>
+476:       <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;endobj&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOL</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span>
+477:       
+478:       <span class="ruby-identifier">content</span>
+479:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000261" class="method-detail">
-        <a name="M000261"></a>
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
 
         <div class="method-heading">
-          <a href="#M000261" class="method-signature">
+          <a href="#M000017" class="method-signature">
           <span class="method-name">type</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns the symbol <a href="Object.html#M000261">type</a> of this <a
+Returns the symbol <a href="Object.html#M000017">type</a> of this <a
 href="Object.html">Object</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000261-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000261-source">
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 460</span>
-460:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type</span>
-461:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;::&quot;</span>).<span class="ruby-identifier">last</span>.<span class="ruby-identifier">to_sym</span>
-462:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 461</span>
+461:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type</span>
+462:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;::&quot;</span>).<span class="ruby-identifier">last</span>.<span class="ruby-identifier">to_sym</span>
+463:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000255" class="method-detail">
-        <a name="M000255"></a>
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
 
         <div class="method-heading">
-          <a href="#M000255" class="method-signature">
+          <a href="#M000011" class="method-signature">
           <span class="method-name">xrefs</span><span class="method-args">()</span>
           </a>
         </div>
@@ -665,22 +684,22 @@ href="Object.html">Object</a>.
 Returns an array of references pointing to the current object.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000255-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000255-source">
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/object.rb, line 333</span>
-333:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">xrefs</span>
-334:       <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span>
-335:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObject</span>, <span class="ruby-value str">&quot;Cannot find xrefs to a direct object&quot;</span>
-336:       <span class="ruby-keyword kw">end</span>
-337: 
-338:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">pdf</span>.<span class="ruby-identifier">nil?</span>
-339:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObject</span>, <span class="ruby-value str">&quot;Not attached to any PDF&quot;</span>
-340:       <span class="ruby-keyword kw">end</span>
-341: 
-342:       <span class="ruby-identifier">thisref</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">reference</span>
-343:       <span class="ruby-ivar">@pdf</span>.<span class="ruby-identifier">objects</span>.<span class="ruby-identifier">find_all</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Reference</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-identifier">thisref</span>)}
-344:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 334</span>
+334:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">xrefs</span>
+335:       <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_indirect?</span>
+336:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObject</span>, <span class="ruby-value str">&quot;Cannot find xrefs to a direct object&quot;</span>
+337:       <span class="ruby-keyword kw">end</span>
+338: 
+339:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">pdf</span>.<span class="ruby-identifier">nil?</span>
+340:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObject</span>, <span class="ruby-value str">&quot;Not attached to any PDF&quot;</span>
+341:       <span class="ruby-keyword kw">end</span>
+342: 
+343:       <span class="ruby-identifier">thisref</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">reference</span>
+344:       <span class="ruby-ivar">@pdf</span>.<span class="ruby-identifier">objects</span>(<span class="ruby-identifier">:include_keys</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>).<span class="ruby-identifier">find_all</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Reference</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-identifier">thisref</span>)}
+345:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

@@ -1,8 +1,14 @@
 #!/usr/bin/ruby 
 
-$: << "../../parser"
-require 'parser.rb'
 require 'openssl'
+
+begin
+  require 'origami'
+rescue LoadError
+  ORIGAMIDIR = "#{File.dirname(__FILE__)}/../.."
+  $: << ORIGAMIDIR
+  require 'origami'
+end
 include Origami
 
 OUTPUTFILE = "#{File.basename(__FILE__, ".rb")}.pdf"

@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../../files/sources/parser/graphics/path_rb.html">
-                sources/parser/graphics/path.rb
+                <a href="../../../../files/origami/graphics/path_rb.html">
+                origami/graphics/path.rb
                 </a>
         <br />
             </td>
@@ -86,8 +86,8 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000079">new</a>&nbsp;&nbsp;
-      <a href="#M000080">update_state</a>&nbsp;&nbsp;
+      <a href="#M000099">new</a>&nbsp;&nbsp;
+      <a href="#M000100">update_state</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -116,21 +116,21 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000079" class="method-detail">
-        <a name="M000079"></a>
+      <div id="method-M000099" class="method-detail">
+        <a name="M000099"></a>
 
         <div class="method-heading">
-          <a href="#M000079" class="method-signature">
+          <a href="#M000099" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(array, phase)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000079-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000079-source">
+            onclick="toggleCode('M000099-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000099-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/path.rb, line 108</span>
+     <span class="ruby-comment cmt"># File origami/graphics/path.rb, line 108</span>
 108:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">array</span>, <span class="ruby-identifier">phase</span>); <span class="ruby-keyword kw">super</span>(<span class="ruby-value str">'d'</span>, <span class="ruby-identifier">array</span>, <span class="ruby-identifier">phase</span>) <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
@@ -139,21 +139,21 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000080" class="method-detail">
-        <a name="M000080"></a>
+      <div id="method-M000100" class="method-detail">
+        <a name="M000100"></a>
 
         <div class="method-heading">
-          <a href="#M000080" class="method-signature">
+          <a href="#M000100" class="method-signature">
           <span class="method-name">update_state</span><span class="method-args">(gs)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000080-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000080-source">
+            onclick="toggleCode('M000100-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000100-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/path.rb, line 110</span>
+     <span class="ruby-comment cmt"># File origami/graphics/path.rb, line 110</span>
 110:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_state</span>(<span class="ruby-identifier">gs</span>)
 111:           <span class="ruby-identifier">gs</span>.<span class="ruby-identifier">dash_pattern</span> = <span class="ruby-constant">DashPattern</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@operands</span>[<span class="ruby-value">0</span>], <span class="ruby-ivar">@operands</span>[<span class="ruby-value">1</span>])
 112:           <span class="ruby-keyword kw">self</span>

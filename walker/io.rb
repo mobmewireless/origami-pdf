@@ -5,26 +5,25 @@
 
 = Info
 	This file is part of Origami, PDF manipulation framework for Ruby
-	Copyright (C) 2009	Guillaume Delugré <guillaume@security-labs.org>
+	Copyright (C) 2010	Guillaume Delugré <guillaume@security-labs.org>
 	All right reserved.
 	
   Origami is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
+  it under the terms of the GNU Lesser General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
 
   Origami is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+  GNU Lesser General Public License for more details.
 
-  You should have received a copy of the GNU General Public License
+  You should have received a copy of the GNU Lesser General Public License
   along with Origami.  If not, see <http://www.gnu.org/licenses/>.
 
 =end
 
-require 'parser.rb'
-
+require 'origami'
 include Origami
 
 module PDFWalker
@@ -45,7 +44,8 @@ module PDFWalker
       
       [ 
         @file_menu_close, @file_menu_saveas, @file_menu_serialize, @file_menu_refresh, 
-        @document_menu_gotocatalog, @document_menu_gotopage, @document_menu_gotorev,
+        @document_menu_search,
+        @document_menu_gotocatalog, @document_menu_gotopage, @document_menu_gotorev, @document_menu_gotoobj,
         @document_menu_properties, @document_menu_sign, @document_menu_ur 
       ].each do |menu| 
         menu.sensitive = false
@@ -103,12 +103,23 @@ module PDFWalker
             @opened = pdf
             
             @config.last_opened_file(@opened.filename)
+            @config.save
+            update_recent_menu
             
+            @last_search_result = []
+            @last_search =
+            {
+              :expr => "",
+              :regexp => false,
+              :type => :body
+            }
+
             self.reload
             
             [ 
               @file_menu_close, @file_menu_saveas, @file_menu_serialize, @file_menu_refresh, 
-              @document_menu_gotocatalog, @document_menu_gotopage, @document_menu_gotorev,
+              @document_menu_search, 
+              @document_menu_gotocatalog, @document_menu_gotopage, @document_menu_gotorev, @document_menu_gotoobj,
               @document_menu_properties, @document_menu_sign, @document_menu_ur 
             ].each do |menu| 
               menu.sensitive = true 
@@ -258,11 +269,12 @@ module PDFWalker
       )
       
       dialog.filter = FileFilter.new.add_pattern("*.acrodata").add_pattern("*.pdf").add_pattern("*.fdf")
+        
+      folder = @opened.filename[0..@opened.filename.size - File.basename(@opened.filename).size - 1]
+      dialog.set_current_folder(folder)
       
-     if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
-        
-        @opened.saveas(dialog.filename, false)
-        
+      if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
+        @opened.saveas(dialog.filename)
       end
       
       dialog.destroy
@@ -281,7 +293,10 @@ module PDFWalker
       
       dialog.filter = FileFilter.new.add_pattern("*.dot")
       
-     if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
+      folder = @opened.filename[0..@opened.filename.size - File.basename(@opened.filename).size - 1]
+      dialog.set_current_folder(folder)
+      
+      if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
         
         @opened.export_to_graph(dialog.filename)
         
@@ -303,7 +318,10 @@ module PDFWalker
       
       dialog.filter = FileFilter.new.add_pattern("*.graphml")
       
-     if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
+      folder = @opened.filename[0..@opened.filename.size - File.basename(@opened.filename).size - 1]
+      dialog.set_current_folder(folder)
+      
+      if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
         
         @opened.export_to_graphml(dialog.filename)
         
@@ -314,8 +332,6 @@ module PDFWalker
     end
 
     private
-       
-
 
     def parsefile(filename)
       update_bar = lambda { |obj|

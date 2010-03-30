@@ -1,11 +1,11 @@
 %PDF-1.1
 1 0 obj
 <<
-	/Pages 2 0 R
 	/OpenAction <<
 		/N /Print
 		/S /Named
 	>>
+	/Pages 2 0 R
 	/Type /Catalog
 >>
 endobj
@@ -18,15 +18,20 @@ endobj
 endobj
 3 0 obj
 <<
-	/Parent 2 0 R
-	/Type /Page
-	/Contents 4 0 R
 	/MediaBox [ 0 0 795 842 ]
+	/Parent 2 0 R
+	/Contents 4 0 R
 	/Resources <<
 		/Font <<
-			/F1 5 0 R
+			/F1 <<
+				/Name /F1
+				/BaseFont /Helvetica
+				/Subtype /Type1
+				/Type /Font
+			>>
 		>>
 	>>
+	/Type /Page
 >>
 endobj
 4 0 obj
@@ -34,32 +39,27 @@ endobj
 	/Length 53
 >>stream
 BT
-/F1 30 Tf 350 750 Td 20 TL
-1 Tr (named.pdf) Tj 
+/F1 30 Tf
+350 750 Td
+20 TL
+1 Tr
+(named.pdf) Tj
 ET
+
 endstream
 endobj
-5 0 obj
-<<
-	/Name /F1
-	/Subtype /Type1
-	/Type /Font
-	/BaseFont /Helvetica
->>
-endobj
 xref
-0 6
+0 5
 0000000000 65535 f
 0000000010 00000 n
 0000000115 00000 n
 0000000184 00000 n
-0000000338 00000 n
-0000000448 00000 n
+0000000421 00000 n
 trailer
 <<
 	/Root 1 0 R
-	/Size 6
+	/Size 5
 >>
 startxref
-540
+531
 %%EOF

@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../files/sources/parser/filters_rb.html">
-                sources/parser/filters.rb
+                <a href="../../../files/origami/filters_rb.html">
+                origami/filters.rb
                 </a>
         <br />
             </td>
@@ -81,8 +81,8 @@
     <div id="description">
       <p>
 Class representing a <a href="../Filter.html">Filter</a> used to <a
-href="CCITTFax.html#M000153">encode</a> and <a
-href="CCITTFax.html#M000154">decode</a> data with CCITT-facsimile
+href="CCITTFax.html#M000390">encode</a> and <a
+href="CCITTFax.html#M000391">decode</a> data with CCITT-facsimile
 compression algorithm.
 </p>
 
@@ -95,9 +95,9 @@ compression algorithm.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000154">decode</a>&nbsp;&nbsp;
-      <a href="#M000153">encode</a>&nbsp;&nbsp;
-      <a href="#M000152">new</a>&nbsp;&nbsp;
+      <a href="#M000391">decode</a>&nbsp;&nbsp;
+      <a href="#M000390">encode</a>&nbsp;&nbsp;
+      <a href="#M000389">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -132,25 +132,25 @@ compression algorithm.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000152" class="method-detail">
-        <a name="M000152"></a>
+      <div id="method-M000389" class="method-detail">
+        <a name="M000389"></a>
 
         <div class="method-heading">
-          <a href="#M000152" class="method-signature">
+          <a href="#M000389" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(parameters = DecodeParms.new)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="CCITTFax.html#M000152">new</a> CCITT Fax <a
+Creates a <a href="CCITTFax.html#M000389">new</a> CCITT Fax <a
 href="../Filter.html">Filter</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000152-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000152-source">
+            onclick="toggleCode('M000389-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000389-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/filters.rb, line 776</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 776</span>
 776:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">parameters</span> = <span class="ruby-constant">DecodeParms</span>.<span class="ruby-identifier">new</span>)
 777:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">parameters</span>)  
 778:       <span class="ruby-keyword kw">end</span>
@@ -161,11 +161,11 @@ href="../Filter.html">Filter</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000154" class="method-detail">
-        <a name="M000154"></a>
+      <div id="method-M000391" class="method-detail">
+        <a name="M000391"></a>
 
         <div class="method-heading">
-          <a href="#M000154" class="method-signature">
+          <a href="#M000391" class="method-signature">
           <span class="method-name">decode</span><span class="method-args">(stream)</span>
           </a>
         </div>
@@ -175,24 +175,23 @@ href="../Filter.html">Filter</a>.
 Not supported.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000154-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000154-source">
+            onclick="toggleCode('M000391-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000391-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/filters.rb, line 790</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 790</span>
 790:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">stream</span>)
-791:         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{self.class} : Not yet supported&quot;</span>
-792:         <span class="ruby-keyword kw">nil</span>
-793:       <span class="ruby-keyword kw">end</span>
+791:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-node">&quot;#{self.class} is not yet supported&quot;</span>
+792:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000153" class="method-detail">
-        <a name="M000153"></a>
+      <div id="method-M000390" class="method-detail">
+        <a name="M000390"></a>
 
         <div class="method-heading">
-          <a href="#M000153" class="method-signature">
+          <a href="#M000390" class="method-signature">
           <span class="method-name">encode</span><span class="method-args">(stream)</span>
           </a>
         </div>
@@ -202,12 +201,12 @@ Not supported.
 Not supported.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000153-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000153-source">
+            onclick="toggleCode('M000390-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000390-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/filters.rb, line 783</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 783</span>
 783:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">stream</span>)
-784:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-node">&quot;#{self.class} is not (yet?) supported&quot;</span>
+784:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-node">&quot;#{self.class} is not yet supported&quot;</span>
 785:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>

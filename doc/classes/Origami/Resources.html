@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/page_rb.html">
-                sources/parser/page.rb
+                <a href="../../files/origami/page_rb.html">
+                origami/page.rb
                 </a>
         <br />
             </td>
@@ -95,14 +95,7 @@ href="Dictionary.html">Dictionary</a> for a <a href="Page.html">Page</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000436">add_colorspace</a>&nbsp;&nbsp;
-      <a href="#M000435">add_extgstate</a>&nbsp;&nbsp;
-      <a href="#M000440">add_font</a>&nbsp;&nbsp;
-      <a href="#M000437">add_pattern</a>&nbsp;&nbsp;
-      <a href="#M000441">add_properties</a>&nbsp;&nbsp;
-      <a href="#M000438">add_shading</a>&nbsp;&nbsp;
-      <a href="#M000439">add_xobject</a>&nbsp;&nbsp;
-      <a href="#M000442">pre_build</a>&nbsp;&nbsp;
+      <a href="#M000632">pre_build</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -115,6 +108,7 @@ href="Dictionary.html">Dictionary</a> for a <a href="Page.html">Page</a>.
 
       <div id="includes-list">
         <span class="include-name"><a href="Configurable.html">Configurable</a></span>
+        <span class="include-name"><a href="ResourcesHolder.html">ResourcesHolder</a></span>
       </div>
     </div>
 
@@ -144,200 +138,32 @@ href="Dictionary.html">Dictionary</a> for a <a href="Page.html">Page</a>.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000436" class="method-detail">
-        <a name="M000436"></a>
+      <div id="method-M000632" class="method-detail">
+        <a name="M000632"></a>
 
         <div class="method-heading">
-          <a href="#M000436" class="method-signature">
-          <span class="method-name">add_colorspace</span><span class="method-args">(name, colorspace)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000436-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000436-source">
-<pre>
-    <span class="ruby-comment cmt"># File sources/parser/page.rb, line 93</span>
-93:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_colorspace</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">colorspace</span>)
-94:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">ColorSpace</span> <span class="ruby-operator">||=</span> {}
-95:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">ColorSpace</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">colorspace</span>
-96:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000435" class="method-detail">
-        <a name="M000435"></a>
-
-        <div class="method-heading">
-          <a href="#M000435" class="method-signature">
-          <span class="method-name">add_extgstate</span><span class="method-args">(name, extgstate)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000435-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000435-source">
-<pre>
-    <span class="ruby-comment cmt"># File sources/parser/page.rb, line 88</span>
-88:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_extgstate</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">extgstate</span>)
-89:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">ExtGState</span> <span class="ruby-operator">||=</span> {}
-90:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">ExtGState</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">extgstate</span>
-91:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000440" class="method-detail">
-        <a name="M000440"></a>
-
-        <div class="method-heading">
-          <a href="#M000440" class="method-signature">
-          <span class="method-name">add_font</span><span class="method-args">(name, font)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000440-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000440-source">
-<pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 113</span>
-113:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_font</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">font</span>)
-114:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Font</span> <span class="ruby-operator">||=</span> {}
-115:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Font</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">font</span>
-116:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000437" class="method-detail">
-        <a name="M000437"></a>
-
-        <div class="method-heading">
-          <a href="#M000437" class="method-signature">
-          <span class="method-name">add_pattern</span><span class="method-args">(name, pattern)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000437-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000437-source">
-<pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 98</span>
- 98:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_pattern</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">pattern</span>)
- 99:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Pattern</span> <span class="ruby-operator">||=</span> {}
-100:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Pattern</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">pattern</span>
-101:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000441" class="method-detail">
-        <a name="M000441"></a>
-
-        <div class="method-heading">
-          <a href="#M000441" class="method-signature">
-          <span class="method-name">add_properties</span><span class="method-args">(name, properties)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000441-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000441-source">
-<pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 118</span>
-118:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_properties</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">properties</span>)
-119:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Properties</span> <span class="ruby-operator">||=</span> {}
-120:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Properties</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">properties</span>
-121:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000438" class="method-detail">
-        <a name="M000438"></a>
-
-        <div class="method-heading">
-          <a href="#M000438" class="method-signature">
-          <span class="method-name">add_shading</span><span class="method-args">(name, shading)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000438-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000438-source">
-<pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 103</span>
-103:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_shading</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">shading</span>)
-104:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Shading</span> <span class="ruby-operator">||=</span> {}
-105:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Shading</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">shading</span>
-106:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000439" class="method-detail">
-        <a name="M000439"></a>
-
-        <div class="method-heading">
-          <a href="#M000439" class="method-signature">
-          <span class="method-name">add_xobject</span><span class="method-args">(name, xobject)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000439-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000439-source">
-<pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 108</span>
-108:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_xobject</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">xobject</span>)
-109:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">XObject</span> <span class="ruby-operator">||=</span> {}
-110:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">XObject</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">xobject</span>
-111:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000442" class="method-detail">
-        <a name="M000442"></a>
-
-        <div class="method-heading">
-          <a href="#M000442" class="method-signature">
+          <a href="#M000632" class="method-signature">
           <span class="method-name">pre_build</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000442-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000442-source">
+            onclick="toggleCode('M000632-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000632-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/page.rb, line 123</span>
-123:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
-124:       
-125:       <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Font</span>
-126:         <span class="ruby-identifier">fnt</span> = <span class="ruby-constant">Font</span><span class="ruby-operator">::</span><span class="ruby-constant">Type1</span><span class="ruby-operator">::</span><span class="ruby-constant">Standard</span><span class="ruby-operator">::</span><span class="ruby-constant">Helvetica</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">pre_build</span>
-127:         <span class="ruby-identifier">fnt</span>.<span class="ruby-constant">Name</span> = <span class="ruby-identifier">:F1</span>
-128:         
-129:         <span class="ruby-identifier">add_font</span>(<span class="ruby-identifier">fnt</span>.<span class="ruby-constant">Name</span>, <span class="ruby-identifier">fnt</span>)
-130:       <span class="ruby-keyword kw">end</span>
-131:       
-132:       <span class="ruby-keyword kw">super</span>
-133:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 156</span>
+156:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
+157:       
+158:       <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Font</span>
+159:         <span class="ruby-identifier">fnt</span> = <span class="ruby-constant">Font</span><span class="ruby-operator">::</span><span class="ruby-constant">Type1</span><span class="ruby-operator">::</span><span class="ruby-constant">Standard</span><span class="ruby-operator">::</span><span class="ruby-constant">Helvetica</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">pre_build</span>
+160:         <span class="ruby-identifier">fnt</span>.<span class="ruby-constant">Name</span> = <span class="ruby-identifier">:F1</span>
+161:         
+162:         <span class="ruby-identifier">add_font</span>(<span class="ruby-identifier">fnt</span>.<span class="ruby-constant">Name</span>, <span class="ruby-identifier">fnt</span>)
+163:       <span class="ruby-keyword kw">end</span>
+164:       
+165:       <span class="ruby-keyword kw">super</span>
+166:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

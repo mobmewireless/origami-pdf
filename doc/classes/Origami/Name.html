@@ -55,12 +55,12 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/obfuscation_rb.html">
-                sources/parser/obfuscation.rb
+                <a href="../../files/origami/name_rb.html">
+                origami/name.rb
                 </a>
         <br />
-                <a href="../../files/sources/parser/name_rb.html">
-                sources/parser/name.rb
+                <a href="../../files/origami/obfuscation_rb.html">
+                origami/obfuscation.rb
                 </a>
         <br />
             </td>
@@ -101,11 +101,10 @@ structures.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000274">new</a>&nbsp;&nbsp;
-      <a href="#M000277">real_type</a>&nbsp;&nbsp;
-      <a href="#M000275">set</a>&nbsp;&nbsp;
-      <a href="#M000273">to_obfuscated_str</a>&nbsp;&nbsp;
-      <a href="#M000276">value</a>&nbsp;&nbsp;
+      <a href="#M000528">new</a>&nbsp;&nbsp;
+      <a href="#M000530">real_type</a>&nbsp;&nbsp;
+      <a href="#M000531">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000529">value</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -134,40 +133,40 @@ structures.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000274" class="method-detail">
-        <a name="M000274"></a>
+      <div id="method-M000528" class="method-detail">
+        <a name="M000528"></a>
 
         <div class="method-heading">
-          <a href="#M000274" class="method-signature">
+          <a href="#M000528" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(name = &quot;&quot;)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Name.html#M000274">new</a> <a href="Name.html">Name</a>.
+Creates a <a href="Name.html#M000528">new</a> <a href="Name.html">Name</a>.
 </p>
 <table>
-<tr><td valign="top"><em>name</em>:</td><td>A symbol representing the <a href="Name.html#M000274">new</a> <a
-href="Name.html">Name</a> <a href="Name.html#M000276">value</a>.
+<tr><td valign="top"><em>name</em>:</td><td>A symbol representing the <a href="Name.html#M000528">new</a> <a
+href="Name.html">Name</a> <a href="Name.html#M000529">value</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000274-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000274-source">
+            onclick="toggleCode('M000528-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000528-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/name.rb, line 51</span>
-51:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span> = <span class="ruby-value str">&quot;&quot;</span>)
-52:       
-53:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">String</span>)
-54:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type Symbol or String, received #{name.class}.&quot;</span>
-55:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/name.rb, line 49</span>
+49:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span> = <span class="ruby-value str">&quot;&quot;</span>)
+50:       
+51:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">String</span>)
+52:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type Symbol or String, received #{name.class}.&quot;</span>
+53:       <span class="ruby-keyword kw">end</span>
+54:       
+55:       <span class="ruby-ivar">@value</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>
 56:       
-57:       <span class="ruby-identifier">value</span> = (<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">&quot; &quot;</span><span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_sym</span>
-58:       
-59:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">value</span>)
-60:     <span class="ruby-keyword kw">end</span>
+57:       <span class="ruby-keyword kw">super</span>()
+58:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -175,106 +174,83 @@ href="Name.html">Name</a> <a href="Name.html#M000276">value</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000277" class="method-detail">
-        <a name="M000277"></a>
+      <div id="method-M000530" class="method-detail">
+        <a name="M000530"></a>
 
         <div class="method-heading">
-          <a href="#M000277" class="method-signature">
+          <a href="#M000530" class="method-signature">
           <span class="method-name">real_type</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000277-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000277-source">
+            onclick="toggleCode('M000530-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000530-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/name.rb, line 138</span>
-138:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Name</span> <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/name.rb, line 133</span>
+133:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Name</span> <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000275" class="method-detail">
-        <a name="M000275"></a>
+      <div id="method-M000531" class="method-detail">
+        <a name="M000531"></a>
 
         <div class="method-heading">
-          <a href="#M000275" class="method-signature">
-          <span class="method-name">set</span><span class="method-args">(value)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000275-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000275-source">
-<pre>
-    <span class="ruby-comment cmt"># File sources/parser/name.rb, line 62</span>
-62:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set</span>(<span class="ruby-identifier">value</span>)
-63:       <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">value</span>, <span class="ruby-ivar">@indirect</span>)
-64:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000273" class="method-detail">
-        <a name="M000273"></a>
-
-        <div class="method-heading">
-          <a href="#M000273" class="method-signature">
+          <a href="#M000531" class="method-signature">
           <span class="method-name">to_obfuscated_str</span><span class="method-args">(prop = 2)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000273-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000273-source">
+            onclick="toggleCode('M000531-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000531-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/obfuscation.rb, line 181</span>
-181:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>(<span class="ruby-identifier">prop</span> = <span class="ruby-value">2</span>)
-182:       <span class="ruby-identifier">name</span> = (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot; &quot;</span><span class="ruby-value str">&quot; &quot;</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id2name</span>
-183:       
-184:       <span class="ruby-identifier">forbiddenchars</span> = [ <span class="ruby-value str">&quot; &quot;</span>,<span class="ruby-value str">&quot;#&quot;</span>,<span class="ruby-value str">&quot;\t&quot;</span>,<span class="ruby-value str">&quot;\r&quot;</span>,<span class="ruby-value str">&quot;\n&quot;</span>,<span class="ruby-value str">&quot;\0&quot;</span>,<span class="ruby-value str">&quot;[&quot;</span>,<span class="ruby-value str">&quot;]&quot;</span>,<span class="ruby-value str">&quot;&lt;&quot;</span>,<span class="ruby-value str">&quot;&gt;&quot;</span>,<span class="ruby-value str">&quot;(&quot;</span>,<span class="ruby-value str">&quot;)&quot;</span>,<span class="ruby-value str">&quot;%&quot;</span>,<span class="ruby-value str">&quot;/&quot;</span>,<span class="ruby-value str">&quot;\\&quot;</span> ]
-185: 
-186:       <span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/./</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
-187:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rand</span>(<span class="ruby-identifier">prop</span>) <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">forbiddenchars</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">c</span>)
-188:           <span class="ruby-identifier">hexchar</span> = <span class="ruby-identifier">c</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">base</span>=<span class="ruby-value">16</span>)
-189:           <span class="ruby-identifier">hexchar</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">hexchar</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hexchar</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span>
-190:           
-191:           <span class="ruby-value str">'#'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">hexchar</span>
-192:         <span class="ruby-keyword kw">else</span>
-193:           <span class="ruby-identifier">c</span>
-194:         <span class="ruby-keyword kw">end</span>
-195:       <span class="ruby-keyword kw">end</span>
-196: 
-197:       <span class="ruby-keyword kw">super</span>(<span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">name</span>)
-198:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/obfuscation.rb, line 185</span>
+185:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>(<span class="ruby-identifier">prop</span> = <span class="ruby-value">2</span>)
+186:       <span class="ruby-identifier">name</span> = <span class="ruby-ivar">@value</span>.<span class="ruby-identifier">dup</span>
+187:       
+188:       <span class="ruby-identifier">forbiddenchars</span> = [ <span class="ruby-value str">&quot; &quot;</span>,<span class="ruby-value str">&quot;#&quot;</span>,<span class="ruby-value str">&quot;\t&quot;</span>,<span class="ruby-value str">&quot;\r&quot;</span>,<span class="ruby-value str">&quot;\n&quot;</span>,<span class="ruby-value str">&quot;\0&quot;</span>,<span class="ruby-value str">&quot;[&quot;</span>,<span class="ruby-value str">&quot;]&quot;</span>,<span class="ruby-value str">&quot;&lt;&quot;</span>,<span class="ruby-value str">&quot;&gt;&quot;</span>,<span class="ruby-value str">&quot;(&quot;</span>,<span class="ruby-value str">&quot;)&quot;</span>,<span class="ruby-value str">&quot;%&quot;</span>,<span class="ruby-value str">&quot;/&quot;</span>,<span class="ruby-value str">&quot;\\&quot;</span> ]
+189: 
+190:       <span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/./</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+191:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rand</span>(<span class="ruby-identifier">prop</span>) <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">forbiddenchars</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">c</span>)
+192:           <span class="ruby-identifier">hexchar</span> = <span class="ruby-identifier">c</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">base</span>=<span class="ruby-value">16</span>)
+193:           <span class="ruby-identifier">hexchar</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">hexchar</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hexchar</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span>
+194:           
+195:           <span class="ruby-value str">'#'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">hexchar</span>
+196:         <span class="ruby-keyword kw">else</span>
+197:           <span class="ruby-identifier">c</span>
+198:         <span class="ruby-keyword kw">end</span>
+199:       <span class="ruby-keyword kw">end</span>
+200: 
+201:       <span class="ruby-keyword kw">super</span>(<span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">name</span>)
+202:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000276" class="method-detail">
-        <a name="M000276"></a>
+      <div id="method-M000529" class="method-detail">
+        <a name="M000529"></a>
 
         <div class="method-heading">
-          <a href="#M000276" class="method-signature">
+          <a href="#M000529" class="method-signature">
           <span class="method-name">value</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000276-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000276-source">
+            onclick="toggleCode('M000529-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000529-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/name.rb, line 66</span>
-66:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
-67:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_sym</span>
-68:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/name.rb, line 60</span>
+60:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
+61:       <span class="ruby-ivar">@value</span>.<span class="ruby-identifier">to_sym</span>
+62:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

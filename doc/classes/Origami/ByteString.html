@@ -55,12 +55,12 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/string_rb.html">
-                sources/parser/string.rb
+                <a href="../../files/origami/string_rb.html">
+                origami/string.rb
                 </a>
         <br />
-                <a href="../../files/sources/parser/obfuscation_rb.html">
-                sources/parser/obfuscation.rb
+                <a href="../../files/origami/obfuscation_rb.html">
+                origami/obfuscation.rb
                 </a>
         <br />
             </td>
@@ -97,8 +97,8 @@ href="Object.html">Object</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000414">new</a>&nbsp;&nbsp;
-      <a href="#M000415">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000622">new</a>&nbsp;&nbsp;
+      <a href="#M000623">to_obfuscated_str</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -127,18 +127,18 @@ href="Object.html">Object</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000414" class="method-detail">
-        <a name="M000414"></a>
+      <div id="method-M000622" class="method-detail">
+        <a name="M000622"></a>
 
         <div class="method-heading">
-          <a href="#M000414" class="method-signature">
+          <a href="#M000622" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(str = &quot;&quot;)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="ByteString.html#M000414">new</a> <a
+Creates a <a href="ByteString.html#M000622">new</a> <a
 href="PDF.html">PDF</a> <a href="String.html">String</a>.
 </p>
 <table>
@@ -147,18 +147,18 @@ href="PDF.html">PDF</a> <a href="String.html">String</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000414-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000414-source">
+            onclick="toggleCode('M000622-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000622-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/string.rb, line 201</span>
-201:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">str</span> = <span class="ruby-value str">&quot;&quot;</span>)
-202:       
-203:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">String</span>)
-204:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type String, received #{str.class}.&quot;</span>
-205:       <span class="ruby-keyword kw">end</span>
-206:       
-207:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">str</span>)
-208:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/string.rb, line 207</span>
+207:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">str</span> = <span class="ruby-value str">&quot;&quot;</span>)
+208:       
+209:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">String</span>)
+210:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type String, received #{str.class}.&quot;</span>
+211:       <span class="ruby-keyword kw">end</span>
+212:       
+213:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">str</span>)
+214:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -166,24 +166,24 @@ href="PDF.html">PDF</a> <a href="String.html">String</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000415" class="method-detail">
-        <a name="M000415"></a>
+      <div id="method-M000623" class="method-detail">
+        <a name="M000623"></a>
 
         <div class="method-heading">
-          <a href="#M000415" class="method-signature">
+          <a href="#M000623" class="method-signature">
           <span class="method-name">to_obfuscated_str</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000415-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000415-source">
+            onclick="toggleCode('M000623-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000623-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/obfuscation.rb, line 169</span>
-169:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>
-170:       <span class="ruby-identifier">to_s</span>
-171:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/obfuscation.rb, line 173</span>
+173:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>
+174:       <span class="ruby-identifier">to_s</span>
+175:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

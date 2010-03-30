@@ -8,11 +8,16 @@
 #   If there is, it is replaced by our own.
 # 
 
-$: << "../../parser" << ".."
-
-require 'parser.rb'
+$: << ".."
 require 'getopt.rb'
 
+begin
+  require 'origami'
+rescue LoadError
+  ORIGAMIDIR = "#{File.dirname(__FILE__)}/../.."
+  $: << ORIGAMIDIR
+  require 'origami'
+end
 include Origami
 
 pdf, output_filename = get_params()

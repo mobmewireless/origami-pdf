@@ -9,32 +9,32 @@
 		>>
 		/S /Launch
 	>>
-	/Type /Catalog
 	/Pages 2 0 R
+	/Type /Catalog
 >>
 endobj
 2 0 obj
 <<
-	/Type /Pages
 	/Count 1
 	/Kids [ 3 0 R ]
+	/Type /Pages
 >>
 endobj
 3 0 obj
 <<
+	/MediaBox [ 0 0 795 842 ]
+	/Parent 2 0 R
 	/Resources <<
 		/Font <<
 			/F1 <<
-				/Type /Font
+				/Name /F1
 				/BaseFont /Helvetica
 				/Subtype /Type1
-				/Name /F1
+				/Type /Font
 			>>
 		>>
 	>>
 	/Type /Page
-	/MediaBox [ 0 0 795 842 ]
-	/Parent 2 0 R
 >>
 endobj
 xref
@@ -45,8 +45,8 @@ xref
 0000000292 00000 n
 trailer
 <<
-	/Size 4
 	/Root 1 0 R
+	/Size 4
 >>
 startxref
 511

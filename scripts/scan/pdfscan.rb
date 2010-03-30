@@ -54,8 +54,13 @@
 # So, yes, the output is correct (but suprising).
 #
 
-$: << "../../parser"
-require 'parser.rb'
+begin
+  require 'origami'
+rescue LoadError
+  ORIGAMIDIR = "#{File.dirname(__FILE__)}/../.."
+  $: << ORIGAMIDIR
+  require 'origami'
+end
 include Origami
 
 require 'digest/md5'

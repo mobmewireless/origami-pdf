@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/graphics/xobject_rb.html">
-                sources/parser/graphics/xobject.rb
+                <a href="../../files/origami/graphics/xobject_rb.html">
+                origami/graphics/xobject.rb
                 </a>
         <br />
             </td>
@@ -95,26 +95,26 @@ contents of a <a href="Page.html">Page</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000393">draw_line</a>&nbsp;&nbsp;
-      <a href="#M000394">draw_polygon</a>&nbsp;&nbsp;
-      <a href="#M000395">draw_rectangle</a>&nbsp;&nbsp;
-      <a href="#M000392">new</a>&nbsp;&nbsp;
-      <a href="#M000397">paint_shading</a>&nbsp;&nbsp;
-      <a href="#M000408">set_dash_pattern</a>&nbsp;&nbsp;
-      <a href="#M000406">set_fill_color</a>&nbsp;&nbsp;
-      <a href="#M000410">set_line_cap</a>&nbsp;&nbsp;
-      <a href="#M000411">set_line_join</a>&nbsp;&nbsp;
-      <a href="#M000409">set_line_width</a>&nbsp;&nbsp;
-      <a href="#M000407">set_stroke_color</a>&nbsp;&nbsp;
-      <a href="#M000405">set_text_char_spacing</a>&nbsp;&nbsp;
-      <a href="#M000398">set_text_font</a>&nbsp;&nbsp;
-      <a href="#M000400">set_text_leading</a>&nbsp;&nbsp;
-      <a href="#M000399">set_text_pos</a>&nbsp;&nbsp;
-      <a href="#M000401">set_text_rendering</a>&nbsp;&nbsp;
-      <a href="#M000402">set_text_rise</a>&nbsp;&nbsp;
-      <a href="#M000403">set_text_scale</a>&nbsp;&nbsp;
-      <a href="#M000404">set_text_word_spacing</a>&nbsp;&nbsp;
-      <a href="#M000396">write</a>&nbsp;&nbsp;
+      <a href="#M000601">draw_line</a>&nbsp;&nbsp;
+      <a href="#M000602">draw_polygon</a>&nbsp;&nbsp;
+      <a href="#M000603">draw_rectangle</a>&nbsp;&nbsp;
+      <a href="#M000600">new</a>&nbsp;&nbsp;
+      <a href="#M000605">paint_shading</a>&nbsp;&nbsp;
+      <a href="#M000616">set_dash_pattern</a>&nbsp;&nbsp;
+      <a href="#M000614">set_fill_color</a>&nbsp;&nbsp;
+      <a href="#M000618">set_line_cap</a>&nbsp;&nbsp;
+      <a href="#M000619">set_line_join</a>&nbsp;&nbsp;
+      <a href="#M000617">set_line_width</a>&nbsp;&nbsp;
+      <a href="#M000615">set_stroke_color</a>&nbsp;&nbsp;
+      <a href="#M000613">set_text_char_spacing</a>&nbsp;&nbsp;
+      <a href="#M000606">set_text_font</a>&nbsp;&nbsp;
+      <a href="#M000608">set_text_leading</a>&nbsp;&nbsp;
+      <a href="#M000607">set_text_pos</a>&nbsp;&nbsp;
+      <a href="#M000609">set_text_rendering</a>&nbsp;&nbsp;
+      <a href="#M000610">set_text_rise</a>&nbsp;&nbsp;
+      <a href="#M000611">set_text_scale</a>&nbsp;&nbsp;
+      <a href="#M000612">set_text_word_spacing</a>&nbsp;&nbsp;
+      <a href="#M000604">write</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -189,21 +189,21 @@ contents of a <a href="Page.html">Page</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000392" class="method-detail">
-        <a name="M000392"></a>
+      <div id="method-M000600" class="method-detail">
+        <a name="M000600"></a>
 
         <div class="method-heading">
-          <a href="#M000392" class="method-signature">
+          <a href="#M000600" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(rawdata = &quot;&quot;, dictionary = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000392-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000392-source">
+            onclick="toggleCode('M000600-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000600-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 44</span>
+    <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 44</span>
 44:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">rawdata</span> = <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">dictionary</span> = {})
 45:     
 46:       <span class="ruby-ivar">@instructions</span> = []
@@ -218,11 +218,11 @@ contents of a <a href="Page.html">Page</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000393" class="method-detail">
-        <a name="M000393"></a>
+      <div id="method-M000601" class="method-detail">
+        <a name="M000601"></a>
 
         <div class="method-heading">
-          <a href="#M000393" class="method-signature">
+          <a href="#M000601" class="method-signature">
           <span class="method-name">draw_line</span><span class="method-args">(from, to, attr = {})</span>
           </a>
         </div>
@@ -233,10 +233,10 @@ Draw a straight line from the point at coord <em>from</em>, to the point at
 coord <em>to</em>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000393-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000393-source">
+            onclick="toggleCode('M000601-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000601-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 55</span>
+    <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 55</span>
 55:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">draw_line</span>(<span class="ruby-identifier">from</span>, <span class="ruby-identifier">to</span>, <span class="ruby-identifier">attr</span> = {})
 56:       <span class="ruby-identifier">draw_polygon</span>([<span class="ruby-identifier">from</span>, <span class="ruby-identifier">to</span>], <span class="ruby-identifier">attr</span>)
 57:     <span class="ruby-keyword kw">end</span>
@@ -245,11 +245,11 @@ coord <em>to</em>.
         </div>
       </div>
 
-      <div id="method-M000394" class="method-detail">
-        <a name="M000394"></a>
+      <div id="method-M000602" class="method-detail">
+        <a name="M000602"></a>
 
         <div class="method-heading">
-          <a href="#M000394" class="method-signature">
+          <a href="#M000602" class="method-signature">
           <span class="method-name">draw_polygon</span><span class="method-args">(coords = [], attr = {})</span>
           </a>
         </div>
@@ -259,10 +259,10 @@ coord <em>to</em>.
 Draw a polygon from a array of coordinates.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000394-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000394-source">
+            onclick="toggleCode('M000602-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000602-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 62</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 62</span>
  62:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">draw_polygon</span>(<span class="ruby-identifier">coords</span> = [], <span class="ruby-identifier">attr</span> = {})
  63: 
  64:       <span class="ruby-identifier">stroke_color</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_STROKE_COLOR</span>
@@ -316,11 +316,11 @@ Draw a polygon from a array of coordinates.
         </div>
       </div>
 
-      <div id="method-M000395" class="method-detail">
-        <a name="M000395"></a>
+      <div id="method-M000603" class="method-detail">
+        <a name="M000603"></a>
 
         <div class="method-heading">
-          <a href="#M000395" class="method-signature">
+          <a href="#M000603" class="method-signature">
           <span class="method-name">draw_rectangle</span><span class="method-args">(x, y, width, height, attr = {})</span>
           </a>
         </div>
@@ -331,10 +331,10 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
 <em>width</em> and <em>height</em>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000395-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000395-source">
+            onclick="toggleCode('M000603-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000603-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 114</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 114</span>
 114:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">draw_rectangle</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>, <span class="ruby-identifier">attr</span> = {})
 115: 
 116:       <span class="ruby-identifier">stroke_color</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_STROKE_COLOR</span>
@@ -381,21 +381,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000397" class="method-detail">
-        <a name="M000397"></a>
+      <div id="method-M000605" class="method-detail">
+        <a name="M000605"></a>
 
         <div class="method-heading">
-          <a href="#M000397" class="method-signature">
+          <a href="#M000605" class="method-signature">
           <span class="method-name">paint_shading</span><span class="method-args">(shade)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000397-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000397-source">
+            onclick="toggleCode('M000605-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000605-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 199</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 199</span>
 199:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">paint_shading</span>(<span class="ruby-identifier">shade</span>)
 200:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">SH</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">shade</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
 201: 
@@ -406,21 +406,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000408" class="method-detail">
-        <a name="M000408"></a>
+      <div id="method-M000616" class="method-detail">
+        <a name="M000616"></a>
 
         <div class="method-heading">
-          <a href="#M000408" class="method-signature">
+          <a href="#M000616" class="method-signature">
           <span class="method-name">set_dash_pattern</span><span class="method-args">(pattern)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000408-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000408-source">
+            onclick="toggleCode('M000616-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000616-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 325</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 325</span>
 325:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_dash_pattern</span>(<span class="ruby-identifier">pattern</span>)
 326:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">dash_pattern</span>.<span class="ruby-identifier">eql?</span> <span class="ruby-identifier">pattern</span>
 327:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">D</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">array</span>, <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">phase</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -433,21 +433,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000406" class="method-detail">
-        <a name="M000406"></a>
+      <div id="method-M000614" class="method-detail">
+        <a name="M000614"></a>
 
         <div class="method-heading">
-          <a href="#M000406" class="method-signature">
+          <a href="#M000614" class="method-signature">
           <span class="method-name">set_fill_color</span><span class="method-args">(color)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000406-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000406-source">
+            onclick="toggleCode('M000614-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000614-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 267</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 267</span>
 267:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_fill_color</span>(<span class="ruby-identifier">color</span>)
 268:       
 269:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> ( <span class="ruby-identifier">i</span> =
@@ -481,21 +481,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000410" class="method-detail">
-        <a name="M000410"></a>
+      <div id="method-M000618" class="method-detail">
+        <a name="M000618"></a>
 
         <div class="method-heading">
-          <a href="#M000410" class="method-signature">
+          <a href="#M000618" class="method-signature">
           <span class="method-name">set_line_cap</span><span class="method-args">(cap)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000410-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000410-source">
+            onclick="toggleCode('M000618-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000618-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 341</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 341</span>
 341:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_line_cap</span>(<span class="ruby-identifier">cap</span>)
 342:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">line_cap</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">cap</span>
 343:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">JCap</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">cap</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -508,21 +508,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000411" class="method-detail">
-        <a name="M000411"></a>
+      <div id="method-M000619" class="method-detail">
+        <a name="M000619"></a>
 
         <div class="method-heading">
-          <a href="#M000411" class="method-signature">
+          <a href="#M000619" class="method-signature">
           <span class="method-name">set_line_join</span><span class="method-args">(join)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000411-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000411-source">
+            onclick="toggleCode('M000619-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000619-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 349</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 349</span>
 349:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_line_join</span>(<span class="ruby-identifier">join</span>)
 350:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">line_join</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">join</span>
 351:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">JJoin</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">join</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -535,21 +535,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000409" class="method-detail">
-        <a name="M000409"></a>
+      <div id="method-M000617" class="method-detail">
+        <a name="M000617"></a>
 
         <div class="method-heading">
-          <a href="#M000409" class="method-signature">
+          <a href="#M000617" class="method-signature">
           <span class="method-name">set_line_width</span><span class="method-args">(width)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000409-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000409-source">
+            onclick="toggleCode('M000617-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000617-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 333</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 333</span>
 333:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_line_width</span>(<span class="ruby-identifier">width</span>)
 334:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">line_width</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">width</span>
 335:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">W</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">width</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -562,21 +562,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000407" class="method-detail">
-        <a name="M000407"></a>
+      <div id="method-M000615" class="method-detail">
+        <a name="M000615"></a>
 
         <div class="method-heading">
-          <a href="#M000407" class="method-signature">
+          <a href="#M000615" class="method-signature">
           <span class="method-name">set_stroke_color</span><span class="method-args">(color)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000407-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000407-source">
+            onclick="toggleCode('M000615-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000615-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 296</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 296</span>
 296:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_stroke_color</span>(<span class="ruby-identifier">color</span>)
 297:       
 298:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> ( <span class="ruby-identifier">i</span> =
@@ -610,21 +610,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000405" class="method-detail">
-        <a name="M000405"></a>
+      <div id="method-M000613" class="method-detail">
+        <a name="M000613"></a>
 
         <div class="method-heading">
-          <a href="#M000405" class="method-signature">
+          <a href="#M000613" class="method-signature">
           <span class="method-name">set_text_char_spacing</span><span class="method-args">(char_spacing)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000405-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000405-source">
+            onclick="toggleCode('M000613-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000613-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 259</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 259</span>
 259:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_char_spacing</span>(<span class="ruby-identifier">char_spacing</span>)
 260:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">char_spacing</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">char_spacing</span>
 261:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Tc</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">char_spacing</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -637,21 +637,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000398" class="method-detail">
-        <a name="M000398"></a>
+      <div id="method-M000606" class="method-detail">
+        <a name="M000606"></a>
 
         <div class="method-heading">
-          <a href="#M000398" class="method-signature">
+          <a href="#M000606" class="method-signature">
           <span class="method-name">set_text_font</span><span class="method-args">(fontname, size)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000398-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000398-source">
+            onclick="toggleCode('M000606-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000606-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 205</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 205</span>
 205:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_font</span>(<span class="ruby-identifier">fontname</span>, <span class="ruby-identifier">size</span>)
 206:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fontname</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">font</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">font_size</span>
 207:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Tf</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">fontname</span>, <span class="ruby-identifier">size</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -664,21 +664,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000400" class="method-detail">
-        <a name="M000400"></a>
+      <div id="method-M000608" class="method-detail">
+        <a name="M000608"></a>
 
         <div class="method-heading">
-          <a href="#M000400" class="method-signature">
+          <a href="#M000608" class="method-signature">
           <span class="method-name">set_text_leading</span><span class="method-args">(leading)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000400-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000400-source">
+            onclick="toggleCode('M000608-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000608-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 219</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 219</span>
 219:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_leading</span>(<span class="ruby-identifier">leading</span>)
 220:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">leading</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">leading</span>
 221:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">TL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">leading</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -691,21 +691,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000399" class="method-detail">
-        <a name="M000399"></a>
+      <div id="method-M000607" class="method-detail">
+        <a name="M000607"></a>
 
         <div class="method-heading">
-          <a href="#M000399" class="method-signature">
+          <a href="#M000607" class="method-signature">
           <span class="method-name">set_text_pos</span><span class="method-args">(tx,ty)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000399-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000399-source">
+            onclick="toggleCode('M000607-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000607-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 213</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 213</span>
 213:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_pos</span>(<span class="ruby-identifier">tx</span>,<span class="ruby-identifier">ty</span>)
 214:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Td</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">tx</span>, <span class="ruby-identifier">ty</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
 215:       
@@ -716,21 +716,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000401" class="method-detail">
-        <a name="M000401"></a>
+      <div id="method-M000609" class="method-detail">
+        <a name="M000609"></a>
 
         <div class="method-heading">
-          <a href="#M000401" class="method-signature">
+          <a href="#M000609" class="method-signature">
           <span class="method-name">set_text_rendering</span><span class="method-args">(rendering)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000401-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000401-source">
+            onclick="toggleCode('M000609-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000609-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 227</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 227</span>
 227:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_rendering</span>(<span class="ruby-identifier">rendering</span>)
 228:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rendering</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">rendering_mode</span>
 229:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Tr</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">rendering</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -743,21 +743,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000402" class="method-detail">
-        <a name="M000402"></a>
+      <div id="method-M000610" class="method-detail">
+        <a name="M000610"></a>
 
         <div class="method-heading">
-          <a href="#M000402" class="method-signature">
+          <a href="#M000610" class="method-signature">
           <span class="method-name">set_text_rise</span><span class="method-args">(rise)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000402-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000402-source">
+            onclick="toggleCode('M000610-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000610-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 235</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 235</span>
 235:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_rise</span>(<span class="ruby-identifier">rise</span>)
 236:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rise</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">text_rise</span>
 237:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Ts</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">rise</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -770,21 +770,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000403" class="method-detail">
-        <a name="M000403"></a>
+      <div id="method-M000611" class="method-detail">
+        <a name="M000611"></a>
 
         <div class="method-heading">
-          <a href="#M000403" class="method-signature">
+          <a href="#M000611" class="method-signature">
           <span class="method-name">set_text_scale</span><span class="method-args">(scaling)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000403-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000403-source">
+            onclick="toggleCode('M000611-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000611-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 243</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 243</span>
 243:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_scale</span>(<span class="ruby-identifier">scaling</span>)
 244:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">scale</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">scaling</span>
 245:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Tz</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">scaling</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -797,21 +797,21 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000404" class="method-detail">
-        <a name="M000404"></a>
+      <div id="method-M000612" class="method-detail">
+        <a name="M000612"></a>
 
         <div class="method-heading">
-          <a href="#M000404" class="method-signature">
+          <a href="#M000612" class="method-signature">
           <span class="method-name">set_text_word_spacing</span><span class="method-args">(word_spacing)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000404-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000404-source">
+            onclick="toggleCode('M000612-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000612-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 251</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 251</span>
 251:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_word_spacing</span>(<span class="ruby-identifier">word_spacing</span>)
 252:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">word_spacing</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">word_spacing</span>
 253:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Tw</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">word_spacing</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
@@ -824,11 +824,11 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000396" class="method-detail">
-        <a name="M000396"></a>
+      <div id="method-M000604" class="method-detail">
+        <a name="M000604"></a>
 
         <div class="method-heading">
-          <a href="#M000396" class="method-signature">
+          <a href="#M000604" class="method-signature">
           <span class="method-name">write</span><span class="method-args">(text, attr = {})</span>
           </a>
         </div>
@@ -838,7 +838,8 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
 Adds text to the content stream with custom formatting attributes.
 </p>
 <table>
-<tr><td valign="top"><em>text</em>:</td><td>Text to <a href="ContentStream.html#M000396">write</a>.
+<tr><td valign="top"><em>text</em>:</td><td><a href="Text.html">Text</a> to <a
+href="ContentStream.html#M000604">write</a>.
 
 </td></tr>
 <tr><td valign="top"><em>attr</em>:</td><td>Formatting attributes.
@@ -846,10 +847,10 @@ Adds text to the content stream with custom formatting attributes.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000396-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000396-source">
+            onclick="toggleCode('M000604-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000604-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/graphics/xobject.rb, line 161</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 161</span>
 161:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">attr</span> = {})
 162: 
 163:       <span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>       = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:x</span>], <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:y</span>] 

@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/string_rb.html">
-                sources/parser/string.rb
+                <a href="../../files/origami/string_rb.html">
+                origami/string.rb
                 </a>
         <br />
             </td>
@@ -86,9 +86,9 @@ Module common to <a href="String.html">String</a> objects.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000266">new</a>&nbsp;&nbsp;
-      <a href="#M000265">real_type</a>&nbsp;&nbsp;
-      <a href="#M000267">to_utf8</a>&nbsp;&nbsp;
+      <a href="#M000447">new</a>&nbsp;&nbsp;
+      <a href="#M000446">real_type</a>&nbsp;&nbsp;
+      <a href="#M000448">to_utf8</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -136,32 +136,32 @@ Module common to <a href="String.html">String</a> objects.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000266" class="method-detail">
-        <a name="M000266"></a>
+      <div id="method-M000447" class="method-detail">
+        <a name="M000447"></a>
 
         <div class="method-heading">
-          <a href="#M000266" class="method-signature">
+          <a href="#M000447" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(str)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000266-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000266-source">
+            onclick="toggleCode('M000447-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000447-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/string.rb, line 99</span>
- 99:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">str</span>)
-100:       
-101:       <span class="ruby-ivar">@encoding</span> = 
-102:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">str</span>[<span class="ruby-value">0</span>,<span class="ruby-value">2</span>] <span class="ruby-operator">==</span> <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">UTF16BE</span><span class="ruby-operator">::</span><span class="ruby-constant">MAGIC</span>
-103:         <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">UTF16BE</span>
-104:       <span class="ruby-keyword kw">else</span>
-105:         <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">PDFDocEncoding</span>
-106:       <span class="ruby-keyword kw">end</span>
-107: 
-108:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">str</span>)
-109:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/string.rb, line 105</span>
+105:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">str</span>)
+106:       
+107:       <span class="ruby-ivar">@encoding</span> = 
+108:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">str</span>[<span class="ruby-value">0</span>,<span class="ruby-value">2</span>] <span class="ruby-operator">==</span> <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">UTF16BE</span><span class="ruby-operator">::</span><span class="ruby-constant">MAGIC</span>
+109:         <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">UTF16BE</span>
+110:       <span class="ruby-keyword kw">else</span>
+111:         <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">PDFDocEncoding</span>
+112:       <span class="ruby-keyword kw">end</span>
+113: 
+114:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">str</span>)
+115:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -169,51 +169,51 @@ Module common to <a href="String.html">String</a> objects.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000265" class="method-detail">
-        <a name="M000265"></a>
+      <div id="method-M000446" class="method-detail">
+        <a name="M000446"></a>
 
         <div class="method-heading">
-          <a href="#M000265" class="method-signature">
+          <a href="#M000446" class="method-signature">
           <span class="method-name">real_type</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000265-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000265-source">
+            onclick="toggleCode('M000446-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000446-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/string.rb, line 97</span>
-97:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Origami</span><span class="ruby-operator">::</span><span class="ruby-constant">String</span> <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/string.rb, line 103</span>
+103:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Origami</span><span class="ruby-operator">::</span><span class="ruby-constant">String</span> <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000267" class="method-detail">
-        <a name="M000267"></a>
+      <div id="method-M000448" class="method-detail">
+        <a name="M000448"></a>
 
         <div class="method-heading">
-          <a href="#M000267" class="method-signature">
+          <a href="#M000448" class="method-signature">
           <span class="method-name">to_utf8</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000267-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000267-source">
+            onclick="toggleCode('M000448-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000448-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/string.rb, line 111</span>
-111:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_utf8</span>
-112:       <span class="ruby-identifier">require</span> <span class="ruby-value str">'iconv'</span>
-113: 
-114:       <span class="ruby-identifier">i</span> = <span class="ruby-constant">Iconv</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;UTF-8&quot;</span>, <span class="ruby-value str">&quot;UTF16&quot;</span>)
-115:         <span class="ruby-identifier">utf16str</span> = <span class="ruby-identifier">i</span>.<span class="ruby-identifier">iconv</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">encoding</span>.<span class="ruby-identifier">to_utf16be</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>))
-116:       <span class="ruby-identifier">i</span>.<span class="ruby-identifier">close</span>
-117: 
-118:       <span class="ruby-identifier">utf16str</span>
-119:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/string.rb, line 117</span>
+117:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_utf8</span>
+118:       <span class="ruby-identifier">require</span> <span class="ruby-value str">'iconv'</span>
+119: 
+120:       <span class="ruby-identifier">i</span> = <span class="ruby-constant">Iconv</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;UTF-8&quot;</span>, <span class="ruby-value str">&quot;UTF16&quot;</span>)
+121:         <span class="ruby-identifier">utf16str</span> = <span class="ruby-identifier">i</span>.<span class="ruby-identifier">iconv</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">encoding</span>.<span class="ruby-identifier">to_utf16be</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>))
+122:       <span class="ruby-identifier">i</span>.<span class="ruby-identifier">close</span>
+123: 
+124:       <span class="ruby-identifier">utf16str</span>
+125:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

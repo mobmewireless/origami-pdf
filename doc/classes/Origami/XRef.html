@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/xreftable_rb.html">
-                sources/parser/xreftable.rb
+                <a href="../../files/origami/xreftable_rb.html">
+                origami/xreftable.rb
                 </a>
         <br />
             </td>
@@ -94,9 +94,9 @@ Class representing a Cross-reference information.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000280">new</a>&nbsp;&nbsp;
-      <a href="#M000281">to_s</a>&nbsp;&nbsp;
-      <a href="#M000282">to_xrefstm_data</a>&nbsp;&nbsp;
+      <a href="#M000490">new</a>&nbsp;&nbsp;
+      <a href="#M000491">to_s</a>&nbsp;&nbsp;
+      <a href="#M000492">to_xrefstm_data</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -131,7 +131,7 @@ Class <a href="XRef/Subsection.html" class="link">Origami::XRef::Subsection</a><
           <td class="context-item-value">&quot;n&quot;</td>
         </tr>
         <tr class="top-aligned-row context-row">
-          <td class="context-item-name">LASTFREE</td>
+          <td class="context-item-name">FIRSTFREE</td>
           <td>=</td>
           <td class="context-item-value">65535</td>
         </tr>
@@ -171,18 +171,18 @@ Class <a href="XRef/Subsection.html" class="link">Origami::XRef::Subsection</a><
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000280" class="method-detail">
-        <a name="M000280"></a>
+      <div id="method-M000490" class="method-detail">
+        <a name="M000490"></a>
 
         <div class="method-heading">
-          <a href="#M000280" class="method-signature">
+          <a href="#M000490" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(offset, generation, state)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="XRef.html#M000280">new</a> <a href="XRef.html">XRef</a>.
+Creates a <a href="XRef.html#M000490">new</a> <a href="XRef.html">XRef</a>.
 </p>
 <table>
 <tr><td valign="top"><em>offset</em>:</td><td>The file <em>offset</em> of the referenced <a
@@ -198,10 +198,10 @@ USED).
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000280-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000280-source">
+            onclick="toggleCode('M000490-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000490-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/xreftable.rb, line 78</span>
+    <span class="ruby-comment cmt"># File origami/xreftable.rb, line 78</span>
 78:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">offset</span>, <span class="ruby-identifier">generation</span>, <span class="ruby-identifier">state</span>)
 79:     
 80:       <span class="ruby-ivar">@offset</span>, <span class="ruby-ivar">@generation</span>, <span class="ruby-ivar">@state</span> = <span class="ruby-identifier">offset</span>, <span class="ruby-identifier">generation</span>, <span class="ruby-identifier">state</span>
@@ -214,11 +214,11 @@ USED).
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000281" class="method-detail">
-        <a name="M000281"></a>
+      <div id="method-M000491" class="method-detail">
+        <a name="M000491"></a>
 
         <div class="method-heading">
-          <a href="#M000281" class="method-signature">
+          <a href="#M000491" class="method-signature">
           <span class="method-name">to_s</span><span class="method-args">()</span>
           </a>
         </div>
@@ -228,10 +228,10 @@ USED).
 Outputs self into <a href="PDF.html">PDF</a> code.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000281-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000281-source">
+            onclick="toggleCode('M000491-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000491-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xreftable.rb, line 100</span>
+     <span class="ruby-comment cmt"># File origami/xreftable.rb, line 100</span>
 100:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
 101:       <span class="ruby-identifier">off</span> = (<span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-value">10</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@offset</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">length</span>)) <span class="ruby-operator">+</span> <span class="ruby-ivar">@offset</span>.<span class="ruby-identifier">to_s</span>
 102:       <span class="ruby-identifier">gen</span> = (<span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-value">5</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@generation</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">length</span>)) <span class="ruby-operator">+</span> <span class="ruby-ivar">@generation</span>.<span class="ruby-identifier">to_s</span>
@@ -243,32 +243,32 @@ Outputs self into <a href="PDF.html">PDF</a> code.
         </div>
       </div>
 
-      <div id="method-M000282" class="method-detail">
-        <a name="M000282"></a>
+      <div id="method-M000492" class="method-detail">
+        <a name="M000492"></a>
 
         <div class="method-heading">
-          <a href="#M000282" class="method-signature">
+          <a href="#M000492" class="method-signature">
           <span class="method-name">to_xrefstm_data</span><span class="method-args">(type_w, field1_w, field2_w)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000282-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000282-source">
+            onclick="toggleCode('M000492-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000492-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/xreftable.rb, line 107</span>
+     <span class="ruby-comment cmt"># File origami/xreftable.rb, line 107</span>
 107:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_xrefstm_data</span>(<span class="ruby-identifier">type_w</span>, <span class="ruby-identifier">field1_w</span>, <span class="ruby-identifier">field2_w</span>)
-108: 
-109:       <span class="ruby-identifier">type_w</span> <span class="ruby-operator">&lt;&lt;=</span> <span class="ruby-value">3</span>
-110:       <span class="ruby-identifier">field1_w</span> <span class="ruby-operator">&lt;&lt;=</span> <span class="ruby-value">3</span>
-111:       <span class="ruby-identifier">field2_w</span> <span class="ruby-operator">&lt;&lt;=</span> <span class="ruby-value">3</span>
-112: 
-113:       <span class="ruby-identifier">type</span> = ((<span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-constant">FREE</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;\000&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;\001&quot;</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-node">&quot;B#{type_w}&quot;</span>)[<span class="ruby-value">0</span>]
-114: 
-115:       <span class="ruby-identifier">offset</span> = <span class="ruby-ivar">@offset</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">2</span>)
-116:       <span class="ruby-identifier">offset</span> = <span class="ruby-value str">'0'</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">field1_w</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">offset</span>.<span class="ruby-identifier">size</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">offset</span>
-117:       <span class="ruby-identifier">generation</span> = <span class="ruby-ivar">@generation</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">2</span>)
+108:       <span class="ruby-identifier">type_w</span> <span class="ruby-operator">&lt;&lt;=</span> <span class="ruby-value">3</span>
+109:       <span class="ruby-identifier">field1_w</span> <span class="ruby-operator">&lt;&lt;=</span> <span class="ruby-value">3</span>
+110:       <span class="ruby-identifier">field2_w</span> <span class="ruby-operator">&lt;&lt;=</span> <span class="ruby-value">3</span>
+111: 
+112:       <span class="ruby-identifier">type</span> = ((<span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-constant">FREE</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;\000&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;\001&quot;</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-node">&quot;B#{type_w}&quot;</span>)[<span class="ruby-value">0</span>]
+113: 
+114:       <span class="ruby-identifier">offset</span> = <span class="ruby-ivar">@offset</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">2</span>)
+115:       <span class="ruby-identifier">offset</span> = <span class="ruby-value str">'0'</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">field1_w</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">offset</span>.<span class="ruby-identifier">size</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">offset</span>
+116:       <span class="ruby-identifier">generation</span> = <span class="ruby-ivar">@generation</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">2</span>)
+117: 
 118:       <span class="ruby-identifier">generation</span> = <span class="ruby-value str">'0'</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">field2_w</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">generation</span>.<span class="ruby-identifier">size</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">generation</span>
 119: 
 120:       [ <span class="ruby-identifier">type</span> , <span class="ruby-identifier">offset</span>, <span class="ruby-identifier">generation</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-node">&quot;B#{type_w}B#{field1_w}B#{field2_w}&quot;</span>)

@@ -55,12 +55,12 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/obfuscation_rb.html">
-                sources/parser/obfuscation.rb
+                <a href="../../files/origami/numeric_rb.html">
+                origami/numeric.rb
                 </a>
         <br />
-                <a href="../../files/sources/parser/numeric_rb.html">
-                sources/parser/numeric.rb
+                <a href="../../files/origami/obfuscation_rb.html">
+                origami/obfuscation.rb
                 </a>
         <br />
             </td>
@@ -69,9 +69,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="Object.html">
-                Object
-               </a>
+                DelegateClass(Bignum)
             </td>
         </tr>
         </table>
@@ -99,7 +97,7 @@ href="Object.html">Object</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000294">new</a>&nbsp;&nbsp;
+      <a href="#M000504">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -138,14 +136,14 @@ href="Object.html">Object</a>.
       <div class="name-list">
                         <table summary="aliases">
         <tr class="top-aligned-row context-row">
-          <td class="context-item-name">to_s</td>
-          <td>-&gt;</td>
-          <td class="context-item-value">to_obfuscated_str</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
           <td class="context-item-name">to_i</td>
           <td>-&gt;</td>
           <td class="context-item-value">value</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">to_s</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">to_obfuscated_str</td>
         </tr>
                         </table>
       </div>
@@ -159,18 +157,18 @@ href="Object.html">Object</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000294" class="method-detail">
-        <a name="M000294"></a>
+      <div id="method-M000504" class="method-detail">
+        <a name="M000504"></a>
 
         <div class="method-heading">
-          <a href="#M000294" class="method-signature">
+          <a href="#M000504" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(i = 0)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Integer.html#M000294">new</a> <a
+Creates a <a href="Integer.html#M000504">new</a> <a
 href="Integer.html">Integer</a> from a Ruby Fixnum / Bignum.
 </p>
 <table>
@@ -179,10 +177,10 @@ href="Integer.html">Integer</a> from a Ruby Fixnum / Bignum.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000294-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000294-source">
+            onclick="toggleCode('M000504-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000504-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/numeric.rb, line 111</span>
+     <span class="ruby-comment cmt"># File origami/numeric.rb, line 111</span>
 111:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>)
 112:       
 113:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Integer</span>)

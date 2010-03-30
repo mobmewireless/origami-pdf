@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../files/sources/parser/linearization_rb.html">
-                sources/parser/linearization.rb
+                <a href="../../../files/origami/linearization_rb.html">
+                origami/linearization.rb
                 </a>
         <br />
             </td>
@@ -80,12 +80,12 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000178">entry_item_size</a>&nbsp;&nbsp;
-      <a href="#M000179">get_entry_item_size</a>&nbsp;&nbsp;
-      <a href="#M000177">get_header_item_size</a>&nbsp;&nbsp;
-      <a href="#M000176">header_item_size</a>&nbsp;&nbsp;
-      <a href="#M000181">nb_entry_items</a>&nbsp;&nbsp;
-      <a href="#M000180">nb_header_items</a>&nbsp;&nbsp;
+      <a href="#M000429">entry_item_size</a>&nbsp;&nbsp;
+      <a href="#M000430">get_entry_item_size</a>&nbsp;&nbsp;
+      <a href="#M000428">get_header_item_size</a>&nbsp;&nbsp;
+      <a href="#M000427">header_item_size</a>&nbsp;&nbsp;
+      <a href="#M000432">nb_entry_items</a>&nbsp;&nbsp;
+      <a href="#M000431">nb_header_items</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -107,139 +107,139 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000178" class="method-detail">
-        <a name="M000178"></a>
+      <div id="method-M000429" class="method-detail">
+        <a name="M000429"></a>
 
         <div class="method-heading">
-          <a href="#M000178" class="method-signature">
+          <a href="#M000429" class="method-signature">
           <span class="method-name">entry_item_size</span><span class="method-args">(number, size)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000178-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000178-source">
+            onclick="toggleCode('M000429-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000429-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/linearization.rb, line 127</span>
-127:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">entry_item_size</span>(<span class="ruby-identifier">number</span>, <span class="ruby-identifier">size</span>)
-128:         <span class="ruby-ivar">@entry_items_size</span>[<span class="ruby-identifier">number</span>] = <span class="ruby-identifier">size</span>
-129:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/linearization.rb, line 132</span>
+132:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">entry_item_size</span>(<span class="ruby-identifier">number</span>, <span class="ruby-identifier">size</span>)
+133:         <span class="ruby-ivar">@entry_items_size</span>[<span class="ruby-identifier">number</span>] = <span class="ruby-identifier">size</span>
+134:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000179" class="method-detail">
-        <a name="M000179"></a>
+      <div id="method-M000430" class="method-detail">
+        <a name="M000430"></a>
 
         <div class="method-heading">
-          <a href="#M000179" class="method-signature">
+          <a href="#M000430" class="method-signature">
           <span class="method-name">get_entry_item_size</span><span class="method-args">(number)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000179-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000179-source">
+            onclick="toggleCode('M000430-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000430-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/linearization.rb, line 131</span>
-131:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_entry_item_size</span>(<span class="ruby-identifier">number</span>)
-132:         <span class="ruby-ivar">@entry_items_size</span>[<span class="ruby-identifier">number</span>] 
-133:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/linearization.rb, line 136</span>
+136:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_entry_item_size</span>(<span class="ruby-identifier">number</span>)
+137:         <span class="ruby-ivar">@entry_items_size</span>[<span class="ruby-identifier">number</span>] 
+138:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000177" class="method-detail">
-        <a name="M000177"></a>
+      <div id="method-M000428" class="method-detail">
+        <a name="M000428"></a>
 
         <div class="method-heading">
-          <a href="#M000177" class="method-signature">
+          <a href="#M000428" class="method-signature">
           <span class="method-name">get_header_item_size</span><span class="method-args">(number)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000177-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000177-source">
+            onclick="toggleCode('M000428-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000428-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/linearization.rb, line 123</span>
-123:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_header_item_size</span>(<span class="ruby-identifier">number</span>)
-124:         <span class="ruby-ivar">@header_items_size</span>[<span class="ruby-identifier">number</span>]
-125:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/linearization.rb, line 128</span>
+128:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_header_item_size</span>(<span class="ruby-identifier">number</span>)
+129:         <span class="ruby-ivar">@header_items_size</span>[<span class="ruby-identifier">number</span>]
+130:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000176" class="method-detail">
-        <a name="M000176"></a>
+      <div id="method-M000427" class="method-detail">
+        <a name="M000427"></a>
 
         <div class="method-heading">
-          <a href="#M000176" class="method-signature">
+          <a href="#M000427" class="method-signature">
           <span class="method-name">header_item_size</span><span class="method-args">(number, size)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000176-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000176-source">
+            onclick="toggleCode('M000427-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000427-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/linearization.rb, line 119</span>
-119:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">header_item_size</span>(<span class="ruby-identifier">number</span>, <span class="ruby-identifier">size</span>)
-120:         <span class="ruby-ivar">@header_items_size</span>[<span class="ruby-identifier">number</span>] = <span class="ruby-identifier">size</span>
-121:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/linearization.rb, line 124</span>
+124:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">header_item_size</span>(<span class="ruby-identifier">number</span>, <span class="ruby-identifier">size</span>)
+125:         <span class="ruby-ivar">@header_items_size</span>[<span class="ruby-identifier">number</span>] = <span class="ruby-identifier">size</span>
+126:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000181" class="method-detail">
-        <a name="M000181"></a>
+      <div id="method-M000432" class="method-detail">
+        <a name="M000432"></a>
 
         <div class="method-heading">
-          <a href="#M000181" class="method-signature">
+          <a href="#M000432" class="method-signature">
           <span class="method-name">nb_entry_items</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000181-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000181-source">
+            onclick="toggleCode('M000432-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000432-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/linearization.rb, line 139</span>
-139:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nb_entry_items</span>
-140:         <span class="ruby-ivar">@entry_items_size</span>.<span class="ruby-identifier">size</span>
-141:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/linearization.rb, line 144</span>
+144:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nb_entry_items</span>
+145:         <span class="ruby-ivar">@entry_items_size</span>.<span class="ruby-identifier">size</span>
+146:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000180" class="method-detail">
-        <a name="M000180"></a>
+      <div id="method-M000431" class="method-detail">
+        <a name="M000431"></a>
 
         <div class="method-heading">
-          <a href="#M000180" class="method-signature">
+          <a href="#M000431" class="method-signature">
           <span class="method-name">nb_header_items</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000180-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000180-source">
+            onclick="toggleCode('M000431-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000431-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/linearization.rb, line 135</span>
-135:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nb_header_items</span>
-136:         <span class="ruby-ivar">@header_items_size</span>.<span class="ruby-identifier">size</span>
-137:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/linearization.rb, line 140</span>
+140:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nb_header_items</span>
+141:         <span class="ruby-ivar">@header_items_size</span>.<span class="ruby-identifier">size</span>
+142:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

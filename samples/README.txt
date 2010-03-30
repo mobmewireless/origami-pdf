@@ -9,6 +9,9 @@
 ``digsig/``
 * PDF digital signatures. Create a new document and signs it with test.key.
 
+``flash/``
+* PDF with Flash object. Create a document with an embedded SWF file.
+
 ``launch/``
 * Launch action. Create a document launching the calculator on Windows, Unix and MacOS.
 

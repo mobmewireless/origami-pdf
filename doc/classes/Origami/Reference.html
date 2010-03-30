@@ -55,12 +55,12 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/sources/parser/reference_rb.html">
-                sources/parser/reference.rb
+                <a href="../../files/origami/reference_rb.html">
+                origami/reference.rb
                 </a>
         <br />
-                <a href="../../files/sources/parser/obfuscation_rb.html">
-                sources/parser/obfuscation.rb
+                <a href="../../files/origami/obfuscation_rb.html">
+                origami/obfuscation.rb
                 </a>
         <br />
             </td>
@@ -100,14 +100,14 @@ like symbolic links pointing to a particular object into the file.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000419">&lt;=&gt;</a>&nbsp;&nbsp;
-      <a href="#M000418">eql?</a>&nbsp;&nbsp;
-      <a href="#M000416">new</a>&nbsp;&nbsp;
-      <a href="#M000422">real_type</a>&nbsp;&nbsp;
-      <a href="#M000417">solve</a>&nbsp;&nbsp;
-      <a href="#M000420">to_a</a>&nbsp;&nbsp;
-      <a href="#M000423">to_obfuscated_str</a>&nbsp;&nbsp;
-      <a href="#M000421">value</a>&nbsp;&nbsp;
+      <a href="#M000627">&lt;=&gt;</a>&nbsp;&nbsp;
+      <a href="#M000626">eql?</a>&nbsp;&nbsp;
+      <a href="#M000624">new</a>&nbsp;&nbsp;
+      <a href="#M000630">real_type</a>&nbsp;&nbsp;
+      <a href="#M000625">solve</a>&nbsp;&nbsp;
+      <a href="#M000628">to_a</a>&nbsp;&nbsp;
+      <a href="#M000631">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000629">value</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -167,21 +167,21 @@ like symbolic links pointing to a particular object into the file.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000416" class="method-detail">
-        <a name="M000416"></a>
+      <div id="method-M000624" class="method-detail">
+        <a name="M000624"></a>
 
         <div class="method-heading">
-          <a href="#M000416" class="method-signature">
+          <a href="#M000624" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(refno, refgen)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000416-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000416-source">
+            onclick="toggleCode('M000624-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000624-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/reference.rb, line 41</span>
+    <span class="ruby-comment cmt"># File origami/reference.rb, line 41</span>
 41:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">refno</span>, <span class="ruby-identifier">refgen</span>)
 42:       <span class="ruby-ivar">@refno</span>, <span class="ruby-ivar">@refgen</span> = <span class="ruby-identifier">refno</span>, <span class="ruby-identifier">refgen</span>
 43:     <span class="ruby-keyword kw">end</span>
@@ -192,21 +192,21 @@ like symbolic links pointing to a particular object into the file.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000419" class="method-detail">
-        <a name="M000419"></a>
+      <div id="method-M000627" class="method-detail">
+        <a name="M000627"></a>
 
         <div class="method-heading">
-          <a href="#M000419" class="method-signature">
+          <a href="#M000627" class="method-signature">
           <span class="method-name">&lt;=&gt;</span><span class="method-args">(ref)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000419-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000419-source">
+            onclick="toggleCode('M000627-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000627-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/reference.rb, line 82</span>
+    <span class="ruby-comment cmt"># File origami/reference.rb, line 82</span>
 82:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;=&gt;</span>(<span class="ruby-identifier">ref</span>) <span class="ruby-comment cmt">#:nodoc</span>
 83:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_a</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">ref</span>.<span class="ruby-identifier">to_a</span>
 84:     <span class="ruby-keyword kw">end</span>
@@ -215,21 +215,21 @@ like symbolic links pointing to a particular object into the file.
         </div>
       </div>
 
-      <div id="method-M000418" class="method-detail">
-        <a name="M000418"></a>
+      <div id="method-M000626" class="method-detail">
+        <a name="M000626"></a>
 
         <div class="method-heading">
-          <a href="#M000418" class="method-signature">
+          <a href="#M000626" class="method-signature">
           <span class="method-name">eql?</span><span class="method-args">(ref)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000418-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000418-source">
+            onclick="toggleCode('M000626-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000626-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/reference.rb, line 74</span>
+    <span class="ruby-comment cmt"># File origami/reference.rb, line 74</span>
 74:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eql?</span>(<span class="ruby-identifier">ref</span>) <span class="ruby-comment cmt">#:nodoc</span>
 75:       <span class="ruby-identifier">ref</span>.<span class="ruby-identifier">refno</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@refno</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">ref</span>.<span class="ruby-identifier">refgen</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@refgen</span>
 76:     <span class="ruby-keyword kw">end</span>
@@ -238,42 +238,42 @@ like symbolic links pointing to a particular object into the file.
         </div>
       </div>
 
-      <div id="method-M000422" class="method-detail">
-        <a name="M000422"></a>
+      <div id="method-M000630" class="method-detail">
+        <a name="M000630"></a>
 
         <div class="method-heading">
-          <a href="#M000422" class="method-signature">
+          <a href="#M000630" class="method-signature">
           <span class="method-name">real_type</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000422-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000422-source">
+            onclick="toggleCode('M000630-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000630-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/reference.rb, line 104</span>
+     <span class="ruby-comment cmt"># File origami/reference.rb, line 104</span>
 104:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Reference</span> <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000417" class="method-detail">
-        <a name="M000417"></a>
+      <div id="method-M000625" class="method-detail">
+        <a name="M000625"></a>
 
         <div class="method-heading">
-          <a href="#M000417" class="method-signature">
+          <a href="#M000625" class="method-signature">
           <span class="method-name">solve</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000417-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000417-source">
+            onclick="toggleCode('M000625-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000625-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/reference.rb, line 57</span>
+    <span class="ruby-comment cmt"># File origami/reference.rb, line 57</span>
 57:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">solve</span>
 58:       
 59:       <span class="ruby-identifier">pdfdoc</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">pdf</span>
@@ -285,7 +285,7 @@ like symbolic links pointing to a particular object into the file.
 65:       <span class="ruby-identifier">target</span> = <span class="ruby-identifier">pdfdoc</span>.<span class="ruby-identifier">get_object</span>(<span class="ruby-keyword kw">self</span>)
 66:       
 67:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">target</span>.<span class="ruby-identifier">nil?</span>
-68:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidReference</span>, <span class="ruby-value str">&quot;Cannot resolve reference&quot;</span>
+68:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidReference</span>, <span class="ruby-node">&quot;Cannot resolve reference : #{self.to_s}&quot;</span>
 69:       <span class="ruby-keyword kw">end</span>
 70: 
 71:       <span class="ruby-identifier">target</span>
@@ -295,11 +295,11 @@ like symbolic links pointing to a particular object into the file.
         </div>
       </div>
 
-      <div id="method-M000420" class="method-detail">
-        <a name="M000420"></a>
+      <div id="method-M000628" class="method-detail">
+        <a name="M000628"></a>
 
         <div class="method-heading">
-          <a href="#M000420" class="method-signature">
+          <a href="#M000628" class="method-signature">
           <span class="method-name">to_a</span><span class="method-args">()</span>
           </a>
         </div>
@@ -310,10 +310,10 @@ Returns a Ruby array with the object number and the generation this
 reference is pointing to.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000420-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000420-source">
+            onclick="toggleCode('M000628-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000628-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/reference.rb, line 89</span>
+    <span class="ruby-comment cmt"># File origami/reference.rb, line 89</span>
 89:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_a</span>
 90:       [<span class="ruby-ivar">@refno</span>, <span class="ruby-ivar">@refgen</span>]
 91:     <span class="ruby-keyword kw">end</span>
@@ -322,36 +322,36 @@ reference is pointing to.
         </div>
       </div>
 
-      <div id="method-M000423" class="method-detail">
-        <a name="M000423"></a>
+      <div id="method-M000631" class="method-detail">
+        <a name="M000631"></a>
 
         <div class="method-heading">
-          <a href="#M000423" class="method-signature">
+          <a href="#M000631" class="method-signature">
           <span class="method-name">to_obfuscated_str</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000423-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000423-source">
+            onclick="toggleCode('M000631-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000631-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/obfuscation.rb, line 161</span>
-161:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>
-162:       <span class="ruby-identifier">refstr</span> = <span class="ruby-identifier">refno</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Obfuscator</span>.<span class="ruby-identifier">junk_spaces</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">refgen</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Obfuscator</span>.<span class="ruby-identifier">junk_spaces</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;R&quot;</span>
-163: 
-164:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">refstr</span>)
-165:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/obfuscation.rb, line 165</span>
+165:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>
+166:       <span class="ruby-identifier">refstr</span> = <span class="ruby-identifier">refno</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Obfuscator</span>.<span class="ruby-identifier">junk_spaces</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">refgen</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Obfuscator</span>.<span class="ruby-identifier">junk_spaces</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;R&quot;</span>
+167: 
+168:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">refstr</span>)
+169:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000421" class="method-detail">
-        <a name="M000421"></a>
+      <div id="method-M000629" class="method-detail">
+        <a name="M000629"></a>
 
         <div class="method-heading">
-          <a href="#M000421" class="method-signature">
+          <a href="#M000629" class="method-signature">
           <span class="method-name">value</span><span class="method-args">()</span>
           </a>
         </div>
@@ -361,10 +361,10 @@ reference is pointing to.
 Returns self.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000421-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000421-source">
+            onclick="toggleCode('M000629-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000629-source">
 <pre>
-     <span class="ruby-comment cmt"># File sources/parser/reference.rb, line 100</span>
+     <span class="ruby-comment cmt"># File origami/reference.rb, line 100</span>
 100:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
 101:       <span class="ruby-keyword kw">self</span>
 102:     <span class="ruby-keyword kw">end</span>

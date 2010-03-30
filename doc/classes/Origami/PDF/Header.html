@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../files/sources/parser/header_rb.html">
-                sources/parser/header.rb
+                <a href="../../../files/origami/header_rb.html">
+                origami/header.rb
                 </a>
         <br />
             </td>
@@ -93,8 +93,8 @@ href="Header.html">Header</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000383">new</a>&nbsp;&nbsp;
-      <a href="#M000384">to_s</a>&nbsp;&nbsp;
+      <a href="#M000594">new</a>&nbsp;&nbsp;
+      <a href="#M000595">to_s</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -120,6 +120,11 @@ href="Header.html">Header</a>.
           <td class="context-item-name">MAXVERSION</td>
           <td>=</td>
           <td class="context-item-value">7</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">MAGIC</td>
+          <td>=</td>
+          <td class="context-item-value">/\A%PDF-(\d)\.(\d)/</td>
         </tr>
         </table>
       </div>
@@ -152,11 +157,11 @@ href="Header.html">Header</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000383" class="method-detail">
-        <a name="M000383"></a>
+      <div id="method-M000594" class="method-detail">
+        <a name="M000594"></a>
 
         <div class="method-heading">
-          <a href="#M000383" class="method-signature">
+          <a href="#M000594" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(majorversion = 1, minorversion = 4)</span>
           </a>
         </div>
@@ -174,18 +179,18 @@ Creates a file header, with the given major and minor versions.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000383-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000383-source">
+            onclick="toggleCode('M000594-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000594-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/header.rb, line 48</span>
-48:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">majorversion</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">minorversion</span> = <span class="ruby-value">4</span>)
-49:       
-50:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">majorversion</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">!=</span> <span class="ruby-value">1</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span> ((<span class="ruby-constant">MINVERSION</span><span class="ruby-operator">..</span><span class="ruby-constant">MAXVERSION</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">minorversion</span>.<span class="ruby-identifier">to_i</span>)
-51:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHeader</span>, <span class="ruby-node">&quot;Invalid file version : #{majorversion}.#{minorversion}&quot;</span> 
-52:         <span class="ruby-keyword kw">end</span>
-53:       
-54:         <span class="ruby-ivar">@majorversion</span>, <span class="ruby-ivar">@minorversion</span> = <span class="ruby-identifier">majorversion</span>, <span class="ruby-identifier">minorversion</span>
-55:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/header.rb, line 50</span>
+50:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">majorversion</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">minorversion</span> = <span class="ruby-value">4</span>)
+51:       
+52:         <span class="ruby-comment cmt">#if majorversion.to_i != 1 || ! ((MINVERSION..MAXVERSION) === minorversion.to_i)</span>
+53:         <span class="ruby-comment cmt">#  colorprint(&quot;[info ] Warning: Invalid file version : #{majorversion}.#{minorversion}\n&quot;, Colors::YELLOW, false, STDERR) </span>
+54:         <span class="ruby-comment cmt">#end</span>
+55:       
+56:         <span class="ruby-ivar">@majorversion</span>, <span class="ruby-ivar">@minorversion</span> = <span class="ruby-identifier">majorversion</span>, <span class="ruby-identifier">minorversion</span>
+57:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -193,11 +198,11 @@ Creates a file header, with the given major and minor versions.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000384" class="method-detail">
-        <a name="M000384"></a>
+      <div id="method-M000595" class="method-detail">
+        <a name="M000595"></a>
 
         <div class="method-heading">
-          <a href="#M000384" class="method-signature">
+          <a href="#M000595" class="method-signature">
           <span class="method-name">to_s</span><span class="method-args">()</span>
           </a>
         </div>
@@ -207,10 +212,10 @@ Creates a file header, with the given major and minor versions.
 Outputs self into <a href="../PDF.html">PDF</a> code.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000384-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000384-source">
+            onclick="toggleCode('M000595-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000595-source">
 <pre>
-    <span class="ruby-comment cmt"># File sources/parser/header.rb, line 74</span>
+    <span class="ruby-comment cmt"># File origami/header.rb, line 74</span>
 74:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
 75:         <span class="ruby-node">&quot;%PDF-#{@majorversion}.#{@minorversion}&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">EOL</span>
 76:       <span class="ruby-keyword kw">end</span>

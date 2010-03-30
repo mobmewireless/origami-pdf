@@ -9,8 +9,13 @@ require 'tc_actions.rb'
 require 'tc_annotations.rb'
 require 'tc_pdfnew.rb'
 
-$: << "../parser"
-require "parser.rb"
+begin
+  require 'origami'
+rescue LoadError
+  ORIGAMIDIR = "#{File.dirname(__FILE__)}/.."
+  $: << ORIGAMIDIR
+  require 'origami'
+end
 include Origami
 
  class TS_PdfTests
