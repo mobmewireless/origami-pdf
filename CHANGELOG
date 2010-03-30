@@ -1,12 +1,15 @@
 # CHANGELOG
 
 beta2 (//):
-  |sources/parser|:
+  Directory tree has changed. Sources are in the origami folder, and you
+  have to require origami.rb located in the root directory.
+
+  |origami|:
     - Added a force flag to detect PDF header in the file.
     - Support for Flash/RichMedia integration.
     - PDF#objects prototype has changed.
     - XFA forms.
-  |sources/walker|:
+  |walker|:
     - Search feature.
 
 beta1 (15/09/09):
