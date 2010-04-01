@@ -1,6 +1,6 @@
 # CHANGELOG
 
-beta2 (//):
+beta2 (01/04/10):
   Directory tree has changed. Sources are in the origami folder, and you
   have to require origami.rb located in the root directory.
 
@@ -9,6 +9,7 @@ beta2 (//):
     - Support for Flash/RichMedia integration.
     - PDF#objects prototype has changed.
     - XFA forms.
+    - Fixed various bugs.
   |walker|:
     - Search feature.
 
