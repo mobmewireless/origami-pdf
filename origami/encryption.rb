@@ -387,10 +387,10 @@ module Origami
             @algorithm.encrypt(key, iv, self.value)
           end
 
+          @decrypted = false
+
           self.replace(encrypted_data)
           self.freeze
-
-          @decrypted = false
         end
         
         self
@@ -427,10 +427,10 @@ module Origami
             @algorithm.encrypt(key, iv, @rawdata)
           end
 
+          @decrypted = false
+
           @rawdata.freeze
           self.freeze
-
-          @decrypted = false
         end
 
         self

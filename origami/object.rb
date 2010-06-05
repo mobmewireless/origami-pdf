@@ -231,6 +231,14 @@ module Origami
   class InvalidObjectError < Exception #:nodoc:
   end
 
+  class UnterminatedObjectError < Exception #:nodoc:
+    attr_reader :obj
+    def initialize(msg,obj)
+      super(msg)
+      @obj = obj
+    end
+  end
+
   #
   # Parent module representing a PDF Object.
   # PDF specification declares a set of primitive object types :
@@ -443,7 +451,7 @@ module Origami
         newObj.file_offset = offset
           
         if stream.skip(@@regexp_endobj).nil?
-          raise InvalidObjectError, "Object shall end with 'endobj' statement"
+          raise UnterminatedObjectError.new("Object shall end with 'endobj' statement", newObj)
         end
           
         newObj

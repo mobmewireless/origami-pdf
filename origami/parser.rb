@@ -206,6 +206,13 @@ module Origami
           @options[:callback].call(obj)
         end
         
+      rescue UnterminatedObjectError => e
+        error e.message
+        file << e.obj
+
+        @options[:callback].call(e.obj)
+        retry
+
       rescue Exception => e
         error "Breaking on: #{(@data.peek(10) + "...").inspect} at offset 0x#{@data.pos.to_s(16)}"
         error "Last exception: [#{e.class}] #{e.message}"

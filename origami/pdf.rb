@@ -405,10 +405,9 @@ module Origami
     # _object_:: The object to add.
     #
     def <<(object)
-       
       add_to_revision(object, @revisions.last)
-      
     end
+    alias :insert :<<
     
     #
     # Adds a new object to a specific revision.
@@ -440,9 +439,9 @@ module Origami
       #no = no + 1 while get_object(no)
 
       objset = indirect_objects.values
-      objstms = indirect_objects.values.find_all{|obj| obj.is_a?(ObjectStream)}
-
-      objstms.each do |obj| objset << obj end
+      indirect_objects.values.find_all{|obj| obj.is_a?(ObjectStream)}.each do |objstm|
+        objstm.each{|obj| objset << obj}
+      end
 
       allocated = objset.collect{|obj| obj.no}.compact
       no = allocated.max + 1 unless allocated.empty?

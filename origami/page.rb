@@ -244,15 +244,13 @@ module Origami
       pageset = []
      
       unless self.Count.nil?
-        self.Count.value.times { |n|
-          if n < self.Kids.length
-            node = self.Kids[n].is_a?(Reference) ? self.Kids[n].solve : self.Kids[n]
-            case node
-              when PageTreeNode then pageset.concat(node.children) 
-              when Page then pageset << node
-            end
-          end      
-        }
+        [ self.Count.value, self.Kids.length ].min.times do |n|
+          node = self.Kids[n].is_a?(Reference) ? self.Kids[n].solve : self.Kids[n]
+          case node
+            when PageTreeNode then pageset.concat(node.children) 
+            when Page then pageset << node
+          end
+        end
       end
       
       pageset

@@ -389,7 +389,7 @@ module Origami
       super
     end
     
-    # TODO
+    # 
     # Adds a new Object to this Stream.
     # _object_:: The Object to append.
     #
@@ -414,6 +414,7 @@ module Origami
      
       Reference.new(object.no, 0)
     end
+    alias :insert :<<
 
     #
     # Deletes Object _no_.
