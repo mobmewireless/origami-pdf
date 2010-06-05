@@ -41,7 +41,6 @@ module Origami
 
   module Adobe
     
-   
     #
     # Class representing an Adobe Reader certificate store.
     #
@@ -260,7 +259,7 @@ module Origami
         field   :PPK,       :Type => Dictionary, :Required => true
         
         def initialize(hash = {}) #:nodoc:
-          super(hash, true)
+          super(hash)
         end
         
       end
@@ -275,7 +274,7 @@ module Origami
         field   :V,           :Type => Integer, :Default => 0x10001, :Required => true
         
         def initialize(hash = {}) #:nodoc:
-          super(hash, false)
+          super(hash)
         end
         
       end
@@ -287,7 +286,7 @@ module Origami
         field   :Type,        :Type => Name, :Default => :User, :Required => true
         
         def initialize(hash = {})
-          super(hash, false)
+          super(hash)
         end
         
       end
@@ -301,7 +300,7 @@ module Origami
         field   :Entries,     :Type => Array, :Default => [], :Required => true
         
         def initialize(hash = {}) #:nodoc:
-          super(hash, false)
+          super(hash)
         end
         
       end
@@ -317,7 +316,7 @@ module Origami
         end
         
         def initialize(hash = {}) #:nodoc:
-          super(hash, true)
+          super(hash)
         end
         
       end

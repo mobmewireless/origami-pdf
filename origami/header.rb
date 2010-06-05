@@ -27,7 +27,7 @@ module Origami
   
   class PDF
 
-    class InvalidHeader < Exception #:nodoc:
+    class InvalidHeaderError < Exception #:nodoc:
     end
 
     #
@@ -62,7 +62,7 @@ module Origami
           maj = stream[1].to_i
           min = stream[2].to_i
         else
-          raise InvalidHeader, "Invalid header format"
+          raise InvalidHeaderError, "Invalid header format"
         end
      
         PDF::Header.new(maj,min)

@@ -21,7 +21,7 @@
 
 module Origami
 
-  class InvalidReference < Exception #:nodoc:
+  class InvalidReferenceError < Exception #:nodoc:
   end
 
   #
@@ -45,7 +45,7 @@ module Origami
     def self.parse(stream) #:nodoc:
       
       if stream.scan(@@regexp).nil?
-        raise InvalidReference, "Bad reference to indirect objet format"
+        raise InvalidReferenceError, "Bad reference to indirect objet format"
       end
       
       refno = stream[2].to_i
@@ -59,13 +59,13 @@ module Origami
       pdfdoc = self.pdf
 
       if pdfdoc.nil?
-        raise InvalidReference, "Not attached to any PDF"
+        raise InvalidReferenceError, "Not attached to any PDF"
       end
       
       target = pdfdoc.get_object(self)
       
       if target.nil?
-        raise InvalidReference, "Cannot resolve reference : #{self.to_s}"
+        raise InvalidReferenceError, "Cannot resolve reference : #{self.to_s}"
       end
 
       target

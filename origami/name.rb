@@ -27,7 +27,7 @@ module Origami
 
   REGULARCHARS = "([^ \\t\\r\\n\\0\\[\\]<>()%\\/]|#[a-fA-F0-9][a-fA-F0-9])*" #:nodoc:
 
-  class InvalidName < InvalidObject #:nodoc:
+  class InvalidNameObjectError < InvalidObjectError #:nodoc:
   end
 
   #
@@ -80,7 +80,7 @@ module Origami
     def self.parse(stream) #:nodoc:
       
       if stream.scan(@@regexp).nil?
-        raise InvalidName, "Bad name format"
+        raise InvalidNameObjectError, "Bad name format"
       else
         value = stream[2]
         
@@ -98,13 +98,13 @@ module Origami
           digits = name[i+1, 2]
           
           unless /^[A-Za-z0-9]{2}$/ === digits
-            raise InvalidName, "Irregular use of # token"
+            raise InvalidNameObjectError, "Irregular use of # token"
           end
           
           char = digits.hex.chr
           
           if char == "\0"
-            raise InvalidName, "Null byte forbidden inside name definition"
+            raise InvalidNameObjectError, "Null byte forbidden inside name definition"
           end
           
           name[i, 3] = char

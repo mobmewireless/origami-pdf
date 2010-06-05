@@ -88,7 +88,7 @@ module PDFWalker
             RubyProf.start 
           end
           
-          pdf = parsefile(filename)
+          target = parsefile(filename)
           
           if @help_menu_profile.active?
             result = RubyProf.stop
@@ -98,9 +98,9 @@ module PDFWalker
             htmlprinter.print(File.new("#{@config.profile_output_dir}/#{File.basename(filename)}.log.html", "w"))
           end
           
-          if pdf
-            if @opened then close end
-            @opened = pdf
+          if target
+            close if @opened
+            @opened = target
             
             @config.last_opened_file(@opened.filename)
             @config.save
@@ -129,31 +129,33 @@ module PDFWalker
             
             @statusbar.push(@main_context, "Viewing #{@opened.filename}")
 
-            pagemenu = Menu.new
-            @document_menu_gotopage.remove_submenu
-            page_index = 1
-            @opened.pages.each do |page|
-              pagemenu.append(item = MenuItem.new(page_index.to_s).show)
-              item.signal_connect("activate") do @treeview.goto(page)  end
-              page_index = page_index + 1
-            end
-            @document_menu_gotopage.set_submenu(pagemenu)
+            if @opened.is_a?(PDF)
+              pagemenu = Menu.new
+              @document_menu_gotopage.remove_submenu
+              page_index = 1
+              @opened.pages.each do |page|
+                pagemenu.append(item = MenuItem.new(page_index.to_s).show)
+                item.signal_connect("activate") do @treeview.goto(page)  end
+                page_index = page_index + 1
+              end
+              @document_menu_gotopage.set_submenu(pagemenu)
 
-            revmenu = Menu.new
-            @document_menu_gotorev.remove_submenu
-            rev_index = 1
-            @opened.revisions.each do |rev|
-              revmenu.append(item = MenuItem.new(rev_index.to_s).show)
-              item.signal_connect("activate") do @treeview.goto(rev)  end
-              rev_index = rev_index + 1
-            end
-            @document_menu_gotorev.set_submenu(revmenu)
+              revmenu = Menu.new
+              @document_menu_gotorev.remove_submenu
+              rev_index = 1
+              @opened.revisions.each do |rev|
+                revmenu.append(item = MenuItem.new(rev_index.to_s).show)
+                item.signal_connect("activate") do @treeview.goto(rev)  end
+                rev_index = rev_index + 1
+              end
+              @document_menu_gotorev.set_submenu(revmenu)
 
-            goto_catalog
+              goto_catalog
+            end
           end
           
         rescue Exception => e
-          error("This file cannot be parsed.\n#{e} (#{e.class})\n" + e.backtrace.join("\n"))
+          error("Error while parsing file.\n#{e} (#{e.class})\n" + e.backtrace.join("\n"))
         end
         
         close_progressbar
@@ -367,13 +369,12 @@ module PDFWalker
         return passwd
       }
       
-      PDF.read(filename, 
+      Origami.parse(filename, 
         :verbosity => Parser::VERBOSE_INSANE, 
         :ignoreerrors => false, 
         :callback => update_bar,
         :prompt_password => prompt_passwd
       )
-      
     end
     
     def create_progressbar

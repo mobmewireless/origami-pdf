@@ -67,7 +67,7 @@ module Origami
     def gen_id
       fileInfo = get_trailer_info
       if fileInfo.nil?
-        raise InvalidPDF, "Cannot access trailer information"
+        raise InvalidPDFError, "Cannot access trailer information"
       end
 
       id = Digest::MD5.hexdigest( rand.to_s )
@@ -76,7 +76,7 @@ module Origami
 
   end
 
-  class InvalidTrailer < Exception #:nodoc:
+  class InvalidTrailerError < Exception #:nodoc:
   end
 
   #
@@ -123,7 +123,7 @@ module Origami
       end
       
       if not stream.scan(@@regexp_xref)
-        raise InvalidTrailer, "Cannot get startxref value"
+        raise InvalidTrailerError, "Cannot get startxref value"
       end
 
       startxref = stream[3].to_i

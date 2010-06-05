@@ -25,7 +25,7 @@
 
 module Origami
 
-    class InvalidDictionary < InvalidObject #:nodoc:
+    class InvalidDictionaryObjectError < InvalidObjectError #:nodoc:
     end
   
     #
@@ -33,29 +33,33 @@ module Origami
     # Dictionaries are containers associating a Name to an embedded Object.
     #
     class Dictionary < Hash
-      
       include Origami::Object
-    
-      TOKENS = %w{ << >> } #:nodoc:
-      
+
+      TOKENS = %w{ << >> } #:nodoc:      
       @@regexp_open = Regexp.new('\A' + WHITESPACES + Regexp.escape(TOKENS.first) + WHITESPACES)
       @@regexp_close = Regexp.new('\A' + WHITESPACES + Regexp.escape(TOKENS.last) + WHITESPACES)
+      
+      attr_reader :strings_cache
+
       #
       # Creates a new Dictionary.
       # _hash_:: The hash representing the new Dictionary.
       #
       def initialize(hash = {})
-        
-        unless hash.is_a?(Hash)
-          raise TypeError, "Expected type Hash, received #{hash.class}."
-        end
-        
+        raise TypeError, "Expected type Hash, received #{hash.class}." unless hash.is_a?(Hash)
         super()
         
-        hash.each_key { |k|
-          self[k.to_o] = hash[k].to_o unless k.nil?
+        @strings_cache = []
+        hash.each_pair { |k,v|
+          case val = v.to_o
+            when String then @strings_cache << val
+            when Dictionary,Array then 
+              @strings_cache |= val.strings_cache
+              val.strings_cache.clear
+          end
+
+          self[k.to_o] = val unless k.nil?
         }
-        
       end
       
       def self.parse(stream) #:nodoc:
@@ -63,26 +67,24 @@ module Origami
         pairs = {}
         
         if stream.skip(@@regexp_open).nil?
-          raise InvalidDictionary, "No token '#{TOKENS.first}' found"
+          raise InvalidDictionaryObjectError, "No token '#{TOKENS.first}' found"
         end
           
         while stream.skip(@@regexp_close).nil? do
         
           #unless Object.typeof(stream) == Name
-          #  raise InvalidDictionary, "Key value must be declared as name"
+          #  raise InvalidDictionaryError, "Key value must be declared as name"
           #end
           
           key = Name.parse(stream)
           
           type = Object.typeof(stream)
           if type.nil?
-            raise InvalidDictionary, "Cannot determine value type for field #{key.to_s}"
+            raise InvalidDictionaryObjectError, "Cannot determine value type for field #{key.to_s}"
           end
-
           value = type.parse(stream)
           
           pairs[key.value] = value
-        
         end
         
         if pairs[:Type] and @@dict_special_types.include?(pairs[:Type].value)

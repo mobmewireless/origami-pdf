@@ -25,7 +25,7 @@
 
 module Origami
 
-  class InvalidBoolean < InvalidObject #:nodoc:
+  class InvalidBooleanObjectError < InvalidObjectError #:nodoc:
   end
 
   #
@@ -62,7 +62,7 @@ module Origami
     def self.parse(stream) #:nodoc:
     
       if stream.scan(@@regexp).nil?
-        raise InvalidBoolean
+        raise InvalidBooleanObjectError
       end
 
       value = stream[2] == "true" ? true : false

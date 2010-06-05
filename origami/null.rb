@@ -25,7 +25,7 @@
 
 module Origami
 
-  class InvalidNull < InvalidObject #:nodoc:
+  class InvalidNullObjectError < InvalidObjectError #:nodoc:
   end
   
   #
@@ -46,7 +46,7 @@ module Origami
     def self.parse(stream) #:nodoc:
       
       if stream.skip(@@regexp).nil?
-        raise InvalidNull
+        raise InvalidNullObjectError
       end
       
       Null.new

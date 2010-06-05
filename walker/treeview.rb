@@ -256,7 +256,7 @@ module PDFWalker
         rescue Exception => e
           msg = "#{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"
           
-          @parent.error(msg)
+          #@parent.error(msg)
           next
         end
       }

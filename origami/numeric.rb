@@ -23,7 +23,7 @@ require 'delegate'
 
 module Origami
 
-  class InvalidInteger < InvalidObject #:nodoc:
+  class InvalidIntegerObjectError < InvalidObjectError #:nodoc:
   end
 
   #
@@ -119,7 +119,7 @@ module Origami
       
     def self.parse(stream) #:nodoc:
       if not stream.scan(@@regexp)
-        raise InvalidInteger, "Invalid integer format"
+        raise InvalidIntegerObjectError, "Invalid integer format"
       end
 
       value = stream[2].to_i
@@ -130,7 +130,7 @@ module Origami
     
   end
   
-  class InvalidReal < InvalidObject #:nodoc:
+  class InvalidRealObjectError < InvalidObjectError #:nodoc:
   end
 
   #
@@ -163,7 +163,7 @@ module Origami
     def self.parse(stream) #:nodoc:
       
       if not stream.scan(@@regexp)
-        raise InvalidReal, "Invalid real number format"
+        raise InvalidRealObjectError, "Invalid real number format"
       end
        
       value = stream[2].to_f

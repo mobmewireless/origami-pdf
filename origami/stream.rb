@@ -23,7 +23,7 @@ require 'strscan'
 
 module Origami
 
-  class InvalidStream < InvalidObject #:nodoc:
+  class InvalidStreamObjectError < InvalidObjectError #:nodoc:
   end
 
   #
@@ -99,7 +99,6 @@ module Origami
     def self.parse(stream) #:nodoc:
     
       dictionary = Dictionary.parse(stream)
-     
       if not stream.skip(@@regexp_open)
         return dictionary
       end
@@ -108,14 +107,14 @@ module Origami
       if not len.is_a?(Integer)
         rawdata = stream.scan_until(@@regexp_close)
         if rawdata.nil?
-          raise InvalidStream, "Stream shall end with a '#{TOKENS.last}' statement"
+          raise InvalidStreamObjectError, "Stream shall end with a '#{TOKENS.last}' statement"
         end
 
       else
         rawdata = stream.peek(len)
         stream.pos += len
         if not ( unmatched = stream.scan_until(@@regexp_close) )
-          raise InvalidStream, "Stream shall end with a '#{TOKENS.last}' statement"
+          raise InvalidStreamObjectError, "Stream shall end with a '#{TOKENS.last}' statement"
         end
 
         rawdata << unmatched
@@ -140,7 +139,7 @@ module Origami
       filters = @dictionary[:Filter].is_a?(::Array) ? filters : [ @dictionary[:Filter] ]
 
       if not filters.include?(:FlateDecode) and not filters.include?(:LZWDecode)
-        raise InvalidStream, 'Predictor functions can only be used with Flate or LZW filters'
+        raise InvalidStreamObjectError, 'Predictor functions can only be used with Flate or LZW filters'
       end
 
       params = @dictionary[:DecodeParms] ||= Filter::LZW::DecodeParms.new
@@ -160,6 +159,7 @@ module Origami
     # Returns the uncompressed stream content.
     #
     def data
+      self.decrypt! if self.is_a?(Encryption::EncryptedStream)
       self.decode! if @data.nil?
       
       @data 
@@ -215,7 +215,7 @@ module Origami
           
           @data = decodedata(@rawdata, filters)
         else
-          raise InvalidStream, "Invalid Filter type parameter"
+          raise InvalidStreamObjectError, "Invalid Filter type parameter"
         end
         
       end
@@ -247,7 +247,7 @@ module Origami
           @rawdata = encodedata(@data, filters)
           
         else
-          raise InvalidStream, "Invalid filter type parameter"
+          raise InvalidStreamObjectError, "Invalid filter type parameter"
         end
         
         self.Length = @rawdata.length
@@ -288,7 +288,7 @@ module Origami
     def decodedata(data, filter) #:nodoc:
       
       if not @@defined_filters.include? filter.value
-        raise InvalidStream, "Unknown filter : #{filter}"
+        raise InvalidStreamObjectError, "Unknown filter : #{filter}"
       end
 
       begin
@@ -296,14 +296,14 @@ module Origami
 
         Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).decode(data, params)
       rescue Exception => e
-        raise InvalidStream, "Error while decoding stream #{self.reference}\n\t-> [#{e.class}] #{e.message}"
+        raise InvalidStreamObjectError, "Error while decoding stream #{self.reference}\n\t-> [#{e.class}] #{e.message}"
       end
     end
     
     def encodedata(data, filter) #:nodoc:
       
       if not @@defined_filters.include? filter.value
-        raise InvalidStream, "Unknown filter : #{filter}"
+        raise InvalidStreamObjectError, "Unknown filter : #{filter}"
       end
  
       params = self.DecodeParms.is_a?(Dictionary) ? self.DecodeParms : {}
@@ -331,7 +331,7 @@ module Origami
 
   end
   
-  class InvalidObjectStream < InvalidStream  #:nodoc:
+  class InvalidObjectStreamObjectError < InvalidStreamObjectError  #:nodoc:
   end
 
   #
@@ -396,11 +396,11 @@ module Origami
     def <<(object)
       
       unless object.generation == 0
-        raise InvalidObject, "Cannot store an object with generation > 0 in an ObjectStream"
+        raise InvalidObjectError, "Cannot store an object with generation > 0 in an ObjectStream"
       end
 
       if object.is_a?(Stream)
-        raise InvalidObject, "Cannot store a Stream in an ObjectStream"
+        raise InvalidObjectError, "Cannot store a Stream in an ObjectStream"
       end
 
       load! if @objects.nil?
@@ -508,7 +508,7 @@ module Origami
         
         type = Object.typeof(data)
         if type.nil?
-          raise InvalidObjectStream, "Bad embedded object format in object stream"
+          raise InvalidObjectStreamObjectError, "Bad embedded object format in object stream"
         end
         
         embeddedobj = type.parse(data)
@@ -525,26 +525,4 @@ module Origami
 
   end
   
-  #
-  # A class for the Sound stream (section 9.2 p782)
-  # TODO: should probably be defined as Encoded Stream ...
-  class Sound < Stream
-    
-    module Encoding
-      RAW = :Raw
-      SIGNED = :Signed
-      MULAW = :muLaw
-      ALAW = :aLaw
-    end
-
-    field   :Type,            :Type => Name, :Default => :Sound
-    field   :R,               :Type => Number
-    field   :C,               :Type => Integer, :Default => 1
-    field   :B,               :Type => Integer, :Default => 8
-    field   :E,               :Type => Name, :Default => Encoding::RAW
-    field   :CO,              :Type => Name
-    field   :CP,              :Type => Object 
-    
-  end
-
 end

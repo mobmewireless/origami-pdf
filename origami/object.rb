@@ -228,7 +228,7 @@ module Origami
   
   end
   
-  class InvalidObject < Exception #:nodoc:
+  class InvalidObjectError < Exception #:nodoc:
   end
 
   #
@@ -319,7 +319,7 @@ module Origami
     #
     def reference
       unless self.is_indirect?
-        raise InvalidObject, "Cannot reference a direct object"
+        raise InvalidObjectError, "Cannot reference a direct object"
       end
 
       ref = Reference.new(@no, @generation)
@@ -333,11 +333,11 @@ module Origami
     #
     def xrefs
       unless self.is_indirect?
-        raise InvalidObject, "Cannot find xrefs to a direct object"
+        raise InvalidObjectError, "Cannot find xrefs to a direct object"
       end
 
       if self.pdf.nil?
-        raise InvalidObject, "Not attached to any PDF"
+        raise InvalidObjectError, "Not attached to any PDF"
       end
 
       thisref = self.reference
@@ -382,7 +382,7 @@ module Origami
     def set_pdf(pdf)
       if self.is_indirect? then @pdf = pdf
       else
-        raise InvalidObject, "You cannot set the PDF parent of a direct object"
+        raise InvalidObjectError, "You cannot set the PDF parent of a direct object"
       end
     end
     
@@ -420,7 +420,7 @@ module Origami
         return nil if stream.match?(/xref/) or stream.match?(/startxref/)
  
         if stream.scan(@@regexp_obj).nil?
-          raise InvalidObject, "Object shall begin with '$no $gen obj' statement"
+          raise InvalidObjectError, "Object shall begin with '$no $gen obj' statement"
         end
           
         no = stream[2].to_i
@@ -428,13 +428,13 @@ module Origami
 
         type = typeof(stream) 
         if type.nil?
-          raise InvalidObject, "Cannot determine object (no:#{no},gen:#{gen}) type"
+          raise InvalidObjectError, "Cannot determine object (no:#{no},gen:#{gen}) type"
         end
           
         begin
           newObj = type.parse(stream)
         rescue Exception => e
-          raise InvalidObject, "Failed to parse object (no:#{no},gen:#{gen})\n\t -> [#{e.class}] #{e.message}"
+          raise InvalidObjectError, "Failed to parse object (no:#{no},gen:#{gen})\n\t -> [#{e.class}] #{e.message}"
         end
 
         newObj.set_indirect(true)
@@ -443,7 +443,7 @@ module Origami
         newObj.file_offset = offset
           
         if stream.skip(@@regexp_endobj).nil?
-          raise InvalidObject, "Object shall end with 'endobj' statement"
+          raise InvalidObjectError, "Object shall end with 'endobj' statement"
         end
           
         newObj

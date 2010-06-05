@@ -74,7 +74,7 @@ module Origami
       end
       
       unless self.Catalog
-        raise InvalidPDF, "A catalog object must exist to add this action."
+        raise InvalidPDFError, "A catalog object must exist to add this action."
       end
       
       self.Catalog.OpenAction = action
@@ -93,7 +93,7 @@ module Origami
       end
       
       unless self.Catalog
-        raise InvalidPDF, "A catalog object must exist to add this action."
+        raise InvalidPDFError, "A catalog object must exist to add this action."
       end
       
       self.Catalog.AA ||= CatalogAdditionalActions.new
@@ -113,7 +113,7 @@ module Origami
       end
       
       unless self.Catalog
-        raise InvalidPDF, "A catalog object must exist to add this action."
+        raise InvalidPDFError, "A catalog object must exist to add this action."
       end
       
       self.Catalog.AA ||= CatalogAdditionalActions.new

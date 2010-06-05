@@ -191,7 +191,7 @@ def lsscan(pdf, stats)
   # Get all objects, even those in ObjectStream
   # UBER-SLOW !!
   #
-  objects = pdf.objects(true) 
+  objects = pdf.objects(:include_keys => false, :include_objectstreams => true)
   indirects = pdf.indirect_objects.values
 
   # Structure

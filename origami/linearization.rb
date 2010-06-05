@@ -45,7 +45,7 @@ module Origami
     # This operation is xrefs destructive, should be fixed in the future to merge tables.
     #
     def delinearize!
-      raise InvalidPDF, 'Not a linearized document' unless is_linearized?
+      raise RuntimeError, 'Not a linearized document' unless is_linearized?
       
       #
       # Saves the catalog location.
@@ -114,7 +114,7 @@ module Origami
 
   end
 
-  class InvalidHintTable < Exception #:nodoc:
+  class InvalidHintTableError < Exception #:nodoc:
   end
 
   module HintTable
@@ -168,7 +168,7 @@ module Origami
       nitems = self.class.nb_header_items
       for no in (1..nitems)
         unless @header_items.include?(no)
-          raise InvalidHintTable, "Missing item #{no} in header section of #{self.class}"
+          raise InvalidHintTableError, "Missing item #{no} in header section of #{self.class}"
         end
 
         value = @header_items[no]
@@ -186,7 +186,7 @@ module Origami
       @entries.each do |entry|
         for no in (1..items)
           unless entry.include?(no)
-            raise InvalidHintTable, "Missing item #{no} in entry #{i} of #{self.class}"
+            raise InvalidHintTableError, "Missing item #{no} in entry #{i} of #{self.class}"
           end
 
           value = entry[no]
@@ -250,7 +250,7 @@ module Origami
 
   end
 
-  class InvalidHintStream < InvalidStream #:nodoc:
+  class InvalidHintStreamObjectError < InvalidStreamObjectError #:nodoc:
   end
 
   class HintStream < Stream
@@ -282,11 +282,11 @@ module Origami
 
     def pre_build
       if @page_offset_table.nil?
-        raise InvalidHintStream, "No page offset hint table"
+        raise InvalidHintStreamObjectError, "No page offset hint table"
       end
 
       if @shared_objects_table.nil?
-        raise InvalidHintStream, "No shared objects hint table"
+        raise InvalidHintStreamObjectError, "No shared objects hint table"
       end
 
       @data = ""

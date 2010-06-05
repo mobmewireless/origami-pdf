@@ -100,7 +100,7 @@ module Origami
     :XRef => XRefStream
   }
 
-  class InvalidPDF < Exception #:nodoc:
+  class InvalidPDFError < Exception #:nodoc:
   end
 	
   #
@@ -155,7 +155,7 @@ module Origami
       # Read and parse a PDF file from disk.
       #
       def read(filename, options = {:verbosity => Parser::VERBOSE_INSANE})
-        Parser.new(options).parse(filename)
+        PDF::LinearParser.new(options).parse(filename)
       end
       
       #
@@ -511,7 +511,7 @@ module Origami
       # Get trailer dictionary
       trailer_info = get_trailer_info
       if trailer_info.nil?
-        raise InvalidPDF, "No trailer information found"
+        raise InvalidPDFError, "No trailer information found"
       end
       trailer_dict = trailer_info.dictionary
  
@@ -706,7 +706,7 @@ module Origami
       end
 
       if @revisions.size == 1
-        raise InvalidPDF, "Cannot remove last revision"
+        raise InvalidPDFError, "Cannot remove last revision"
       end
 
       @revisions.delete_at(index)
@@ -746,7 +746,6 @@ module Origami
     # _generation_:: Object generation.
     #
     def get_object(no, generation = 0, use_xrefstm = true) #:nodoc:
-       
       case no
         when Reference
           target = no

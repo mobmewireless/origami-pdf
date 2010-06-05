@@ -26,7 +26,7 @@
 
 module Origami
 
-  class InvalidArray < InvalidObject #:nodoc:
+  class InvalidArrayObjectError < InvalidObjectError #:nodoc:
   end
 
   #
@@ -34,28 +34,33 @@ module Origami
   # Arrays contain a set of Object.
   #
   class Array < ::Array
-
     include Origami::Object
     
     TOKENS = %w{ [ ] } #:nodoc:
- 
     @@regexp_open = Regexp.new('\A' + WHITESPACES + Regexp.escape(TOKENS.first) + WHITESPACES)   
     @@regexp_close = Regexp.new('\A' + WHITESPACES + Regexp.escape(TOKENS.last) + WHITESPACES)    
+
+    attr_reader :strings_cache
+
     #
     # Creates a new PDF Array Object.
     # _data_:: An array of objects.
     #
     def initialize(data = [])
-      
-      unless data.is_a?(::Array)
-        raise TypeError, "Expected type Array, received #{data.class}."
-      end
-      
+      raise TypeError, "Expected type Array, received #{data.class}." unless data.is_a?(::Array)
       super()
 
+      @strings_cache = []
       i = 0
       while i < data.size
-        self[i] = data[i].to_o
+        case val = data[i].to_o
+          when String then @strings_cache << val
+          when Dictionary,Array then 
+            @strings_cache |= val.strings_cache
+            val.strings_cache.clear
+        end
+
+        self[i] = val
         i = i + 1
       end
       
@@ -72,14 +77,14 @@ module Origami
       data = []
       
       if not stream.skip(@@regexp_open)
-        raise InvalidArray, "No token '#{TOKENS.first}' found"
+        raise InvalidArrayObjectError, "No token '#{TOKENS.first}' found"
       end
       
       while stream.skip(@@regexp_close).nil? do
         
         type = Object.typeof(stream)
         if type.nil?
-          raise InvalidArray, "Bad embedded object format"
+          raise InvalidArrayObjectError, "Bad embedded object format"
         end
         
         value = type.parse(stream)  

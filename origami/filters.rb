@@ -243,7 +243,7 @@ module Origami
       receiver.extend(ClassMethods)
     end
   
-    class InvalidASCIIHexString < Exception #:nodoc:
+    class InvalidASCIIHexStringError < Exception #:nodoc:
     end
     
     #
@@ -274,7 +274,7 @@ module Origami
         digits = input.delete(" \f\t\r\n\0").split(//)
         
         if not digits.all? { |d| d =~ /[a-fA-F0-9>]/ }
-          raise InvalidASCIIHexString, input
+          raise InvalidASCIIHexStringError, input
         end
         
         digits << "0" unless digits.size % 2 == 0
@@ -287,7 +287,7 @@ module Origami
       
     end
     
-    class InvalidASCII85String < Exception #:nodoc:
+    class InvalidASCII85StringError < Exception #:nodoc:
     end
     
     #
@@ -356,7 +356,7 @@ module Origami
           
           if input.length - i < 5
           then
-            if input.length - i == 1 then raise InvalidASCII85String, "Invalid length" end
+            if input.length - i == 1 then raise InvalidASCII85StringError, "Invalid length" end
             
             addend = 5 - (input.length - i)
             input << "u" * addend
@@ -374,14 +374,14 @@ module Origami
             # Checking if this string is in base85
             5.times { |j|
               if input[i+j] > ?u or input[i+j] < ?!
-                raise InvalidASCII85String, string
+                raise InvalidASCII85StringError, string
               else
                 inblock += (input[i+j] - ?!) * 85 ** (4 - j)
               end
             }
           
             if inblock > 2**32 - 1
-              raise InvalidASCII85String, "Invalid value"
+              raise InvalidASCII85StringError, "Invalid value"
             end
           
           end
@@ -407,7 +407,7 @@ module Origami
       
     end
     
-    class InvalidLZWData < Exception #:nodoc:
+    class InvalidLZWDataError < Exception #:nodoc:
     end
     
     #
@@ -512,7 +512,7 @@ module Origami
             when 4094
               if byte != CLEARTABLE
               then
-                raise InvalidLZWData, "LZW table is full and no clear flag was set"
+                raise InvalidLZWDataError, "LZW table is full and no clear flag was set"
               end
           end
 
@@ -573,7 +573,7 @@ module Origami
 
       def binary2byte(bstring, codesize)
         if bstring.size < codesize
-          raise InvalidLZWData, "Unterminated data"
+          raise InvalidLZWDataError, "Unterminated data"
         end
 
         bstring.slice!(0,codesize).to_i(2)
@@ -659,7 +659,7 @@ module Origami
       
     end
     
-    class InvalidRunLengthData < Exception #:nodoc:
+    class InvalidRunLengthDataError < Exception #:nodoc:
     end
     
     #
@@ -724,12 +724,10 @@ module Origami
       # _stream_:: The data to decode.
       #
       def decode(stream)
+        raise InvalidRunLengthDataError, "No end marker" unless stream.include?(EOD)
         
         i = 0
         result = ""
-        
-        if not stream.include?(EOD) then raise InvalidRunLengthData, "No end marker" end
-        
         until stream[i] == EOD do
         
           length = stream[i]

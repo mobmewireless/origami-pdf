@@ -45,7 +45,7 @@ module Origami
     def insert_page(index, page)
       
       treeroot = self.Catalog.Pages
-      raise InvalidPDF, "No page tree" if treeroot.nil?
+      raise InvalidPDFError, "No page tree" if treeroot.nil?
 
       treeroot.insert_page(index, page)
 

@@ -53,7 +53,7 @@ module Origami
 
   end
 
-  class InvalidXRef < Exception #:nodoc:
+  class InvalidXRefError < Exception #:nodoc:
   end
 
   #
@@ -84,7 +84,7 @@ module Origami
     def self.parse(stream) #:nodoc:
       
       if stream.scan(@@regexp).nil?
-        raise InvalidXRef, "Invalid XRef format"
+        raise InvalidXRefError, "Invalid XRef format"
       end
       
       offset = stream[1].to_i
@@ -120,7 +120,7 @@ module Origami
       [ type , offset, generation ].pack("B#{type_w}B#{field1_w}B#{field2_w}")
     end
     
-    class InvalidSubsection < Exception #:nodoc:
+    class InvalidXRefSubsectionError < Exception #:nodoc:
     end
   
     #
@@ -148,7 +148,7 @@ module Origami
       def self.parse(stream) #:nodoc:
         
         if stream.scan(@@regexp).nil?
-          raise InvalidSubsection, "Bad subsection format"
+          raise InvalidXRefSubsectionError, "Bad subsection format"
         end
         
         start = stream[1].to_i
@@ -199,7 +199,7 @@ module Origami
       
     end
 
-    class InvalidSection < Exception #:nodoc:
+    class InvalidXRefSectionError < Exception #:nodoc:
     end
 
     #
@@ -222,7 +222,7 @@ module Origami
       def self.parse(stream) #:nodoc:
         
         if stream.skip(@@regexp_open).nil?
-          raise InvalidSection, "No xref token found"
+          raise InvalidXRefSectionError, "No xref token found"
         end
         
         subsections = []
@@ -301,7 +301,7 @@ module Origami
 
   end
   
-  class InvalidXRefStream < InvalidStream ; end
+  class InvalidXRefStreamObjectError < InvalidStreamObjectError ; end
 
   #
   # Class representing a XRef Stream.
@@ -401,7 +401,7 @@ module Origami
         widths = self.W
 
         if not widths.is_a?(Array) or widths.length != 3 or widths.any?{|width| not width.is_a?(Integer) }
-          raise InvalidXRefStream, "W field must be an array of 3 integers"
+          raise InvalidXRefStreamObjectError, "W field must be an array of 3 integers"
         end
 
         decode!

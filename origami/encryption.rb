@@ -124,46 +124,50 @@ module Origami
       #self.stm_algo = self.str_algo = algorithm
 
       encrypt_metadata = (handler.EncryptMetadata != false)
+
+      self.extend(Encryption::EncryptedDocument)
+      self.encryption_dict = handler
+      self.encryption_key = encryption_key
+      self.stm_algo,self.str_algo = stm_algo,str_algo
       
       #
       # Should be fixed to exclude only the active XRefStream
       #
-      encrypted_objects = self.objects(
-        :include_objectstreams => false,
-        :include_keys => false
-      ).find_all{ |obj|
+      ind_objects = self.all_indirect_objects
+      metadata = self.Catalog.Metadata
 
-        (obj.is_a?(String) and 
-          not obj.indirect_parent.is_a?(XRefStream) and 
-          not obj.equal?(encrypt_dict[:U]) and 
-          not obj.equal?(encrypt_dict[:O])) or 
-        
-        (obj.is_a?(Stream) and 
-          not obj.is_a?(XRefStream) and
-          (not obj.equal?(self.Catalog.Metadata) or encrypt_metadata))
-      }
-     
-      encrypted_objects.each { |obj|
-        no = obj.indirect_parent.no
-        gen = obj.indirect_parent.generation
-
-        k = encryption_key + [no].pack("I")[0..2] + [gen].pack("I")[0..1]
-        key_len = (k.length > 16) ? 16 : k.length
-
-        case obj
-          when String
-            k << "sAlT" if str_algo == Encryption::AES
-          when Stream
-            k << "sAlT" if stm_algo == Encryption::AES
+      ind_objects.each do |indobj,rev|
+        encrypted_objects = []
+        case indobj
+          when String,Stream then encrypted_objects << indobj
+          when Dictionary,Array then encrypted_objects |= indobj.strings_cache
         end
 
-        key = Digest::MD5.digest(k)[0, key_len]
+        encrypted_objects.each do |obj|
+          parent = obj.indirect_parent
+          no, gen = parent.no, parent.generation
 
-        case obj
-          when String then obj.replace(str_algo.decrypt(key, obj.value))
-          when Stream then obj.rawdata = stm_algo.decrypt(key, obj.rawdata) 
+          k = encryption_key + [no].pack("I")[0..2] + [gen].pack("I")[0..1]
+          key_len = (k.length > 16) ? 16 : k.length
+
+          case obj
+            when String
+              next if obj.equal?(encrypt_dict[:U]) or obj.equal?(encrypt_dict[:O])
+              obj.extend(Encryption::EncryptedString)
+              obj.encryption_key = encryption_key
+              obj.algorithm = stm_algo
+              obj.decrypted = false
+
+            when Stream
+              next if obj.is_a?(XRefStream) or (not encrypt_metadata and obj.equal?(metadata))
+              obj.extend(Encryption::EncryptedStream)
+              obj.encryption_key = encryption_key
+              obj.algorithm = stm_algo
+              obj.decrypted = false
+          end
+
         end
-      }
+      end
 
       self
     end
@@ -286,12 +290,14 @@ module Origami
           when String
             if not obj.equal?(@encryption_dict[:U]) and not obj.equal?(@encryption_dict[:O]) and not embedded 
               obj.extend(EncryptedString)
+              obj.decrypted = true
               obj.encryption_key = @encryption_key
               obj.algorithm = @str_algo
             end
 
           when Stream
             obj.extend(EncryptedStream)
+            obj.decrypted = true
             obj.encryption_key = @encryption_key
             obj.algorithm = @stm_algo
 
@@ -336,6 +342,11 @@ module Origami
 
       attr_writer :encryption_key
       attr_writer :algorithm
+      attr_accessor :decrypted
+
+      def self.extended(obj)
+        obj.decrypted = false
+      end
 
       def post_build
         encrypt!
@@ -346,8 +357,8 @@ module Origami
       private 
 
       def compute_object_key
-        no = self.indirect_parent.no
-        gen = self.indirect_parent.generation
+        parent = self.indirect_parent
+        no, gen = parent.no, parent.generation
         k = @encryption_key + [no].pack("I")[0..2] + [gen].pack("I")[0..1]
        
         key_len = (k.length > 16) ? 16 : k.length        
@@ -362,52 +373,80 @@ module Origami
     # Module for encrypted String.
     #
     module EncryptedString
-
       include EncryptedObject
 
-      private
-
       def encrypt!
-        key = compute_object_key
-        
-        encrypted_data = 
-        if @algorithm == ARC4 or @algorithm == Identity
-          @algorithm.encrypt(key, self.value)
-        else
-          iv = ::Array.new(16) { rand(255) }.pack('C*')
-          @algorithm.encrypt(key, iv, self.value)
-        end
+        if @decrypted
+          key = compute_object_key
+          
+          encrypted_data = 
+          if @algorithm == ARC4 or @algorithm == Identity
+            @algorithm.encrypt(key, self.value)
+          else
+            iv = ::Array.new(16) { rand(255) }.pack('C*')
+            @algorithm.encrypt(key, iv, self.value)
+          end
 
-        self.replace(encrypted_data)
-        self.freeze
+          self.replace(encrypted_data)
+          self.freeze
+
+          @decrypted = false
+        end
+        
+        self
       end
 
+      def decrypt!
+        unless @decrypted
+          key = compute_object_key
+          self.replace(@algorithm.decrypt(key, self.to_str))
+          @decrypted = true
+        end
+
+        self
+      end
     end
 
     #
     # Module for encrypted Stream.
     #
     module EncryptedStream
-      
       include EncryptedObject
 
-      private
-
       def encrypt!
-        encode!
+        if @decrypted
+          encode!
 
-        key = compute_object_key
+          key = compute_object_key
 
-        @rawdata = 
-        if @algorithm == ARC4 or @algorithm == Identity
-          @algorithm.encrypt(key, self.rawdata)
-        else
-          iv = ::Array.new(16) { rand(255) }.pack('C*')
-          @algorithm.encrypt(key, iv, @rawdata)
+          @rawdata = 
+          if @algorithm == ARC4 or @algorithm == Identity
+            @algorithm.encrypt(key, self.rawdata)
+          else
+            iv = ::Array.new(16) { rand(255) }.pack('C*')
+            @algorithm.encrypt(key, iv, @rawdata)
+          end
+
+          @rawdata.freeze
+          self.freeze
+
+          @decrypted = false
         end
 
-        @rawdata.freeze
-        self.freeze
+        self
+      end
+
+      def decrypt!
+        unless @decrypted
+          key = compute_object_key
+
+          @rawdata = @algorithm.decrypt(key, @rawdata)
+          @decrypted = true
+
+          decode!
+        end
+
+        self
       end
 
     end
