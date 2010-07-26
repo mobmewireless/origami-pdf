@@ -157,6 +157,7 @@ module Origami
               obj.encryption_key = encryption_key
               obj.algorithm = stm_algo
               obj.decrypted = false
+              obj.decrypt!
 
             when Stream
               next if obj.is_a?(XRefStream) or (not encrypt_metadata and obj.equal?(metadata))
@@ -375,9 +376,9 @@ module Origami
     module EncryptedString
       include EncryptedObject
 
-      def encrypt!
+      def encrypt!(derive_key = true)
         if @decrypted
-          key = compute_object_key
+          key = derive_key ? compute_object_key : @encryption_key
           
           encrypted_data = 
           if @algorithm == ARC4 or @algorithm == Identity
@@ -396,9 +397,9 @@ module Origami
         self
       end
 
-      def decrypt!
+      def decrypt!(derive_key = true)
         unless @decrypted
-          key = compute_object_key
+          key = derive_key ? compute_object_key : @encryption_key
           self.replace(@algorithm.decrypt(key, self.to_str))
           @decrypted = true
         end
@@ -413,11 +414,11 @@ module Origami
     module EncryptedStream
       include EncryptedObject
 
-      def encrypt!
+      def encrypt!(derive_key = true)
         if @decrypted
           encode!
 
-          key = compute_object_key
+          key = derive_key ? compute_object_key : @encryption_key
 
           @rawdata = 
           if @algorithm == ARC4 or @algorithm == Identity
@@ -436,9 +437,9 @@ module Origami
         self
       end
 
-      def decrypt!
+      def decrypt!(derive_key = true)
         unless @decrypted
-          key = compute_object_key
+          key = derive_key ? compute_object_key : @encryption_key
 
           @rawdata = @algorithm.decrypt(key, @rawdata)
           @decrypted = true

@@ -36,7 +36,7 @@ module PDFWalker
           :version => Origami::VERSION,
           :copyright => "Copyright (C) 2010\nGuillaume Delugre, Sogeti-ESEC R&D <guillaume@security-labs.org>\nAll right reserved.",
           :comments => "A graphical PDF parser front-end",
-          :license => File.open("#{File.dirname($0)}/../../COPYING.txt", "r").read
+          :license => File.read("#{File.dirname($0)}/../COPYING.LESSER")
         })
       
     end

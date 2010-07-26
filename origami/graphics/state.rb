@@ -106,29 +106,6 @@ module Origami
 
     end
 
-    module Instruction
-      class QPush
-        include PDF::Instruction
-        def initialize; super('q') end
-
-        def update_state(gs)
-          gs.save
-          gs.reset
-          self
-        end
-      end
-
-      class QPop
-        include PDF::Instruction
-        def initialize; super('Q') end
-
-        def update_state(gs)
-          gs.restore
-          self
-        end
-      end
-    end
-
     #
     # Generic Graphic state
     # 4.3.4 Graphics State Parameter Dictionaries p219
@@ -169,5 +146,19 @@ module Origami
 
   end #module Graphics 
  
+  class PDF::Instruction
+    insn  'q' do |gs| gs.save; gs.reset end
+    insn  'Q' do |gs| gs.restore end
+    insn  'w', Real do |gs, lw| gs.line_width = lw end
+    insn  'J', Real do |gs, lc| gs.line_cap = lc end
+    insn  'j', Real do |gs, lj| gs.line_join = lj end
+    insn  'M', Real do |gs, ml| gs.miter_limit = ml end
+    
+    insn  'd', Array, Integer do |gs, array, phase| 
+      gs.dash_pattern = Graphics::DashPattern.new array, phase
+    end
+
+    insn  'ri', Name do |gs, ri| gs.rendering_intent = ri end
+  end
 end
 

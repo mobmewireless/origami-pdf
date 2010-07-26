@@ -1,7 +1,7 @@
 =begin
 
 = File
-	io.rb
+	file.rb
 
 = Info
 	This file is part of Origami, PDF manipulation framework for Ruby

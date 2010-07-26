@@ -56,7 +56,7 @@ require 'origami/xfa'
 
 module Origami
 
-  VERSION = "1.0.0-beta2"
+  VERSION = "1.0.0-beta3"
   REVISION = "$Revision$" #:nodoc:
   
   @@dict_special_types = 
@@ -98,6 +98,12 @@ module Origami
     :EmbeddedFile => EmbeddedFileStream,
     :Metadata => MetadataStream,
     :XRef => XRefStream
+  }
+  
+  @@stm_xobj_subtypes =
+  {
+    :Image => Graphics::ImageXObject,
+    :Form => Graphics::FormXObject
   }
 
   class InvalidPDFError < Exception #:nodoc:
@@ -228,7 +234,6 @@ module Origami
       self.compile if options[:recompile] == true
 
       fd.write self.to_bin(options)
-        
       fd.close unless file.respond_to?(:write)
       
       self
@@ -297,10 +302,7 @@ module Origami
     # Returns an array of Objects whose name (in a Dictionary) is matching _pattern_.
     #
     def ls(*patterns)
-    
-      if patterns.empty?
-        return objects(:include_keys => false)
-      end
+      return objects(:include_keys => false) if patterns.empty?
 
       result = []
 
@@ -312,6 +314,29 @@ module Origami
         if patterns.any?{ |pattern| key.value.to_s.match(pattern) }
           value = key.parent[key]
           result << ( value.is_a?(Reference) ? value.solve : value )
+        end
+      end
+
+      result
+    end
+
+    #
+    # Returns an array of Objects whose name (in a Dictionary) is matching _pattern_.
+    # Do not follow references.
+    #
+    def ls_no_follow(*patterns)
+      return objects(:include_keys => false) if patterns.empty?
+
+      result = []
+
+      patterns.map! do |pattern|
+        pattern.is_a?(::String) ? Regexp.new(Regexp.escape(pattern)) : pattern
+      end
+
+      objects(:only_keys => true).each do |key|
+        if patterns.any?{ |pattern| key.value.to_s.match(pattern) }
+          value = key.parent[key]
+          result << value
         end
       end
 

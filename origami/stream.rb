@@ -88,10 +88,7 @@ module Origami
     end
 
     def post_build
-     
-      unless self.Length.nil?
-        self.Length = @rawdata.length
-      end
+      self.Length = @rawdata.length
  
       super
     end
@@ -99,22 +96,22 @@ module Origami
     def self.parse(stream) #:nodoc:
     
       dictionary = Dictionary.parse(stream)
-      if not stream.skip(@@regexp_open)
-        return dictionary
-      end
+      return dictionary if not stream.skip(@@regexp_open)
      
       len = dictionary[:Length]
       if not len.is_a?(Integer)
         rawdata = stream.scan_until(@@regexp_close)
         if rawdata.nil?
-          raise InvalidStreamObjectError, "Stream shall end with a '#{TOKENS.last}' statement"
+          raise InvalidStreamObjectError, 
+            "Stream shall end with a '#{TOKENS.last}' statement"
         end
 
       else
         rawdata = stream.peek(len)
         stream.pos += len
         if not ( unmatched = stream.scan_until(@@regexp_close) )
-          raise InvalidStreamObjectError, "Stream shall end with a '#{TOKENS.last}' statement"
+          raise InvalidStreamObjectError, 
+            "Stream shall end with a '#{TOKENS.last}' statement"
         end
 
         rawdata << unmatched
@@ -122,11 +119,18 @@ module Origami
        
       rawdata.chomp!(TOKENS.last)
 
-      stm = if dictionary[:Type] and @@stm_special_types.include?(dictionary[:Type].value)
-        @@stm_special_types[dictionary[:Type].value].new("", dictionary.to_h)
-      else
-        Stream.new("", dictionary.to_h)
+      stm = 
+      if dictionary.has_key? :Type
+        if @@stm_special_types.include?(dictionary[:Type].value)
+          @@stm_special_types[dictionary[:Type].value].new("", dictionary.to_h)
+        elsif dictionary[:Type] == :XObject and dictionary.has_key? :Subtype
+          if @@stm_xobj_subtypes.include?(dictionary[:Subtype].value)
+            @@stm_xobj_subtypes[dictionary[:Subtype].value].new("", dictionary.to_h)
+          end
+        end
       end
+
+      stm ||= Stream.new("", dictionary.to_h)
 
       rawdata.chomp! if len.is_a?(Integer) and len < rawdata.length
       stm.rawdata = rawdata
@@ -142,12 +146,16 @@ module Origami
         raise InvalidStreamObjectError, 'Predictor functions can only be used with Flate or LZW filters'
       end
 
-      params = @dictionary[:DecodeParms] ||= Filter::LZW::DecodeParms.new
+      nfilter = filters.index(:FlateDecode) or filters.index(:LZWDecode)
+
+      params = Filter::LZW::DecodeParms.new
       params[:Predictor] = predictor
       params[:Colors] = colors if colors != 1
       params[:BitsPerComponent] = bitspercomponent if bitspercomponent != 8
       params[:Columns] = columns if columns != 1
 
+      set_decode_params(nfilter, params)
+  
       self
     end
 
@@ -159,7 +167,6 @@ module Origami
     # Returns the uncompressed stream content.
     #
     def data
-      self.decrypt! if self.is_a?(Encryption::EncryptedStream)
       self.decode! if @data.nil?
       
       @data 
@@ -196,28 +203,24 @@ module Origami
     # Uncompress the stream data.
     #
     def decode!
+      self.decrypt! if self.is_a?(Encryption::EncryptedStream)
       
       if @rawdata
-      
-        filters = @dictionary[:Filter]
+        filters = self.Filter
         
         if filters.nil?
           @data = @rawdata
-        elsif filters.type == :Array
-          
+        elsif filters.is_a?(Array)
           @data = @rawdata
           
-          filters.each { |filter|
-            @data = decodedata(@data, filter)
-          }
-          
-        elsif filters.type == :Name
-          
-          @data = decodedata(@rawdata, filters)
+          filters.length.times do |nfilter|
+            @data = decode_data(@data, nfilter)
+          end
+        elsif filters.is_a?(Name)
+          @data = decode_data(@rawdata, 0)
         else
           raise InvalidStreamObjectError, "Invalid Filter type parameter"
         end
-        
       end
       
       self
@@ -227,31 +230,24 @@ module Origami
     # Compress the stream data.
     #
     def encode!
-      
       if @data
-      
-        filters = @dictionary[:Filter]
+        filters = self.Filter
         
         if filters.nil?
           @rawdata = @data
         elsif filters.is_a?(Array)
-          
           @rawdata = @data
           
-          filters.to_a.reverse.each { |filter|
-            @rawdata = encodedata(@rawdata, filter)
-          }
-        
+          (filters.length - 1).downto(0) do |nfilter|
+            @rawdata = encode_data(@rawdata, nfilter)
+          end
         elsif filters.is_a?(Name)
-          
-          @rawdata = encodedata(@data, filters)
-          
+          @rawdata = encode_data(@data, 0)
         else
           raise InvalidStreamObjectError, "Invalid filter type parameter"
         end
         
         self.Length = @rawdata.length
-      
       end
       
       self
@@ -284,30 +280,60 @@ module Origami
     def real_type ; Stream end
 
     private
+
+    def set_decode_params(nfilter, params) #:nodoc:
+      dparms = self.DecodeParms
+      unless dparms.is_a? ::Array
+        @dictionary[:DecodeParms] = []
+        dparms = @dictionary[:DecodeParms]
+      end 
+
+      if nfilter > dparms.length - 1
+        dparms.concat(::Array.new(nfilter - dparms.length + 1, Null.new))
+      end
+
+      dparms[nfilter] = params
+      @dictionary[:DecodeParms] = dparms.first if dparms.length == 1
+
+      self
+    end
     
-    def decodedata(data, filter) #:nodoc:
-      
-      if not @@defined_filters.include? filter.value
+    def decode_data(data, nfilter) #:nodoc:
+      filters = self.Filter
+      filters = [ filters ] unless filters.is_a?(::Array)
+
+      filter = filters[nfilter]
+
+      unless @@defined_filters.include? filter.value
         raise InvalidStreamObjectError, "Unknown filter : #{filter}"
       end
 
       begin
-        params = self.DecodeParms.is_a?(Dictionary) ? self.DecodeParms : {}
+        params = self.DecodeParms
+        params = [ params ] unless params.is_a?(::Array)
 
-        Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).decode(data, params)
+        dparms = params[nfilter].is_a?(Null) ? nil : params[nfilter]
+        Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).decode(data, dparms)
       rescue Exception => e
         raise InvalidStreamObjectError, "Error while decoding stream #{self.reference}\n\t-> [#{e.class}] #{e.message}"
       end
     end
     
-    def encodedata(data, filter) #:nodoc:
-      
+    def encode_data(data, nfilter) #:nodoc:
+      filters = self.Filter
+      filters = [ filters ] unless filters.is_a?(::Array)
+
+      filter = filters[nfilter]
+
       if not @@defined_filters.include? filter.value
         raise InvalidStreamObjectError, "Unknown filter : #{filter}"
       end
  
-      params = self.DecodeParms.is_a?(Dictionary) ? self.DecodeParms : {}
-      encoded = Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).encode(data, params)
+      params = self.DecodeParms
+      params = [ params ] unless params.is_a?(::Array)
+
+      dparms = params[nfilter].is_a?(Null) ? nil : params[nfilter]
+      encoded = Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).encode(data, dparms)
 
       if filter.value == :ASCIIHexDecode or filter.value == :ASCII85Decode
         encoded << Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,""))::EOD

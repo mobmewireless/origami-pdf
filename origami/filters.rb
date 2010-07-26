@@ -117,19 +117,25 @@ module Origami
       def self.do_png_post_prediction(data, bpp, bpr)
 
         result = ""
-        uprow = thisrow = "\0" * bpr
-        ncols = data.size / bpr
+        uprow = "\0" * bpr
+        thisrow = "\0" * bpr
+        nrows = data.size / bpr
         
-        ncols.times do |col|
+        nrows.times do |irow|
 
-          line = data[col * bpr, bpr]
+          line = data[irow * bpr, bpr]
           predictor = 10 + line[0]
+          line[0] = "\0"
 
-          for i in (bpp..bpr-1)
-
+          for i in (1..bpr-1)
             up = uprow[i]
-            left = thisrow[i-bpp]
-            upleft = uprow[i-bpp]
+
+            if bpp > i
+              left = upleft = 0
+            else
+              left = line[i-bpp]
+              upleft = uprow[i-bpp]
+            end
 
             case predictor
               when PNG_NONE
@@ -158,7 +164,7 @@ module Origami
             
           end
 
-          result << thisrow[bpp..-1]
+          result << thisrow[1..-1]
           uprow = thisrow
         end
   
@@ -168,14 +174,20 @@ module Origami
       def self.do_png_pre_prediction(data, predictor, bpp, bpr)
         
         result = ""
-        ncols = data.size / bpr
+        nrows = data.size / bpr
 
-        line = "\0" * bpp + data[-bpr, bpr]
+        line = "\0" + data[-bpr, bpr]
         
-        (ncols-1).downto(0) do |col|
+        (nrows-1).downto(0) do |irow|
 
-          uprow = col.zero? ? ("\0" * (bpr+bpp)) : ("\0" * bpp + data[(col-1)*bpr,bpr])
-          (bpr+bpp-1).downto(bpp) do |i|
+          uprow = 
+          if irow == 0 
+            "\0" * (bpr+1) 
+          else 
+            "\0" + data[(irow-1)*bpr,bpr]
+          end
+
+          bpr.downto(1) do |i|
 
             up = uprow[i]
             left = line[i-bpp]
@@ -446,7 +458,7 @@ module Origami
       #
       def encode(string)
   
-        if not @params[:Predictor].nil?
+        if @params and not @params[:Predictor].nil?
           colors =  @params.has_key?(:Colors) ? @params[:Colors].to_i : 1
           bpc =     @params.has_key?(:BitsPerComponent) ? @params[:BitsPerComponent].to_i : 8
           columns = @params.has_key?(:Columns) ? @params[:Columns].to_i : 1
@@ -544,7 +556,7 @@ module Origami
           end
         end
  
-        if not @params[:Predictor].nil?
+        if @params and not @params[:Predictor].nil?
           colors =  @params.has_key?(:Colors) ? @params[:Colors].to_i : 1
           bpc =     @params.has_key?(:BitsPerComponent) ? @params[:BitsPerComponent].to_i : 8
           columns = @params.has_key?(:Columns) ? @params[:Columns].to_i : 1
@@ -597,20 +609,17 @@ module Origami
     # Class representing a Filter used to encode and decode data with zlib/Flate compression algorithm.
     #
     class Flate
-      
       include Filter
       
       EOD = 257 #:nodoc:
  
       class DecodeParms < Dictionary
-
         include Configurable
 
         field   :Predictor,         :Type => Integer, :Default => 1
         field   :Colors,            :Type => Integer, :Default => 1
         field   :BitsPerComponent,  :Type => Integer, :Default => 8
         field   :Columns,           :Type => Integer, :Default => 1
-
       end
       
       #
@@ -627,7 +636,7 @@ module Origami
       #
       def encode(stream)
 
-        if not @params[:Predictor].nil?
+        if @params and not @params[:Predictor].nil?
           colors =  @params.has_key?(:Colors) ? @params[:Colors].to_i : 1
           bpc =     @params.has_key?(:BitsPerComponent) ? @params[:BitsPerComponent].to_i : 8
           columns = @params.has_key?(:Columns) ? @params[:Columns].to_i : 1
@@ -646,7 +655,7 @@ module Origami
         
         uncompressed = Zlib::Inflate.inflate(stream)
         
-        if not @params[:Predictor].nil?
+        if @params and not @params[:Predictor].nil?
           colors =  @params.has_key?(:Colors) ? @params[:Colors].to_i : 1
           bpc =     @params.has_key?(:BitsPerComponent) ? @params[:BitsPerComponent].to_i : 8
           columns = @params.has_key?(:Columns) ? @params[:Columns].to_i : 1
@@ -849,14 +858,16 @@ module Origami
       # Not supported.
       #
       def encode(stream)
-        raise NotImplementedError, "#{self.class} is not yet supported"
+        #raise NotImplementedError, "#{self.class} is not yet supported"
+        stream
       end
       
       #
       # Not supported.
       #
       def decode(stream)
-        raise NotImplementedError, "#{self.class} is not yet supported"
+        #raise NotImplementedError, "#{self.class} is not yet supported"
+        stream
       end
       
     end

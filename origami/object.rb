@@ -129,9 +129,7 @@ module Origami
         if not @fields.has_key?(name)
           @fields[name] = attributes
         else
-          attributes.each_pair { |k,v|
-            @fields[name][k] = v
-          }
+          @fields[name].merge! attributes
         end
         
         define_field_methods(name)
@@ -418,7 +416,7 @@ module Origami
 
       end
         
-      def parse(stream, pdf) #:nodoc:
+      def parse(stream) #:nodoc:
        
         offset = stream.pos
 

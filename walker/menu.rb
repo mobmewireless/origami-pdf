@@ -28,76 +28,161 @@ module PDFWalker
   module Popable
     
     @@menus = Hash.new([])
-    @@menus[:"PDF File"] = [  {:Name => Stock::SAVE_AS, :Sensitive => true, :Callback => lambda { |widget, viewer, path| viewer.parent.save } },
-                                            {:Name => "Serialize", :Sensitive => true, :Callback => lambda { |widget, viewer, path| viewer.parent.serialize } },
-                                            {:Name => :"---" },
-                                            {:Name => Stock::PROPERTIES, :Sensitive => true, :Callback => lambda { |widget, viewer, path| viewer.parent.display_file_properties } },
-                                            {:Name => :"---" },
-                                            {:Name => Stock::CLOSE, :Sensitive => true, :Callback => lambda { |widget, viewer, path| viewer.parent.close } }
-
-                                          ]
+    @@menus[:"PDF File"] = 
+    [  
+      {
+        :Name => Stock::SAVE_AS, 
+        :Sensitive => true, 
+        :Callback => lambda { |widget, viewer, path| 
+          viewer.parent.save 
+        } 
+      },
+      {
+        :Name => "Serialize", 
+        :Sensitive => true, 
+        :Callback => lambda { |widget, viewer, path| 
+          viewer.parent.serialize 
+        } 
+      },
+      {
+        :Name => :"---" 
+      },
+      {
+        :Name => Stock::PROPERTIES, 
+        :Sensitive => true, 
+        :Callback => lambda { |widget, viewer, path| 
+          viewer.parent.display_file_properties 
+        } 
+      },
+      {
+        :Name => :"---" 
+      },
+      {
+        :Name => Stock::CLOSE, 
+        :Sensitive => true, 
+        :Callback => lambda { |widget, viewer, path| 
+          viewer.parent.close 
+        } 
+      }
+    ]
     
-    @@menus[:Reference] = [ {:Name => Stock::JUMP_TO, :Sensitive => true, :Callback => lambda { |widget, viewer, path| viewer.row_activated(path, viewer.get_column(viewer.class::TEXTCOL)) } } ]
+    @@menus[:Reference] = 
+    [ 
+      {
+        :Name => Stock::JUMP_TO, 
+        :Sensitive => true, 
+        :Callback => lambda { |widget, viewer, path| 
+          viewer.row_activated(path, viewer.get_column(viewer.class::TEXTCOL)) 
+        } 
+      } 
+    ]
     
-    @@menus[:Revision] = [ {:Name => "Save to this revision", :Sensitive => true, 
-                                            :Callback => lambda { |widget, viewer, path|  
-                                                revstr = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::TEXTCOL)
-                                                revstr.slice!(0, "Revision ".size)
+    @@menus[:Revision] = 
+    [ 
+      {
+        :Name => "Save to this revision", 
+        :Sensitive => true, 
+        :Callback => lambda { |widget, viewer, path|  
+          revstr = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::TEXTCOL)
+          revstr.slice!(0, "Revision ".size)
                                                 
-                                                revnum = revstr.to_i
+          revnum = revstr.to_i
                                                 
-                                                dialog = Gtk::FileChooserDialog.new("Save PDF File",
-                                                   viewer.parent,
-                                                   Gtk::FileChooser::ACTION_SAVE,
-                                                   nil,
-                                                   [Gtk::Stock::CANCEL, Gtk::Dialog::RESPONSE_CANCEL],
-                                                   [Gtk::Stock::SAVE, Gtk::Dialog::RESPONSE_ACCEPT]
-                                                )
-                                                
-                                                dialog.filter = FileFilter.new.add_pattern("*.pdf")
-                                                
-                                                if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
-                                                  viewer.parent.opened.save_upto(revnum, dialog.filename)
-                                                end
-                                                
-                                                dialog.destroy
-                                              } 
-                                            } 
-                                        ]
+          dialog = Gtk::FileChooserDialog.new("Save PDF File",
+             viewer.parent,
+             Gtk::FileChooser::ACTION_SAVE,
+             nil,
+             [Gtk::Stock::CANCEL, Gtk::Dialog::RESPONSE_CANCEL],
+             [Gtk::Stock::SAVE, Gtk::Dialog::RESPONSE_ACCEPT]
+          )
+          
+          dialog.filter = FileFilter.new.add_pattern("*.pdf")
+          
+          if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
+            viewer.parent.opened.save_upto(revnum, dialog.filename)
+          end
+          
+          dialog.destroy
+        } 
+      } 
+    ]
     
     @@menus[:Stream] =
-                                  [ {:Name => "Dump encoded stream", :Sensitive => true,
-                                      :Callback => lambda { |widget, viewer, path|
-                                            stream = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
-                                            
-                                            viewer.parent.save_data("Save stream to file", stream.rawdata)
-                                          }
-                                    },
-                                    {:Name => "Dump decoded stream", :Sensitive => true,
-                                      :Callback => lambda { |widget, viewer, path|
-                                            stream = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
-                                            
-                                            viewer.parent.save_data("Save stream to file", stream.data)
-                                          }
-                                    }
-                                  ]
+    [ 
+      {
+        :Name => "Dump encoded stream", 
+        :Sensitive => true,
+        :Callback => lambda { |widget, viewer, path|
+          stream = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
+          
+          viewer.parent.save_data("Save stream to file", stream.rawdata)
+        }
+      },
+      {
+        :Name => "Dump decoded stream", 
+        :Sensitive => true,
+        :Callback => lambda { |widget, viewer, path|
+          stream = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
+          
+          viewer.parent.save_data("Save stream to file", stream.data)
+        }
+      }
+    ]
     
     @@menus[:String] =
-                                [ {:Name => "Dump string", :Sensitive => true,
-                                    :Callback => lambda { |widget, viewer, path|
-                                        string = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
-                                        
-                                        viewer.parent.save_data("Save string to file", string.value)
-                                      }
-                                  }
-                                ]
+    [ 
+      {
+        :Name => "Dump string", 
+        :Sensitive => true,
+        :Callback => lambda { |widget, viewer, path|
+          string = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
+          
+          viewer.parent.save_data("Save string to file", string.value)
+        }
+      }
+    ]
+
+    @@menus[:Image] = @@menus[:Stream].concat(
+    [
+      {
+        :Name => :"---"
+      },
+      {
+        :Name => "View image",
+        :Sensitive => true,
+        :Callback => lambda { |widget, viewer, path|
+          stm = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
+          w,h = stm[:Width], stm[:Height]
+          bpp = stm[:BitsPerComponent] || 8
+          bpr = (bpp >> 3) * 3 * w
+          data = stm.data
+
+          begin
+            imgview = ImgViewer.new
+            if stm[:Filter] == :DCTDecode or (stm[:Filter].is_a?(Array) and stm[:Filter][0] == :DCTDecode)
+              imgview.show_compressed_img data
+            else
+              imgview.show_raw_img data, w, h, bpp, bpr
+            end
+          rescue Exception => e
+            viewer.parent.error("#{e.class}: #{e.message}")
+          end
+        }
+      }
+    ]
+    )
     
     def popup_menu(obj, event, path)
     
       menu = Menu.new
 
-      if obj.is_a?(Origami::Object) then type = obj.real_type.to_s.split("::").last.to_sym
-      else type = case obj
+      type = if obj.is_a?(Origami::Object) 
+        if obj.is_a?(Graphics::ImageXObject)
+          :Image
+        else
+          obj.real_type.to_s.split("::").last.to_sym
+        end
+      else case obj
         when Origami::PDF
           :"PDF File"
         when Origami::PDF::Revision, Origami::Adobe::AddressBook::Revision
@@ -117,7 +202,6 @@ module PDFWalker
         else
           :Unknown
         end
-        
       end
     
       title = obj.is_a?(Origami::Object) ? "Object : " : ""

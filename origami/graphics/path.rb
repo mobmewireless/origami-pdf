@@ -56,6 +56,7 @@ module Origami
       end
     end
 
+    class InvalidPathError < Exception; end
     class Path
 
       module Segment
@@ -101,165 +102,53 @@ module Origami
 
     end
 
-    module Instruction
+  end
 
-      class D
-        include PDF::Instruction
-        def initialize(array, phase); super('d', array, phase) end
-
-        def update_state(gs)
-          gs.dash_pattern = DashPattern.new(@operands[0], @operands[1])
-          self
-        end
-      end
-
-      class W
-        include PDF::Instruction
-        def initialize(width); super('w', width) end
-
-        def update_state(gs)
-          gs.line_width = @operands[0]
-          self
-        end
-      end
-
-      class JCap
-        include PDF::Instruction
-        def initialize(cap); super('J', cap) end
-
-        def update_state(gs)
-          gs.line_cap = @operands[0]
-          self
-        end
-      end
-
-      class JJoin
-        include PDF::Instruction
-        def initialize(join); super('j', join) end
-
-        def update_state(gs)
-          gs.line_join = @operands[0]
-          self
-        end
-      end
-
-      class M
-        include PDF::Instruction
-        def initialize(x,y); super('m', x, y) end
-
-        def update_state(gs)
-          gs.current_path << (subpath = Path.new)
-
-          subpath.current_point = @operands
-          self
-        end
-      end
-
-      class L
-        include PDF::Instruction
-        def initialize(x,y); super('l', x, y) end
-
-        def update_state(gs)
-          if gs.current_path.empty? 
-            raise GraphicsStateError, "No current point is defined"
-          end
-
-          subpath = gs.current_path.last
-
-          from = subpath.current_point
-          to = @operands
-          subpath.add_segment(Path::Line.new(from, to))
-          self
-        end
-      end
-
-      class H
-        include PDF::Instruction
-        def initialize; super('h') end
-
-        def update_state(gs)
-          unless gs.current_path.empty?
-            subpath = gs.current_path.last
-            subpath.close! unless subpath.is_closed?
-          end
-          self
-        end
-      end
-
-      class RE
-        include PDF::Instruction
-        def initialize(x,y,width,height); super('re', x,y,width,height) end
-
-        def update_state(gs)
-          x,y,width,height = @operands
-          tx = x + width
-          ty = y + height
-          gs.current_path << (subpath = Path.new)
-          subpath.segments << Path::Line.new([x,y], [tx,y])
-          subpath.segments << Path::Line.new([tx,y], [tx, ty])
-          subpath.segments << Path::Line.new([tx, ty], [x, ty])
-          subpath.close!
-          self
-        end
-      end
-
-      class S
-        include PDF::Instruction
-        def initialize; super('S') end
-      end
-
-      class CloseS
-        include PDF::Instruction
-        def initialize; super('s') end
-
-        def update_state(gs)
-          gs.current_path.last.close!
-          self
-        end
-      end
-      
-      class F
-        include PDF::Instruction
-        def initialize; super('f') end
-      end
-
-      class FStar
-        include PDF::Instruction
-        def initialize; super('f*') end
-      end
-
-      class B
-        include PDF::Instruction
-        def initialize; super('B') end
-      end
-
-      class BStar
-        include PDF::Instruction
-        def initialize; super('B*') end
-      end 
-
-      class CloseB
-        include PDF::Instruction
-        def initialize; super('b') end
-
-        def update_state(gs)
-          gs.current_path.last.close!
-          self
-        end
-      end
-
-      class CloseBStar
-        include PDF::Instruction
-        def initialize; super('b*') end
-      end 
-
-      class N
-        include PDF::Instruction
-        def initialize; super('n') end
-      end 
-
+  class PDF::Instruction
+    insn  'm', Real, Real do |gs, x,y|
+      gs.current_path << (subpath = Graphics::Path.new)
+      subpath.current_point = [x,y]
     end
 
+    insn  'l', Real, Real do |gs, x,y|
+      if gs.current_path.empty? 
+        raise InvalidPathError, "No current point is defined"
+      end
+
+      subpath = gs.current_path.last
+
+      from = subpath.current_point
+      to = [x,y]
+      subpath.add_segment(Graphics::Path::Line.new(from, to))
+    end
+
+    insn  'h' do |gs|
+      unless gs.current_path.empty?
+        subpath = gs.current_path.last
+        subpath.close! unless subpath.is_closed?
+      end
+    end
+
+    insn  're', Real, Real, Real, Real do |gs, x,y,width,height|
+      tx = x + width
+      ty = y + height
+      gs.current_path << (subpath = Graphics::Path.new)
+      subpath.segments << Graphics::Path::Line.new([x,y], [tx,y])
+      subpath.segments << Graphics::Path::Line.new([tx,y], [tx, ty])
+      subpath.segments << Graphics::Path::Line.new([tx, ty], [x, ty])
+      subpath.close!
+    end
+
+    insn  'S'
+    insn  's' do |gs| gs.current_path.last.close! end
+    insn  'f'
+    insn  'F'
+    insn  'f*'
+    insn  'B'
+    insn  'B*'
+    insn  'b' do |gs| gs.current_path.last.close! end
+    insn  'b*' do |gs| gs.current_path.last.close! end
+    insn  'n'
   end
 
 end

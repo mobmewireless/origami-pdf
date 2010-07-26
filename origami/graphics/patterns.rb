@@ -168,20 +168,12 @@ module Origami
           field   :Decode,              :Type => Array, :Required => true
           field   :Function,            :Type => [ Dictionary, Stream ]
         end
-
       end
-
     end
+  end
 
-    module Instruction
-      
-      class SH
-        include PDF::Instruction
-        def initialize(shading); super('sh', shading) end
-      end
-
-    end
-
+  class PDF::Instruction
+    insn  'sh', Name
   end
 
 end

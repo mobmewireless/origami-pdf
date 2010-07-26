@@ -24,10 +24,9 @@ module Origami
   class PDF
 
     def append_page(page = Page.new, *more)
-    
       pages = [ page ].concat(more)
       
-      fail "Expecting Page type, instead of #{page.class}" unless pages.all?{|page| page.is_a?(Page)}
+      raise TypeError, "Expecting Page type, instead of #{page.class}" unless pages.all?{|page| page.is_a?(Page)}
       
       treeroot = self.Catalog.Pages
       
@@ -171,7 +170,6 @@ module Origami
   # Class representing a node in a Page tree.
   #
   class PageTreeNode < Dictionary
-    
     include Configurable
    
     field   :Type,          :Type => Name, :Default => :Pages, :Required => true
@@ -207,6 +205,7 @@ module Origami
         if count == index
           kids.insert(n, page)
           self.Count = self.Count + 1
+          page.Parent = self
           return self
         else
           node = kids[n].is_a?(Reference) ? kids[n].solve : kids[n]
@@ -228,8 +227,7 @@ module Origami
       }
 
       if count == index
-        kids.push(page)
-        self.Count = self.Count + 1
+        self << page
       else
         raise IndexError, "An error occured while inserting page"
       end
@@ -257,9 +255,8 @@ module Origami
     end
       
     def << (pageset)
-        
-      pageset = [pageset] unless pageset.is_a?(Enumerable)
-      fail "Cannot add anything but Page and PageTreeNode to this node" unless pageset.all? { |item| item.is_a?(Page) or item.is_a?(PageTreeNode) }
+      pageset = [pageset] unless pageset.is_a?(::Array)
+      raise TypeError, "Cannot add anything but Page and PageTreeNode to this node" unless pageset.all? { |item| item.is_a?(Page) or item.is_a?(PageTreeNode) }
 
       self.Kids ||= Array.new
       self.Kids.concat(pageset)
@@ -268,9 +265,7 @@ module Origami
       pageset.each do |node| 
         node.Parent = self 
       end
-        
     end
-      
   end
     
   #

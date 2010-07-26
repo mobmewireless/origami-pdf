@@ -33,10 +33,11 @@ $: << ORIGAMIDIR
 
 require 'walker/menu'
 require 'walker/about'
-require 'walker/io'
+require 'walker/file'
 require 'walker/hexview'
 require 'walker/treeview'
 require 'walker/textview'
+require 'walker/imgview'
 require 'walker/config'
 require 'walker/properties'
 require 'walker/xrefs'
@@ -57,7 +58,6 @@ module PDFWalker  #:nodoc:all
     end
 
     def initialize
-      
       super("PDF Walker")
       
       @config = Walker::Config.new

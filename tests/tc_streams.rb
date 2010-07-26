@@ -18,7 +18,7 @@ require 'test/unit'
       stm.data = nil
       stm.rawdata = raw
 
-      assert_equal stm.data, @data
+      assert_equal @data, stm.data
 
       stm.set_predictor(Filter::Predictor::PNG_UP)
       raw = stm.rawdata

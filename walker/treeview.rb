@@ -73,20 +73,16 @@ module PDFWalker
       super(@treestore)
       
       signal_connect('cursor-changed') {
-        
         if selection.selected
           obj = @treestore.get_value(selection.selected, OBJCOL)
           
           parent.hexview.load(obj)
           parent.objectview.load(obj)
         end
-        
       }
       
       signal_connect('row-activated') { |tree, path, column|
-      
         if selection.selected
-          
           obj = @treestore.get_value(selection.selected, OBJCOL)
           
           if row_expanded?(path)
@@ -95,26 +91,19 @@ module PDFWalker
             expand_row(path, false)
           end
           
-          if obj.is_a?(Origami::Reference)
-            goto(obj.solve)
-          end
-      
+          goto(obj.solve) if obj.is_a?(Origami::Reference)
         end
       }
       
       add_events(Gdk::Event::BUTTON_PRESS_MASK)
       signal_connect('button_press_event') { |widget, event|
-        
         if event.button == 3 && parent.opened
-          
           path = get_path(event.x,event.y).first
           set_cursor(path, nil, false)
           
           obj = @treestore.get_value(@treestore.get_iter(path), OBJCOL)
           popup_menu(obj, event, path)
-
         end
-        
       }
       
     end
@@ -217,7 +206,7 @@ module PDFWalker
       
       if row and depth != 0
         
-        while true
+        loop do
           expand_row(row.path, false)
           expand(row.first_child, depth - 1)
           
