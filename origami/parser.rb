@@ -196,7 +196,7 @@ module Origami
     def parse_objects(file) #:nodoc:
       begin
         loop do 
-          obj = Object.parse(@data, file)
+          obj = Object.parse(@data)
           return if obj.nil?
 
           trace "Read #{obj.type} object#{if obj.type != obj.real_type then " (" + obj.real_type.to_s.split('::').last + ")" end}, #{obj.reference}"

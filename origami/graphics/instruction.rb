@@ -100,17 +100,24 @@ module Origami
 
       def parse(stream)
         operands = []
-        while type = Object.typeof(stream)
+        while type = Object.typeof(stream, true)
           operands.unshift type.parse(stream)
         end
         
-        if stream.scan(@@regexp).nil?
-          raise InvalidPDFInstructionError, 
-            "Operator: #{(stream.peek(10) + '...').inspect}"
-        end
+        if not stream.eos?
+          if stream.scan(@@regexp).nil?
+            raise InvalidPDFInstructionError, 
+              "Operator: #{(stream.peek(10) + '...').inspect}"
+          end
 
-        operator = stream[1]
-        PDF::Instruction.new(operator, *operands)
+          operator = stream[1]
+          PDF::Instruction.new(operator, *operands)
+        else
+          if not operands.empty?
+            raise InvalidPDFInstructionError,
+              "No operator given for operands: #{operands.join}"
+          end
+        end
       end
     end
 

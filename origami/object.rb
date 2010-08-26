@@ -394,7 +394,7 @@ module Origami
     
     class << self
 
-      def typeof(stream) #:nodoc:
+      def typeof(stream, noref = false) #:nodoc:
         stream.skip(REGEXP_WHITESPACES)
 
         case stream.peek(1)
@@ -406,7 +406,7 @@ module Origami
           when 'n' then return Null
           when 't', 'f' then return Boolean
         else
-          if stream.check(Reference::REGEXP_TOKEN) then return Reference
+          if not noref and stream.check(Reference::REGEXP_TOKEN) then return Reference
           elsif stream.check(Real::REGEXP_TOKEN) then return Real
           elsif stream.check(Integer::REGEXP_TOKEN) then return Integer
           else
@@ -417,7 +417,6 @@ module Origami
       end
         
       def parse(stream) #:nodoc:
-       
         offset = stream.pos
 
         #
@@ -426,7 +425,8 @@ module Origami
         return nil if stream.match?(/xref/) or stream.match?(/startxref/)
  
         if stream.scan(@@regexp_obj).nil?
-          raise InvalidObjectError, "Object shall begin with '$no $gen obj' statement"
+          raise InvalidObjectError, 
+            "Object shall begin with '$no $gen obj' statement"
         end
           
         no = stream[2].to_i
@@ -434,13 +434,15 @@ module Origami
 
         type = typeof(stream) 
         if type.nil?
-          raise InvalidObjectError, "Cannot determine object (no:#{no},gen:#{gen}) type"
+          raise InvalidObjectError, 
+            "Cannot determine object (no:#{no},gen:#{gen}) type"
         end
           
         begin
           newObj = type.parse(stream)
         rescue Exception => e
-          raise InvalidObjectError, "Failed to parse object (no:#{no},gen:#{gen})\n\t -> [#{e.class}] #{e.message}"
+          raise InvalidObjectError, 
+            "Failed to parse object (no:#{no},gen:#{gen})\n\t -> [#{e.class}] #{e.message}"
         end
 
         newObj.set_indirect(true)

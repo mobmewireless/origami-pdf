@@ -381,14 +381,12 @@ module Origami
     # _rawdata_:: The Stream data.
     #
     def initialize(rawdata = "", dictionary = {})
-    
       @objects = nil
      
       super(rawdata, dictionary)
     end
     
     def pre_build #:nodoc:
-      
       load! if @objects.nil?
 
       prolog = ""
@@ -420,7 +418,6 @@ module Origami
     # _object_:: The Object to append.
     #
     def <<(object)
-      
       unless object.generation == 0
         raise InvalidObjectError, "Cannot store an object with generation > 0 in an ObjectStream"
       end
@@ -516,7 +513,6 @@ module Origami
     private
     
     def load! #:nodoc:
-      
       decode!
       
       data = StringScanner.new(@data)
@@ -524,19 +520,15 @@ module Origami
       offsets = []
       
       @dictionary[:N].to_i.times do
-        
         nums << Integer.parse(data).to_i
         offsets << Integer.parse(data)
-        
       end
       
       @objects = {}
       nums.size.times do |i|
-        
         type = Object.typeof(data)
-        if type.nil?
-          raise InvalidObjectStreamObjectError, "Bad embedded object format in object stream"
-        end
+        raise InvalidObjectStreamObjectError, 
+          "Bad embedded object format in object stream" if type.nil?
         
         embeddedobj = type.parse(data)
         embeddedobj.set_indirect(true) # object is indirect
@@ -545,11 +537,8 @@ module Origami
         embeddedobj.set_pdf(@pdf)      # indirect objects need pdf information
         embeddedobj.objstm_offset = offsets[i]
         @objects[nums[i]] = embeddedobj
-        
       end
       
     end
-
   end
-  
 end

@@ -1,5 +1,12 @@
 # CHANGELOG
 
+beta3 (26/08/10):
+  |origami|:
+    - Faster decryption process.
+    - Can now properly parse objects with no endobj token.
+  |walker|:
+    - Image viewer.
+
 beta2 (01/04/10):
   Directory tree has changed. Sources are in the origami folder, and you
   have to require origami.rb located in the root directory.

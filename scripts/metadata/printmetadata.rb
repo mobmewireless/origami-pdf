@@ -27,6 +27,7 @@ if pdf.has_document_info?
 
   docinfo = pdf.get_document_info
   docinfo.each_pair do |name, item|
+    item = item.solve if item.is_a? Reference
     puts "#{name.value}: #{item.value}"
   end
 else
