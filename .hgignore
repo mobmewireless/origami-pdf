@@ -1,8 +1,6 @@
 syntax: glob
-packs/archives/neosploit.rar
-tex/09-sstic/annexes
-tex/09-sstic/src
-doc
+pkg
+#doc
 *~
 *.raw
 *.tps
@@ -36,6 +34,4 @@ doc
 *.dot
 *.conf
 \._*
-08-pacsec-origami/slides/doc
-sources/doc
 

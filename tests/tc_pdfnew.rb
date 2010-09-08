@@ -1,9 +1,11 @@
 require 'test/unit'
+require 'stringio'
 
   class TC_PdfNew < Test::Unit::TestCase
 
-    #def setup
-    #end
+    def setup
+      @output = StringIO.new
+    end
 
     # def teardown
     # end
@@ -18,7 +20,7 @@ require 'test/unit'
       end
 
       assert_nothing_raised do
-        pdf.saveas("/dev/null")
+        pdf.saveas(@output)
       end
 
       assert null.is_indirect?

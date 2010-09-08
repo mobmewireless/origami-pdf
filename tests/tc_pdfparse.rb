@@ -4,9 +4,9 @@ require 'test/unit'
     def setup
       @data = 
         %w{ 
-          dataset/empty.pdf
-          dataset/calc.pdf 
-          dataset/crypto.pdf
+          tests/dataset/empty.pdf
+          tests/dataset/calc.pdf 
+          tests/dataset/crypto.pdf
           }
 
       @dict = StringScanner.new "<</N 2 0 R/x1 null/Pi 3.14 /a <<>>>>"

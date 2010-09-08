@@ -154,7 +154,7 @@ module Origami
     
     #
     # Output every objects read
-    #
+    # 
     VERBOSE_INSANE = 3
     
     attr_accessor :options
@@ -176,17 +176,16 @@ module Origami
 
     def parse(stream)
       data = 
-      case stream
-        when IO then 
-          @filename = stream.path
-          StringScanner.new(stream.read)
-        when ::String then
-          @filename = stream
-          StringScanner.new(File.open(stream, "r").binmode.read)
-        when StringScanner then
-          stream
-        else
-          raise TypeError
+      if stream.respond_to? :read
+        @filename = stream.path
+        StringScanner.new(stream.read)
+      elsif stream.is_a? ::String
+        @filename = stream
+        StringScanner.new(File.open(stream, "r").binmode.read)
+      elsif stream.is_a? StringScanner
+        stream
+      else
+        raise TypeError
       end
     
       @data = data

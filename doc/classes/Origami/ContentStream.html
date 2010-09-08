@@ -95,26 +95,27 @@ contents of a <a href="Page.html">Page</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000601">draw_line</a>&nbsp;&nbsp;
-      <a href="#M000602">draw_polygon</a>&nbsp;&nbsp;
-      <a href="#M000603">draw_rectangle</a>&nbsp;&nbsp;
-      <a href="#M000600">new</a>&nbsp;&nbsp;
-      <a href="#M000605">paint_shading</a>&nbsp;&nbsp;
-      <a href="#M000616">set_dash_pattern</a>&nbsp;&nbsp;
-      <a href="#M000614">set_fill_color</a>&nbsp;&nbsp;
-      <a href="#M000618">set_line_cap</a>&nbsp;&nbsp;
-      <a href="#M000619">set_line_join</a>&nbsp;&nbsp;
-      <a href="#M000617">set_line_width</a>&nbsp;&nbsp;
-      <a href="#M000615">set_stroke_color</a>&nbsp;&nbsp;
-      <a href="#M000613">set_text_char_spacing</a>&nbsp;&nbsp;
-      <a href="#M000606">set_text_font</a>&nbsp;&nbsp;
-      <a href="#M000608">set_text_leading</a>&nbsp;&nbsp;
-      <a href="#M000607">set_text_pos</a>&nbsp;&nbsp;
-      <a href="#M000609">set_text_rendering</a>&nbsp;&nbsp;
-      <a href="#M000610">set_text_rise</a>&nbsp;&nbsp;
-      <a href="#M000611">set_text_scale</a>&nbsp;&nbsp;
-      <a href="#M000612">set_text_word_spacing</a>&nbsp;&nbsp;
-      <a href="#M000604">write</a>&nbsp;&nbsp;
+      <a href="#M000555">draw_line</a>&nbsp;&nbsp;
+      <a href="#M000556">draw_polygon</a>&nbsp;&nbsp;
+      <a href="#M000557">draw_rectangle</a>&nbsp;&nbsp;
+      <a href="#M000554">instructions</a>&nbsp;&nbsp;
+      <a href="#M000553">new</a>&nbsp;&nbsp;
+      <a href="#M000559">paint_shading</a>&nbsp;&nbsp;
+      <a href="#M000570">set_dash_pattern</a>&nbsp;&nbsp;
+      <a href="#M000568">set_fill_color</a>&nbsp;&nbsp;
+      <a href="#M000572">set_line_cap</a>&nbsp;&nbsp;
+      <a href="#M000573">set_line_join</a>&nbsp;&nbsp;
+      <a href="#M000571">set_line_width</a>&nbsp;&nbsp;
+      <a href="#M000569">set_stroke_color</a>&nbsp;&nbsp;
+      <a href="#M000567">set_text_char_spacing</a>&nbsp;&nbsp;
+      <a href="#M000560">set_text_font</a>&nbsp;&nbsp;
+      <a href="#M000562">set_text_leading</a>&nbsp;&nbsp;
+      <a href="#M000561">set_text_pos</a>&nbsp;&nbsp;
+      <a href="#M000563">set_text_rendering</a>&nbsp;&nbsp;
+      <a href="#M000564">set_text_rise</a>&nbsp;&nbsp;
+      <a href="#M000565">set_text_scale</a>&nbsp;&nbsp;
+      <a href="#M000566">set_text_word_spacing</a>&nbsp;&nbsp;
+      <a href="#M000558">write</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -182,6 +183,19 @@ contents of a <a href="Page.html">Page</a>.
 
 
 
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">instructions</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
       
 
 
@@ -189,28 +203,28 @@ contents of a <a href="Page.html">Page</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000600" class="method-detail">
-        <a name="M000600"></a>
+      <div id="method-M000553" class="method-detail">
+        <a name="M000553"></a>
 
         <div class="method-heading">
-          <a href="#M000600" class="method-signature">
+          <a href="#M000553" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(rawdata = &quot;&quot;, dictionary = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000600-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000600-source">
+            onclick="toggleCode('M000553-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000553-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 44</span>
-44:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">rawdata</span> = <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">dictionary</span> = {})
-45:     
-46:       <span class="ruby-ivar">@instructions</span> = []
-47:       <span class="ruby-ivar">@gs</span> = <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">State</span>.<span class="ruby-identifier">new</span>
-48: 
-49:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">rawdata</span>, <span class="ruby-identifier">dictionary</span>)
-50:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 45</span>
+45:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">rawdata</span> = <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">dictionary</span> = {})
+46:     
+47:       <span class="ruby-ivar">@instructions</span> = <span class="ruby-keyword kw">nil</span>
+48:       <span class="ruby-ivar">@gs</span> = <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">State</span>.<span class="ruby-identifier">new</span>
+49: 
+50:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">rawdata</span>, <span class="ruby-identifier">dictionary</span>)
+51:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -218,11 +232,11 @@ contents of a <a href="Page.html">Page</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000601" class="method-detail">
-        <a name="M000601"></a>
+      <div id="method-M000555" class="method-detail">
+        <a name="M000555"></a>
 
         <div class="method-heading">
-          <a href="#M000601" class="method-signature">
+          <a href="#M000555" class="method-signature">
           <span class="method-name">draw_line</span><span class="method-args">(from, to, attr = {})</span>
           </a>
         </div>
@@ -233,23 +247,23 @@ Draw a straight line from the point at coord <em>from</em>, to the point at
 coord <em>to</em>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000601-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000601-source">
+            onclick="toggleCode('M000555-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000555-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 55</span>
-55:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">draw_line</span>(<span class="ruby-identifier">from</span>, <span class="ruby-identifier">to</span>, <span class="ruby-identifier">attr</span> = {})
-56:       <span class="ruby-identifier">draw_polygon</span>([<span class="ruby-identifier">from</span>, <span class="ruby-identifier">to</span>], <span class="ruby-identifier">attr</span>)
-57:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 62</span>
+62:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">draw_line</span>(<span class="ruby-identifier">from</span>, <span class="ruby-identifier">to</span>, <span class="ruby-identifier">attr</span> = {})
+63:       <span class="ruby-identifier">draw_polygon</span>([<span class="ruby-identifier">from</span>, <span class="ruby-identifier">to</span>], <span class="ruby-identifier">attr</span>)
+64:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000602" class="method-detail">
-        <a name="M000602"></a>
+      <div id="method-M000556" class="method-detail">
+        <a name="M000556"></a>
 
         <div class="method-heading">
-          <a href="#M000602" class="method-signature">
+          <a href="#M000556" class="method-signature">
           <span class="method-name">draw_polygon</span><span class="method-args">(coords = [], attr = {})</span>
           </a>
         </div>
@@ -259,68 +273,69 @@ coord <em>to</em>.
 Draw a polygon from a array of coordinates.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000602-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000602-source">
+            onclick="toggleCode('M000556-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000556-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 62</span>
- 62:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">draw_polygon</span>(<span class="ruby-identifier">coords</span> = [], <span class="ruby-identifier">attr</span> = {})
- 63: 
- 64:       <span class="ruby-identifier">stroke_color</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_STROKE_COLOR</span>
- 65:       <span class="ruby-identifier">fill_color</span>    = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_FILL_COLOR</span>
- 66:       <span class="ruby-identifier">line_cap</span>      = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_cap</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINECAP</span>
- 67:       <span class="ruby-identifier">line_join</span>     = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_join</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINEJOIN</span>
- 68:       <span class="ruby-identifier">line_width</span>    = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_width</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINEWIDTH</span>
- 69:       <span class="ruby-identifier">dash_pattern</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:dash</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_DASHPATTERN</span>
- 70: 
- 71:       <span class="ruby-identifier">stroke</span>        = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">true</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke</span>]
- 72:       <span class="ruby-identifier">fill</span>          = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">false</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill</span>]
- 73: 
- 74:       <span class="ruby-identifier">stroke</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fill</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stroke</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span> 
- 75: 
- 76:       <span class="ruby-identifier">set_fill_color</span>(<span class="ruby-identifier">fill_color</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fill</span>
- 77:       <span class="ruby-identifier">set_stroke_color</span>(<span class="ruby-identifier">stroke_color</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stroke</span>
- 78:       <span class="ruby-identifier">set_line_width</span>(<span class="ruby-identifier">line_width</span>)
- 79:       <span class="ruby-identifier">set_line_cap</span>(<span class="ruby-identifier">line_cap</span>)
- 80:       <span class="ruby-identifier">set_line_join</span>(<span class="ruby-identifier">line_join</span>)
- 81:       <span class="ruby-identifier">set_dash_pattern</span>(<span class="ruby-identifier">dash_pattern</span>)
- 82:    
- 83:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">is_in_text_object?</span>
- 84:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">ET</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
- 85:       <span class="ruby-keyword kw">end</span>
- 86: 
- 87:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">coords</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
- 88:         <span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span> = <span class="ruby-identifier">coords</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>)
- 89:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">M</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
- 90: 
- 91:         <span class="ruby-identifier">coords</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">px</span>,<span class="ruby-identifier">py</span><span class="ruby-operator">|</span>
- 92:           <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">L</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">px</span>,<span class="ruby-identifier">py</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
- 93:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 69</span>
+ 69:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">draw_polygon</span>(<span class="ruby-identifier">coords</span> = [], <span class="ruby-identifier">attr</span> = {})
+ 70:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+ 71: 
+ 72:       <span class="ruby-identifier">stroke_color</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_STROKE_COLOR</span>
+ 73:       <span class="ruby-identifier">fill_color</span>    = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_FILL_COLOR</span>
+ 74:       <span class="ruby-identifier">line_cap</span>      = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_cap</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINECAP</span>
+ 75:       <span class="ruby-identifier">line_join</span>     = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_join</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINEJOIN</span>
+ 76:       <span class="ruby-identifier">line_width</span>    = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_width</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINEWIDTH</span>
+ 77:       <span class="ruby-identifier">dash_pattern</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:dash</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_DASHPATTERN</span>
+ 78: 
+ 79:       <span class="ruby-identifier">stroke</span>        = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">true</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke</span>]
+ 80:       <span class="ruby-identifier">fill</span>          = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">false</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill</span>]
+ 81: 
+ 82:       <span class="ruby-identifier">stroke</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fill</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stroke</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span> 
+ 83: 
+ 84:       <span class="ruby-identifier">set_fill_color</span>(<span class="ruby-identifier">fill_color</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fill</span>
+ 85:       <span class="ruby-identifier">set_stroke_color</span>(<span class="ruby-identifier">stroke_color</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stroke</span>
+ 86:       <span class="ruby-identifier">set_line_width</span>(<span class="ruby-identifier">line_width</span>)
+ 87:       <span class="ruby-identifier">set_line_cap</span>(<span class="ruby-identifier">line_cap</span>)
+ 88:       <span class="ruby-identifier">set_line_join</span>(<span class="ruby-identifier">line_join</span>)
+ 89:       <span class="ruby-identifier">set_dash_pattern</span>(<span class="ruby-identifier">dash_pattern</span>)
+ 90:    
+ 91:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">is_in_text_object?</span>
+ 92:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'ET'</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+ 93:       <span class="ruby-keyword kw">end</span>
  94: 
- 95:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">i</span> =
- 96:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stroke</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">fill</span>
- 97:             <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">CloseS</span>.<span class="ruby-identifier">new</span>
- 98:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fill</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">stroke</span>
- 99:             <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">F</span>.<span class="ruby-identifier">new</span>
-100:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fill</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stroke</span>
-101:             <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">CloseB</span>.<span class="ruby-identifier">new</span>
-102:           <span class="ruby-keyword kw">end</span>
-103:         )
-104: 
-105:         <span class="ruby-identifier">i</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-106:       <span class="ruby-keyword kw">end</span>
-107: 
-108:       <span class="ruby-keyword kw">self</span>
-109:     <span class="ruby-keyword kw">end</span>
+ 95:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">coords</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
+ 96:         <span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span> = <span class="ruby-identifier">coords</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>)
+ 97:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'m'</span>,<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+ 98: 
+ 99:         <span class="ruby-identifier">coords</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">px</span>,<span class="ruby-identifier">py</span><span class="ruby-operator">|</span>
+100:           <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'l'</span>,<span class="ruby-identifier">px</span>,<span class="ruby-identifier">py</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+101:         <span class="ruby-keyword kw">end</span>
+102: 
+103:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">i</span> =
+104:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stroke</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">fill</span>
+105:             <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'s'</span>)
+106:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fill</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">stroke</span>
+107:             <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'f'</span>)
+108:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fill</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stroke</span>
+109:             <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'b'</span>)
+110:           <span class="ruby-keyword kw">end</span>
+111:         )
+112: 
+113:         <span class="ruby-identifier">i</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+114:       <span class="ruby-keyword kw">end</span>
+115: 
+116:       <span class="ruby-keyword kw">self</span>
+117:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000603" class="method-detail">
-        <a name="M000603"></a>
+      <div id="method-M000557" class="method-detail">
+        <a name="M000557"></a>
 
         <div class="method-heading">
-          <a href="#M000603" class="method-signature">
+          <a href="#M000557" class="method-signature">
           <span class="method-name">draw_rectangle</span><span class="method-args">(x, y, width, height, attr = {})</span>
           </a>
         </div>
@@ -331,490 +346,475 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
 <em>width</em> and <em>height</em>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000603-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000603-source">
+            onclick="toggleCode('M000557-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000557-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 114</span>
-114:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">draw_rectangle</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>, <span class="ruby-identifier">attr</span> = {})
-115: 
-116:       <span class="ruby-identifier">stroke_color</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_STROKE_COLOR</span>
-117:       <span class="ruby-identifier">fill_color</span>    = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_FILL_COLOR</span>
-118:       <span class="ruby-identifier">line_cap</span>      = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_cap</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINECAP</span>
-119:       <span class="ruby-identifier">line_join</span>     = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_join</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINEJOIN</span>
-120:       <span class="ruby-identifier">line_width</span>    = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_width</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINEWIDTH</span>
-121:       <span class="ruby-identifier">dash_pattern</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:dash</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_DASHPATTERN</span>
-122: 
-123:       <span class="ruby-identifier">stroke</span>        = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">true</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke</span>]
-124:       <span class="ruby-identifier">fill</span>          = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">false</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill</span>]
-125: 
-126:       <span class="ruby-identifier">stroke</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fill</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stroke</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span> 
-127: 
-128:       <span class="ruby-identifier">set_fill_color</span>(<span class="ruby-identifier">fill_color</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fill</span>
-129:       <span class="ruby-identifier">set_stroke_color</span>(<span class="ruby-identifier">stroke_color</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stroke</span>
-130:       <span class="ruby-identifier">set_line_width</span>(<span class="ruby-identifier">line_width</span>)
-131:       <span class="ruby-identifier">set_line_cap</span>(<span class="ruby-identifier">line_cap</span>)
-132:       <span class="ruby-identifier">set_line_join</span>(<span class="ruby-identifier">line_join</span>)
-133:       <span class="ruby-identifier">set_dash_pattern</span>(<span class="ruby-identifier">dash_pattern</span>)
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 122</span>
+122:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">draw_rectangle</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>, <span class="ruby-identifier">attr</span> = {})
+123:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+124: 
+125:       <span class="ruby-identifier">stroke_color</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_STROKE_COLOR</span>
+126:       <span class="ruby-identifier">fill_color</span>    = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_FILL_COLOR</span>
+127:       <span class="ruby-identifier">line_cap</span>      = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_cap</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINECAP</span>
+128:       <span class="ruby-identifier">line_join</span>     = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_join</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINEJOIN</span>
+129:       <span class="ruby-identifier">line_width</span>    = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_width</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINEWIDTH</span>
+130:       <span class="ruby-identifier">dash_pattern</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:dash</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_DASHPATTERN</span>
+131: 
+132:       <span class="ruby-identifier">stroke</span>        = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">true</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke</span>]
+133:       <span class="ruby-identifier">fill</span>          = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">false</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill</span>]
 134: 
-135:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">is_in_text_object?</span>
-136:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">ET</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-137:       <span class="ruby-keyword kw">end</span>
-138: 
-139:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">RE</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">width</span>,<span class="ruby-identifier">height</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-140:   
-141:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">i</span> =
-142:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stroke</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">fill</span>
-143:           <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">S</span>.<span class="ruby-identifier">new</span>
-144:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fill</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">stroke</span>
-145:           <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">F</span>.<span class="ruby-identifier">new</span>
-146:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fill</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stroke</span>
-147:           <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">B</span>.<span class="ruby-identifier">new</span>
-148:         <span class="ruby-keyword kw">end</span>
-149:       )
-150: 
-151:       <span class="ruby-identifier">i</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-152:       
-153:       <span class="ruby-keyword kw">self</span>
-154:     <span class="ruby-keyword kw">end</span>
+135:       <span class="ruby-identifier">stroke</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fill</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stroke</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span> 
+136: 
+137:       <span class="ruby-identifier">set_fill_color</span>(<span class="ruby-identifier">fill_color</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fill</span>
+138:       <span class="ruby-identifier">set_stroke_color</span>(<span class="ruby-identifier">stroke_color</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stroke</span>
+139:       <span class="ruby-identifier">set_line_width</span>(<span class="ruby-identifier">line_width</span>)
+140:       <span class="ruby-identifier">set_line_cap</span>(<span class="ruby-identifier">line_cap</span>)
+141:       <span class="ruby-identifier">set_line_join</span>(<span class="ruby-identifier">line_join</span>)
+142:       <span class="ruby-identifier">set_dash_pattern</span>(<span class="ruby-identifier">dash_pattern</span>)
+143: 
+144:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">is_in_text_object?</span>
+145:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'ET'</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+146:       <span class="ruby-keyword kw">end</span>
+147: 
+148:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'re'</span>, <span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">width</span>,<span class="ruby-identifier">height</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+149:   
+150:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">i</span> =
+151:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stroke</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">fill</span>
+152:           <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'S'</span>)
+153:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fill</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">stroke</span>
+154:           <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'f'</span>)
+155:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">fill</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stroke</span>
+156:           <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'B'</span>)
+157:         <span class="ruby-keyword kw">end</span>
+158:       )
+159: 
+160:       <span class="ruby-identifier">i</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+161:       
+162:       <span class="ruby-keyword kw">self</span>
+163:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000605" class="method-detail">
-        <a name="M000605"></a>
+      <div id="method-M000554" class="method-detail">
+        <a name="M000554"></a>
 
         <div class="method-heading">
-          <a href="#M000605" class="method-signature">
+          <a href="#M000554" class="method-signature">
+          <span class="method-name">instructions</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000554-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000554-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 53</span>
+53:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instructions</span>
+54:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+55: 
+56:       <span class="ruby-ivar">@instructions</span>
+57:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000559" class="method-detail">
+        <a name="M000559"></a>
+
+        <div class="method-heading">
+          <a href="#M000559" class="method-signature">
           <span class="method-name">paint_shading</span><span class="method-args">(shade)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000605-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000605-source">
+            onclick="toggleCode('M000559-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000559-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 199</span>
-199:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">paint_shading</span>(<span class="ruby-identifier">shade</span>)
-200:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">SH</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">shade</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-201: 
-202:       <span class="ruby-keyword kw">self</span>
-203:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 209</span>
+209:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">paint_shading</span>(<span class="ruby-identifier">shade</span>)
+210:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+211:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'sh'</span>, <span class="ruby-identifier">shade</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+212: 
+213:       <span class="ruby-keyword kw">self</span>
+214:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000616" class="method-detail">
-        <a name="M000616"></a>
+      <div id="method-M000570" class="method-detail">
+        <a name="M000570"></a>
 
         <div class="method-heading">
-          <a href="#M000616" class="method-signature">
+          <a href="#M000570" class="method-signature">
           <span class="method-name">set_dash_pattern</span><span class="method-args">(pattern)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000616-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000616-source">
+            onclick="toggleCode('M000570-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000570-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 325</span>
-325:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_dash_pattern</span>(<span class="ruby-identifier">pattern</span>)
-326:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">dash_pattern</span>.<span class="ruby-identifier">eql?</span> <span class="ruby-identifier">pattern</span>
-327:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">D</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">array</span>, <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">phase</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-328:       <span class="ruby-keyword kw">end</span>
-329: 
-330:       <span class="ruby-keyword kw">self</span>
-331:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 346</span>
+346:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_dash_pattern</span>(<span class="ruby-identifier">pattern</span>)
+347:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+348:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">dash_pattern</span>.<span class="ruby-identifier">eql?</span> <span class="ruby-identifier">pattern</span>
+349:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'d'</span>, <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">array</span>, <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">phase</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+350:       <span class="ruby-keyword kw">end</span>
+351: 
+352:       <span class="ruby-keyword kw">self</span>
+353:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000614" class="method-detail">
-        <a name="M000614"></a>
+      <div id="method-M000568" class="method-detail">
+        <a name="M000568"></a>
 
         <div class="method-heading">
-          <a href="#M000614" class="method-signature">
+          <a href="#M000568" class="method-signature">
           <span class="method-name">set_fill_color</span><span class="method-args">(color)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000614-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000614-source">
+            onclick="toggleCode('M000568-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000568-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 267</span>
-267:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_fill_color</span>(<span class="ruby-identifier">color</span>)
-268:       
-269:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> ( <span class="ruby-identifier">i</span> =
-270:         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:r</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:b</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>)
-271:           <span class="ruby-identifier">r</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:r</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">r</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
-272:           <span class="ruby-identifier">g</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
-273:           <span class="ruby-identifier">b</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:b</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">b</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
-274:           <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">RG</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">r</span>, <span class="ruby-identifier">g</span>, <span class="ruby-identifier">b</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">nonstroking_color</span> <span class="ruby-operator">!=</span> [<span class="ruby-identifier">r</span>,<span class="ruby-identifier">g</span>,<span class="ruby-identifier">b</span>]
-275: 
-276:         <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:c</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:m</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:y</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:k</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">4</span>)
-277:           <span class="ruby-identifier">c</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:c</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">c</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span>
-278:           <span class="ruby-identifier">m</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:m</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">m</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span>
-279:           <span class="ruby-identifier">y</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:y</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">y</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span>
-280:           <span class="ruby-identifier">k</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:k</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">k</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">3</span>]).<span class="ruby-identifier">to_f</span>
-281:           <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">K</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">c</span>, <span class="ruby-identifier">m</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">k</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">nonstroking_color</span> <span class="ruby-operator">!=</span> [<span class="ruby-identifier">c</span>,<span class="ruby-identifier">m</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">k</span>]
-282:           
-283:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span><span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">or</span> (<span class="ruby-value">0</span><span class="ruby-value">.0</span><span class="ruby-operator">..</span><span class="ruby-value">1.0</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">color</span> 
-284:           <span class="ruby-identifier">g</span> = <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>
-285:           <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">G</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">g</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">nonstroking_color</span> <span class="ruby-operator">!=</span> [ <span class="ruby-identifier">g</span> ]
-286: 
-287:         <span class="ruby-keyword kw">else</span>
-288:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Invalid color : #{color}&quot;</span>
-289:         <span class="ruby-keyword kw">end</span>
-290:       )
-291: 
-292:       <span class="ruby-identifier">i</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span>
-293:       <span class="ruby-keyword kw">self</span> 
-294:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 286</span>
+286:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_fill_color</span>(<span class="ruby-identifier">color</span>)
+287:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+288:       
+289:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> ( <span class="ruby-identifier">i</span> =
+290:         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:r</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:b</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>)
+291:           <span class="ruby-identifier">r</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:r</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">r</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
+292:           <span class="ruby-identifier">g</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
+293:           <span class="ruby-identifier">b</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:b</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">b</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
+294:           <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'rg'</span>, <span class="ruby-identifier">r</span>, <span class="ruby-identifier">g</span>, <span class="ruby-identifier">b</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">nonstroking_color</span> <span class="ruby-operator">!=</span> [<span class="ruby-identifier">r</span>,<span class="ruby-identifier">g</span>,<span class="ruby-identifier">b</span>]
+295: 
+296:         <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:c</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:m</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:y</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:k</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">4</span>)
+297:           <span class="ruby-identifier">c</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:c</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">c</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span>
+298:           <span class="ruby-identifier">m</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:m</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">m</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span>
+299:           <span class="ruby-identifier">y</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:y</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">y</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span>
+300:           <span class="ruby-identifier">k</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:k</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">k</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">3</span>]).<span class="ruby-identifier">to_f</span>
+301:           <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'k'</span>, <span class="ruby-identifier">c</span>, <span class="ruby-identifier">m</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">k</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">nonstroking_color</span> <span class="ruby-operator">!=</span> [<span class="ruby-identifier">c</span>,<span class="ruby-identifier">m</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">k</span>]
+302:           
+303:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span><span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">or</span> (<span class="ruby-value">0</span><span class="ruby-value">.0</span><span class="ruby-operator">..</span><span class="ruby-value">1.0</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">color</span> 
+304:           <span class="ruby-identifier">g</span> = <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>
+305:           <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'g'</span>, <span class="ruby-identifier">g</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">nonstroking_color</span> <span class="ruby-operator">!=</span> [ <span class="ruby-identifier">g</span> ]
+306: 
+307:         <span class="ruby-keyword kw">else</span>
+308:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Invalid color : #{color}&quot;</span>
+309:         <span class="ruby-keyword kw">end</span>
+310:       )
+311: 
+312:       <span class="ruby-identifier">i</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span>
+313:       <span class="ruby-keyword kw">self</span> 
+314:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000618" class="method-detail">
-        <a name="M000618"></a>
+      <div id="method-M000572" class="method-detail">
+        <a name="M000572"></a>
 
         <div class="method-heading">
-          <a href="#M000618" class="method-signature">
+          <a href="#M000572" class="method-signature">
           <span class="method-name">set_line_cap</span><span class="method-args">(cap)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000618-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000618-source">
+            onclick="toggleCode('M000572-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000572-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 341</span>
-341:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_line_cap</span>(<span class="ruby-identifier">cap</span>)
-342:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">line_cap</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">cap</span>
-343:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">JCap</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">cap</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-344:       <span class="ruby-keyword kw">end</span>
-345: 
-346:       <span class="ruby-keyword kw">self</span>
-347:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 364</span>
+364:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_line_cap</span>(<span class="ruby-identifier">cap</span>)
+365:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+366:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">line_cap</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">cap</span>
+367:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'J'</span>, <span class="ruby-identifier">cap</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+368:       <span class="ruby-keyword kw">end</span>
+369: 
+370:       <span class="ruby-keyword kw">self</span>
+371:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000619" class="method-detail">
-        <a name="M000619"></a>
+      <div id="method-M000573" class="method-detail">
+        <a name="M000573"></a>
 
         <div class="method-heading">
-          <a href="#M000619" class="method-signature">
+          <a href="#M000573" class="method-signature">
           <span class="method-name">set_line_join</span><span class="method-args">(join)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000619-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000619-source">
+            onclick="toggleCode('M000573-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000573-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 349</span>
-349:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_line_join</span>(<span class="ruby-identifier">join</span>)
-350:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">line_join</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">join</span>
-351:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">JJoin</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">join</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-352:       <span class="ruby-keyword kw">end</span>
-353: 
-354:       <span class="ruby-keyword kw">self</span>
-355:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 373</span>
+373:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_line_join</span>(<span class="ruby-identifier">join</span>)
+374:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+375:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">line_join</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">join</span>
+376:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'j'</span>, <span class="ruby-identifier">join</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+377:       <span class="ruby-keyword kw">end</span>
+378: 
+379:       <span class="ruby-keyword kw">self</span>
+380:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000617" class="method-detail">
-        <a name="M000617"></a>
+      <div id="method-M000571" class="method-detail">
+        <a name="M000571"></a>
 
         <div class="method-heading">
-          <a href="#M000617" class="method-signature">
+          <a href="#M000571" class="method-signature">
           <span class="method-name">set_line_width</span><span class="method-args">(width)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000617-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000617-source">
+            onclick="toggleCode('M000571-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000571-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 333</span>
-333:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_line_width</span>(<span class="ruby-identifier">width</span>)
-334:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">line_width</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">width</span>
-335:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">W</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">width</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-336:       <span class="ruby-keyword kw">end</span>
-337: 
-338:       <span class="ruby-keyword kw">self</span>
-339:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 355</span>
+355:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_line_width</span>(<span class="ruby-identifier">width</span>)
+356:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+357:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">line_width</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">width</span>
+358:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'w'</span>, <span class="ruby-identifier">width</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+359:       <span class="ruby-keyword kw">end</span>
+360: 
+361:       <span class="ruby-keyword kw">self</span>
+362:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000615" class="method-detail">
-        <a name="M000615"></a>
+      <div id="method-M000569" class="method-detail">
+        <a name="M000569"></a>
 
         <div class="method-heading">
-          <a href="#M000615" class="method-signature">
+          <a href="#M000569" class="method-signature">
           <span class="method-name">set_stroke_color</span><span class="method-args">(color)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000615-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000615-source">
+            onclick="toggleCode('M000569-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000569-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 296</span>
-296:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_stroke_color</span>(<span class="ruby-identifier">color</span>)
-297:       
-298:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> ( <span class="ruby-identifier">i</span> =
-299:         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:r</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:b</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>)
-300:           <span class="ruby-identifier">r</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:r</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">r</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
-301:           <span class="ruby-identifier">g</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
-302:           <span class="ruby-identifier">b</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:b</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">b</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
-303:           <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">StrokeRG</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">r</span>, <span class="ruby-identifier">g</span>, <span class="ruby-identifier">b</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">stroking_color</span> <span class="ruby-operator">!=</span> [<span class="ruby-identifier">r</span>,<span class="ruby-identifier">g</span>,<span class="ruby-identifier">b</span>]
-304: 
-305:         <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:c</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:m</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:y</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:k</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">4</span>)
-306:           <span class="ruby-identifier">c</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:c</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">c</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span>
-307:           <span class="ruby-identifier">m</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:m</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">m</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span>
-308:           <span class="ruby-identifier">y</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:y</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">y</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span>
-309:           <span class="ruby-identifier">k</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:k</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">k</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">3</span>]).<span class="ruby-identifier">to_f</span>
-310:           <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">StrokeK</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">c</span>, <span class="ruby-identifier">m</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">k</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">stroking_color</span> <span class="ruby-operator">!=</span> [<span class="ruby-identifier">c</span>,<span class="ruby-identifier">m</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">k</span>]
-311:           
-312:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span><span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">or</span> (<span class="ruby-value">0</span><span class="ruby-value">.0</span><span class="ruby-operator">..</span><span class="ruby-value">1.0</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">color</span> 
-313:           <span class="ruby-identifier">g</span> = <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>
-314:           <span class="ruby-constant">Graphics</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">StrokeG</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">g</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">stroking_color</span> <span class="ruby-operator">!=</span> [ <span class="ruby-identifier">g</span> ]
-315: 
-316:         <span class="ruby-keyword kw">else</span>
-317:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Invalid color : #{color}&quot;</span>
-318:         <span class="ruby-keyword kw">end</span>
-319:       )
-320: 
-321:       <span class="ruby-identifier">i</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span>
-322:       <span class="ruby-keyword kw">self</span> 
-323:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 316</span>
+316:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_stroke_color</span>(<span class="ruby-identifier">color</span>)
+317:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+318:       
+319:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> ( <span class="ruby-identifier">i</span> =
+320:         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:r</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:b</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>)
+321:           <span class="ruby-identifier">r</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:r</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">r</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
+322:           <span class="ruby-identifier">g</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
+323:           <span class="ruby-identifier">b</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:b</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">b</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
+324:           <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'RG'</span>, <span class="ruby-identifier">r</span>, <span class="ruby-identifier">g</span>, <span class="ruby-identifier">b</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">stroking_color</span> <span class="ruby-operator">!=</span> [<span class="ruby-identifier">r</span>,<span class="ruby-identifier">g</span>,<span class="ruby-identifier">b</span>]
+325: 
+326:         <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:c</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:m</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:y</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:k</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">4</span>)
+327:           <span class="ruby-identifier">c</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:c</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">c</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span>
+328:           <span class="ruby-identifier">m</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:m</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">m</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span>
+329:           <span class="ruby-identifier">y</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:y</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">y</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span>
+330:           <span class="ruby-identifier">k</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:k</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">k</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">3</span>]).<span class="ruby-identifier">to_f</span>
+331:           <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'K'</span>, <span class="ruby-identifier">c</span>, <span class="ruby-identifier">m</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">k</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">stroking_color</span> <span class="ruby-operator">!=</span> [<span class="ruby-identifier">c</span>,<span class="ruby-identifier">m</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">k</span>]
+332:           
+333:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span><span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">or</span> (<span class="ruby-value">0</span><span class="ruby-value">.0</span><span class="ruby-operator">..</span><span class="ruby-value">1.0</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">color</span> 
+334:           <span class="ruby-identifier">g</span> = <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>
+335:           <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'G'</span>, <span class="ruby-identifier">g</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">stroking_color</span> <span class="ruby-operator">!=</span> [ <span class="ruby-identifier">g</span> ]
+336: 
+337:         <span class="ruby-keyword kw">else</span>
+338:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Invalid color : #{color}&quot;</span>
+339:         <span class="ruby-keyword kw">end</span>
+340:       )
+341: 
+342:       <span class="ruby-identifier">i</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span>
+343:       <span class="ruby-keyword kw">self</span> 
+344:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000613" class="method-detail">
-        <a name="M000613"></a>
+      <div id="method-M000567" class="method-detail">
+        <a name="M000567"></a>
 
         <div class="method-heading">
-          <a href="#M000613" class="method-signature">
+          <a href="#M000567" class="method-signature">
           <span class="method-name">set_text_char_spacing</span><span class="method-args">(char_spacing)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000613-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000613-source">
+            onclick="toggleCode('M000567-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000567-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 259</span>
-259:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_char_spacing</span>(<span class="ruby-identifier">char_spacing</span>)
-260:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">char_spacing</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">char_spacing</span>
-261:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Tc</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">char_spacing</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-262:       <span class="ruby-keyword kw">end</span>
-263: 
-264:       <span class="ruby-keyword kw">self</span>
-265:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 277</span>
+277:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_char_spacing</span>(<span class="ruby-identifier">char_spacing</span>)
+278:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+279:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">char_spacing</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">char_spacing</span>
+280:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Tc'</span>, <span class="ruby-identifier">char_spacing</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+281:       <span class="ruby-keyword kw">end</span>
+282: 
+283:       <span class="ruby-keyword kw">self</span>
+284:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000606" class="method-detail">
-        <a name="M000606"></a>
+      <div id="method-M000560" class="method-detail">
+        <a name="M000560"></a>
 
         <div class="method-heading">
-          <a href="#M000606" class="method-signature">
+          <a href="#M000560" class="method-signature">
           <span class="method-name">set_text_font</span><span class="method-args">(fontname, size)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000606-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000606-source">
+            onclick="toggleCode('M000560-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000560-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 205</span>
-205:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_font</span>(<span class="ruby-identifier">fontname</span>, <span class="ruby-identifier">size</span>)
-206:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fontname</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">font</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">font_size</span>
-207:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Tf</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">fontname</span>, <span class="ruby-identifier">size</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-208:       <span class="ruby-keyword kw">end</span>
-209: 
-210:       <span class="ruby-keyword kw">self</span>
-211:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 216</span>
+216:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_font</span>(<span class="ruby-identifier">fontname</span>, <span class="ruby-identifier">size</span>)
+217:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+218:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fontname</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">font</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">font_size</span>
+219:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Tf'</span>, <span class="ruby-identifier">fontname</span>, <span class="ruby-identifier">size</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+220:       <span class="ruby-keyword kw">end</span>
+221: 
+222:       <span class="ruby-keyword kw">self</span>
+223:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000608" class="method-detail">
-        <a name="M000608"></a>
+      <div id="method-M000562" class="method-detail">
+        <a name="M000562"></a>
 
         <div class="method-heading">
-          <a href="#M000608" class="method-signature">
+          <a href="#M000562" class="method-signature">
           <span class="method-name">set_text_leading</span><span class="method-args">(leading)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000608-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000608-source">
+            onclick="toggleCode('M000562-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000562-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 219</span>
-219:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_leading</span>(<span class="ruby-identifier">leading</span>)
-220:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">leading</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">leading</span>
-221:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">TL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">leading</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-222:       <span class="ruby-keyword kw">end</span>
-223: 
-224:       <span class="ruby-keyword kw">self</span>
-225:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 232</span>
+232:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_leading</span>(<span class="ruby-identifier">leading</span>)
+233:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+234:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">leading</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">leading</span>
+235:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'TL'</span>, <span class="ruby-identifier">leading</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+236:       <span class="ruby-keyword kw">end</span>
+237: 
+238:       <span class="ruby-keyword kw">self</span>
+239:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000607" class="method-detail">
-        <a name="M000607"></a>
+      <div id="method-M000561" class="method-detail">
+        <a name="M000561"></a>
 
         <div class="method-heading">
-          <a href="#M000607" class="method-signature">
+          <a href="#M000561" class="method-signature">
           <span class="method-name">set_text_pos</span><span class="method-args">(tx,ty)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000607-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000607-source">
+            onclick="toggleCode('M000561-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000561-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 213</span>
-213:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_pos</span>(<span class="ruby-identifier">tx</span>,<span class="ruby-identifier">ty</span>)
-214:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Td</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">tx</span>, <span class="ruby-identifier">ty</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-215:       
-216:       <span class="ruby-keyword kw">self</span>
-217:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 225</span>
+225:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_pos</span>(<span class="ruby-identifier">tx</span>,<span class="ruby-identifier">ty</span>)
+226:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+227:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Td'</span>, <span class="ruby-identifier">tx</span>, <span class="ruby-identifier">ty</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+228:       
+229:       <span class="ruby-keyword kw">self</span>
+230:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000609" class="method-detail">
-        <a name="M000609"></a>
+      <div id="method-M000563" class="method-detail">
+        <a name="M000563"></a>
 
         <div class="method-heading">
-          <a href="#M000609" class="method-signature">
+          <a href="#M000563" class="method-signature">
           <span class="method-name">set_text_rendering</span><span class="method-args">(rendering)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000609-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000609-source">
+            onclick="toggleCode('M000563-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000563-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 227</span>
-227:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_rendering</span>(<span class="ruby-identifier">rendering</span>)
-228:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rendering</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">rendering_mode</span>
-229:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Tr</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">rendering</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-230:       <span class="ruby-keyword kw">end</span>
-231: 
-232:       <span class="ruby-keyword kw">self</span>
-233:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 241</span>
+241:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_rendering</span>(<span class="ruby-identifier">rendering</span>)
+242:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+243:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rendering</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">rendering_mode</span>
+244:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Tr'</span>, <span class="ruby-identifier">rendering</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+245:       <span class="ruby-keyword kw">end</span>
+246: 
+247:       <span class="ruby-keyword kw">self</span>
+248:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000610" class="method-detail">
-        <a name="M000610"></a>
+      <div id="method-M000564" class="method-detail">
+        <a name="M000564"></a>
 
         <div class="method-heading">
-          <a href="#M000610" class="method-signature">
+          <a href="#M000564" class="method-signature">
           <span class="method-name">set_text_rise</span><span class="method-args">(rise)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000610-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000610-source">
+            onclick="toggleCode('M000564-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000564-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 235</span>
-235:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_rise</span>(<span class="ruby-identifier">rise</span>)
-236:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rise</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">text_rise</span>
-237:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Ts</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">rise</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-238:       <span class="ruby-keyword kw">end</span>
-239:       
-240:       <span class="ruby-keyword kw">self</span>
-241:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000611" class="method-detail">
-        <a name="M000611"></a>
-
-        <div class="method-heading">
-          <a href="#M000611" class="method-signature">
-          <span class="method-name">set_text_scale</span><span class="method-args">(scaling)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000611-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000611-source">
-<pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 243</span>
-243:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_scale</span>(<span class="ruby-identifier">scaling</span>)
-244:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">scale</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">scaling</span>
-245:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Tz</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">scaling</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-246:       <span class="ruby-keyword kw">end</span>
-247: 
-248:       <span class="ruby-keyword kw">self</span>
-249:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000612" class="method-detail">
-        <a name="M000612"></a>
-
-        <div class="method-heading">
-          <a href="#M000612" class="method-signature">
-          <span class="method-name">set_text_word_spacing</span><span class="method-args">(word_spacing)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000612-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000612-source">
-<pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 251</span>
-251:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_word_spacing</span>(<span class="ruby-identifier">word_spacing</span>)
-252:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">word_spacing</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">word_spacing</span>
-253:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">Tw</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">word_spacing</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 250</span>
+250:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_rise</span>(<span class="ruby-identifier">rise</span>)
+251:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+252:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rise</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">text_rise</span>
+253:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Ts'</span>, <span class="ruby-identifier">rise</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
 254:       <span class="ruby-keyword kw">end</span>
 255:       
 256:       <span class="ruby-keyword kw">self</span>
@@ -824,11 +824,67 @@ Draw a rectangle at position (<em>x</em>,<em>y</em>) with defined
         </div>
       </div>
 
-      <div id="method-M000604" class="method-detail">
-        <a name="M000604"></a>
+      <div id="method-M000565" class="method-detail">
+        <a name="M000565"></a>
 
         <div class="method-heading">
-          <a href="#M000604" class="method-signature">
+          <a href="#M000565" class="method-signature">
+          <span class="method-name">set_text_scale</span><span class="method-args">(scaling)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000565-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000565-source">
+<pre>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 259</span>
+259:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_scale</span>(<span class="ruby-identifier">scaling</span>)
+260:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+261:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">scale</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">scaling</span>
+262:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Tz'</span>, <span class="ruby-identifier">scaling</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+263:       <span class="ruby-keyword kw">end</span>
+264: 
+265:       <span class="ruby-keyword kw">self</span>
+266:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000566" class="method-detail">
+        <a name="M000566"></a>
+
+        <div class="method-heading">
+          <a href="#M000566" class="method-signature">
+          <span class="method-name">set_text_word_spacing</span><span class="method-args">(word_spacing)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000566-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000566-source">
+<pre>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 268</span>
+268:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_text_word_spacing</span>(<span class="ruby-identifier">word_spacing</span>)
+269:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+270:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">word_spacing</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">word_spacing</span>
+271:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Tw'</span>, <span class="ruby-identifier">word_spacing</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+272:       <span class="ruby-keyword kw">end</span>
+273:       
+274:       <span class="ruby-keyword kw">self</span>
+275:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000558" class="method-detail">
+        <a name="M000558"></a>
+
+        <div class="method-heading">
+          <a href="#M000558" class="method-signature">
           <span class="method-name">write</span><span class="method-args">(text, attr = {})</span>
           </a>
         </div>
@@ -839,7 +895,7 @@ Adds text to the content stream with custom formatting attributes.
 </p>
 <table>
 <tr><td valign="top"><em>text</em>:</td><td><a href="Text.html">Text</a> to <a
-href="ContentStream.html#M000604">write</a>.
+href="ContentStream.html#M000558">write</a>.
 
 </td></tr>
 <tr><td valign="top"><em>attr</em>:</td><td>Formatting attributes.
@@ -847,47 +903,48 @@ href="ContentStream.html#M000604">write</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000604-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000604-source">
+            onclick="toggleCode('M000558-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000558-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 161</span>
-161:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">attr</span> = {})
-162: 
-163:       <span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>       = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:x</span>], <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:y</span>] 
-164:       <span class="ruby-identifier">font</span>      = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:font</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_FONT</span>
-165:       <span class="ruby-identifier">size</span>      = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:size</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_SIZE</span>
-166:       <span class="ruby-identifier">leading</span>   = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:leading</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LEADING</span>
-167:       <span class="ruby-identifier">color</span>     = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:color</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_STROKE_COLOR</span>
-168:       <span class="ruby-identifier">stroke_color</span> = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_STROKE_COLOR</span>
-169:       <span class="ruby-identifier">line_width</span>    = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_width</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINEWIDTH</span>
-170:       <span class="ruby-identifier">word_spacing</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:word_spacing</span>]
-171:       <span class="ruby-identifier">char_spacing</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:char_spacing</span>]
-172:       <span class="ruby-identifier">scale</span>     = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:scale</span>]
-173:       <span class="ruby-identifier">rise</span>      = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:rise</span>]
-174:       <span class="ruby-identifier">rendering</span> = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:rendering</span>]
-175: 
-176:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">ET</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>) <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">x</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">y</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">is_in_text_object?</span>
-177: 
-178:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">is_in_text_object?</span> 
-179:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span><span class="ruby-operator">::</span><span class="ruby-constant">BT</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
-180:       <span class="ruby-keyword kw">end</span>
-181: 
-182:       <span class="ruby-identifier">set_text_font</span>(<span class="ruby-identifier">font</span>, <span class="ruby-identifier">size</span>)
-183:       <span class="ruby-identifier">set_text_pos</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">x</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">y</span>
-184:       <span class="ruby-identifier">set_text_leading</span>(<span class="ruby-identifier">leading</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">leading</span>
-185:       <span class="ruby-identifier">set_text_rendering</span>(<span class="ruby-identifier">rendering</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rendering</span>
-186:       <span class="ruby-identifier">set_text_rise</span>(<span class="ruby-identifier">rise</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rise</span>
-187:       <span class="ruby-identifier">set_text_scale</span>(<span class="ruby-identifier">scale</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">scale</span>
-188:       <span class="ruby-identifier">set_text_word_spacing</span>(<span class="ruby-identifier">word_spacing</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">word_spacing</span>
-189:       <span class="ruby-identifier">set_text_char_spacing</span>(<span class="ruby-identifier">char_spacing</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">char_spacing</span>
-190:       <span class="ruby-identifier">set_fill_color</span>(<span class="ruby-identifier">color</span>)
-191:       <span class="ruby-identifier">set_stroke_color</span>(<span class="ruby-identifier">stroke_color</span>) 
-192:       <span class="ruby-identifier">set_line_width</span>(<span class="ruby-identifier">line_width</span>)
-193: 
-194:       <span class="ruby-identifier">write_text_block</span>(<span class="ruby-identifier">text</span>)
-195:      
-196:       <span class="ruby-keyword kw">self</span>
-197:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/xobject.rb, line 170</span>
+170:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">attr</span> = {})
+171:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@instructions</span>.<span class="ruby-identifier">nil?</span>
+172: 
+173:       <span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span>       = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:x</span>], <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:y</span>] 
+174:       <span class="ruby-identifier">font</span>      = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:font</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_FONT</span>
+175:       <span class="ruby-identifier">size</span>      = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:size</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_SIZE</span>
+176:       <span class="ruby-identifier">leading</span>   = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:leading</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LEADING</span>
+177:       <span class="ruby-identifier">color</span>     = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:color</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:fill_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_STROKE_COLOR</span>
+178:       <span class="ruby-identifier">stroke_color</span> = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:stroke_color</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_STROKE_COLOR</span>
+179:       <span class="ruby-identifier">line_width</span>    = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:line_width</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LINEWIDTH</span>
+180:       <span class="ruby-identifier">word_spacing</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:word_spacing</span>]
+181:       <span class="ruby-identifier">char_spacing</span>  = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:char_spacing</span>]
+182:       <span class="ruby-identifier">scale</span>     = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:scale</span>]
+183:       <span class="ruby-identifier">rise</span>      = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:rise</span>]
+184:       <span class="ruby-identifier">rendering</span> = <span class="ruby-identifier">attr</span>[<span class="ruby-identifier">:rendering</span>]
+185: 
+186:       <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'ET'</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>) <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">x</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">y</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">is_in_text_object?</span>
+187: 
+188:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@gs</span>.<span class="ruby-identifier">text_state</span>.<span class="ruby-identifier">is_in_text_object?</span> 
+189:         <span class="ruby-ivar">@instructions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'BT'</span>).<span class="ruby-identifier">update_state</span>(<span class="ruby-ivar">@gs</span>)
+190:       <span class="ruby-keyword kw">end</span>
+191: 
+192:       <span class="ruby-identifier">set_text_font</span>(<span class="ruby-identifier">font</span>, <span class="ruby-identifier">size</span>)
+193:       <span class="ruby-identifier">set_text_pos</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">x</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">y</span>
+194:       <span class="ruby-identifier">set_text_leading</span>(<span class="ruby-identifier">leading</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">leading</span>
+195:       <span class="ruby-identifier">set_text_rendering</span>(<span class="ruby-identifier">rendering</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rendering</span>
+196:       <span class="ruby-identifier">set_text_rise</span>(<span class="ruby-identifier">rise</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rise</span>
+197:       <span class="ruby-identifier">set_text_scale</span>(<span class="ruby-identifier">scale</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">scale</span>
+198:       <span class="ruby-identifier">set_text_word_spacing</span>(<span class="ruby-identifier">word_spacing</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">word_spacing</span>
+199:       <span class="ruby-identifier">set_text_char_spacing</span>(<span class="ruby-identifier">char_spacing</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">char_spacing</span>
+200:       <span class="ruby-identifier">set_fill_color</span>(<span class="ruby-identifier">color</span>)
+201:       <span class="ruby-identifier">set_stroke_color</span>(<span class="ruby-identifier">stroke_color</span>) 
+202:       <span class="ruby-identifier">set_line_width</span>(<span class="ruby-identifier">line_width</span>)
+203: 
+204:       <span class="ruby-identifier">write_text_block</span>(<span class="ruby-identifier">text</span>)
+205:      
+206:       <span class="ruby-keyword kw">self</span>
+207:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

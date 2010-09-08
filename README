@@ -25,7 +25,7 @@ See the COPYING.LESSER file for more details.
 :: RELEASE
 ==========
 
-- Current : Version 1.0.0 beta2
+- Current : Version 1.0.0 beta3
 
 
 :: DEPENDENCIES
@@ -38,20 +38,20 @@ See the COPYING.LESSER file for more details.
 :: DIRECTORIES
 ==============
 
-``sources/parser/``
+``origami/``
 * Core scripts used to parse a PDF file. All objects and features are
   provided here.
 
-``sources/walker/``
+``walker/``
 * An unfinished GTK interface to analyze a PDF.
 
-``sources/samples/``
+``samples/``
 * Many samples, mostly sorted to generate specially crafted PDFs.
 
-``sources/scripts/``
+``scripts/``
 * Simple Ruby scripts playing with PDF files.
 
-``sources/tests/``
+``tests/``
 * Test case units.
 
 ``doc/``
@@ -70,8 +70,8 @@ Frédéric Raynal   <fred@security-labs.org>          - Contributor
 
 This is a beta release. It contains many bugs and many incomplete
 features. If you encounter a problem, feel free to report it by mail at
-<guillaume@security-labs.org>, with a short explanation of what you did and
-any necessary PDF documents.
+<guillaume [at] security-labs [dot] org>, with a short explanation of 
+what you did and any necessary PDF documents.
 
 Thanks.
 

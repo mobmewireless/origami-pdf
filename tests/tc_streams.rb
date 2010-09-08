@@ -1,9 +1,10 @@
 require 'test/unit'
+require 'stringio'
 
   class TC_Streams < Test::Unit::TestCase
     def setup
       @target = PDF.new
-
+      @output = StringIO.new
       @data = "0123456789" * 1024
     end
 
@@ -102,7 +103,7 @@ require 'test/unit'
       stm.pre_build
       assert stm.Length == stm.rawdata.length
 
-      @target.saveas("/dev/null")
+      @target.saveas(@output)
     end
 
 end

@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>Module: Origami::String</title>
+  <title>Class: Origami::String</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
@@ -49,19 +49,27 @@
     <div id="classHeader">
         <table class="header-table">
         <tr class="top-aligned-row">
-          <td><strong>Module</strong></td>
+          <td><strong>Class</strong></td>
           <td class="class-name-in-header">Origami::String</td>
         </tr>
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../files/origami/string_rb.html">
-                origami/string.rb
+                <a href="../../files/origami/docmdp_rb.html">
+                origami/docmdp.rb
                 </a>
         <br />
             </td>
         </tr>
 
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Object.html">
+                Object
+               </a>
+            </td>
+        </tr>
         </table>
     </div>
   <!-- banner header -->
@@ -72,12 +80,6 @@
 
   <div id="contextContent">
 
-    <div id="description">
-      <p>
-Module common to <a href="String.html">String</a> objects.
-</p>
-
-    </div>
 
 
    </div>
@@ -86,9 +88,7 @@ Module common to <a href="String.html">String</a> objects.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000447">new</a>&nbsp;&nbsp;
-      <a href="#M000446">real_type</a>&nbsp;&nbsp;
-      <a href="#M000448">to_utf8</a>&nbsp;&nbsp;
+      <a href="#M000625">to_docmdp_str</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -96,124 +96,38 @@ Module common to <a href="String.html">String</a> objects.
 
 
     <!-- if includes -->
-    <div id="includes">
-      <h3 class="section-bar">Included Modules</h3>
-
-      <div id="includes-list">
-        <span class="include-name"><a href="Object.html">Origami::Object</a></span>
-      </div>
-    </div>
 
     <div id="section">
 
-    <div id="class-list">
-      <h3 class="section-bar">Classes and Modules</h3>
-
-      Module <a href="String/Encoding.html" class="link">Origami::String::Encoding</a><br />
-
-    </div>
 
 
 
 
-    <div id="attribute-list">
-      <h3 class="section-bar">Attributes</h3>
-
-      <div class="name-list">
-        <table>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">encoding</td>
-          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
-          <td class="context-item-desc"></td>
-        </tr>
-        </table>
-      </div>
-    </div>
       
 
 
     <!-- if method_list -->
     <div id="methods">
-      <h3 class="section-bar">Public Class methods</h3>
-
-      <div id="method-M000447" class="method-detail">
-        <a name="M000447"></a>
-
-        <div class="method-heading">
-          <a href="#M000447" class="method-signature">
-          <span class="method-name">new</span><span class="method-args">(str)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000447-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000447-source">
-<pre>
-     <span class="ruby-comment cmt"># File origami/string.rb, line 105</span>
-105:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">str</span>)
-106:       
-107:       <span class="ruby-ivar">@encoding</span> = 
-108:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">str</span>[<span class="ruby-value">0</span>,<span class="ruby-value">2</span>] <span class="ruby-operator">==</span> <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">UTF16BE</span><span class="ruby-operator">::</span><span class="ruby-constant">MAGIC</span>
-109:         <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">UTF16BE</span>
-110:       <span class="ruby-keyword kw">else</span>
-111:         <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">PDFDocEncoding</span>
-112:       <span class="ruby-keyword kw">end</span>
-113: 
-114:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">str</span>)
-115:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000446" class="method-detail">
-        <a name="M000446"></a>
+      <div id="method-M000625" class="method-detail">
+        <a name="M000625"></a>
 
         <div class="method-heading">
-          <a href="#M000446" class="method-signature">
-          <span class="method-name">real_type</span><span class="method-args">()</span>
+          <a href="#M000625" class="method-signature">
+          <span class="method-name">to_docmdp_str</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000446-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000446-source">
+            onclick="toggleCode('M000625-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000625-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/string.rb, line 103</span>
-103:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Origami</span><span class="ruby-operator">::</span><span class="ruby-constant">String</span> <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000448" class="method-detail">
-        <a name="M000448"></a>
-
-        <div class="method-heading">
-          <a href="#M000448" class="method-signature">
-          <span class="method-name">to_utf8</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000448-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000448-source">
-<pre>
-     <span class="ruby-comment cmt"># File origami/string.rb, line 117</span>
-117:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_utf8</span>
-118:       <span class="ruby-identifier">require</span> <span class="ruby-value str">'iconv'</span>
-119: 
-120:       <span class="ruby-identifier">i</span> = <span class="ruby-constant">Iconv</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;UTF-8&quot;</span>, <span class="ruby-value str">&quot;UTF16&quot;</span>)
-121:         <span class="ruby-identifier">utf16str</span> = <span class="ruby-identifier">i</span>.<span class="ruby-identifier">iconv</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">encoding</span>.<span class="ruby-identifier">to_utf16be</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>))
-122:       <span class="ruby-identifier">i</span>.<span class="ruby-identifier">close</span>
-123: 
-124:       <span class="ruby-identifier">utf16str</span>
-125:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/docmdp.rb, line 59</span>
+59:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_docmdp_str</span>
+60:       [ <span class="ruby-value">5</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">length</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_s</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;CNA*&quot;</span>)
+61:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

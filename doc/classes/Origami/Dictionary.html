@@ -59,6 +59,10 @@
                 origami/obfuscation.rb
                 </a>
         <br />
+                <a href="../../files/origami/docmdp_rb.html">
+                origami/docmdp.rb
+                </a>
+        <br />
                 <a href="../../files/origami/dictionary_rb.html">
                 origami/dictionary.rb
                 </a>
@@ -100,15 +104,16 @@ href="Name.html">Name</a> to an embedded <a href="Object.html">Object</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000456">[]</a>&nbsp;&nbsp;
-      <a href="#M000455">[]=</a>&nbsp;&nbsp;
-      <a href="#M000458">delete</a>&nbsp;&nbsp;
-      <a href="#M000457">has_key?</a>&nbsp;&nbsp;
-      <a href="#M000453">map!</a>&nbsp;&nbsp;
-      <a href="#M000454">merge</a>&nbsp;&nbsp;
-      <a href="#M000452">new</a>&nbsp;&nbsp;
-      <a href="#M000459">real_type</a>&nbsp;&nbsp;
-      <a href="#M000451">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000393">[]</a>&nbsp;&nbsp;
+      <a href="#M000392">[]=</a>&nbsp;&nbsp;
+      <a href="#M000395">delete</a>&nbsp;&nbsp;
+      <a href="#M000394">has_key?</a>&nbsp;&nbsp;
+      <a href="#M000390">map!</a>&nbsp;&nbsp;
+      <a href="#M000391">merge</a>&nbsp;&nbsp;
+      <a href="#M000389">new</a>&nbsp;&nbsp;
+      <a href="#M000396">real_type</a>&nbsp;&nbsp;
+      <a href="#M000388">to_docmdp_str</a>&nbsp;&nbsp;
+      <a href="#M000387">to_obfuscated_str</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -153,6 +158,19 @@ href="Name.html">Name</a> to an embedded <a href="Object.html">Object</a>.
     </div>
 
 
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">strings_cache</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
       
 
 
@@ -160,44 +178,47 @@ href="Name.html">Name</a> to an embedded <a href="Object.html">Object</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000452" class="method-detail">
-        <a name="M000452"></a>
+      <div id="method-M000389" class="method-detail">
+        <a name="M000389"></a>
 
         <div class="method-heading">
-          <a href="#M000452" class="method-signature">
+          <a href="#M000389" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(hash = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Dictionary.html#M000452">new</a> <a
+Creates a <a href="Dictionary.html#M000389">new</a> <a
 href="Dictionary.html">Dictionary</a>.
 </p>
 <table>
-<tr><td valign="top"><em>hash</em>:</td><td>The hash representing the <a href="Dictionary.html#M000452">new</a> <a
+<tr><td valign="top"><em>hash</em>:</td><td>The hash representing the <a href="Dictionary.html#M000389">new</a> <a
 href="Dictionary.html">Dictionary</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000452-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000452-source">
+            onclick="toggleCode('M000389-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000389-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/dictionary.rb, line 47</span>
-47:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {})
-48:         
-49:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-50:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type Hash, received #{hash.class}.&quot;</span>
-51:         <span class="ruby-keyword kw">end</span>
-52:         
-53:         <span class="ruby-keyword kw">super</span>()
-54:         
-55:         <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">each_key</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
-56:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_o</span>] = <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">to_o</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">nil?</span>
-57:         }
-58:         
-59:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/dictionary.rb, line 48</span>
+48:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {})
+49:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type Hash, received #{hash.class}.&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+50:         <span class="ruby-keyword kw">super</span>()
+51:         
+52:         <span class="ruby-ivar">@strings_cache</span> = []
+53:         <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">each_pair</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+54:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">val</span> = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_o</span>
+55:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span> <span class="ruby-keyword kw">then</span> <span class="ruby-ivar">@strings_cache</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">val</span>
+56:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Dictionary</span>,<span class="ruby-constant">Array</span> <span class="ruby-keyword kw">then</span> 
+57:               <span class="ruby-ivar">@strings_cache</span> <span class="ruby-operator">|=</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">strings_cache</span>
+58:               <span class="ruby-identifier">val</span>.<span class="ruby-identifier">strings_cache</span>.<span class="ruby-identifier">clear</span>
+59:           <span class="ruby-keyword kw">end</span>
+60: 
+61:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_o</span>] = <span class="ruby-identifier">val</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">nil?</span>
+62:         }
+63:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -205,197 +226,226 @@ href="Dictionary.html">Dictionary</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000456" class="method-detail">
-        <a name="M000456"></a>
+      <div id="method-M000393" class="method-detail">
+        <a name="M000393"></a>
 
         <div class="method-heading">
-          <a href="#M000456" class="method-signature">
+          <a href="#M000393" class="method-signature">
           <span class="method-name">[]</span><span class="method-args">(key)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000456-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000456-source">
+            onclick="toggleCode('M000393-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000393-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 141</span>
-141:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">key</span>)
-142:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_o</span>)
-143:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 143</span>
+143:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">key</span>)
+144:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_o</span>)
+145:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000455" class="method-detail">
-        <a name="M000455"></a>
+      <div id="method-M000392" class="method-detail">
+        <a name="M000392"></a>
 
         <div class="method-heading">
-          <a href="#M000455" class="method-signature">
+          <a href="#M000392" class="method-signature">
           <span class="method-name">[]=</span><span class="method-args">(key,val)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000455-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000455-source">
+            onclick="toggleCode('M000392-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000392-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 122</span>
-122:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">key</span>,<span class="ruby-identifier">val</span>)
-123:         
-124:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Name</span>)
-125:           <span class="ruby-identifier">fail</span> <span class="ruby-node">&quot;Expecting a Name for a Dictionary entry, found #{key.class} instead.&quot;</span>
-126:         <span class="ruby-keyword kw">end</span>
-127:         
-128:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_o</span>
-129:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">nil?</span>
-130:           <span class="ruby-identifier">val</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_o</span>
-131:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">key</span>,<span class="ruby-identifier">val</span>)
-132:         
-133:           <span class="ruby-identifier">key</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-keyword kw">self</span>
-134: 
-135:           <span class="ruby-identifier">val</span>
-136:         <span class="ruby-keyword kw">else</span>
-137:           <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">key</span>)
-138:         <span class="ruby-keyword kw">end</span>
-139:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 124</span>
+124:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">key</span>,<span class="ruby-identifier">val</span>)
+125:         
+126:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Name</span>)
+127:           <span class="ruby-identifier">fail</span> <span class="ruby-node">&quot;Expecting a Name for a Dictionary entry, found #{key.class} instead.&quot;</span>
+128:         <span class="ruby-keyword kw">end</span>
+129:         
+130:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_o</span>
+131:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">nil?</span>
+132:           <span class="ruby-identifier">val</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_o</span>
+133:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">key</span>,<span class="ruby-identifier">val</span>)
+134:         
+135:           <span class="ruby-identifier">key</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-keyword kw">self</span>
+136: 
+137:           <span class="ruby-identifier">val</span>
+138:         <span class="ruby-keyword kw">else</span>
+139:           <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">key</span>)
+140:         <span class="ruby-keyword kw">end</span>
+141:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000458" class="method-detail">
-        <a name="M000458"></a>
+      <div id="method-M000395" class="method-detail">
+        <a name="M000395"></a>
 
         <div class="method-heading">
-          <a href="#M000458" class="method-signature">
+          <a href="#M000395" class="method-signature">
           <span class="method-name">delete</span><span class="method-args">(key)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000458-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000458-source">
+            onclick="toggleCode('M000395-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000395-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 149</span>
-149:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">key</span>)
-150:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_o</span>)
-151:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 151</span>
+151:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">key</span>)
+152:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_o</span>)
+153:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000457" class="method-detail">
-        <a name="M000457"></a>
+      <div id="method-M000394" class="method-detail">
+        <a name="M000394"></a>
 
         <div class="method-heading">
-          <a href="#M000457" class="method-signature">
+          <a href="#M000394" class="method-signature">
           <span class="method-name">has_key?</span><span class="method-args">(key)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000457-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000457-source">
+            onclick="toggleCode('M000394-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000394-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 145</span>
-145:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">key</span>)
-146:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_o</span>)
-147:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 147</span>
+147:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">key</span>)
+148:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_o</span>)
+149:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000453" class="method-detail">
-        <a name="M000453"></a>
+      <div id="method-M000390" class="method-detail">
+        <a name="M000390"></a>
 
         <div class="method-heading">
-          <a href="#M000453" class="method-signature">
+          <a href="#M000390" class="method-signature">
           <span class="method-name">map!</span><span class="method-args">(&amp;b)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000453-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000453-source">
+            onclick="toggleCode('M000390-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000390-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 110</span>
-110:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">map!</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-111:         
-112:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">each_pair</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-113:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">b</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">v</span>)
-114:         }
-115:         
-116:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 112</span>
+112:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">map!</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+113:         
+114:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">each_pair</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+115:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">b</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">v</span>)
+116:         }
+117:         
+118:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000454" class="method-detail">
-        <a name="M000454"></a>
+      <div id="method-M000391" class="method-detail">
+        <a name="M000391"></a>
 
         <div class="method-heading">
-          <a href="#M000454" class="method-signature">
+          <a href="#M000391" class="method-signature">
           <span class="method-name">merge</span><span class="method-args">(dict)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000454-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000454-source">
+            onclick="toggleCode('M000391-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000391-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 118</span>
-118:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">merge</span>(<span class="ruby-identifier">dict</span>)
-119:         <span class="ruby-constant">Dictionary</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">dict</span>))
-120:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 120</span>
+120:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">merge</span>(<span class="ruby-identifier">dict</span>)
+121:         <span class="ruby-constant">Dictionary</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">dict</span>))
+122:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000459" class="method-detail">
-        <a name="M000459"></a>
+      <div id="method-M000396" class="method-detail">
+        <a name="M000396"></a>
 
         <div class="method-heading">
-          <a href="#M000459" class="method-signature">
+          <a href="#M000396" class="method-signature">
           <span class="method-name">real_type</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000459-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000459-source">
+            onclick="toggleCode('M000396-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000396-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 155</span>
-155:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Dictionary</span> <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/dictionary.rb, line 157</span>
+157:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Dictionary</span> <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000451" class="method-detail">
-        <a name="M000451"></a>
+      <div id="method-M000388" class="method-detail">
+        <a name="M000388"></a>
 
         <div class="method-heading">
-          <a href="#M000451" class="method-signature">
+          <a href="#M000388" class="method-signature">
+          <span class="method-name">to_docmdp_str</span><span class="method-args">(*fields)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000388-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000388-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/docmdp.rb, line 65</span>
+65:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_docmdp_str</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">fields</span>)
+66:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">empty?</span>
+67:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">each_pair</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+68:           
+69:         }
+70:       <span class="ruby-keyword kw">else</span>
+71: 
+72:       <span class="ruby-keyword kw">end</span>
+73:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000387" class="method-detail">
+        <a name="M000387"></a>
+
+        <div class="method-heading">
+          <a href="#M000387" class="method-signature">
           <span class="method-name">to_obfuscated_str</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000451-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000451-source">
+            onclick="toggleCode('M000387-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000387-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/obfuscation.rb, line 117</span>
 117:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>

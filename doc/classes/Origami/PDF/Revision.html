@@ -105,10 +105,10 @@ href="../XRef.html">XRef</a> information about objects in body.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000599">has_xrefstm?</a>&nbsp;&nbsp;
-      <a href="#M000598">has_xreftable?</a>&nbsp;&nbsp;
-      <a href="#M000596">new</a>&nbsp;&nbsp;
-      <a href="#M000597">trailer=</a>&nbsp;&nbsp;
+      <a href="#M000552">has_xrefstm?</a>&nbsp;&nbsp;
+      <a href="#M000551">has_xreftable?</a>&nbsp;&nbsp;
+      <a href="#M000549">new</a>&nbsp;&nbsp;
+      <a href="#M000550">trailer=</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -163,30 +163,30 @@ href="../XRef.html">XRef</a> information about objects in body.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000596" class="method-detail">
-        <a name="M000596"></a>
+      <div id="method-M000549" class="method-detail">
+        <a name="M000549"></a>
 
         <div class="method-heading">
-          <a href="#M000596" class="method-signature">
+          <a href="#M000549" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(pdf)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000596-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000596-source">
+            onclick="toggleCode('M000549-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000549-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/pdf.rb, line 124</span>
-124:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">pdf</span>)
-125:         
-126:         <span class="ruby-ivar">@pdf</span> = <span class="ruby-identifier">pdf</span>
-127:         <span class="ruby-ivar">@body</span> = {}
-128:         <span class="ruby-ivar">@xreftable</span> = <span class="ruby-keyword kw">nil</span>
-129:         <span class="ruby-ivar">@xrefstm</span> = <span class="ruby-keyword kw">nil</span>
-130:         <span class="ruby-ivar">@trailer</span> = <span class="ruby-keyword kw">nil</span>
+     <span class="ruby-comment cmt"># File origami/pdf.rb, line 130</span>
+130:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">pdf</span>)
 131:         
-132:       <span class="ruby-keyword kw">end</span>
+132:         <span class="ruby-ivar">@pdf</span> = <span class="ruby-identifier">pdf</span>
+133:         <span class="ruby-ivar">@body</span> = {}
+134:         <span class="ruby-ivar">@xreftable</span> = <span class="ruby-keyword kw">nil</span>
+135:         <span class="ruby-ivar">@xrefstm</span> = <span class="ruby-keyword kw">nil</span>
+136:         <span class="ruby-ivar">@trailer</span> = <span class="ruby-keyword kw">nil</span>
+137:         
+138:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -194,71 +194,71 @@ href="../XRef.html">XRef</a> information about objects in body.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000599" class="method-detail">
-        <a name="M000599"></a>
+      <div id="method-M000552" class="method-detail">
+        <a name="M000552"></a>
 
         <div class="method-heading">
-          <a href="#M000599" class="method-signature">
+          <a href="#M000552" class="method-signature">
           <span class="method-name">has_xrefstm?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000599-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000599-source">
+            onclick="toggleCode('M000552-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000552-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/pdf.rb, line 143</span>
-143:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_xrefstm?</span>
-144:         <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@xrefstm</span>.<span class="ruby-identifier">nil?</span>
-145:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/pdf.rb, line 149</span>
+149:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_xrefstm?</span>
+150:         <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@xrefstm</span>.<span class="ruby-identifier">nil?</span>
+151:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000598" class="method-detail">
-        <a name="M000598"></a>
+      <div id="method-M000551" class="method-detail">
+        <a name="M000551"></a>
 
         <div class="method-heading">
-          <a href="#M000598" class="method-signature">
+          <a href="#M000551" class="method-signature">
           <span class="method-name">has_xreftable?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000598-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000598-source">
+            onclick="toggleCode('M000551-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000551-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/pdf.rb, line 139</span>
-139:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_xreftable?</span>
-140:         <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@xreftable</span>.<span class="ruby-identifier">nil?</span>
-141:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/pdf.rb, line 145</span>
+145:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_xreftable?</span>
+146:         <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@xreftable</span>.<span class="ruby-identifier">nil?</span>
+147:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000597" class="method-detail">
-        <a name="M000597"></a>
+      <div id="method-M000550" class="method-detail">
+        <a name="M000550"></a>
 
         <div class="method-heading">
-          <a href="#M000597" class="method-signature">
+          <a href="#M000550" class="method-signature">
           <span class="method-name">trailer=</span><span class="method-args">(trl)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000597-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000597-source">
+            onclick="toggleCode('M000550-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000550-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/pdf.rb, line 134</span>
-134:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">trailer=</span>(<span class="ruby-identifier">trl</span>)
-135:         <span class="ruby-identifier">trl</span>.<span class="ruby-identifier">pdf</span> = <span class="ruby-ivar">@pdf</span>
-136:         <span class="ruby-ivar">@trailer</span> = <span class="ruby-identifier">trl</span>
-137:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/pdf.rb, line 140</span>
+140:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">trailer=</span>(<span class="ruby-identifier">trl</span>)
+141:         <span class="ruby-identifier">trl</span>.<span class="ruby-identifier">pdf</span> = <span class="ruby-ivar">@pdf</span>
+142:         <span class="ruby-ivar">@trailer</span> = <span class="ruby-identifier">trl</span>
+143:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

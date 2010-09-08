@@ -80,7 +80,7 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000333">physicalize</a>&nbsp;&nbsp;
+      <a href="#M000261">physicalize</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -130,77 +130,79 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000333" class="method-detail">
-        <a name="M000333"></a>
+      <div id="method-M000261" class="method-detail">
+        <a name="M000261"></a>
 
         <div class="method-heading">
-          <a href="#M000333" class="method-signature">
+          <a href="#M000261" class="method-signature">
           <span class="method-name">physicalize</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000333-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000333-source">
+            onclick="toggleCode('M000261-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000261-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/encryption.rb, line 273</span>
-273:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">physicalize</span>
-274: 
-275:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">revision</span>, <span class="ruby-identifier">embedded</span> = <span class="ruby-keyword kw">false</span>) <span class="ruby-comment cmt">#:nodoc:</span>
-276:      
-277:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ObjectStream</span>)
-278:             <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">subobj</span><span class="ruby-operator">|</span>
-279:               <span class="ruby-identifier">build</span>(<span class="ruby-identifier">subobj</span>, <span class="ruby-identifier">revision</span>, <span class="ruby-keyword kw">true</span>)
-280:             }
-281:           <span class="ruby-keyword kw">end</span>
-282: 
-283:           <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">pre_build</span>
-284: 
-285:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">obj</span>
-286:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
-287:             <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">equal?</span>(<span class="ruby-ivar">@encryption_dict</span>[<span class="ruby-identifier">:U</span>]) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">equal?</span>(<span class="ruby-ivar">@encryption_dict</span>[<span class="ruby-identifier">:O</span>]) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">embedded</span> 
-288:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">EncryptedString</span>)
-289:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">encryption_key</span> = <span class="ruby-ivar">@encryption_key</span>
-290:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">algorithm</span> = <span class="ruby-ivar">@str_algo</span>
-291:             <span class="ruby-keyword kw">end</span>
-292: 
-293:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Stream</span>
-294:             <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">EncryptedStream</span>)
-295:             <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">encryption_key</span> = <span class="ruby-ivar">@encryption_key</span>
-296:             <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">algorithm</span> = <span class="ruby-ivar">@stm_algo</span>
-297: 
-298:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Dictionary</span>, <span class="ruby-constant">Array</span>
-299: 
-300:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">map!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">subobj</span><span class="ruby-operator">|</span>
-301:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">subobj</span>.<span class="ruby-identifier">is_indirect?</span>
-302:                   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">get_object</span>(<span class="ruby-identifier">subobj</span>.<span class="ruby-identifier">reference</span>)
-303:                     <span class="ruby-identifier">subobj</span>.<span class="ruby-identifier">reference</span>
-304:                   <span class="ruby-keyword kw">else</span>
-305:                     <span class="ruby-identifier">ref</span> = <span class="ruby-identifier">add_to_revision</span>(<span class="ruby-identifier">subobj</span>, <span class="ruby-identifier">revision</span>)
-306:                     <span class="ruby-identifier">build</span>(<span class="ruby-identifier">subobj</span>, <span class="ruby-identifier">revision</span>, <span class="ruby-identifier">embedded</span>)
-307:                     <span class="ruby-identifier">ref</span>
-308:                   <span class="ruby-keyword kw">end</span>
-309:                 <span class="ruby-keyword kw">else</span>
-310:                   <span class="ruby-identifier">subobj</span>
-311:                 <span class="ruby-keyword kw">end</span>
-312:               }
-313:               
-314:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">subobj</span><span class="ruby-operator">|</span>
-315:                 <span class="ruby-identifier">build</span>(<span class="ruby-identifier">subobj</span>, <span class="ruby-identifier">revision</span>, <span class="ruby-identifier">embedded</span>)
-316:               }    
-317:           <span class="ruby-keyword kw">end</span>
-318: 
-319:           <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">post_build</span>
-320:           
-321:         <span class="ruby-keyword kw">end</span>
-322:        
-323:         <span class="ruby-identifier">all_indirect_objects</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span>, <span class="ruby-identifier">revision</span><span class="ruby-operator">|</span>
-324:             <span class="ruby-identifier">build</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">revision</span>)          
-325:         }
-326:         
-327:         <span class="ruby-keyword kw">self</span>
-328:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/encryption.rb, line 278</span>
+278:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">physicalize</span>
+279: 
+280:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">revision</span>, <span class="ruby-identifier">embedded</span> = <span class="ruby-keyword kw">false</span>) <span class="ruby-comment cmt">#:nodoc:</span>
+281:      
+282:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ObjectStream</span>)
+283:             <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">subobj</span><span class="ruby-operator">|</span>
+284:               <span class="ruby-identifier">build</span>(<span class="ruby-identifier">subobj</span>, <span class="ruby-identifier">revision</span>, <span class="ruby-keyword kw">true</span>)
+285:             }
+286:           <span class="ruby-keyword kw">end</span>
+287: 
+288:           <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">pre_build</span>
+289: 
+290:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">obj</span>
+291:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+292:             <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">equal?</span>(<span class="ruby-ivar">@encryption_dict</span>[<span class="ruby-identifier">:U</span>]) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">equal?</span>(<span class="ruby-ivar">@encryption_dict</span>[<span class="ruby-identifier">:O</span>]) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">embedded</span> 
+293:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">EncryptedString</span>)
+294:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">decrypted</span> = <span class="ruby-keyword kw">true</span>
+295:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">encryption_key</span> = <span class="ruby-ivar">@encryption_key</span>
+296:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">algorithm</span> = <span class="ruby-ivar">@str_algo</span>
+297:             <span class="ruby-keyword kw">end</span>
+298: 
+299:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Stream</span>
+300:             <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">EncryptedStream</span>)
+301:             <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">decrypted</span> = <span class="ruby-keyword kw">true</span>
+302:             <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">encryption_key</span> = <span class="ruby-ivar">@encryption_key</span>
+303:             <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">algorithm</span> = <span class="ruby-ivar">@stm_algo</span>
+304: 
+305:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Dictionary</span>, <span class="ruby-constant">Array</span>
+306: 
+307:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">map!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">subobj</span><span class="ruby-operator">|</span>
+308:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">subobj</span>.<span class="ruby-identifier">is_indirect?</span>
+309:                   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">get_object</span>(<span class="ruby-identifier">subobj</span>.<span class="ruby-identifier">reference</span>)
+310:                     <span class="ruby-identifier">subobj</span>.<span class="ruby-identifier">reference</span>
+311:                   <span class="ruby-keyword kw">else</span>
+312:                     <span class="ruby-identifier">ref</span> = <span class="ruby-identifier">add_to_revision</span>(<span class="ruby-identifier">subobj</span>, <span class="ruby-identifier">revision</span>)
+313:                     <span class="ruby-identifier">build</span>(<span class="ruby-identifier">subobj</span>, <span class="ruby-identifier">revision</span>, <span class="ruby-identifier">embedded</span>)
+314:                     <span class="ruby-identifier">ref</span>
+315:                   <span class="ruby-keyword kw">end</span>
+316:                 <span class="ruby-keyword kw">else</span>
+317:                   <span class="ruby-identifier">subobj</span>
+318:                 <span class="ruby-keyword kw">end</span>
+319:               }
+320:               
+321:               <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">subobj</span><span class="ruby-operator">|</span>
+322:                 <span class="ruby-identifier">build</span>(<span class="ruby-identifier">subobj</span>, <span class="ruby-identifier">revision</span>, <span class="ruby-identifier">embedded</span>)
+323:               }    
+324:           <span class="ruby-keyword kw">end</span>
+325: 
+326:           <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">post_build</span>
+327:           
+328:         <span class="ruby-keyword kw">end</span>
+329:        
+330:         <span class="ruby-identifier">all_indirect_objects</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span>, <span class="ruby-identifier">revision</span><span class="ruby-operator">|</span>
+331:             <span class="ruby-identifier">build</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">revision</span>)          
+332:         }
+333:         
+334:         <span class="ruby-keyword kw">self</span>
+335:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

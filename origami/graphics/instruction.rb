@@ -35,7 +35,7 @@ module Origami
 
     def initialize(operator, *operands)
       @operator = operator
-      @operands = operands.map!{|arg| arg.value}
+      @operands = operands.map!{|arg| arg.is_a?(Origami::Object) ? arg.value : arg}
 
       if self.class.has_op?(operator)
         opdef = self.class.get_operands(operator)

@@ -80,7 +80,7 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000078">to_a</a>&nbsp;&nbsp;
+      <a href="#M000050">to_a</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -111,45 +111,45 @@ Class <a href="Color/RGB.html" class="link">Origami::Graphics::Color::RGB</a><br
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000078" class="method-detail">
-        <a name="M000078"></a>
+      <div id="method-M000050" class="method-detail">
+        <a name="M000050"></a>
 
         <div class="method-heading">
-          <a href="#M000078" class="method-signature">
+          <a href="#M000050" class="method-signature">
           <span class="method-name">to_a</span><span class="method-args">(color)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000078-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000078-source">
+            onclick="toggleCode('M000050-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000050-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/colors.rb, line 90</span>
- 90:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Color</span>.<span class="ruby-identifier">to_a</span>(<span class="ruby-identifier">color</span>)
- 91:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">color</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>)
- 92:         
- 93:         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:r</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:b</span>) 
- 94:           <span class="ruby-identifier">r</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:r</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">r</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
- 95:           <span class="ruby-identifier">g</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
- 96:           <span class="ruby-identifier">b</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:b</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">b</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
- 97:           <span class="ruby-keyword kw">return</span> [<span class="ruby-identifier">r</span>, <span class="ruby-identifier">g</span>, <span class="ruby-identifier">b</span>]
- 98: 
- 99:         <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:c</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:m</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:y</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:k</span>)
-100:           <span class="ruby-identifier">c</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:c</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">c</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span>
-101:           <span class="ruby-identifier">m</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:m</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">m</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span>
-102:           <span class="ruby-identifier">y</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:y</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">y</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span>
-103:           <span class="ruby-identifier">k</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:k</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">k</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">3</span>]).<span class="ruby-identifier">to_f</span>
-104:           <span class="ruby-keyword kw">return</span> [<span class="ruby-identifier">c</span>,<span class="ruby-identifier">m</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">k</span>]
-105:           
-106:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span><span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">or</span> (<span class="ruby-value">0</span><span class="ruby-value">.0</span><span class="ruby-operator">..</span><span class="ruby-value">1.0</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">color</span> 
-107:           <span class="ruby-identifier">g</span> = <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>
-108:           <span class="ruby-keyword kw">return</span> [ <span class="ruby-identifier">g</span> ]
-109: 
-110:         <span class="ruby-keyword kw">else</span>
-111:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Invalid color : #{color}&quot;</span>
-112:         <span class="ruby-keyword kw">end</span>
-113:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/colors.rb, line 91</span>
+ 91:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Color</span>.<span class="ruby-identifier">to_a</span>(<span class="ruby-identifier">color</span>)
+ 92:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">color</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>)
+ 93:         
+ 94:         <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:r</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:b</span>) 
+ 95:           <span class="ruby-identifier">r</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:r</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">r</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
+ 96:           <span class="ruby-identifier">g</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
+ 97:           <span class="ruby-identifier">b</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:b</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">b</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">255</span>
+ 98:           <span class="ruby-keyword kw">return</span> [<span class="ruby-identifier">r</span>, <span class="ruby-identifier">g</span>, <span class="ruby-identifier">b</span>]
+ 99: 
+100:         <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:c</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:m</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:y</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:k</span>)
+101:           <span class="ruby-identifier">c</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:c</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">c</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">to_f</span>
+102:           <span class="ruby-identifier">m</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:m</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">m</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">1</span>]).<span class="ruby-identifier">to_f</span>
+103:           <span class="ruby-identifier">y</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:y</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">y</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">2</span>]).<span class="ruby-identifier">to_f</span>
+104:           <span class="ruby-identifier">k</span> = (<span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:k</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">k</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>[<span class="ruby-value">3</span>]).<span class="ruby-identifier">to_f</span>
+105:           <span class="ruby-keyword kw">return</span> [<span class="ruby-identifier">c</span>,<span class="ruby-identifier">m</span>,<span class="ruby-identifier">y</span>,<span class="ruby-identifier">k</span>]
+106:           
+107:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span><span class="ruby-identifier">:g</span> <span class="ruby-keyword kw">or</span> (<span class="ruby-value">0</span><span class="ruby-value">.0</span><span class="ruby-operator">..</span><span class="ruby-value">1.0</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">color</span> 
+108:           <span class="ruby-identifier">g</span> = <span class="ruby-identifier">color</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:g</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">color</span>.<span class="ruby-identifier">g</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">color</span>
+109:           <span class="ruby-keyword kw">return</span> [ <span class="ruby-identifier">g</span> ]
+110: 
+111:         <span class="ruby-keyword kw">else</span>
+112:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Invalid color : #{color}&quot;</span>
+113:         <span class="ruby-keyword kw">end</span>
+114:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

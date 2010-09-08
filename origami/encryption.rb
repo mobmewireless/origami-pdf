@@ -231,7 +231,7 @@ module Origami
       handler.V = version
       handler.R = revision
       handler.Length = params[:KeyLength]
-      handler.P = params[:Permissions] 
+      handler.P = -1 # params[:Permissions] 
       
       if revision == 4
         handler.EncryptMetadata = params[:EncryptMetadata]

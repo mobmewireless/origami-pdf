@@ -69,6 +69,12 @@ class FalseClass #:nodoc:
   end
 end
 
+class NilClass #:nodoc:
+  def to_o
+    Origami::Null.new
+  end
+end
+
 class Symbol #:nodoc:
   def to_o
     Origami::Name.new(self)

@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>Module: Origami::PDF::Instruction</title>
+  <title>Class: Origami::PDF::Instruction</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
@@ -49,19 +49,45 @@
     <div id="classHeader">
         <table class="header-table">
         <tr class="top-aligned-row">
-          <td><strong>Module</strong></td>
+          <td><strong>Class</strong></td>
           <td class="class-name-in-header">Origami::PDF::Instruction</td>
         </tr>
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
+                <a href="../../../files/origami/graphics/state_rb.html">
+                origami/graphics/state.rb
+                </a>
+        <br />
+                <a href="../../../files/origami/graphics/patterns_rb.html">
+                origami/graphics/patterns.rb
+                </a>
+        <br />
+                <a href="../../../files/origami/graphics/colors_rb.html">
+                origami/graphics/colors.rb
+                </a>
+        <br />
                 <a href="../../../files/origami/graphics/instruction_rb.html">
                 origami/graphics/instruction.rb
+                </a>
+        <br />
+                <a href="../../../files/origami/graphics/path_rb.html">
+                origami/graphics/path.rb
+                </a>
+        <br />
+                <a href="../../../files/origami/graphics/text_rb.html">
+                origami/graphics/text.rb
                 </a>
         <br />
             </td>
         </tr>
 
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
         </table>
     </div>
   <!-- banner header -->
@@ -80,9 +106,19 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000591">new</a>&nbsp;&nbsp;
-      <a href="#M000592">to_s</a>&nbsp;&nbsp;
-      <a href="#M000593">update_state</a>&nbsp;&nbsp;
+      <a href="#M000536">exec</a>&nbsp;&nbsp;
+      <a href="#M000544">get_operands</a>&nbsp;&nbsp;
+      <a href="#M000543">get_proc</a>&nbsp;&nbsp;
+      <a href="#M000541">has_callback?</a>&nbsp;&nbsp;
+      <a href="#M000539">has_op?</a>&nbsp;&nbsp;
+      <a href="#M000540">has_proc?</a>&nbsp;&nbsp;
+      <a href="#M000538">insn</a>&nbsp;&nbsp;
+      <a href="#M000533">new</a>&nbsp;&nbsp;
+      <a href="#M000545">parse</a>&nbsp;&nbsp;
+      <a href="#M000535">render</a>&nbsp;&nbsp;
+      <a href="#M000542">set_callback</a>&nbsp;&nbsp;
+      <a href="#M000537">to_s</a>&nbsp;&nbsp;
+      <a href="#M000534">update_state</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -109,7 +145,7 @@
         </tr>
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">operator</td>
-          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
           <td class="context-item-desc"></td>
         </tr>
         </table>
@@ -122,25 +158,239 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000591" class="method-detail">
-        <a name="M000591"></a>
+      <div id="method-M000544" class="method-detail">
+        <a name="M000544"></a>
 
         <div class="method-heading">
-          <a href="#M000591" class="method-signature">
+          <a href="#M000544" class="method-signature">
+          <span class="method-name">get_operands</span><span class="method-args">(operator)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000544-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000544-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 97</span>
+97:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_operands</span>(<span class="ruby-identifier">operator</span>)
+98:         <span class="ruby-ivar">@insns</span>[<span class="ruby-identifier">operator</span>][<span class="ruby-identifier">:operands</span>]
+99:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000543" class="method-detail">
+        <a name="M000543"></a>
+
+        <div class="method-heading">
+          <a href="#M000543" class="method-signature">
+          <span class="method-name">get_proc</span><span class="method-args">(operator)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000543-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000543-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 93</span>
+93:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_proc</span>(<span class="ruby-identifier">operator</span>)
+94:         <span class="ruby-ivar">@insns</span>[<span class="ruby-identifier">operator</span>][<span class="ruby-identifier">:proc</span>]
+95:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000541" class="method-detail">
+        <a name="M000541"></a>
+
+        <div class="method-heading">
+          <a href="#M000541" class="method-signature">
+          <span class="method-name">has_callback?</span><span class="method-args">(operator)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000541-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000541-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 84</span>
+84:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_callback?</span>(<span class="ruby-identifier">operator</span>)
+85:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">has_op?</span>(<span class="ruby-identifier">operator</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@insns</span>[<span class="ruby-identifier">operator</span>].<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:callback</span>)
+86:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000539" class="method-detail">
+        <a name="M000539"></a>
+
+        <div class="method-heading">
+          <a href="#M000539" class="method-signature">
+          <span class="method-name">has_op?</span><span class="method-args">(operator)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000539-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000539-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 76</span>
+76:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_op?</span>(<span class="ruby-identifier">operator</span>)
+77:         <span class="ruby-ivar">@insns</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">operator</span>
+78:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000540" class="method-detail">
+        <a name="M000540"></a>
+
+        <div class="method-heading">
+          <a href="#M000540" class="method-signature">
+          <span class="method-name">has_proc?</span><span class="method-args">(operator)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000540-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000540-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 80</span>
+80:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_proc?</span>(<span class="ruby-identifier">operator</span>)
+81:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">has_op?</span>(<span class="ruby-identifier">operator</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@insns</span>[<span class="ruby-identifier">operator</span>].<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:proc</span>)
+82:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000538" class="method-detail">
+        <a name="M000538"></a>
+
+        <div class="method-heading">
+          <a href="#M000538" class="method-signature">
+          <span class="method-name">insn</span><span class="method-args">(operator, *operands, &amp;p)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000538-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000538-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 70</span>
+70:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">insn</span>(<span class="ruby-identifier">operator</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">operands</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">p</span>)
+71:         <span class="ruby-ivar">@insns</span>[<span class="ruby-identifier">operator</span>] = {}
+72:         <span class="ruby-ivar">@insns</span>[<span class="ruby-identifier">operator</span>][<span class="ruby-identifier">:operands</span>] = <span class="ruby-identifier">operands</span>
+73:         <span class="ruby-ivar">@insns</span>[<span class="ruby-identifier">operator</span>][<span class="ruby-identifier">:proc</span>] = <span class="ruby-identifier">p</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+74:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000533" class="method-detail">
+        <a name="M000533"></a>
+
+        <div class="method-heading">
+          <a href="#M000533" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(operator, *operands)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000591-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000591-source">
+            onclick="toggleCode('M000533-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000533-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 32</span>
-32:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">operator</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">operands</span>)
-33:       <span class="ruby-ivar">@operator</span> = <span class="ruby-identifier">operator</span>
-34:       <span class="ruby-ivar">@operands</span> = <span class="ruby-identifier">operands</span>
-35:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 36</span>
+36:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">operator</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">operands</span>)
+37:       <span class="ruby-ivar">@operator</span> = <span class="ruby-identifier">operator</span>
+38:       <span class="ruby-ivar">@operands</span> = <span class="ruby-identifier">operands</span>.<span class="ruby-identifier">map!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Origami</span><span class="ruby-operator">::</span><span class="ruby-constant">Object</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">arg</span>}
+39: 
+40:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">has_op?</span>(<span class="ruby-identifier">operator</span>)
+41:         <span class="ruby-identifier">opdef</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">get_operands</span>(<span class="ruby-identifier">operator</span>)
+42: 
+43:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">opdef</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">operands</span>.<span class="ruby-identifier">size</span>
+44:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidPDFInstructionError</span>, 
+45:             <span class="ruby-node">&quot;Numbers of operands mismatch for #{operator}: #{operands.inspect}&quot;</span>
+46:         <span class="ruby-keyword kw">end</span>
+47:       <span class="ruby-keyword kw">end</span>
+48:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000545" class="method-detail">
+        <a name="M000545"></a>
+
+        <div class="method-heading">
+          <a href="#M000545" class="method-signature">
+          <span class="method-name">parse</span><span class="method-args">(stream)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000545-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000545-source">
+<pre>
+     <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 101</span>
+101:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stream</span>)
+102:         <span class="ruby-identifier">operands</span> = []
+103:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">type</span> = <span class="ruby-constant">Object</span>.<span class="ruby-identifier">typeof</span>(<span class="ruby-identifier">stream</span>, <span class="ruby-keyword kw">true</span>)
+104:           <span class="ruby-identifier">operands</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-identifier">type</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stream</span>)
+105:         <span class="ruby-keyword kw">end</span>
+106:         
+107:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">eos?</span>
+108:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-ivar">@@regexp</span>).<span class="ruby-identifier">nil?</span>
+109:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidPDFInstructionError</span>, 
+110:               <span class="ruby-node">&quot;Operator: #{(stream.peek(10) + '...').inspect}&quot;</span>
+111:           <span class="ruby-keyword kw">end</span>
+112: 
+113:           <span class="ruby-identifier">operator</span> = <span class="ruby-identifier">stream</span>[<span class="ruby-value">1</span>]
+114:           <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Instruction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">operator</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">operands</span>)
+115:         <span class="ruby-keyword kw">else</span>
+116:           <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">operands</span>.<span class="ruby-identifier">empty?</span>
+117:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidPDFInstructionError</span>,
+118:               <span class="ruby-node">&quot;No operator given for operands: #{operands.join}&quot;</span>
+119:           <span class="ruby-keyword kw">end</span>
+120:         <span class="ruby-keyword kw">end</span>
+121:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000542" class="method-detail">
+        <a name="M000542"></a>
+
+        <div class="method-heading">
+          <a href="#M000542" class="method-signature">
+          <span class="method-name">set_callback</span><span class="method-args">(operator, &amp;b)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000542-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000542-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 88</span>
+88:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_callback</span>(<span class="ruby-identifier">operator</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+89:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-node">&quot;Operator `#{operator}' does not exist&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@insns</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">operator</span>)
+90:         <span class="ruby-ivar">@insns</span>[<span class="ruby-identifier">operator</span>][<span class="ruby-identifier">:callback</span>] = <span class="ruby-identifier">b</span>
+91:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -148,45 +398,96 @@
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000592" class="method-detail">
-        <a name="M000592"></a>
+      <div id="method-M000536" class="method-detail">
+        <a name="M000536"></a>
 
         <div class="method-heading">
-          <a href="#M000592" class="method-signature">
+          <a href="#M000536" class="method-signature">
+          <span class="method-name">exec</span><span class="method-args">(gs)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000536-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000536-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 58</span>
+58:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">exec</span>(<span class="ruby-identifier">gs</span>)
+59:       <span class="ruby-identifier">update_state</span>(<span class="ruby-identifier">gs</span>)
+60:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">get_callback</span>(<span class="ruby-ivar">@operator</span>)[<span class="ruby-identifier">gs</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">has_callback?</span>(<span class="ruby-ivar">@operator</span>)
+61: 
+62:       <span class="ruby-keyword kw">self</span>
+63:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000535" class="method-detail">
+        <a name="M000535"></a>
+
+        <div class="method-heading">
+          <a href="#M000535" class="method-signature">
+          <span class="method-name">render</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000535-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000535-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 55</span>
+55:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render</span>
+56:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000537" class="method-detail">
+        <a name="M000537"></a>
+
+        <div class="method-heading">
+          <a href="#M000537" class="method-signature">
           <span class="method-name">to_s</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000592-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000592-source">
+            onclick="toggleCode('M000537-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000537-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 37</span>
-37:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
-38:       <span class="ruby-node">&quot;#{operands.map!{|op| op.to_o.to_s}.join(' ')}#{' ' unless operands.empty?}#{operator}\n&quot;</span>
-39:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 65</span>
+65:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+66:       <span class="ruby-node">&quot;#{operands.map!{|op| op.to_o.to_s}.join(' ')}#{' ' unless operands.empty?}#{operator}\n&quot;</span>
+67:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000593" class="method-detail">
-        <a name="M000593"></a>
+      <div id="method-M000534" class="method-detail">
+        <a name="M000534"></a>
 
         <div class="method-heading">
-          <a href="#M000593" class="method-signature">
+          <a href="#M000534" class="method-signature">
           <span class="method-name">update_state</span><span class="method-args">(gs)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000593-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000593-source">
+            onclick="toggleCode('M000534-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000534-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 41</span>
-41:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_state</span>(<span class="ruby-identifier">gs</span>); <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/graphics/instruction.rb, line 50</span>
+50:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_state</span>(<span class="ruby-identifier">gs</span>)
+51:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">get_proc</span>(<span class="ruby-ivar">@operator</span>)[<span class="ruby-identifier">gs</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">operands</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">has_proc?</span>(<span class="ruby-ivar">@operator</span>)
+52:       <span class="ruby-keyword kw">self</span>
+53:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

@@ -99,7 +99,7 @@ module Origami
       return dictionary if not stream.skip(@@regexp_open)
      
       len = dictionary[:Length]
-      if not len.is_a?(Integer)
+      if not len.is_a?(Origami::Integer)
         rawdata = stream.scan_until(@@regexp_close)
         if rawdata.nil?
           raise InvalidStreamObjectError, 
@@ -107,6 +107,7 @@ module Origami
         end
 
       else
+        len = len.value
         rawdata = stream.peek(len)
         stream.pos += len
         if not ( unmatched = stream.scan_until(@@regexp_close) )

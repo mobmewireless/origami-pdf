@@ -234,7 +234,7 @@ module Origami
       self.compile if options[:recompile] == true
 
       fd.write self.to_bin(options)
-      fd.close unless file.respond_to?(:write)
+      fd.close
       
       self
     end

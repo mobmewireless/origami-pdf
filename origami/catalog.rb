@@ -51,13 +51,13 @@ module Origami
     # Sets the current Catalog Dictionary.
     #
     def Catalog=(cat)
-      
-      unless cat.is_a?(Catalog)
-        raise TypeError, "Expected type Catalog, received #{cat.class}"
-      end
+      #unless cat.is_a?(Catalog)
+      #  raise TypeError, "Expected type Catalog, received #{cat.class}"
+      #end
+      cat = Catalog.new(cat) unless cat.is_a? Catalog
       
       if @revisions.last.trailer.Root
-        delete_object(@revisions.last.trailer.Root)
+        delete_object(@revisions.last.trailer[:Root])
       end
       
       @revisions.last.trailer.Root = self << cat

@@ -1,10 +1,12 @@
 require 'test/unit'
+require 'stringio'
 
   class TC_Annotations< Test::Unit::TestCase
     def setup
       @target = PDF.new
       @page = Page.new
       @action = Action::JavaScript.new "app.alert(null);"
+      @output = StringIO.new
     end
 
     # def teardown
@@ -47,7 +49,7 @@ require 'test/unit'
       end
 
       assert_nothing_raised do
-        @target.saveas("/dev/null")
+        @target.saveas(@output)
       end
     end
 

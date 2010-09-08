@@ -97,9 +97,10 @@ Class representing an hexadecimal-writen <a href="String.html">String</a>
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000667">new</a>&nbsp;&nbsp;
-      <a href="#M000669">to_obfuscated_str</a>&nbsp;&nbsp;
-      <a href="#M000668">to_raw</a>&nbsp;&nbsp;
+      <a href="#M000621">new</a>&nbsp;&nbsp;
+      <a href="#M000624">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000622">to_raw</a>&nbsp;&nbsp;
+      <a href="#M000623">value</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -119,19 +120,6 @@ Class representing an hexadecimal-writen <a href="String.html">String</a>
 
 
 
-    <div id="aliases-list">
-      <h3 class="section-bar">External Aliases</h3>
-
-      <div class="name-list">
-                        <table summary="aliases">
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">to_str</td>
-          <td>-&gt;</td>
-          <td class="context-item-value">value</td>
-        </tr>
-                        </table>
-      </div>
-    </div>
 
 
       
@@ -141,38 +129,38 @@ Class representing an hexadecimal-writen <a href="String.html">String</a>
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000667" class="method-detail">
-        <a name="M000667"></a>
+      <div id="method-M000621" class="method-detail">
+        <a name="M000621"></a>
 
         <div class="method-heading">
-          <a href="#M000667" class="method-signature">
+          <a href="#M000621" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(str = &quot;&quot;)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="HexaString.html#M000667">new</a> <a
+Creates a <a href="HexaString.html#M000621">new</a> <a
 href="PDF.html">PDF</a> hexadecimal <a href="String.html">String</a>.
 </p>
 <table>
-<tr><td valign="top"><em>str</em>:</td><td>The string value.
+<tr><td valign="top"><em>str</em>:</td><td>The string <a href="HexaString.html#M000623">value</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000667-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000667-source">
+            onclick="toggleCode('M000621-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000621-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/string.rb, line 148</span>
-148:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">str</span> = <span class="ruby-value str">&quot;&quot;</span>)
-149:       
-150:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">String</span>)
-151:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type String, received #{str.class}.&quot;</span>
-152:       <span class="ruby-keyword kw">end</span>
-153:       
-154:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">str</span>)
-155:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/string.rb, line 189</span>
+189:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">str</span> = <span class="ruby-value str">&quot;&quot;</span>)
+190:       
+191:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">String</span>)
+192:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type String, received #{str.class}.&quot;</span>
+193:       <span class="ruby-keyword kw">end</span>
+194:       
+195:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">str</span>)
+196:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -180,19 +168,19 @@ href="PDF.html">PDF</a> hexadecimal <a href="String.html">String</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000669" class="method-detail">
-        <a name="M000669"></a>
+      <div id="method-M000624" class="method-detail">
+        <a name="M000624"></a>
 
         <div class="method-heading">
-          <a href="#M000669" class="method-signature">
+          <a href="#M000624" class="method-signature">
           <span class="method-name">to_obfuscated_str</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000669-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000669-source">
+            onclick="toggleCode('M000624-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000624-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/obfuscation.rb, line 179</span>
 179:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>
@@ -203,11 +191,11 @@ href="PDF.html">PDF</a> hexadecimal <a href="String.html">String</a>.
         </div>
       </div>
 
-      <div id="method-M000668" class="method-detail">
-        <a name="M000668"></a>
+      <div id="method-M000622" class="method-detail">
+        <a name="M000622"></a>
 
         <div class="method-heading">
-          <a href="#M000668" class="method-signature">
+          <a href="#M000622" class="method-signature">
           <span class="method-name">to_raw</span><span class="method-args">()</span>
           </a>
         </div>
@@ -217,13 +205,38 @@ href="PDF.html">PDF</a> hexadecimal <a href="String.html">String</a>.
 Converts self to <a href="ByteString.html">ByteString</a>
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000668-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000668-source">
+            onclick="toggleCode('M000622-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000622-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/string.rb, line 180</span>
-180:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_raw</span>
-181:       <span class="ruby-constant">ByteString</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>)
-182:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/string.rb, line 221</span>
+221:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_raw</span>
+222:       <span class="ruby-constant">ByteString</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>)
+223:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000623" class="method-detail">
+        <a name="M000623"></a>
+
+        <div class="method-heading">
+          <a href="#M000623" class="method-signature">
+          <span class="method-name">value</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000623-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000623-source">
+<pre>
+     <span class="ruby-comment cmt"># File origami/string.rb, line 225</span>
+225:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
+226:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">decrypt!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Encryption</span><span class="ruby-operator">::</span><span class="ruby-constant">EncryptedString</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@decrypted</span>
+227: 
+228:       <span class="ruby-identifier">to_str</span>
+229:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

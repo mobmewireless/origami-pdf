@@ -1,5 +1,10 @@
 # CHANGELOG
 
+beta4 (dev):
+  - Added a Rakefile to run unit tests, build rdoc and build gem.
+  |doc|:
+    - Updated.
+
 beta3 (26/08/10):
   |origami|:
     - Faster decryption process.

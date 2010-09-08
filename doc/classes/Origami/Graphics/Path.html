@@ -86,10 +86,10 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000134">add_segment</a>&nbsp;&nbsp;
-      <a href="#M000133">close!</a>&nbsp;&nbsp;
-      <a href="#M000132">is_closed?</a>&nbsp;&nbsp;
-      <a href="#M000131">new</a>&nbsp;&nbsp;
+      <a href="#M000062">add_segment</a>&nbsp;&nbsp;
+      <a href="#M000061">close!</a>&nbsp;&nbsp;
+      <a href="#M000060">is_closed?</a>&nbsp;&nbsp;
+      <a href="#M000059">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -136,26 +136,26 @@ Class <a href="Path/Line.html" class="link">Origami::Graphics::Path::Line</a><br
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000131" class="method-detail">
-        <a name="M000131"></a>
+      <div id="method-M000059" class="method-detail">
+        <a name="M000059"></a>
 
         <div class="method-heading">
-          <a href="#M000131" class="method-signature">
+          <a href="#M000059" class="method-signature">
           <span class="method-name">new</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000131-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000131-source">
+            onclick="toggleCode('M000059-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000059-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/graphics/path.rb, line 76</span>
-76:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
-77:         <span class="ruby-ivar">@segments</span> = []
-78:         <span class="ruby-ivar">@current_point</span> = <span class="ruby-keyword kw">nil</span>
-79:         <span class="ruby-ivar">@closed</span> = <span class="ruby-keyword kw">false</span>
-80:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/graphics/path.rb, line 77</span>
+77:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+78:         <span class="ruby-ivar">@segments</span> = []
+79:         <span class="ruby-ivar">@current_point</span> = <span class="ruby-keyword kw">nil</span>
+80:         <span class="ruby-ivar">@closed</span> = <span class="ruby-keyword kw">false</span>
+81:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -163,78 +163,78 @@ Class <a href="Path/Line.html" class="link">Origami::Graphics::Path::Line</a><br
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000134" class="method-detail">
-        <a name="M000134"></a>
+      <div id="method-M000062" class="method-detail">
+        <a name="M000062"></a>
 
         <div class="method-heading">
-          <a href="#M000134" class="method-signature">
+          <a href="#M000062" class="method-signature">
           <span class="method-name">add_segment</span><span class="method-args">(seg)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000134-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000134-source">
+            onclick="toggleCode('M000062-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000062-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/graphics/path.rb, line 95</span>
- 95:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_segment</span>(<span class="ruby-identifier">seg</span>)
- 96:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">GraphicsStateError</span>, <span class="ruby-value str">&quot;Cannot modify closed subpath&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_closed?</span>
- 97: 
- 98:         <span class="ruby-ivar">@segments</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">seg</span>
- 99:         <span class="ruby-ivar">@current_point</span> = <span class="ruby-identifier">seg</span>.<span class="ruby-identifier">to</span>
-100:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/graphics/path.rb, line 96</span>
+ 96:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_segment</span>(<span class="ruby-identifier">seg</span>)
+ 97:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">GraphicsStateError</span>, <span class="ruby-value str">&quot;Cannot modify closed subpath&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_closed?</span>
+ 98: 
+ 99:         <span class="ruby-ivar">@segments</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">seg</span>
+100:         <span class="ruby-ivar">@current_point</span> = <span class="ruby-identifier">seg</span>.<span class="ruby-identifier">to</span>
+101:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000133" class="method-detail">
-        <a name="M000133"></a>
+      <div id="method-M000061" class="method-detail">
+        <a name="M000061"></a>
 
         <div class="method-heading">
-          <a href="#M000133" class="method-signature">
+          <a href="#M000061" class="method-signature">
           <span class="method-name">close!</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000133-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000133-source">
+            onclick="toggleCode('M000061-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000061-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/graphics/path.rb, line 86</span>
-86:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">close!</span>
-87:         <span class="ruby-identifier">from</span> = <span class="ruby-ivar">@current_point</span>
-88:         <span class="ruby-identifier">to</span> = <span class="ruby-ivar">@segments</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">from</span>
-89:         
-90:         <span class="ruby-ivar">@segments</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Line</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">from</span>, <span class="ruby-identifier">to</span>)
-91:         <span class="ruby-ivar">@segments</span>.<span class="ruby-identifier">freeze</span>
-92:         <span class="ruby-ivar">@closed</span> = <span class="ruby-keyword kw">true</span>
-93:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/graphics/path.rb, line 87</span>
+87:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">close!</span>
+88:         <span class="ruby-identifier">from</span> = <span class="ruby-ivar">@current_point</span>
+89:         <span class="ruby-identifier">to</span> = <span class="ruby-ivar">@segments</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">from</span>
+90:         
+91:         <span class="ruby-ivar">@segments</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Line</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">from</span>, <span class="ruby-identifier">to</span>)
+92:         <span class="ruby-ivar">@segments</span>.<span class="ruby-identifier">freeze</span>
+93:         <span class="ruby-ivar">@closed</span> = <span class="ruby-keyword kw">true</span>
+94:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000132" class="method-detail">
-        <a name="M000132"></a>
+      <div id="method-M000060" class="method-detail">
+        <a name="M000060"></a>
 
         <div class="method-heading">
-          <a href="#M000132" class="method-signature">
+          <a href="#M000060" class="method-signature">
           <span class="method-name">is_closed?</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000132-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000132-source">
+            onclick="toggleCode('M000060-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000060-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/graphics/path.rb, line 82</span>
-82:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_closed?</span>
-83:         <span class="ruby-ivar">@closed</span>
-84:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/graphics/path.rb, line 83</span>
+83:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_closed?</span>
+84:         <span class="ruby-ivar">@closed</span>
+85:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

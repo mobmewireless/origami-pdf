@@ -63,6 +63,10 @@
                 origami/obfuscation.rb
                 </a>
         <br />
+                <a href="../../files/origami/docmdp_rb.html">
+                origami/docmdp.rb
+                </a>
+        <br />
             </td>
         </tr>
 
@@ -98,7 +102,8 @@ arbitrary precision numbers, depending on architectures.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000670">new</a>&nbsp;&nbsp;
+      <a href="#M000626">new</a>&nbsp;&nbsp;
+      <a href="#M000627">to_docmdp_str</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -158,28 +163,28 @@ arbitrary precision numbers, depending on architectures.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000670" class="method-detail">
-        <a name="M000670"></a>
+      <div id="method-M000626" class="method-detail">
+        <a name="M000626"></a>
 
         <div class="method-heading">
-          <a href="#M000670" class="method-signature">
+          <a href="#M000626" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(f = 0)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Real.html#M000670">new</a> <a href="Real.html">Real</a>
+Creates a <a href="Real.html#M000626">new</a> <a href="Real.html">Real</a>
 from a Ruby Float.
 </p>
 <table>
-<tr><td valign="top"><em>f</em>:</td><td>The <a href="Real.html#M000670">new</a> <a href="Real.html">Real</a> value.
+<tr><td valign="top"><em>f</em>:</td><td>The <a href="Real.html#M000626">new</a> <a href="Real.html">Real</a> value.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000670-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000670-source">
+            onclick="toggleCode('M000626-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000626-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/numeric.rb, line 154</span>
 154:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">f</span> = <span class="ruby-value">0</span>)
@@ -190,6 +195,31 @@ from a Ruby Float.
 159:       
 160:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">f</span>)
 161:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000627" class="method-detail">
+        <a name="M000627"></a>
+
+        <div class="method-heading">
+          <a href="#M000627" class="method-signature">
+          <span class="method-name">to_docmdp_str</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000627-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000627-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/docmdp.rb, line 41</span>
+41:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_docmdp_str</span>
+42:       [ <span class="ruby-value">2</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">round</span> <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FFFFFFFF</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;CN&quot;</span>)
+43:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

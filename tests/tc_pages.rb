@@ -1,8 +1,10 @@
 require 'test/unit'
+require 'stringio'
 
   class TC_Pages < Test::Unit::TestCase
     def setup
       @target = PDF.new
+      @output = StringIO.new
     end
 
     # def teardown
@@ -26,7 +28,7 @@ require 'test/unit'
       assert_equal @target.Catalog.Pages, p3.Parent
 
       assert_nothing_raised do
-        @target.saveas("/dev/null")
+        @target.saveas(@output)
       end
 
       assert_equal @target.Catalog.Pages.Count, 3

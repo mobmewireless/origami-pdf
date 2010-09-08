@@ -94,8 +94,8 @@ Class representing a location on a page or a bounding box.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000671">[]</a>&nbsp;&nbsp;
-      <a href="#M000672">new</a>&nbsp;&nbsp;
+      <a href="#M000628">[]</a>&nbsp;&nbsp;
+      <a href="#M000629">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -117,53 +117,53 @@ Class representing a location on a page or a bounding box.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000671" class="method-detail">
-        <a name="M000671"></a>
+      <div id="method-M000628" class="method-detail">
+        <a name="M000628"></a>
 
         <div class="method-heading">
-          <a href="#M000671" class="method-signature">
+          <a href="#M000628" class="method-signature">
           <span class="method-name">[]</span><span class="method-args">(coords)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000671-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000671-source">
+            onclick="toggleCode('M000628-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000628-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/array.rb, line 149</span>
-149:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">coords</span>)
-150:         <span class="ruby-identifier">corners</span> = <span class="ruby-identifier">coords</span>.<span class="ruby-identifier">values_at</span>(<span class="ruby-identifier">:llx</span>, <span class="ruby-identifier">:lly</span>, <span class="ruby-identifier">:urx</span>, <span class="ruby-identifier">:ury</span>)
-151:         
-152:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">corners</span>.<span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">corner</span><span class="ruby-operator">|</span> <span class="ruby-identifier">corner</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Numeric</span>) }
-153:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;All coords must be numbers&quot;</span>
-154:         <span class="ruby-keyword kw">end</span>
-155:         
-156:         <span class="ruby-constant">Rectangle</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">corners</span>)
-157:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/array.rb, line 154</span>
+154:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">coords</span>)
+155:         <span class="ruby-identifier">corners</span> = <span class="ruby-identifier">coords</span>.<span class="ruby-identifier">values_at</span>(<span class="ruby-identifier">:llx</span>, <span class="ruby-identifier">:lly</span>, <span class="ruby-identifier">:urx</span>, <span class="ruby-identifier">:ury</span>)
+156:         
+157:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">corners</span>.<span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">corner</span><span class="ruby-operator">|</span> <span class="ruby-identifier">corner</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Numeric</span>) }
+158:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;All coords must be numbers&quot;</span>
+159:         <span class="ruby-keyword kw">end</span>
+160:         
+161:         <span class="ruby-constant">Rectangle</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">corners</span>)
+162:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000672" class="method-detail">
-        <a name="M000672"></a>
+      <div id="method-M000629" class="method-detail">
+        <a name="M000629"></a>
 
         <div class="method-heading">
-          <a href="#M000672" class="method-signature">
+          <a href="#M000629" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(lowerleftx, lowerlefty, upperrightx, upperrighty)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000672-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000672-source">
+            onclick="toggleCode('M000629-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000629-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/array.rb, line 161</span>
-161:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">lowerleftx</span>, <span class="ruby-identifier">lowerlefty</span>, <span class="ruby-identifier">upperrightx</span>, <span class="ruby-identifier">upperrighty</span>)
-162:       <span class="ruby-keyword kw">super</span>([ <span class="ruby-identifier">lowerleftx</span>, <span class="ruby-identifier">lowerlefty</span>, <span class="ruby-identifier">upperrightx</span>, <span class="ruby-identifier">upperrighty</span> ])
-163:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/array.rb, line 166</span>
+166:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">lowerleftx</span>, <span class="ruby-identifier">lowerlefty</span>, <span class="ruby-identifier">upperrightx</span>, <span class="ruby-identifier">upperrighty</span>)
+167:       <span class="ruby-keyword kw">super</span>([ <span class="ruby-identifier">lowerleftx</span>, <span class="ruby-identifier">lowerlefty</span>, <span class="ruby-identifier">upperrightx</span>, <span class="ruby-identifier">upperrighty</span> ])
+168:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

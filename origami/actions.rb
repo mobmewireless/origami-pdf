@@ -174,7 +174,7 @@ module Origami
     class GoToE < Action
   
       field   :S,         :Type => Name, :Default => :GoToE, :Required => true
-      field   :F,         :Type => Dictionary
+      field   :F,         :Type => [ Dictionary, ByteString ]
       field   :D,         :Type => [ Array, Name, ByteString ], :Required => true
       field   :NewWindow, :Type => Boolean
       field   :T,         :Type => Dictionary

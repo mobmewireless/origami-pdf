@@ -80,9 +80,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000424">included</a>&nbsp;&nbsp;
-      <a href="#M000425">new</a>&nbsp;&nbsp;
-      <a href="#M000426">to_s</a>&nbsp;&nbsp;
+      <a href="#M000357">included</a>&nbsp;&nbsp;
+      <a href="#M000358">new</a>&nbsp;&nbsp;
+      <a href="#M000359">to_s</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -130,19 +130,19 @@ Class <a href="HintTable/SharedObjectTable.html" class="link">Origami::HintTable
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000424" class="method-detail">
-        <a name="M000424"></a>
+      <div id="method-M000357" class="method-detail">
+        <a name="M000357"></a>
 
         <div class="method-heading">
-          <a href="#M000424" class="method-signature">
+          <a href="#M000357" class="method-signature">
           <span class="method-name">included</span><span class="method-args">(receiver)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000424-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000424-source">
+            onclick="toggleCode('M000357-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000357-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/linearization.rb, line 150</span>
 150:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">receiver</span>)
@@ -155,19 +155,19 @@ Class <a href="HintTable/SharedObjectTable.html" class="link">Origami::HintTable
         </div>
       </div>
 
-      <div id="method-M000425" class="method-detail">
-        <a name="M000425"></a>
+      <div id="method-M000358" class="method-detail">
+        <a name="M000358"></a>
 
         <div class="method-heading">
-          <a href="#M000425" class="method-signature">
+          <a href="#M000358" class="method-signature">
           <span class="method-name">new</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000425-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000425-source">
+            onclick="toggleCode('M000358-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000358-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/linearization.rb, line 159</span>
 159:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
@@ -181,19 +181,19 @@ Class <a href="HintTable/SharedObjectTable.html" class="link">Origami::HintTable
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000426" class="method-detail">
-        <a name="M000426"></a>
+      <div id="method-M000359" class="method-detail">
+        <a name="M000359"></a>
 
         <div class="method-heading">
-          <a href="#M000426" class="method-signature">
+          <a href="#M000359" class="method-signature">
           <span class="method-name">to_s</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000426-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000426-source">
+            onclick="toggleCode('M000359-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000359-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/linearization.rb, line 164</span>
 164:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
@@ -203,7 +203,7 @@ Class <a href="HintTable/SharedObjectTable.html" class="link">Origami::HintTable
 168:       <span class="ruby-identifier">nitems</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">nb_header_items</span>
 169:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">no</span> <span class="ruby-keyword kw">in</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">nitems</span>)
 170:         <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@header_items</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
-171:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHintTable</span>, <span class="ruby-node">&quot;Missing item #{no} in header section of #{self.class}&quot;</span>
+171:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHintTableError</span>, <span class="ruby-node">&quot;Missing item #{no} in header section of #{self.class}&quot;</span>
 172:         <span class="ruby-keyword kw">end</span>
 173: 
 174:         <span class="ruby-identifier">value</span> = <span class="ruby-ivar">@header_items</span>[<span class="ruby-identifier">no</span>]
@@ -221,7 +221,7 @@ Class <a href="HintTable/SharedObjectTable.html" class="link">Origami::HintTable
 186:       <span class="ruby-ivar">@entries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>
 187:         <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">no</span> <span class="ruby-keyword kw">in</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">items</span>)
 188:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
-189:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHintTable</span>, <span class="ruby-node">&quot;Missing item #{no} in entry #{i} of #{self.class}&quot;</span>
+189:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHintTableError</span>, <span class="ruby-node">&quot;Missing item #{no} in entry #{i} of #{self.class}&quot;</span>
 190:           <span class="ruby-keyword kw">end</span>
 191: 
 192:           <span class="ruby-identifier">value</span> = <span class="ruby-identifier">entry</span>[<span class="ruby-identifier">no</span>]

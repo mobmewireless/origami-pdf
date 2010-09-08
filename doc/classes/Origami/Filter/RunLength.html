@@ -81,8 +81,8 @@
     <div id="description">
       <p>
 Class representing a <a href="../Filter.html">Filter</a> used to <a
-href="RunLength.html#M000401">encode</a> and <a
-href="RunLength.html#M000402">decode</a> data using RLE compression
+href="RunLength.html#M000313">encode</a> and <a
+href="RunLength.html#M000314">decode</a> data using RLE compression
 algorithm.
 </p>
 
@@ -95,8 +95,8 @@ algorithm.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000402">decode</a>&nbsp;&nbsp;
-      <a href="#M000401">encode</a>&nbsp;&nbsp;
+      <a href="#M000314">decode</a>&nbsp;&nbsp;
+      <a href="#M000313">encode</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -125,11 +125,11 @@ algorithm.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000402" class="method-detail">
-        <a name="M000402"></a>
+      <div id="method-M000314" class="method-detail">
+        <a name="M000314"></a>
 
         <div class="method-heading">
-          <a href="#M000402" class="method-signature">
+          <a href="#M000314" class="method-signature">
           <span class="method-name">decode</span><span class="method-args">(stream)</span>
           </a>
         </div>
@@ -139,47 +139,45 @@ algorithm.
 Decodes data using RLE decompression method.
 </p>
 <table>
-<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="RunLength.html#M000402">decode</a>.
+<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="RunLength.html#M000314">decode</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000402-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000402-source">
+            onclick="toggleCode('M000314-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000314-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 726</span>
-726:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">stream</span>)
-727:         
-728:         <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
-729:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
-730:         
-731:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">EOD</span>) <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidRunLengthData</span>, <span class="ruby-value str">&quot;No end marker&quot;</span> <span class="ruby-keyword kw">end</span>
-732:         
-733:         <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-constant">EOD</span> <span class="ruby-keyword kw">do</span>
-734:         
-735:           <span class="ruby-identifier">length</span> = <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span>]
-736:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">EOD</span>
-737:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>]
-738:             <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>
-739:           <span class="ruby-keyword kw">else</span>
-740:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">*</span> (<span class="ruby-value">257</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">length</span>)
-741:             <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>
-742:           <span class="ruby-keyword kw">end</span>
-743:           
-744:         <span class="ruby-keyword kw">end</span>
-745:         
-746:         <span class="ruby-identifier">result</span>
-747:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 735</span>
+735:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">stream</span>)
+736:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidRunLengthDataError</span>, <span class="ruby-value str">&quot;No end marker&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">EOD</span>)
+737:         
+738:         <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+739:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
+740:         <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-constant">EOD</span> <span class="ruby-keyword kw">do</span>
+741:         
+742:           <span class="ruby-identifier">length</span> = <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span>]
+743:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">EOD</span>
+744:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>]
+745:             <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>
+746:           <span class="ruby-keyword kw">else</span>
+747:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">*</span> (<span class="ruby-value">257</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">length</span>)
+748:             <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>
+749:           <span class="ruby-keyword kw">end</span>
+750:           
+751:         <span class="ruby-keyword kw">end</span>
+752:         
+753:         <span class="ruby-identifier">result</span>
+754:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000401" class="method-detail">
-        <a name="M000401"></a>
+      <div id="method-M000313" class="method-detail">
+        <a name="M000313"></a>
 
         <div class="method-heading">
-          <a href="#M000401" class="method-signature">
+          <a href="#M000313" class="method-signature">
           <span class="method-name">encode</span><span class="method-args">(stream)</span>
           </a>
         </div>
@@ -189,57 +187,57 @@ Decodes data using RLE decompression method.
 Encodes data using RLE compression method.
 </p>
 <table>
-<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="RunLength.html#M000401">encode</a>.
+<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="RunLength.html#M000313">encode</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000401-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000401-source">
+            onclick="toggleCode('M000313-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000313-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 678</span>
-678:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">stream</span>)
-679: 
-680:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
-681:         <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
-682: 
-683:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">size</span>
-684:           
-685:           <span class="ruby-comment cmt">#</span>
-686:           <span class="ruby-comment cmt"># How many identical bytes coming?</span>
-687:           <span class="ruby-comment cmt">#</span>
-688:           <span class="ruby-identifier">length</span> = <span class="ruby-value">1</span>
-689:           <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">EOD</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
-690:             <span class="ruby-identifier">length</span> = <span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
-691:             <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
-692:           <span class="ruby-keyword kw">end</span>
-693: 
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 687</span>
+687:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">stream</span>)
+688: 
+689:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
+690:         <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+691: 
+692:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">size</span>
+693:           
 694:           <span class="ruby-comment cmt">#</span>
-695:           <span class="ruby-comment cmt"># If more than 1, then compress them.</span>
+695:           <span class="ruby-comment cmt"># How many identical bytes coming?</span>
 696:           <span class="ruby-comment cmt">#</span>
-697:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
-698:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-value">257</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">length</span>).<span class="ruby-identifier">chr</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>]
-699: 
-700:           <span class="ruby-comment cmt">#</span>
-701:           <span class="ruby-comment cmt"># Otherwise how many different bytes to copy ?</span>
-702:           <span class="ruby-comment cmt">#</span>
-703:           <span class="ruby-keyword kw">else</span>
-704:             <span class="ruby-identifier">j</span> = <span class="ruby-identifier">i</span>
-705:             <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">j</span><span class="ruby-operator">+</span><span class="ruby-value">1</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword kw">and</span> (<span class="ruby-identifier">j</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-constant">EOD</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">j</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
-706:               <span class="ruby-identifier">j</span> = <span class="ruby-identifier">j</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
-707:             <span class="ruby-keyword kw">end</span>
+697:           <span class="ruby-identifier">length</span> = <span class="ruby-value">1</span>
+698:           <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">EOD</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+699:             <span class="ruby-identifier">length</span> = <span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+700:             <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+701:           <span class="ruby-keyword kw">end</span>
+702: 
+703:           <span class="ruby-comment cmt">#</span>
+704:           <span class="ruby-comment cmt"># If more than 1, then compress them.</span>
+705:           <span class="ruby-comment cmt">#</span>
+706:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+707:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-value">257</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">length</span>).<span class="ruby-identifier">chr</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>]
 708: 
-709:             <span class="ruby-identifier">length</span> = <span class="ruby-identifier">j</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span>
-710:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">length</span>.<span class="ruby-identifier">chr</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span>, <span class="ruby-identifier">length</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
-711: 
-712:             <span class="ruby-identifier">i</span> = <span class="ruby-identifier">j</span>
-713:           <span class="ruby-keyword kw">end</span>
-714: 
-715:           <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
-716:         <span class="ruby-keyword kw">end</span>
+709:           <span class="ruby-comment cmt">#</span>
+710:           <span class="ruby-comment cmt"># Otherwise how many different bytes to copy ?</span>
+711:           <span class="ruby-comment cmt">#</span>
+712:           <span class="ruby-keyword kw">else</span>
+713:             <span class="ruby-identifier">j</span> = <span class="ruby-identifier">i</span>
+714:             <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">j</span><span class="ruby-operator">+</span><span class="ruby-value">1</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword kw">and</span> (<span class="ruby-identifier">j</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-constant">EOD</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">j</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+715:               <span class="ruby-identifier">j</span> = <span class="ruby-identifier">j</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+716:             <span class="ruby-keyword kw">end</span>
 717: 
-718:         <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOD</span>
-719:       <span class="ruby-keyword kw">end</span>
+718:             <span class="ruby-identifier">length</span> = <span class="ruby-identifier">j</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span>
+719:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">length</span>.<span class="ruby-identifier">chr</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">stream</span>[<span class="ruby-identifier">i</span>, <span class="ruby-identifier">length</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+720: 
+721:             <span class="ruby-identifier">i</span> = <span class="ruby-identifier">j</span>
+722:           <span class="ruby-keyword kw">end</span>
+723: 
+724:           <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+725:         <span class="ruby-keyword kw">end</span>
+726: 
+727:         <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">EOD</span>
+728:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

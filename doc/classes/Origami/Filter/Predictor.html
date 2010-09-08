@@ -80,10 +80,10 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000387">do_png_post_prediction</a>&nbsp;&nbsp;
-      <a href="#M000388">do_png_pre_prediction</a>&nbsp;&nbsp;
-      <a href="#M000386">do_post_prediction</a>&nbsp;&nbsp;
-      <a href="#M000385">do_pre_prediction</a>&nbsp;&nbsp;
+      <a href="#M000299">do_png_post_prediction</a>&nbsp;&nbsp;
+      <a href="#M000300">do_png_pre_prediction</a>&nbsp;&nbsp;
+      <a href="#M000298">do_post_prediction</a>&nbsp;&nbsp;
+      <a href="#M000297">do_pre_prediction</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -153,158 +153,170 @@
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000387" class="method-detail">
-        <a name="M000387"></a>
+      <div id="method-M000299" class="method-detail">
+        <a name="M000299"></a>
 
         <div class="method-heading">
-          <a href="#M000387" class="method-signature">
+          <a href="#M000299" class="method-signature">
           <span class="method-name">do_png_post_prediction</span><span class="method-args">(data, bpp, bpr)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000387-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000387-source">
+            onclick="toggleCode('M000299-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000299-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/filters.rb, line 117</span>
 117:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">do_png_post_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">bpp</span>, <span class="ruby-identifier">bpr</span>)
 118: 
 119:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
-120:         <span class="ruby-identifier">uprow</span> = <span class="ruby-identifier">thisrow</span> = <span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpr</span>
-121:         <span class="ruby-identifier">ncols</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">bpr</span>
-122:         
-123:         <span class="ruby-identifier">ncols</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">col</span><span class="ruby-operator">|</span>
-124: 
-125:           <span class="ruby-identifier">line</span> = <span class="ruby-identifier">data</span>[<span class="ruby-identifier">col</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpr</span>, <span class="ruby-identifier">bpr</span>]
-126:           <span class="ruby-identifier">predictor</span> = <span class="ruby-value">10</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">line</span>[<span class="ruby-value">0</span>]
-127: 
-128:           <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> (<span class="ruby-identifier">bpp</span><span class="ruby-operator">..</span><span class="ruby-identifier">bpr</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)
+120:         <span class="ruby-identifier">uprow</span> = <span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpr</span>
+121:         <span class="ruby-identifier">thisrow</span> = <span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpr</span>
+122:         <span class="ruby-identifier">nrows</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">bpr</span>
+123:         
+124:         <span class="ruby-identifier">nrows</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">irow</span><span class="ruby-operator">|</span>
+125: 
+126:           <span class="ruby-identifier">line</span> = <span class="ruby-identifier">data</span>[<span class="ruby-identifier">irow</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpr</span>, <span class="ruby-identifier">bpr</span>]
+127:           <span class="ruby-identifier">predictor</span> = <span class="ruby-value">10</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">line</span>[<span class="ruby-value">0</span>]
+128:           <span class="ruby-identifier">line</span>[<span class="ruby-value">0</span>] = <span class="ruby-value str">&quot;\0&quot;</span>
 129: 
-130:             <span class="ruby-identifier">up</span> = <span class="ruby-identifier">uprow</span>[<span class="ruby-identifier">i</span>]
-131:             <span class="ruby-identifier">left</span> = <span class="ruby-identifier">thisrow</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-identifier">bpp</span>]
-132:             <span class="ruby-identifier">upleft</span> = <span class="ruby-identifier">uprow</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-identifier">bpp</span>]
-133: 
-134:             <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">predictor</span>
-135:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_NONE</span>
-136:                 <span class="ruby-identifier">thisrow</span> = <span class="ruby-identifier">line</span> 
-137:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_SUB</span>
-138:                 <span class="ruby-identifier">thisrow</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">left</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
-139:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_UP</span>
-140:                 <span class="ruby-identifier">thisrow</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">up</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
-141:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_AVERAGE</span>
-142:                 <span class="ruby-identifier">thisrow</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">+</span> ((<span class="ruby-identifier">left</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">up</span>) <span class="ruby-operator">/</span> <span class="ruby-value">2</span>)) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
-143:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_PAETH</span>
-144:                 <span class="ruby-identifier">p</span> = <span class="ruby-identifier">left</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">up</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">upleft</span>
-145:                 <span class="ruby-identifier">pa</span>, <span class="ruby-identifier">pb</span>, <span class="ruby-identifier">pc</span> = (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">left</span>).<span class="ruby-identifier">abs</span>, (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">up</span>).<span class="ruby-identifier">abs</span>, (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">upleft</span>).<span class="ruby-identifier">abs</span>
-146: 
-147:                 <span class="ruby-identifier">thisrow</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">+</span> 
-148:                   <span class="ruby-keyword kw">case</span> [ <span class="ruby-identifier">pa</span>, <span class="ruby-identifier">pb</span>, <span class="ruby-identifier">pc</span> ].<span class="ruby-identifier">min</span>
-149:                     <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pa</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">left</span>
-150:                     <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pb</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">up</span>
-151:                     <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pc</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">upleft</span>
-152:                   <span class="ruby-keyword kw">end</span>
-153:                 ) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
-154:             <span class="ruby-keyword kw">else</span>
-155:               <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Unknown PNG predictor : #{predictor}&quot;</span>
-156:               <span class="ruby-identifier">thisrow</span> = <span class="ruby-identifier">line</span>
-157:             <span class="ruby-keyword kw">end</span>
-158:             
-159:           <span class="ruby-keyword kw">end</span>
-160: 
-161:           <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">thisrow</span>[<span class="ruby-identifier">bpp</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
-162:           <span class="ruby-identifier">uprow</span> = <span class="ruby-identifier">thisrow</span>
-163:         <span class="ruby-keyword kw">end</span>
-164:   
-165:         <span class="ruby-identifier">result</span>
-166:       <span class="ruby-keyword kw">end</span>
+130:           <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">bpr</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)
+131:             <span class="ruby-identifier">up</span> = <span class="ruby-identifier">uprow</span>[<span class="ruby-identifier">i</span>]
+132: 
+133:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">bpp</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">i</span>
+134:               <span class="ruby-identifier">left</span> = <span class="ruby-identifier">upleft</span> = <span class="ruby-value">0</span>
+135:             <span class="ruby-keyword kw">else</span>
+136:               <span class="ruby-identifier">left</span> = <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-identifier">bpp</span>]
+137:               <span class="ruby-identifier">upleft</span> = <span class="ruby-identifier">uprow</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-identifier">bpp</span>]
+138:             <span class="ruby-keyword kw">end</span>
+139: 
+140:             <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">predictor</span>
+141:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_NONE</span>
+142:                 <span class="ruby-identifier">thisrow</span> = <span class="ruby-identifier">line</span> 
+143:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_SUB</span>
+144:                 <span class="ruby-identifier">thisrow</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">left</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
+145:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_UP</span>
+146:                 <span class="ruby-identifier">thisrow</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">up</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
+147:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_AVERAGE</span>
+148:                 <span class="ruby-identifier">thisrow</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">+</span> ((<span class="ruby-identifier">left</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">up</span>) <span class="ruby-operator">/</span> <span class="ruby-value">2</span>)) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
+149:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_PAETH</span>
+150:                 <span class="ruby-identifier">p</span> = <span class="ruby-identifier">left</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">up</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">upleft</span>
+151:                 <span class="ruby-identifier">pa</span>, <span class="ruby-identifier">pb</span>, <span class="ruby-identifier">pc</span> = (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">left</span>).<span class="ruby-identifier">abs</span>, (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">up</span>).<span class="ruby-identifier">abs</span>, (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">upleft</span>).<span class="ruby-identifier">abs</span>
+152: 
+153:                 <span class="ruby-identifier">thisrow</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">+</span> 
+154:                   <span class="ruby-keyword kw">case</span> [ <span class="ruby-identifier">pa</span>, <span class="ruby-identifier">pb</span>, <span class="ruby-identifier">pc</span> ].<span class="ruby-identifier">min</span>
+155:                     <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pa</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">left</span>
+156:                     <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pb</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">up</span>
+157:                     <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pc</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">upleft</span>
+158:                   <span class="ruby-keyword kw">end</span>
+159:                 ) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
+160:             <span class="ruby-keyword kw">else</span>
+161:               <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Unknown PNG predictor : #{predictor}&quot;</span>
+162:               <span class="ruby-identifier">thisrow</span> = <span class="ruby-identifier">line</span>
+163:             <span class="ruby-keyword kw">end</span>
+164:             
+165:           <span class="ruby-keyword kw">end</span>
+166: 
+167:           <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">thisrow</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+168:           <span class="ruby-identifier">uprow</span> = <span class="ruby-identifier">thisrow</span>
+169:         <span class="ruby-keyword kw">end</span>
+170:   
+171:         <span class="ruby-identifier">result</span>
+172:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000388" class="method-detail">
-        <a name="M000388"></a>
+      <div id="method-M000300" class="method-detail">
+        <a name="M000300"></a>
 
         <div class="method-heading">
-          <a href="#M000388" class="method-signature">
+          <a href="#M000300" class="method-signature">
           <span class="method-name">do_png_pre_prediction</span><span class="method-args">(data, predictor, bpp, bpr)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000388-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000388-source">
+            onclick="toggleCode('M000300-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000300-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 168</span>
-168:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">do_png_pre_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">predictor</span>, <span class="ruby-identifier">bpp</span>, <span class="ruby-identifier">bpr</span>)
-169:         
-170:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
-171:         <span class="ruby-identifier">ncols</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">bpr</span>
-172: 
-173:         <span class="ruby-identifier">line</span> = <span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpp</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">data</span>[<span class="ruby-operator">-</span><span class="ruby-identifier">bpr</span>, <span class="ruby-identifier">bpr</span>]
-174:         
-175:         (<span class="ruby-identifier">ncols</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>).<span class="ruby-identifier">downto</span>(<span class="ruby-value">0</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">col</span><span class="ruby-operator">|</span>
-176: 
-177:           <span class="ruby-identifier">uprow</span> = <span class="ruby-identifier">col</span>.<span class="ruby-identifier">zero?</span> <span class="ruby-value">? </span>(<span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">bpr</span><span class="ruby-operator">+</span><span class="ruby-identifier">bpp</span>)) <span class="ruby-operator">:</span> (<span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">bpp</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">data</span>[(<span class="ruby-identifier">col</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)<span class="ruby-operator">*</span><span class="ruby-identifier">bpr</span>,<span class="ruby-identifier">bpr</span>])
-178:           (<span class="ruby-identifier">bpr</span><span class="ruby-operator">+</span><span class="ruby-identifier">bpp</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>).<span class="ruby-identifier">downto</span>(<span class="ruby-identifier">bpp</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-179: 
-180:             <span class="ruby-identifier">up</span> = <span class="ruby-identifier">uprow</span>[<span class="ruby-identifier">i</span>]
-181:             <span class="ruby-identifier">left</span> = <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-identifier">bpp</span>]
-182:             <span class="ruby-identifier">upleft</span> = <span class="ruby-identifier">uprow</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-identifier">bpp</span>]
-183: 
-184:             <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">predictor</span>
-185:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_SUB</span>
-186:                 <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">left</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
-187:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_UP</span>
-188:                 <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">up</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
-189:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_AVERAGE</span>
-190:                 <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> ((<span class="ruby-identifier">left</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">up</span>) <span class="ruby-operator">/</span> <span class="ruby-value">2</span>)) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
-191:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_PAETH</span>
-192:                 <span class="ruby-identifier">p</span> = <span class="ruby-identifier">left</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">up</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">upleft</span>
-193:                 <span class="ruby-identifier">pa</span>, <span class="ruby-identifier">pb</span>, <span class="ruby-identifier">pc</span> = (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">left</span>).<span class="ruby-identifier">abs</span>, (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">up</span>).<span class="ruby-identifier">abs</span>, (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">upleft</span>).<span class="ruby-identifier">abs</span>
-194: 
-195:                 <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> 
-196:                 <span class="ruby-keyword kw">case</span> [ <span class="ruby-identifier">pa</span>, <span class="ruby-identifier">pb</span>, <span class="ruby-identifier">pc</span> ].<span class="ruby-identifier">min</span>
-197:                   <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pa</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">left</span>
-198:                   <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pb</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">up</span>
-199:                   <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pc</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">upleft</span>
-200:                 <span class="ruby-keyword kw">end</span>
-201:                 ) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
-202:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_NONE</span>
-203:             <span class="ruby-keyword kw">else</span>
-204:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-node">&quot;Unsupported PNG predictor : #{predictor}&quot;</span>
-205:             <span class="ruby-keyword kw">end</span>
-206:             
-207:           <span class="ruby-keyword kw">end</span>
-208:           
-209:           <span class="ruby-identifier">line</span>[<span class="ruby-value">0</span>] = (<span class="ruby-identifier">predictor</span> <span class="ruby-operator">-</span> <span class="ruby-value">10</span>).<span class="ruby-identifier">chr</span>
-210:           <span class="ruby-identifier">result</span> = <span class="ruby-identifier">line</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">result</span>
-211:           
-212:           <span class="ruby-identifier">line</span> = <span class="ruby-identifier">uprow</span>
-213:         <span class="ruby-keyword kw">end</span>
-214:   
-215:         <span class="ruby-identifier">result</span>
-216:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 174</span>
+174:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">do_png_pre_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">predictor</span>, <span class="ruby-identifier">bpp</span>, <span class="ruby-identifier">bpr</span>)
+175:         
+176:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
+177:         <span class="ruby-identifier">nrows</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">bpr</span>
+178: 
+179:         <span class="ruby-identifier">line</span> = <span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">data</span>[<span class="ruby-operator">-</span><span class="ruby-identifier">bpr</span>, <span class="ruby-identifier">bpr</span>]
+180:         
+181:         (<span class="ruby-identifier">nrows</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>).<span class="ruby-identifier">downto</span>(<span class="ruby-value">0</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">irow</span><span class="ruby-operator">|</span>
+182: 
+183:           <span class="ruby-identifier">uprow</span> = 
+184:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">irow</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> 
+185:             <span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">bpr</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>) 
+186:           <span class="ruby-keyword kw">else</span> 
+187:             <span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">data</span>[(<span class="ruby-identifier">irow</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)<span class="ruby-operator">*</span><span class="ruby-identifier">bpr</span>,<span class="ruby-identifier">bpr</span>]
+188:           <span class="ruby-keyword kw">end</span>
+189: 
+190:           <span class="ruby-identifier">bpr</span>.<span class="ruby-identifier">downto</span>(<span class="ruby-value">1</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+191: 
+192:             <span class="ruby-identifier">up</span> = <span class="ruby-identifier">uprow</span>[<span class="ruby-identifier">i</span>]
+193:             <span class="ruby-identifier">left</span> = <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-identifier">bpp</span>]
+194:             <span class="ruby-identifier">upleft</span> = <span class="ruby-identifier">uprow</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-identifier">bpp</span>]
+195: 
+196:             <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">predictor</span>
+197:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_SUB</span>
+198:                 <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">left</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
+199:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_UP</span>
+200:                 <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">up</span>) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
+201:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_AVERAGE</span>
+202:                 <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> ((<span class="ruby-identifier">left</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">up</span>) <span class="ruby-operator">/</span> <span class="ruby-value">2</span>)) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
+203:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_PAETH</span>
+204:                 <span class="ruby-identifier">p</span> = <span class="ruby-identifier">left</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">up</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">upleft</span>
+205:                 <span class="ruby-identifier">pa</span>, <span class="ruby-identifier">pb</span>, <span class="ruby-identifier">pc</span> = (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">left</span>).<span class="ruby-identifier">abs</span>, (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">up</span>).<span class="ruby-identifier">abs</span>, (<span class="ruby-identifier">p</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">upleft</span>).<span class="ruby-identifier">abs</span>
+206: 
+207:                 <span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] = ((<span class="ruby-identifier">line</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> 
+208:                 <span class="ruby-keyword kw">case</span> [ <span class="ruby-identifier">pa</span>, <span class="ruby-identifier">pb</span>, <span class="ruby-identifier">pc</span> ].<span class="ruby-identifier">min</span>
+209:                   <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pa</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">left</span>
+210:                   <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pb</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">up</span>
+211:                   <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">pc</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">upleft</span>
+212:                 <span class="ruby-keyword kw">end</span>
+213:                 ) <span class="ruby-operator">&amp;</span> <span class="ruby-value">0x</span><span class="ruby-constant">FF</span>).<span class="ruby-identifier">chr</span>
+214:               <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PNG_NONE</span>
+215:             <span class="ruby-keyword kw">else</span>
+216:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">PredictorError</span>, <span class="ruby-node">&quot;Unsupported PNG predictor : #{predictor}&quot;</span>
+217:             <span class="ruby-keyword kw">end</span>
+218:             
+219:           <span class="ruby-keyword kw">end</span>
+220:           
+221:           <span class="ruby-identifier">line</span>[<span class="ruby-value">0</span>] = (<span class="ruby-identifier">predictor</span> <span class="ruby-operator">-</span> <span class="ruby-value">10</span>).<span class="ruby-identifier">chr</span>
+222:           <span class="ruby-identifier">result</span> = <span class="ruby-identifier">line</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">result</span>
+223:           
+224:           <span class="ruby-identifier">line</span> = <span class="ruby-identifier">uprow</span>
+225:         <span class="ruby-keyword kw">end</span>
+226:   
+227:         <span class="ruby-identifier">result</span>
+228:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000386" class="method-detail">
-        <a name="M000386"></a>
+      <div id="method-M000298" class="method-detail">
+        <a name="M000298"></a>
 
         <div class="method-heading">
-          <a href="#M000386" class="method-signature">
+          <a href="#M000298" class="method-signature">
           <span class="method-name">do_post_prediction</span><span class="method-args">(data, predictor = NONE, colors = 1, bpc = 8, columns = 1)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000386-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000386-source">
+            onclick="toggleCode('M000298-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000298-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/filters.rb, line 83</span>
  83:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">do_post_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">predictor</span> = <span class="ruby-constant">NONE</span>, <span class="ruby-identifier">colors</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">bpc</span> = <span class="ruby-value">8</span>, <span class="ruby-identifier">columns</span> = <span class="ruby-value">1</span>)
@@ -345,19 +357,19 @@
         </div>
       </div>
 
-      <div id="method-M000385" class="method-detail">
-        <a name="M000385"></a>
+      <div id="method-M000297" class="method-detail">
+        <a name="M000297"></a>
 
         <div class="method-heading">
-          <a href="#M000385" class="method-signature">
+          <a href="#M000297" class="method-signature">
           <span class="method-name">do_pre_prediction</span><span class="method-args">(data, predictor = NONE, colors = 1, bpc = 8, columns = 1)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000385-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000385-source">
+            onclick="toggleCode('M000297-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000297-source">
 <pre>
     <span class="ruby-comment cmt"># File origami/filters.rb, line 49</span>
 49:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">do_pre_prediction</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">predictor</span> = <span class="ruby-constant">NONE</span>, <span class="ruby-identifier">colors</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">bpc</span> = <span class="ruby-value">8</span>, <span class="ruby-identifier">columns</span> = <span class="ruby-value">1</span>)

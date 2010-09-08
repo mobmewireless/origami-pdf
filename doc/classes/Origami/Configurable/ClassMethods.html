@@ -80,9 +80,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000352">field</a>&nbsp;&nbsp;
-      <a href="#M000351">fields</a>&nbsp;&nbsp;
-      <a href="#M000350">inherited</a>&nbsp;&nbsp;
+      <a href="#M000285">field</a>&nbsp;&nbsp;
+      <a href="#M000284">fields</a>&nbsp;&nbsp;
+      <a href="#M000283">inherited</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -104,79 +104,77 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000352" class="method-detail">
-        <a name="M000352"></a>
+      <div id="method-M000285" class="method-detail">
+        <a name="M000285"></a>
 
         <div class="method-heading">
-          <a href="#M000352" class="method-signature">
+          <a href="#M000285" class="method-signature">
           <span class="method-name">field</span><span class="method-args">(name, attributes)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000352-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000352-source">
+            onclick="toggleCode('M000285-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000285-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/object.rb, line 127</span>
-127:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">field</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">attributes</span>)
-128:       
-129:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">name</span>)
-130:           <span class="ruby-ivar">@fields</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">attributes</span>
-131:         <span class="ruby-keyword kw">else</span>
-132:           <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">each_pair</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-133:             <span class="ruby-ivar">@fields</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
-134:           }
-135:         <span class="ruby-keyword kw">end</span>
-136:         
-137:         <span class="ruby-identifier">define_field_methods</span>(<span class="ruby-identifier">name</span>)
-138:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 133</span>
+133:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">field</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">attributes</span>)
+134:       
+135:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">name</span>)
+136:           <span class="ruby-ivar">@fields</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">attributes</span>
+137:         <span class="ruby-keyword kw">else</span>
+138:           <span class="ruby-ivar">@fields</span>[<span class="ruby-identifier">name</span>].<span class="ruby-identifier">merge!</span> <span class="ruby-identifier">attributes</span>
+139:         <span class="ruby-keyword kw">end</span>
+140:         
+141:         <span class="ruby-identifier">define_field_methods</span>(<span class="ruby-identifier">name</span>)
+142:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000351" class="method-detail">
-        <a name="M000351"></a>
+      <div id="method-M000284" class="method-detail">
+        <a name="M000284"></a>
 
         <div class="method-heading">
-          <a href="#M000351" class="method-signature">
+          <a href="#M000284" class="method-signature">
           <span class="method-name">fields</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000351-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000351-source">
+            onclick="toggleCode('M000284-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000284-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/object.rb, line 123</span>
-123:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields</span>
-124:         <span class="ruby-ivar">@fields</span>
-125:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 129</span>
+129:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields</span>
+130:         <span class="ruby-ivar">@fields</span>
+131:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000350" class="method-detail">
-        <a name="M000350"></a>
+      <div id="method-M000283" class="method-detail">
+        <a name="M000283"></a>
 
         <div class="method-heading">
-          <a href="#M000350" class="method-signature">
+          <a href="#M000283" class="method-signature">
           <span class="method-name">inherited</span><span class="method-args">(subclass)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000350-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000350-source">
+            onclick="toggleCode('M000283-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000283-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/object.rb, line 119</span>
-119:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">subclass</span>)
-120:         <span class="ruby-identifier">subclass</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@fields</span>, <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-ivar">@fields</span>)))
-121:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 125</span>
+125:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">subclass</span>)
+126:         <span class="ruby-identifier">subclass</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@fields</span>, <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-ivar">@fields</span>)))
+127:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

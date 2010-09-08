@@ -81,8 +81,8 @@
     <div id="description">
       <p>
 Class representing a <a href="../Filter.html">Filter</a> used to <a
-href="Flate.html#M000395">encode</a> and <a
-href="Flate.html#M000396">decode</a> data with zlib/Flate compression
+href="Flate.html#M000307">encode</a> and <a
+href="Flate.html#M000308">decode</a> data with zlib/Flate compression
 algorithm.
 </p>
 
@@ -95,9 +95,9 @@ algorithm.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000396">decode</a>&nbsp;&nbsp;
-      <a href="#M000395">encode</a>&nbsp;&nbsp;
-      <a href="#M000394">new</a>&nbsp;&nbsp;
+      <a href="#M000308">decode</a>&nbsp;&nbsp;
+      <a href="#M000307">encode</a>&nbsp;&nbsp;
+      <a href="#M000306">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -132,18 +132,18 @@ algorithm.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000394" class="method-detail">
-        <a name="M000394"></a>
+      <div id="method-M000306" class="method-detail">
+        <a name="M000306"></a>
 
         <div class="method-heading">
-          <a href="#M000394" class="method-signature">
+          <a href="#M000306" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(parameters = DecodeParms.new)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Create a <a href="Flate.html#M000394">new</a> <a
+Create a <a href="Flate.html#M000306">new</a> <a
 href="Flate.html">Flate</a> <a href="../Filter.html">Filter</a>.
 </p>
 <table>
@@ -152,13 +152,13 @@ href="Flate.html">Flate</a> <a href="../Filter.html">Filter</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000394-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000394-source">
+            onclick="toggleCode('M000306-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000306-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 620</span>
-620:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">parameters</span> = <span class="ruby-constant">DecodeParms</span>.<span class="ruby-identifier">new</span>)
-621:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">parameters</span>)
-622:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 629</span>
+629:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">parameters</span> = <span class="ruby-constant">DecodeParms</span>.<span class="ruby-identifier">new</span>)
+630:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">parameters</span>)
+631:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -166,11 +166,11 @@ href="Flate.html">Flate</a> <a href="../Filter.html">Filter</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000396" class="method-detail">
-        <a name="M000396"></a>
+      <div id="method-M000308" class="method-detail">
+        <a name="M000308"></a>
 
         <div class="method-heading">
-          <a href="#M000396" class="method-signature">
+          <a href="#M000308" class="method-signature">
           <span class="method-name">decode</span><span class="method-args">(stream)</span>
           </a>
         </div>
@@ -180,39 +180,39 @@ href="Flate.html">Flate</a> <a href="../Filter.html">Filter</a>.
 Decodes data using zlib/Inflate decompression method.
 </p>
 <table>
-<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="Flate.html#M000396">decode</a>.
+<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="Flate.html#M000308">decode</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000396-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000396-source">
+            onclick="toggleCode('M000308-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000308-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 645</span>
-645:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">stream</span>)
-646:         
-647:         <span class="ruby-identifier">uncompressed</span> = <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">Inflate</span>.<span class="ruby-identifier">inflate</span>(<span class="ruby-identifier">stream</span>)
-648:         
-649:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">nil?</span>
-650:           <span class="ruby-identifier">colors</span> =  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Colors</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Colors</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
-651:           <span class="ruby-identifier">bpc</span> =     <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:BitsPerComponent</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:BitsPerComponent</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">8</span>
-652:           <span class="ruby-identifier">columns</span> = <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Columns</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Columns</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
-653: 
-654:           <span class="ruby-identifier">uncompressed</span> = <span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">do_post_prediction</span>(<span class="ruby-identifier">uncompressed</span>, <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">colors</span>, <span class="ruby-identifier">bpc</span>, <span class="ruby-identifier">columns</span>)
-655:         <span class="ruby-keyword kw">end</span>
-656: 
-657:         <span class="ruby-identifier">uncompressed</span>
-658:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 654</span>
+654:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">stream</span>)
+655:         
+656:         <span class="ruby-identifier">uncompressed</span> = <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">Inflate</span>.<span class="ruby-identifier">inflate</span>(<span class="ruby-identifier">stream</span>)
+657:         
+658:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@params</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">nil?</span>
+659:           <span class="ruby-identifier">colors</span> =  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Colors</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Colors</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+660:           <span class="ruby-identifier">bpc</span> =     <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:BitsPerComponent</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:BitsPerComponent</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">8</span>
+661:           <span class="ruby-identifier">columns</span> = <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Columns</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Columns</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+662: 
+663:           <span class="ruby-identifier">uncompressed</span> = <span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">do_post_prediction</span>(<span class="ruby-identifier">uncompressed</span>, <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">colors</span>, <span class="ruby-identifier">bpc</span>, <span class="ruby-identifier">columns</span>)
+664:         <span class="ruby-keyword kw">end</span>
+665: 
+666:         <span class="ruby-identifier">uncompressed</span>
+667:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000395" class="method-detail">
-        <a name="M000395"></a>
+      <div id="method-M000307" class="method-detail">
+        <a name="M000307"></a>
 
         <div class="method-heading">
-          <a href="#M000395" class="method-signature">
+          <a href="#M000307" class="method-signature">
           <span class="method-name">encode</span><span class="method-args">(stream)</span>
           </a>
         </div>
@@ -222,27 +222,27 @@ Decodes data using zlib/Inflate decompression method.
 Encodes data using zlib/Deflate compression method.
 </p>
 <table>
-<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="Flate.html#M000395">encode</a>.
+<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="Flate.html#M000307">encode</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000395-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000395-source">
+            onclick="toggleCode('M000307-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000307-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 628</span>
-628:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">stream</span>)
-629: 
-630:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">nil?</span>
-631:           <span class="ruby-identifier">colors</span> =  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Colors</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Colors</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
-632:           <span class="ruby-identifier">bpc</span> =     <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:BitsPerComponent</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:BitsPerComponent</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">8</span>
-633:           <span class="ruby-identifier">columns</span> = <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Columns</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Columns</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
-634: 
-635:           <span class="ruby-identifier">stream</span> = <span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">do_pre_prediction</span>(<span class="ruby-identifier">stream</span>, <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">colors</span>, <span class="ruby-identifier">bpc</span>, <span class="ruby-identifier">columns</span>)
-636:         <span class="ruby-keyword kw">end</span>
-637: 
-638:         <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">Deflate</span>.<span class="ruby-identifier">deflate</span>(<span class="ruby-identifier">stream</span>, <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">BEST_COMPRESSION</span>)
-639:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 637</span>
+637:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">stream</span>)
+638: 
+639:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@params</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">nil?</span>
+640:           <span class="ruby-identifier">colors</span> =  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Colors</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Colors</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+641:           <span class="ruby-identifier">bpc</span> =     <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:BitsPerComponent</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:BitsPerComponent</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">8</span>
+642:           <span class="ruby-identifier">columns</span> = <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Columns</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Columns</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+643: 
+644:           <span class="ruby-identifier">stream</span> = <span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">do_pre_prediction</span>(<span class="ruby-identifier">stream</span>, <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">colors</span>, <span class="ruby-identifier">bpc</span>, <span class="ruby-identifier">columns</span>)
+645:         <span class="ruby-keyword kw">end</span>
+646: 
+647:         <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">Deflate</span>.<span class="ruby-identifier">deflate</span>(<span class="ruby-identifier">stream</span>, <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">BEST_COMPRESSION</span>)
+648:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

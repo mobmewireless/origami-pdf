@@ -1,9 +1,11 @@
 require 'test/unit'
+require 'stringio'
 
   class TC_PdfAttach < Test::Unit::TestCase
     def setup
       @target = PDF.new
-      @attachment = "dataset/test.dummycrt"
+      @attachment = "tests/dataset/test.dummycrt"
+      @output = StringIO.new
     end
 
     # def teardown
@@ -15,7 +17,7 @@ require 'test/unit'
       end
 
       assert_nothing_raised do
-        @target.saveas("/dev/null")
+        @target.saveas(@output)
       end
     end
 

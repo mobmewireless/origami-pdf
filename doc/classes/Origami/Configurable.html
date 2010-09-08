@@ -87,8 +87,8 @@ Mixin&#8217; module for objects which can store their options into an inner
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000349">has_field?</a>&nbsp;&nbsp;
-      <a href="#M000348">included</a>&nbsp;&nbsp;
+      <a href="#M000282">has_field?</a>&nbsp;&nbsp;
+      <a href="#M000281">included</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -116,25 +116,25 @@ Mixin&#8217; module for objects which can store their options into an inner
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000348" class="method-detail">
-        <a name="M000348"></a>
+      <div id="method-M000281" class="method-detail">
+        <a name="M000281"></a>
 
         <div class="method-heading">
-          <a href="#M000348" class="method-signature">
+          <a href="#M000281" class="method-signature">
           <span class="method-name">included</span><span class="method-args">(receiver)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000348-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000348-source">
+            onclick="toggleCode('M000281-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000281-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/object.rb, line 112</span>
-112:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">receiver</span>)
-113:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@fields</span>, <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">DEFAULT_ATTRIBUTES</span>))
-114:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">ClassMethods</span>)
-115:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 118</span>
+118:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">receiver</span>)
+119:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@fields</span>, <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">DEFAULT_ATTRIBUTES</span>))
+120:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">ClassMethods</span>)
+121:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -142,11 +142,11 @@ Mixin&#8217; module for objects which can store their options into an inner
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000349" class="method-detail">
-        <a name="M000349"></a>
+      <div id="method-M000282" class="method-detail">
+        <a name="M000282"></a>
 
         <div class="method-heading">
-          <a href="#M000349" class="method-signature">
+          <a href="#M000282" class="method-signature">
           <span class="method-name">has_field?</span><span class="method-args">(field)</span>
           </a>
         </div>
@@ -162,13 +162,13 @@ href="Object.html">Object</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000349-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000349-source">
+            onclick="toggleCode('M000282-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000282-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/object.rb, line 176</span>
-176:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_field?</span> (<span class="ruby-identifier">field</span>)
-177:       <span class="ruby-keyword kw">not</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">field</span>].<span class="ruby-identifier">nil?</span>
-178:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/object.rb, line 180</span>
+180:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_field?</span> (<span class="ruby-identifier">field</span>)
+181:       <span class="ruby-keyword kw">not</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">field</span>].<span class="ruby-identifier">nil?</span>
+182:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

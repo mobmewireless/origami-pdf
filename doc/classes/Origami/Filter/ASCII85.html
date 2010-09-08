@@ -81,8 +81,8 @@
     <div id="description">
       <p>
 Class representing a filter used to <a
-href="ASCII85.html#M000397">encode</a> and <a
-href="ASCII85.html#M000398">decode</a> data written in base85 encoding.
+href="ASCII85.html#M000309">encode</a> and <a
+href="ASCII85.html#M000310">decode</a> data written in base85 encoding.
 </p>
 
     </div>
@@ -94,8 +94,8 @@ href="ASCII85.html#M000398">decode</a> data written in base85 encoding.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000398">decode</a>&nbsp;&nbsp;
-      <a href="#M000397">encode</a>&nbsp;&nbsp;
+      <a href="#M000310">decode</a>&nbsp;&nbsp;
+      <a href="#M000309">encode</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -124,11 +124,11 @@ href="ASCII85.html#M000398">decode</a> data written in base85 encoding.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000398" class="method-detail">
-        <a name="M000398"></a>
+      <div id="method-M000310" class="method-detail">
+        <a name="M000310"></a>
 
         <div class="method-heading">
-          <a href="#M000398" class="method-signature">
+          <a href="#M000310" class="method-signature">
           <span class="method-name">decode</span><span class="method-args">(string)</span>
           </a>
         </div>
@@ -138,83 +138,83 @@ href="ASCII85.html#M000398">decode</a> data written in base85 encoding.
 Decodes the given data encoded in base85.
 </p>
 <table>
-<tr><td valign="top"><em>string</em>:</td><td>The data to <a href="ASCII85.html#M000398">decode</a>.
+<tr><td valign="top"><em>string</em>:</td><td>The data to <a href="ASCII85.html#M000310">decode</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000398-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000398-source">
+            onclick="toggleCode('M000310-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000310-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 349</span>
-349:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">string</span>)
-350:         
-351:         <span class="ruby-identifier">input</span> = (<span class="ruby-identifier">string</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">EOD</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">string</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-identifier">string</span>.<span class="ruby-identifier">index</span>(<span class="ruby-constant">EOD</span>) <span class="ruby-operator">-</span> <span class="ruby-value">1</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">string</span>).<span class="ruby-identifier">delete</span>(<span class="ruby-value str">&quot; \f\t\r\n\0&quot;</span>)
-352:         
-353:         <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
-354:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
-355:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword kw">do</span>
-356:           
-357:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">5</span>
-358:           <span class="ruby-keyword kw">then</span>
-359:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidASCII85String</span>, <span class="ruby-value str">&quot;Invalid length&quot;</span> <span class="ruby-keyword kw">end</span>
-360:             
-361:             <span class="ruby-identifier">addend</span> = <span class="ruby-value">5</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span>)
-362:             <span class="ruby-identifier">input</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;u&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">addend</span>
-363:           <span class="ruby-keyword kw">else</span>
-364:             <span class="ruby-identifier">addend</span> = <span class="ruby-value">0</span>
-365:           <span class="ruby-keyword kw">end</span>
-366:           
-367:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-value">?z</span>
-368:             <span class="ruby-identifier">inblock</span> = <span class="ruby-value">0</span>
-369:           <span class="ruby-keyword kw">else</span>
-370:             
-371:             <span class="ruby-identifier">inblock</span> = <span class="ruby-value">0</span>
-372:             <span class="ruby-identifier">outblock</span> = <span class="ruby-value str">&quot;&quot;</span>
-373:             
-374:             <span class="ruby-comment cmt"># Checking if this string is in base85</span>
-375:             <span class="ruby-value">5</span>.<span class="ruby-identifier">times</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
-376:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-identifier">j</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-value">?u</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-identifier">j</span>] <span class="ruby-operator">&lt;</span> <span class="ruby-value">?!</span>
-377:                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidASCII85String</span>, <span class="ruby-identifier">string</span>
-378:               <span class="ruby-keyword kw">else</span>
-379:                 <span class="ruby-identifier">inblock</span> <span class="ruby-operator">+=</span> (<span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-identifier">j</span>] <span class="ruby-operator">-</span> <span class="ruby-value">?!</span>) <span class="ruby-operator">*</span> <span class="ruby-value">85</span> <span class="ruby-operator">**</span> (<span class="ruby-value">4</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">j</span>)
-380:               <span class="ruby-keyword kw">end</span>
-381:             }
-382:           
-383:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">inblock</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span><span class="ruby-operator">**</span><span class="ruby-value">32</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
-384:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidASCII85String</span>, <span class="ruby-value str">&quot;Invalid value&quot;</span>
-385:             <span class="ruby-keyword kw">end</span>
-386:           
-387:           <span class="ruby-keyword kw">end</span>
-388:         
-389:           <span class="ruby-value">4</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
-390:             <span class="ruby-identifier">c</span> = <span class="ruby-identifier">inblock</span> <span class="ruby-operator">/</span> <span class="ruby-value">256</span> <span class="ruby-operator">**</span> (<span class="ruby-value">3</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">p</span>)
-391:             <span class="ruby-identifier">outblock</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">chr</span>
-392:             
-393:             <span class="ruby-identifier">inblock</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">*</span> <span class="ruby-value">256</span> <span class="ruby-operator">**</span> (<span class="ruby-value">3</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">p</span>)
-394:           <span class="ruby-keyword kw">end</span>
-395:           
-396:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">addend</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
-397:             <span class="ruby-identifier">outblock</span> = <span class="ruby-identifier">outblock</span>[<span class="ruby-value">0</span>, <span class="ruby-value">4</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">addend</span>]
-398:           <span class="ruby-keyword kw">end</span>
-399:         
-400:           <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">outblock</span>
-401:           
-402:           <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">5</span>
-403:         <span class="ruby-keyword kw">end</span>
-404:         
-405:         <span class="ruby-identifier">result</span>
-406:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 361</span>
+361:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">string</span>)
+362:         
+363:         <span class="ruby-identifier">input</span> = (<span class="ruby-identifier">string</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">EOD</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">string</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-identifier">string</span>.<span class="ruby-identifier">index</span>(<span class="ruby-constant">EOD</span>) <span class="ruby-operator">-</span> <span class="ruby-value">1</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">string</span>).<span class="ruby-identifier">delete</span>(<span class="ruby-value str">&quot; \f\t\r\n\0&quot;</span>)
+364:         
+365:         <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+366:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
+367:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword kw">do</span>
+368:           
+369:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">5</span>
+370:           <span class="ruby-keyword kw">then</span>
+371:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidASCII85StringError</span>, <span class="ruby-value str">&quot;Invalid length&quot;</span> <span class="ruby-keyword kw">end</span>
+372:             
+373:             <span class="ruby-identifier">addend</span> = <span class="ruby-value">5</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span>)
+374:             <span class="ruby-identifier">input</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;u&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">addend</span>
+375:           <span class="ruby-keyword kw">else</span>
+376:             <span class="ruby-identifier">addend</span> = <span class="ruby-value">0</span>
+377:           <span class="ruby-keyword kw">end</span>
+378:           
+379:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-value">?z</span>
+380:             <span class="ruby-identifier">inblock</span> = <span class="ruby-value">0</span>
+381:           <span class="ruby-keyword kw">else</span>
+382:             
+383:             <span class="ruby-identifier">inblock</span> = <span class="ruby-value">0</span>
+384:             <span class="ruby-identifier">outblock</span> = <span class="ruby-value str">&quot;&quot;</span>
+385:             
+386:             <span class="ruby-comment cmt"># Checking if this string is in base85</span>
+387:             <span class="ruby-value">5</span>.<span class="ruby-identifier">times</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+388:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-identifier">j</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-value">?u</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-identifier">j</span>] <span class="ruby-operator">&lt;</span> <span class="ruby-value">?!</span>
+389:                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidASCII85StringError</span>, <span class="ruby-identifier">string</span>
+390:               <span class="ruby-keyword kw">else</span>
+391:                 <span class="ruby-identifier">inblock</span> <span class="ruby-operator">+=</span> (<span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-identifier">j</span>] <span class="ruby-operator">-</span> <span class="ruby-value">?!</span>) <span class="ruby-operator">*</span> <span class="ruby-value">85</span> <span class="ruby-operator">**</span> (<span class="ruby-value">4</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">j</span>)
+392:               <span class="ruby-keyword kw">end</span>
+393:             }
+394:           
+395:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">inblock</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span><span class="ruby-operator">**</span><span class="ruby-value">32</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+396:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidASCII85StringError</span>, <span class="ruby-value str">&quot;Invalid value&quot;</span>
+397:             <span class="ruby-keyword kw">end</span>
+398:           
+399:           <span class="ruby-keyword kw">end</span>
+400:         
+401:           <span class="ruby-value">4</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+402:             <span class="ruby-identifier">c</span> = <span class="ruby-identifier">inblock</span> <span class="ruby-operator">/</span> <span class="ruby-value">256</span> <span class="ruby-operator">**</span> (<span class="ruby-value">3</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">p</span>)
+403:             <span class="ruby-identifier">outblock</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">chr</span>
+404:             
+405:             <span class="ruby-identifier">inblock</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">*</span> <span class="ruby-value">256</span> <span class="ruby-operator">**</span> (<span class="ruby-value">3</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">p</span>)
+406:           <span class="ruby-keyword kw">end</span>
+407:           
+408:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">addend</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+409:             <span class="ruby-identifier">outblock</span> = <span class="ruby-identifier">outblock</span>[<span class="ruby-value">0</span>, <span class="ruby-value">4</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">addend</span>]
+410:           <span class="ruby-keyword kw">end</span>
+411:         
+412:           <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">outblock</span>
+413:           
+414:           <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">5</span>
+415:         <span class="ruby-keyword kw">end</span>
+416:         
+417:         <span class="ruby-identifier">result</span>
+418:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000397" class="method-detail">
-        <a name="M000397"></a>
+      <div id="method-M000309" class="method-detail">
+        <a name="M000309"></a>
 
         <div class="method-heading">
-          <a href="#M000397" class="method-signature">
+          <a href="#M000309" class="method-signature">
           <span class="method-name">encode</span><span class="method-args">(stream)</span>
           </a>
         </div>
@@ -224,53 +224,53 @@ Decodes the given data encoded in base85.
 Encodes given data into base85.
 </p>
 <table>
-<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="ASCII85.html#M000397">encode</a>.
+<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="ASCII85.html#M000309">encode</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000397-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000397-source">
+            onclick="toggleCode('M000309-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000309-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 306</span>
-306:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">stream</span>)
-307:         
-308:         <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
-309:         <span class="ruby-identifier">code</span> = <span class="ruby-value str">&quot;&quot;</span>
-310:         <span class="ruby-identifier">input</span> = <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">dup</span>
-311:         
-312:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword kw">do</span>
-313:           
-314:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">4</span>
-315:             <span class="ruby-identifier">addend</span> = <span class="ruby-value">4</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span>)
-316:             <span class="ruby-identifier">input</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">addend</span>
-317:           <span class="ruby-keyword kw">else</span>
-318:             <span class="ruby-identifier">addend</span> = <span class="ruby-value">0</span>
-319:           <span class="ruby-keyword kw">end</span>
-320:           
-321:           <span class="ruby-identifier">inblock</span> = (<span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">*</span> <span class="ruby-value">256</span><span class="ruby-operator">**</span><span class="ruby-value">3</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-operator">*</span> <span class="ruby-value">256</span><span class="ruby-operator">**</span><span class="ruby-value">2</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">2</span>] <span class="ruby-operator">*</span> <span class="ruby-value">256</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">3</span>])
-322:           <span class="ruby-identifier">outblock</span> = <span class="ruby-value str">&quot;&quot;</span>
-323:           
-324:           <span class="ruby-value">5</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
-325:             <span class="ruby-identifier">c</span> = <span class="ruby-identifier">inblock</span> <span class="ruby-operator">/</span> <span class="ruby-value">85</span> <span class="ruby-operator">**</span> (<span class="ruby-value">4</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">p</span>)
-326:             <span class="ruby-identifier">outblock</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-value">?!</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">c</span>).<span class="ruby-identifier">chr</span>
-327:             
-328:             <span class="ruby-identifier">inblock</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">*</span> <span class="ruby-value">85</span> <span class="ruby-operator">**</span> (<span class="ruby-value">4</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">p</span>)
-329:           <span class="ruby-keyword kw">end</span>
-330:           
-331:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">outblock</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;!!!!!&quot;</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">addend</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">outblock</span> = <span class="ruby-value str">&quot;z&quot;</span> <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/filters.rb, line 318</span>
+318:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">stream</span>)
+319:         
+320:         <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+321:         <span class="ruby-identifier">code</span> = <span class="ruby-value str">&quot;&quot;</span>
+322:         <span class="ruby-identifier">input</span> = <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">dup</span>
+323:         
+324:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">size</span> <span class="ruby-keyword kw">do</span>
+325:           
+326:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">4</span>
+327:             <span class="ruby-identifier">addend</span> = <span class="ruby-value">4</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span>)
+328:             <span class="ruby-identifier">input</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\0&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">addend</span>
+329:           <span class="ruby-keyword kw">else</span>
+330:             <span class="ruby-identifier">addend</span> = <span class="ruby-value">0</span>
+331:           <span class="ruby-keyword kw">end</span>
 332:           
-333:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">addend</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
-334:             <span class="ruby-identifier">outblock</span> = <span class="ruby-identifier">outblock</span>[<span class="ruby-value">0</span>,(<span class="ruby-value">4</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">addend</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>]
-335:           <span class="ruby-keyword kw">end</span>
-336:           
-337:           <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">outblock</span>
-338:           
-339:           <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">4</span>
-340:         <span class="ruby-keyword kw">end</span>
-341: 
-342:         <span class="ruby-identifier">code</span>
-343:       <span class="ruby-keyword kw">end</span>
+333:           <span class="ruby-identifier">inblock</span> = (<span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">*</span> <span class="ruby-value">256</span><span class="ruby-operator">**</span><span class="ruby-value">3</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-operator">*</span> <span class="ruby-value">256</span><span class="ruby-operator">**</span><span class="ruby-value">2</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">2</span>] <span class="ruby-operator">*</span> <span class="ruby-value">256</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">3</span>])
+334:           <span class="ruby-identifier">outblock</span> = <span class="ruby-value str">&quot;&quot;</span>
+335:           
+336:           <span class="ruby-value">5</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+337:             <span class="ruby-identifier">c</span> = <span class="ruby-identifier">inblock</span> <span class="ruby-operator">/</span> <span class="ruby-value">85</span> <span class="ruby-operator">**</span> (<span class="ruby-value">4</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">p</span>)
+338:             <span class="ruby-identifier">outblock</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-value">?!</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">c</span>).<span class="ruby-identifier">chr</span>
+339:             
+340:             <span class="ruby-identifier">inblock</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">*</span> <span class="ruby-value">85</span> <span class="ruby-operator">**</span> (<span class="ruby-value">4</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">p</span>)
+341:           <span class="ruby-keyword kw">end</span>
+342:           
+343:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">outblock</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;!!!!!&quot;</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">addend</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">outblock</span> = <span class="ruby-value str">&quot;z&quot;</span> <span class="ruby-keyword kw">end</span>
+344:           
+345:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">addend</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+346:             <span class="ruby-identifier">outblock</span> = <span class="ruby-identifier">outblock</span>[<span class="ruby-value">0</span>,(<span class="ruby-value">4</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">addend</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>]
+347:           <span class="ruby-keyword kw">end</span>
+348:           
+349:           <span class="ruby-identifier">code</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">outblock</span>
+350:           
+351:           <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">4</span>
+352:         <span class="ruby-keyword kw">end</span>
+353: 
+354:         <span class="ruby-identifier">code</span>
+355:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

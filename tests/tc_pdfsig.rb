@@ -1,12 +1,14 @@
 require 'test/unit'
+require 'stringio'
 
   class TC_PdfSig < Test::Unit::TestCase
 
     def setup
-      @target = PDF.read("dataset/calc.pdf", :ignore_errors => false, :verbosity => Parser::VERBOSE_QUIET)
+      @target = PDF.read("tests/dataset/calc.pdf", :ignore_errors => false, :verbosity => Parser::VERBOSE_QUIET)
+      @output = StringIO.new
  
-      @cert = OpenSSL::X509::Certificate.new(File.open("dataset/test.dummycrt").read)
-      @key = OpenSSL::PKey::RSA.new(File.open("dataset/test.dummykey").read)
+      @cert = OpenSSL::X509::Certificate.new(File.open("tests/dataset/test.dummycrt").read)
+      @key = OpenSSL::PKey::RSA.new(File.open("tests/dataset/test.dummykey").read)
     end
 
     # def teardown
@@ -27,7 +29,7 @@ require 'test/unit'
       assert @target.frozen?
 
       assert_nothing_raised do
-        @target.saveas("/dev/null")
+        @target.saveas(@output)
       end
 
     end

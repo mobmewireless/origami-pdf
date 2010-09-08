@@ -55,13 +55,10 @@ module Origami
     # Returns an array of Page
     #
     def pages
-      
       return [] if not self.Catalog or not self.Catalog.Pages
       
       root = self.Catalog.Pages
       return [] if root.nil?
-
-      root.solve if root.is_a?(Reference) 
 
       root.children
     end
