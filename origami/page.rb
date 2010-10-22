@@ -79,8 +79,8 @@ module Origami
     def add_colorspace(name, colorspace)
       target = self.is_a?(Resources) ? self : (self.Resources ||= Resources.new)
 
-      target.ColorSpace ||= {}
-      target.ColorSpace[name] = colorspace
+      csdir = target[:ColorSpace] ||= {}
+      (csdir.is_a?(Reference) ? csdir.solve : csdir)[name] = colorspace
     
       self
     end
@@ -115,8 +115,8 @@ module Origami
     def add_font(name, font)
       target = self.is_a?(Resources) ? self : (self.Resources ||= Resources.new)
 
-      target.Font ||= {}
-      target.Font[name] = font
+      fontdir = target[:Font] ||= {}
+      (fontdir.is_a?(Reference) ? fontdir.solve : fontdir)[name] = font
     
       self
     end
@@ -320,7 +320,6 @@ module Origami
     # Add an Annotation to the Page.
     #
     def add_annot(*annotations)
-      
       unless annotations.all?{|annot| annot.is_a?(Annotation)}
         raise TypeError, "Only Annotation objects must be passed."
       end
@@ -354,8 +353,10 @@ module Origami
       annot
     end
 
+    #
+    # Will execute an action when the page is opened.
+    #
     def onOpen(action)
-      
       unless action.is_a?(Action)
         raise TypeError, "An Action object must be passed."
       end
@@ -366,20 +367,51 @@ module Origami
       self
     end
     
+    #
+    # Will execute an action when the page is closed.
+    #
     def onClose(action)
-      
       unless action.is_a?(Action)
         raise TypeError, "An Action object must be passed."
       end
       
       self.AA ||= PageAdditionalActions.new
       self.AA.C = action
+
+      self
+    end
+
+    #
+    # Will execute an action when navigating forward from this page.
+    #
+    def onNavigateForward(action) #:nodoc:
+      unless action.is_a?(Action)
+        raise TypeError, "An Action object must be passed."
+      end
       
+      self.PresSteps ||= NavigationNode.new
+      self.PresSteps.NA = action
+
+      self
+    end
+
+    #
+    # Will execute an action when navigating backward from this page.
+    #
+    def onNavigateBackward(action) #:nodoc:
+      unless action.is_a?(Action)
+        raise TypeError, "An Action object must be passed."
+      end
+      
+      self.PresSteps ||= NavigationNode.new
+      self.PresSteps.PA = action
+    
+      self
     end
 
     private
 
-    def create_richmedia(type, content, params)
+    def create_richmedia(type, content, params) #:nodoc:
       richmedia = Annotation::RichMedia.new
 
       rminstance = Annotation::RichMedia::Instance.new.set_indirect(true)
@@ -422,12 +454,24 @@ module Origami
   # Class representing additional actions which can be associated to a Page.
   #
   class PageAdditionalActions < Dictionary
-    
     include Configurable
    
     field   :O,   :Type => Dictionary, :Version => "1.2" # Page Open
     field   :C,   :Type => Dictionary, :Version => "1.2" # Page Close
-    
+  end
+
+  #
+  # Class representing a navigation node associated to a Page.
+  #
+  class NavigationNode < Dictionary
+    include Configurable
+
+    field   :Type,    :Type => Name, :Default => :NavNode
+    field   :NA,      :Type => Dictionary # Next action
+    field   :PA,      :Type => Dictionary # Prev action
+    field   :Next,    :Type => Dictionary 
+    field   :Prev,    :Type => Dictionary 
+    field   :Dur,     :Type => Number
   end
   
 end

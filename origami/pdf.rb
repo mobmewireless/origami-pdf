@@ -44,6 +44,7 @@ require 'origami/actions'
 require 'origami/file'
 require 'origami/acroform'
 require 'origami/annotations'
+require 'origami/3d'
 require 'origami/signature'
 require 'origami/webcapture'
 require 'origami/metadata'
@@ -97,7 +98,8 @@ module Origami
     :ObjStm => ObjectStream, 
     :EmbeddedFile => EmbeddedFileStream,
     :Metadata => MetadataStream,
-    :XRef => XRefStream
+    :XRef => XRefStream,
+    :"3D" => U3DStream
   }
   
   @@stm_xobj_subtypes =

@@ -133,12 +133,12 @@ module Origami
         self.Catalog.Names = Names.new
       end
       
-      value.set_indirect(true)
+      value.set_indirect(true) unless value.is_a? Reference
       
       namesroot = self.Catalog.Names.send(root)
       if namesroot.nil?
-        names = NameTreeNode.new({:Names => [] })
-        self.Catalog.Names.send((root.id2name + "=").to_sym, (self << names))
+        names = NameTreeNode.new({:Names => [] }).set_indirect(true)
+        self.Catalog.Names.send((root.id2name + "=").to_sym, names)
         
         names.Names << name << value
       else
@@ -147,6 +147,24 @@ module Origami
       
     end
   
+  end
+
+  module PageLayout #:nodoc:
+    SINGLE            = :SinglePage
+    ONE_COLUMN        = :OneColumn
+    TWO_COLUMN_LEFT   = :TwoColumnLeft
+    TWO_COLUMN_RIGHT  = :TwoColumnRight
+    TWO_PAGE_LEFT     = :TwoPageLeft
+    TWO_PAGE_RIGHT    = :TwoPageRight
+  end
+
+  module PageMode #:nodoc:
+    NONE        = :UseNone
+    OUTLINES    = :UseOutlines
+    THUMBS      = :UseThumbs
+    FULLSCREEN  = :FullScreen
+    OPTIONAL_CONTENT = :UseOC
+    ATTACHMENTS = :UseAttachments
   end
 
   #
@@ -163,8 +181,8 @@ module Origami
     field   :Names,               :Type => Dictionary, :Version => "1.2"
     field   :Dests,               :Type => Dictionary, :Version => "1.1"
     field   :ViewerPreferences,   :Type => Dictionary, :Version => "1.2"  
-    field   :PageLayout,          :Type => Name, :Default => :SinglePage
-    field   :PageMode,            :Type => Name, :Default => :UseNone
+    field   :PageLayout,          :Type => Name, :Default => PageLayout::SINGLE
+    field   :PageMode,            :Type => Name, :Default => PageMode::NONE
     field   :Outlines,            :Type => Dictionary
     field   :Threads,             :Type => Array, :Version => "1.1"
     field   :OpenAction,          :Type => [ Array, Dictionary ], :Version => "1.1"

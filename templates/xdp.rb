@@ -52,6 +52,9 @@ module Origami
         
         form1 = template.add_subform(:layout => 'tb', :name => 'form1')
         form1.add_pageSet
+        form1.add_event(:activity => 'initialize', :name => 'event__ready').
+          add_script(:contentType => 'application/x-formcalc').
+            text = script
         
         subform = form1.add_subform
 
