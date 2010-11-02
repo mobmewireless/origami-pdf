@@ -412,6 +412,7 @@ module Origami
     private
 
     def create_richmedia(type, content, params) #:nodoc:
+      content.set_indirect(true)
       richmedia = Annotation::RichMedia.new
 
       rminstance = Annotation::RichMedia::Instance.new.set_indirect(true)

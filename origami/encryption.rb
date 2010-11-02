@@ -704,12 +704,13 @@ module Origami
       
         padlen = plain[-1]
         unless (1..16) === padlen
-          raise EncryptionError, "Incorrect padding byte"
+          raise EncryptionError, "Incorrect padding length : #{padlen}"
         end
 
         padlen.times do 
           pad = plain.pop
-          raise EncryptionError, "Incorrect padding byte" if pad != padlen
+          raise EncryptionError, 
+            "Incorrect padding byte : 0x#{pad.to_s 16}" if pad != padlen
         end
 
         plain.pack("C*")
