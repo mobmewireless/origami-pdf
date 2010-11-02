@@ -278,6 +278,7 @@ module Origami
       def physicalize
 
         def build(obj, revision, embedded = false) #:nodoc:
+          return if obj.is_a?(EncryptedObject) # already built
      
           if obj.is_a?(ObjectStream)
             obj.each { |subobj|
@@ -289,7 +290,10 @@ module Origami
 
           case obj
           when String
-            if not obj.equal?(@encryption_dict[:U]) and not obj.equal?(@encryption_dict[:O]) and not embedded 
+            if not obj.equal?(@encryption_dict[:U]) and 
+               not obj.equal?(@encryption_dict[:O]) and 
+               not embedded 
+              
               obj.extend(EncryptedString)
               obj.decrypted = true
               obj.encryption_key = @encryption_key
@@ -303,7 +307,6 @@ module Origami
             obj.algorithm = @stm_algo
 
           when Dictionary, Array
-
               obj.map! { |subobj|
                 if subobj.is_indirect?
                   if get_object(subobj.reference)
@@ -318,18 +321,18 @@ module Origami
                 end
               }
               
-              obj.each { |subobj|
+              obj.each do |subobj|
                 build(subobj, revision, embedded)
-              }    
+              end
           end
 
           obj.post_build
-          
         end
-       
-        all_indirect_objects.each { |obj, revision|
-            build(obj, revision)          
-        }
+      
+        # stack up every root objects
+        all_indirect_objects.each do |obj, revision|
+          build(obj, revision)          
+        end
         
         self
       end
@@ -670,11 +673,9 @@ module Origami
       end 
 
       def decrypt(data)
-        
         unless data.size % BLOCKSIZE == 0
-          puts data.size
-          hexprint data
-          raise EncryptionError, "Data must be 16-bytes padded"
+          raise EncryptionError, 
+            "Data must be 16-bytes padded (data size = #{data.size} bytes)"
         end
 
         @iv = data.slice!(0, BLOCKSIZE)

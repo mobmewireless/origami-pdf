@@ -105,20 +105,20 @@ module Origami
           raise InvalidStreamObjectError, 
             "Stream shall end with a '#{TOKENS.last}' statement"
         end
-
       else
         len = len.value
         rawdata = stream.peek(len)
         stream.pos += len
         if not ( unmatched = stream.scan_until(@@regexp_close) )
           raise InvalidStreamObjectError, 
-            "Stream shall end with a '#{TOKENS.last}' statement"
+            "Stream shall end with a 'endstream' statement"
         end
-
+        
         rawdata << unmatched
       end
        
       rawdata.chomp!(TOKENS.last)
+      rawdata.chomp!("\r") if rawdata.chomp!("\n")
 
       stm = 
       if dictionary.has_key? :Type

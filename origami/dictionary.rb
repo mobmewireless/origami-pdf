@@ -122,7 +122,6 @@ module Origami
       end
       
       def []=(key,val)
-        
         unless key.is_a?(Symbol) or key.is_a?(Name)
           fail "Expecting a Name for a Dictionary entry, found #{key.class} instead."
         end
@@ -131,8 +130,9 @@ module Origami
         if not val.nil?
           val = val.to_o
           super(key,val)
-        
-          key.parent = val.parent = self
+          
+          key.parent = self
+          val.parent = self unless val.parent.equal?(self)
 
           val
         else

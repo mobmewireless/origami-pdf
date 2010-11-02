@@ -53,9 +53,15 @@ module Origami
       fstream.setFilter(params[:Filter])
       
       name = params[:EmbeddedName]
-      fspec = FileSpec.new.setType(:Filespec).setF(name).setEF(FileSpec.new(:F => fstream))
+      fspec = FileSpec.new.setType(:Filespec).setF(name.dup).setEF(
+        FileSpec.new(:F => fstream)
+      )
       
-      register(Names::Root::EMBEDDEDFILES, name, fspec) if params[:Register] == true
+      register(
+        Names::Root::EMBEDDEDFILES, 
+        name.dup, 
+        fspec
+      ) if params[:Register] == true
 
       fspec
     end

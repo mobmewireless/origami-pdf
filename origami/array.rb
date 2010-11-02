@@ -73,7 +73,6 @@ module Origami
     end
     
     def self.parse(stream) #:nodoc:
-      
       data = []
       
       if not stream.skip(@@regexp_open)
@@ -132,8 +131,8 @@ module Origami
     def []=(key,val)
       key, val = key.to_o, val.to_o
       super(key.to_o,val.to_o)
-
-      val.parent = self
+ 
+      val.parent = self unless val.parent.equal?(self)
 
       val
     end
