@@ -73,9 +73,26 @@ module PDFWalker
       super(@treestore)
       
       signal_connect('cursor-changed') {
-        if selection.selected
-          obj = @treestore.get_value(selection.selected, OBJCOL)
+        iter = selection.selected
+        if iter
+          obj = @treestore.get_value(iter, OBJCOL)
           
+          if obj.is_a?(Stream) and not iter.has_child?
+            load_object(iter, obj.dictionary, "Stream Dictionary")
+           
+            # Processing with an XRef or Object Stream
+            if obj.is_a?(ObjectStream)
+              obj.each { |embeddedobj|
+                load_object(iter, embeddedobj)
+              }
+
+            elsif obj.is_a?(XRefStream)
+              obj.each { |xref|
+                load_xrefstm(iter, xref)
+              }
+            end
+          end
+
           parent.hexview.load(obj)
           parent.objectview.load(obj)
         end
@@ -272,23 +289,7 @@ module PDFWalker
 
       set_node(obj, type, name)
       
-      if object.is_a?(Stream)
-        
-        load_object(obj, object.dictionary, "Stream Dictionary")
-       
-        # Processing with an XRef or Object Stream
-        if object.is_a?(ObjectStream)
-          object.each { |embeddedobj|
-            load_object(obj, embeddedobj)
-          }
-
-        elsif object.is_a?(XRefStream)
-          object.each { |xref|
-            load_xrefstm(obj, xref)
-          }
-        end
-      
-      elsif object.is_a? Origami::Array
+      if object.is_a? Origami::Array
         object.each { |subobject|
           load_object(obj, subobject)
         }
