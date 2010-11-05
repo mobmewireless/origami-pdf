@@ -126,9 +126,7 @@ module PDFWalker
     end
     
     def clear
-      
       @treestore.clear
-      
     end
     
     def goto(obj)
@@ -141,9 +139,15 @@ module PDFWalker
         end
 
         @treestore.each { |model, path, iter|
-          
           current_obj = @treestore.get_value(iter, OBJCOL)
           
+          if current_obj.is_a?(ObjectStream) and obj.parent.equal?(current_obj)
+            current_obj.each { |embeddedobj|
+              load_object(iter, embeddedobj)
+            }
+            next
+          end
+
           if obj.equal?(current_obj)
             expand_to_path(path) unless row_expanded?(path) 
             
