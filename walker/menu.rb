@@ -142,7 +142,7 @@ module PDFWalker
       }
     ]
 
-    @@menus[:Image] = @@menus[:Stream].concat(
+    @@menus[:Image] = @@menus[:Stream] +
     [
       {
         :Name => :"---"
@@ -170,7 +170,6 @@ module PDFWalker
         }
       }
     ]
-    )
     
     def popup_menu(obj, event, path)
     

@@ -304,7 +304,6 @@ module Origami
   # This dictionary modifies the way the UI looks when the file is opened in a viewer.
   #
   class ViewerPreferences < Dictionary
-    
     include Configurable
 
     field   :HideToolbar,             :Type => Boolean, :Default => false
@@ -326,6 +325,27 @@ module Origami
     field   :NumCopies,               :Type => Integer, :Version => "1.7"
     field   :Enforce,                 :Type => Array, :Version => "1.7", :ExtensionLevel => 3
     
+  end
+
+  class Requirement < Dictionary
+    include Configurable
+
+    class Handler < Dictionary
+      include Configurable
+
+      module Type
+        JS    = :JS
+        NOOP  = :NoOp
+      end
+
+      field   :Type,                  :Type => Name, :Default => :ReqHandler
+      field   :S,                     :Type => Name, :Default => Type::NOOP, :Required => true
+      field   :Script,                :Type => ByteString
+    end
+
+    field   :Type,                    :Type => Name, :Default => :Requirement
+    field   :S,                       :Type => Name, :Default => :EnableJavaScripts, :Version => "1.7", :Required => true
+    field   :RH,                      :Type => Array
   end
 
   #
