@@ -301,6 +301,8 @@ module Origami
             end
 
           when Stream
+            return if obj.is_a?(XRefStream)
+            return if obj.equal?(self.Catalog.Metadata) and not @encryption_dict.EncryptMetadata
             obj.extend(EncryptedStream)
             obj.decrypted = true
             obj.encryption_key = @encryption_key

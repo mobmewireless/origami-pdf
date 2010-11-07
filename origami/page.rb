@@ -24,9 +24,8 @@ module Origami
   class PDF
 
     def append_page(page = Page.new, *more)
+      raise InvalidPDFError, "No page tree" if not self.Catalog or not self.Catalog.Pages
       pages = [ page ].concat(more)
-      
-      raise TypeError, "Expecting Page type, instead of #{page.class}" unless pages.all?{|page| page.is_a?(Page)}
       
       treeroot = self.Catalog.Pages
       
@@ -42,12 +41,9 @@ module Origami
     end
 
     def insert_page(index, page)
-      
-      treeroot = self.Catalog.Pages
-      raise InvalidPDFError, "No page tree" if treeroot.nil?
+      raise InvalidPDFError, "No page tree" if not self.Catalog or not self.Catalog.Pages
 
       treeroot.insert_page(index, page)
-
       self
     end
 
@@ -55,12 +51,28 @@ module Origami
     # Returns an array of Page
     #
     def pages
-      return [] if not self.Catalog or not self.Catalog.Pages
+      raise InvalidPDFError, "No page tree" if not self.Catalog or not self.Catalog.Pages
       
-      root = self.Catalog.Pages
-      return [] if root.nil?
+      self.Catalog.Pages.children
+    end
 
-      root.children
+    #
+    # Iterate through each page, returns self.
+    #
+    def each_page(&b)
+      raise InvalidPDFError, "No page tree" if not self.Catalog or not self.Catalog.Pages
+     
+       self.Catalog.Pages.each_page(&b)
+       self
+    end
+
+    #
+    # Get the n-th Page object.
+    #
+    def get_page(n)
+      raise InvalidPDFError, "No page tree" if not self.Catalog or not self.Catalog.Pages
+
+      self.Catalog.Pages.get_page(n)
     end
 
   end
@@ -249,6 +261,49 @@ module Origami
       end
       
       pageset
+    end
+
+    #
+    # Iterate through each page of that node.
+    #
+    def each_page(&b)
+      unless self.Count.nil?
+        [ self.Count.value, self.Kids.length ].min.times do |n|
+          node = self.Kids[n].is_a?(Reference) ? self.Kids[n].solve : self.Kids[n]
+          case node
+            when PageTreeNode then node.each_page(&b)
+            when Page then b.call(node)
+          end
+        end
+      end
+    end
+
+    #
+    # Get the n-th Page object in this node, starting from 1.
+    #
+    def get_page(n)
+      raise IndexError, "Page numbers are referenced starting from 1" if n < 1
+
+      decount = n
+      loop do
+        [ self.Count.value, self.Kids.length ].min.times do |i|
+          node = self.Kids[i].is_a?(Reference) ? self.Kids[i].solve : self.Kids[i]
+
+          case node
+            when Page
+              decount = decount - 1
+              return node if decount == 0
+            
+            when PageTreeNode
+              nchilds = [ node.Count.value, node.Kids.length ].min
+              if nchilds >= decount
+                return node.get_page(decount)
+              else
+                decount -= nchilds
+              end
+          end
+        end
+      end
     end
       
     def << (pageset)
