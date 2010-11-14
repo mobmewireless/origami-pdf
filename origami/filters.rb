@@ -665,7 +665,6 @@ module Origami
 
         uncompressed
       end
-      
     end
     
     class InvalidRunLengthDataError < Exception #:nodoc:
@@ -675,7 +674,6 @@ module Origami
     # Class representing a Filter used to encode and decode data using RLE compression algorithm.
     #
     class RunLength
-      
       include Filter
       
       EOD = 128 #:nodoc:
@@ -752,14 +750,12 @@ module Origami
         
         result
       end
-
     end
     
     #
     # Class representing a Filter used to encode and decode data with CCITT-facsimile compression algorithm.
     #
     class CCITTFax
-      
       include Filter
       
       class DecodeParms < Dictionary
@@ -797,14 +793,12 @@ module Origami
       def decode(stream)
         raise NotImplementedError, "#{self.class} is not yet supported"
       end
-      
     end
     
     #
     # Class representing a Filter used to encode and decode data with JBIG2 compression algorithm.
     #
     class JBIG2
-      
       include Filter
      
       class DecodeParms < Dictionary
@@ -832,14 +826,12 @@ module Origami
       def decode(stream)
         raise NotImplementedError, "#{self.class} is not yet supported"
       end
-      
     end
     
     #
     # Class representing a Filter used to encode and decode data with DCT (JPEG) compression algorithm.
     #
     class DCT
-      
       include Filter
       
       class DecodeParms < Dictionary
@@ -869,14 +861,12 @@ module Origami
         #raise NotImplementedError, "#{self.class} is not yet supported"
         stream
       end
-      
     end
     
     #
     # Class representing a Filter used to encode and decode data with JPX compression algorithm.
     #
     class JPX
-      
       include Filter
       
       #
@@ -892,7 +882,6 @@ module Origami
       def decode(stream)
         raise NotImplementedError, "#{self.class} is not yet supported"
       end
-      
     end
 
     #
@@ -900,7 +889,6 @@ module Origami
     # TODO.
     #
     class Crypt
-
       include Filter
 
       class DecodeParms < Dictionary
@@ -908,9 +896,7 @@ module Origami
 
         field   :Type,      :Type => Name, :Default => :Crypt
         field   :Name,      :Type => Name, :Default => :Identity
-
       end
-
     end
     
   end

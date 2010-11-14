@@ -128,25 +128,129 @@ module Origami
     # _value_:: The value to associate with this name.
     #
     def register(root, name, value)
-      
-      if self.Catalog.Names.nil?
-        self.Catalog.Names = Names.new
-      end
+      self.Catalog.Names ||= Names.new
       
       value.set_indirect(true) unless value.is_a? Reference
       
-      namesroot = self.Catalog.Names.send(root)
+      namesroot = self.Catalog.Names[root]
       if namesroot.nil?
-        names = NameTreeNode.new({:Names => [] }).set_indirect(true)
-        self.Catalog.Names.send((root.id2name + "=").to_sym, names)
-        
+        names = NameTreeNode.new(:Names => []).set_indirect(true)
+        self.Catalog.Names[root] = names
         names.Names << name << value
       else
-        namesroot.Names << name << value
+        namesroot.solve[:Names] << name << value
       end
-      
     end
-  
+
+    def each_name(root, &b)
+      namesroot = get_names_root(root)
+      return if namesroot.nil?
+   
+      each_name_from_node(namesroot, [], &b)
+      self
+    end
+
+    #
+    # Retrieve the corresponding value associated with _name_ in
+    # the specified _root_ name directory, or nil if the value does
+    # not exist.
+    #
+    def resolve_name(root, name)
+      namesroot = get_names_root(root)
+      return nil if namesroot.nil?
+
+      resolve_name_from_node(namesroot, name)
+    end
+
+    #
+    # Returns a Hash of all names under specified _root_ name directory.
+    # Returns nil if the directory does not exist.
+    #
+    def ls_names(root)
+      namesroot = get_names_root(root)
+      return nil if namesroot.nil?
+
+      names = names_from_node(namesroot)
+      if names.length % 2 != 0
+        return InvalidNameTreeError, "Odd number of elements"
+      end
+
+      Hash[*names]
+    end
+
+    private
+
+    def names_from_node(node, browsed_nodes = []) #:nodoc:
+      children = []
+
+      unless browsed_nodes.any? {|browsed| browsed.equal?(node)}
+        browsed_nodes.push(node)
+        if node.has_key?(:Names) # leaf node
+          children.concat(node[:Names].solve)
+        elsif node.has_key?(:Kids) # intermediate node
+          node[:Kids].solve.each do |kid|
+            children.concat(names_from_node(kid.solve, browsed_nodes))
+          end
+        end
+      end
+
+      children
+    end
+
+    def resolve_name_from_node(node, name, browsed_nodes = []) #:nodoc:
+      unless browsed_nodes.any? {|browsed| browsed.equal?(node)}
+        browsed_nodes.push(node)
+
+        if node.has_key?(:Names) # leaf node
+          limits = node[:Limits]
+
+          if limits
+            limits = limits.solve
+            min, max = limits[0].value, limits[1].value          
+            if (min..max) === name.to_str
+              names = Hash[*node[:Names].solve]
+              target = names[name]
+              return target.nil? ? nil : target.solve
+            end
+          else
+            names = Hash[*node[:Names].solve]
+            target = names[name]
+            return target.nil? ? nil : target.solve
+          end
+
+        elsif node.has_key?(:Kids) # intermediate node
+          node[:Kids].solve.each do |kid|
+            kid = kid.solve
+            limits = kid[:Limits].solve
+            min, max = limits[0].value, limits[1].value          
+            
+            if (min..max) === name.to_str
+              return resolve_name_from_node(kid, name, browsed_nodes)
+            end
+          end
+        end
+      end
+    end
+
+    def each_name_from_node(node, browsed_nodes = [], &b) #:nodoc:
+      if node.has_key?(:Names) # leaf node
+        names = Hash[*node[:Names].solve]
+        names.each_pair do |name, value|
+          b.call(name, value.solve)
+        end
+      elsif node.has_key?(:Kids) # intermediate node
+        node[:Kids].solve.each do |kid|
+          each_name_from_node(kid.solve, browsed_nodes, &b)
+        end
+      end
+    end
+
+    def get_names_root(root) #:nodoc:
+      namedirs = self.Catalog.Names
+      return nil if namedirs.nil?
+
+      namedirs[root].solve
+    end
   end
 
   module PageLayout #:nodoc:
@@ -216,7 +320,6 @@ module Origami
   # Class representing additional actions which can be associated with a Catalog.
   #
   class CatalogAdditionalActions < Dictionary
-    
     include Configurable
    
     field   :WC,                  :Type => Dictionary, :Version => "1.4"
@@ -224,14 +327,15 @@ module Origami
     field   :DS,                  :Type => Dictionary, :Version => "1.4"
     field   :WP,                  :Type => Dictionary, :Version => "1.4"
     field   :DP,                  :Type => Dictionary, :Version => "1.4"
-    
   end
   
+  class InvalidNameTreeError < Exception #:nodoc:
+  end
+
   #
   # Class representing the Names Dictionary of a PDF file.
   #
   class Names < Dictionary
-    
     include Configurable
     
     #
@@ -262,20 +366,17 @@ module Origami
     field   Root::ALTERNATEPRESENTATIONS, :Type => Dictionary, :Version => "1.4"
     field   Root::RENDITIONS,   :Type => Dictionary, :Version => "1.5"
     field   Root::XFARESOURCES, :Type => Dictionary, :Version => "1.7", :ExtensionLevel => 3
-
   end
   
   #
   # Class representing a node in a Name tree.
   #
   class NameTreeNode < Dictionary
-    
     include Configurable
    
     field   :Kids,              :Type => Array
     field   :Names,             :Type => Array
     field   :Limits,            :Type => Array
-
   end
   
   #
@@ -290,13 +391,12 @@ module Origami
     def initialize(hash = {})
       
       names = []
-      hash.each_pair { |k,v|
+      hash.each_pair do |k,v|
         names << k.to_o << v.to_o
-      }
+      end
       
       super(names)
     end
-    
   end
 
   #

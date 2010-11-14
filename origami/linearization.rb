@@ -32,7 +32,7 @@ module Origami
     #
     def is_linearized?
       begin
-        obj = @revisions.first.body.values.sort_by{|obj| obj.file_offset}.first
+        obj = @revisions.first.objects.sort_by{|obj| obj.file_offset}.first
       rescue
         return false
       end
@@ -52,7 +52,7 @@ module Origami
       #
       catalog_ref = self.Catalog.reference
 
-      lin_dict = @revisions.first.body.values.first
+      lin_dict = @revisions.first.objects.first
       hints = lin_dict[:H]
   
       #

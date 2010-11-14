@@ -75,6 +75,19 @@ module Origami
       self.Catalog.Pages.get_page(n)
     end
 
+    #
+    # Lookup page in the page name directory.
+    #
+    def get_page_by_name(name)
+      resolve_name Names::Root::PAGES, name
+    end
+
+    #
+    # Calls block for each named page.
+    #
+    def each_named_page(&b)
+      each_name(Names::Root::PAGES, &b) 
+    end
   end
   
   module ResourcesHolder

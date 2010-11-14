@@ -25,6 +25,23 @@
 
 module Origami
 
+  class PDF
+
+    #
+    # Lookup script in the scripts name directory.
+    #
+    def get_script_by_name(name)
+      resolve_name Names::Root::JAVASCRIPT, name
+    end
+    
+    #
+    # Calls block for each named JavaScript script.
+    #
+    def each_named_script(&b)
+      each_name(Names::Root::JAVASCRIPT, &b) 
+    end
+  end
+
   #
   # Class representing an action to launch in a PDF.
   #

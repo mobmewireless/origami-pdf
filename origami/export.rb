@@ -192,7 +192,7 @@ module Origami
           
           object.each { |subobj|
             
-            if subobj.is_a?(Reference) then subobj = pdf.indirect_objects[subobj] end
+            if subobj.is_a?(Reference) then subobj = subobj.solve end
             
             unless subobj.nil?
               fd << declare_edge("e#{id}", "n#{object.object_id}", "n#{subobj.object_id}")
@@ -204,7 +204,7 @@ module Origami
           
           object.each_pair { |name, subobj|
             
-            if subobj.is_a?(Reference) then subobj = pdf.indirect_objects[subobj] end
+            if subobj.is_a?(Reference) then subobj = subobj.solve end
             
             unless subobj.nil?
               fd << declare_edge("e#{id}", "n#{object.object_id}", "n#{subobj.object_id}", name.value)
@@ -218,7 +218,7 @@ module Origami
           
           object.dictionary.each_pair { |key, value|
           
-            if value.is_a?(Reference) then value = pdf.indirect_objects[subobj] end
+            if value.is_a?(Reference) then value = subobj.solve end
             
             unless value.nil?
               fd << declare_edge("e#{id}", "n#{object.object_id}", "n#{value.object_id}", key.value)

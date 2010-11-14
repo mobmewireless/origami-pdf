@@ -25,7 +25,22 @@
 
 module Origami
 
-  
+  class PDF
+
+    #
+    # Lookup destination in the destination name directory.
+    #
+    def get_destination_by_name(name)
+      resolve_name Names::Root::DESTS, name
+    end
+
+    #
+    # Calls block for each named destination.
+    #
+    def each_named_dest(&b)
+      each_name(Names::Root::DESTS, &b) 
+    end
+  end
 
   #
   # A destination represents a specified location into the document.

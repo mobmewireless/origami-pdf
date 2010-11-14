@@ -65,7 +65,20 @@ module Origami
 
       fspec
     end
- 
+
+    #
+    # Lookup embedded file in the embedded files name directory.
+    #
+    def get_embedded_file_by_name(name)
+      resolve_name Names::Root::EMBEDDEDFILES, name
+    end
+    
+    #
+    # Calls block for each named embedded file.
+    #
+    def each_named_embedded_file(&b)
+      each_name(Names::Root::EMBEDDEDFILES, &b) 
+    end
   end
 
   #

@@ -133,10 +133,9 @@ module Origami
       #
       # Should be fixed to exclude only the active XRefStream
       #
-      ind_objects = self.all_indirect_objects
       metadata = self.Catalog.Metadata
 
-      ind_objects.each do |indobj,rev|
+      self.indirect_objects.each do |indobj|
         encrypted_objects = []
         case indobj
           when String,Stream then encrypted_objects << indobj
@@ -332,7 +331,7 @@ module Origami
         end
       
         # stack up every root objects
-        all_indirect_objects.each do |obj, revision|
+        indirect_objects_by_rev.each do |obj, revision|
           build(obj, revision)          
         end
         

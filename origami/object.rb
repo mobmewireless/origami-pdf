@@ -373,6 +373,13 @@ module Origami
     def to_o
       self
     end
+
+    #
+    # Returns self.
+    #
+    def solve
+      self
+    end
     
     #
     # Returns the size of this object once converted to PDF code.

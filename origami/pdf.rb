@@ -125,18 +125,15 @@ module Origami
     # * A Trailer.
     #
     class Revision
-      
       attr_accessor :pdf
       attr_accessor :body, :xreftable, :xrefstm, :trailer
       
       def initialize(pdf)
-        
         @pdf = pdf
         @body = {}
         @xreftable = nil
         @xrefstm = nil
         @trailer = nil
-        
       end
 
       def trailer=(trl)
@@ -151,7 +148,10 @@ module Origami
       def has_xrefstm?
         not @xrefstm.nil?
       end
-      
+
+      def objects
+        @body.values
+      end
     end
 
     attr_accessor :filename
@@ -170,14 +170,12 @@ module Origami
       # Deserializes a PDF dump.
       #
       def deserialize(filename)
-        
         Zlib::GzipReader.open(filename) { |gz|
           pdf = Marshal.load(gz.read)
         }
         
         pdf
       end
-      
     end
     
     #
@@ -185,7 +183,6 @@ module Origami
     # _init_structure_:: If this flag is set, then some structures will be automatically generated while manipulating this PDF. Set it if you are creating a new PDF file, this _must_ _not_ be used when parsing an existing file.
     #
     def initialize(init_structure = true)
-
       @header = PDF::Header.new
       @revisions = []
       
@@ -357,7 +354,7 @@ module Origami
       options.update(params)
       
       objset = (options[:only_indirect] == true) ? 
-        self.indirect_objects.values : self.objects
+        self.indirect_objects : self.objects
 
       objset.find_all(&b)
     end
@@ -398,31 +395,20 @@ module Origami
       options[:include_keys] |= options[:only_keys]
       
       objset = []
-      @revisions.each { |revision|
-        revision.body.each_value { |object|
+      @revisions.each do |revision|
+        revision.objects.each do |object|
             append_subobj(object, objset, options)
-        }
-      }
+        end
+      end
       
       objset
     end
     
     #
-    # Return an hash of indirect objects.
-    # Updated objects appear only once.
+    # Return an array of indirect objects.
     #
     def indirect_objects
-      @revisions.inject({}) do |set, rev| set.merge(rev.body) end
-    end
- 
-    #
-    # Returns an array of all present indirect objects with their associated revision.
-    #
-    def all_indirect_objects #:nodoc:
-      @revisions.inject([]) do |set,rev|
-        objset = rev.body.values
-        set.concat(objset.zip(::Array.new(objset.length, rev))) 
-      end
+      @revisions.inject([]) do |set, rev| set.concat(rev.objects) end
     end
     
     #
@@ -465,8 +451,8 @@ module Origami
       # Deprecated number allocation policy (first available)
       #no = no + 1 while get_object(no)
 
-      objset = indirect_objects.values
-      indirect_objects.values.find_all{|obj| obj.is_a?(ObjectStream)}.each do |objstm|
+      objset = self.indirect_objects
+      self.indirect_objects.find_all{|obj| obj.is_a?(ObjectStream)}.each do |objstm|
         objstm.each{|obj| objset << obj}
       end
 
@@ -513,7 +499,7 @@ module Origami
     #
     def to_bin(params = {})
    
-      has_objstm = self.indirect_objects.values.any?{|obj| obj.is_a?(ObjectStream)}
+      has_objstm = self.indirect_objects.any?{|obj| obj.is_a?(ObjectStream)}
 
       options =
       {
@@ -574,7 +560,7 @@ module Origami
           end
         end
        
-        objset = rev.body.values
+        objset = rev.objects
         
         objset.find_all{|obj| obj.is_a?(ObjectStream)}.each do |objstm|
           objset |= objstm.objects
@@ -689,21 +675,21 @@ module Origami
       size = 0
       startxref = @header.to_s.size
       
-      @revisions.each { |revision|
+      @revisions.each do |revision|
       
-        revision.body.each_value { |object|
+        revision.objects.each do |object|
           startxref += object.to_s.size
-        }
+        end
         
         size += revision.body.size
-        revision.xreftable = buildxrefs(revision.body.values)
+        revision.xreftable = buildxrefs(revision.objects)
         
         revision.trailer ||= Trailer.new
         revision.trailer.Size = size + 1
         revision.trailer.startxref = startxref
         
         startxref += revision.xreftable.to_s.size + revision.trailer.to_s.size
-      }
+      end
       
       self
     end
@@ -743,7 +729,7 @@ module Origami
     # Looking for an object present at a specified file offset.
     #
     def get_object_by_offset(offset) #:nodoc:
-      self.indirect_objects.values.find { |obj| obj.file_offset == offset }
+      self.indirect_objects.find { |obj| obj.file_offset == offset }
     end   
 
     #
@@ -783,7 +769,7 @@ module Origami
         raise TypeError, "Invalid parameter type : #{no.class}" 
       end
       
-      set = self.indirect_objects
+      set = indirect_objects_table
      
       #
       # Search through accessible indirect objects.
@@ -794,7 +780,6 @@ module Origami
         # Look into XRef streams.
 
         if @revisions.last.has_xrefstm?
-
           xrefstm = @revisions.last.xrefstm
 
           done = []
@@ -883,7 +868,7 @@ module Origami
         
       end
       
-      all_indirect_objects.each { |obj, revision|
+      indirect_objects_by_rev.each { |obj, revision|
           build(obj, revision)          
       }
       
@@ -930,11 +915,11 @@ module Origami
         replaced
       end
 
-      @revisions.each { |revision|
-        revision.body.each_value { |obj|
+      @revisions.each do |revision|
+        revision.objects.each do |obj|
           processed.concat(convert(obj))
-        }
-      }
+        end
+      end
 
     end
     
@@ -946,11 +931,8 @@ module Origami
     # Instanciates basic structures required for a valid PDF file.
     #
     def init
-      
       catalog = (self.Catalog ||= Catalog.new)
-      
       catalog.Pages = PageTreeNode.new.set_indirect(true)      
-      
       @revisions.last.trailer.Root = catalog.reference
    
       self   
@@ -960,7 +942,7 @@ module Origami
       
       max = [ 1.0, 0 ]
       @revisions.each { |revision|
-        revision.body.each_value { |object|
+        revision.objects.each { |object|
           current = object.version_required
           max = current if (current <=> max) > 0
         }
@@ -968,6 +950,17 @@ module Origami
       max[0] = max[0].to_s
       
       max
+    end
+    
+    def indirect_objects_table #:nodoc:
+      @revisions.inject({}) do |set, rev| set.merge(rev.body) end
+    end
+ 
+    def indirect_objects_by_rev #:nodoc:
+      @revisions.inject([]) do |set,rev|
+        objset = rev.objects
+        set.concat(objset.zip(::Array.new(objset.length, rev))) 
+      end
     end
     
     #
@@ -1003,21 +996,20 @@ module Origami
       size = 0
       startxref = @header.to_s.size
       
-      @revisions.each { |revision|
-      
-        revision.body.each { |object|
+      @revisions.each do |revision|
+        revision.objects.each do |object|
           startxref += object.to_s.size
-        }
+        end
         
         size += revision.body.size
-        revision.xreftable = build_dummy_xrefs(revision.body.values)
+        revision.xreftable = build_dummy_xrefs(revision.objects)
         
         revision.trailer ||= Trailer.new
         revision.trailer.Size = size + 1
         revision.trailer.startxref = startxref
         
         startxref += revision.xreftable.to_s.size + revision.trailer.to_s.size
-      }
+      end
       
       self
     end
@@ -1059,22 +1051,19 @@ module Origami
     end
     
     def get_object_offset(no,generation) #:nodoc:
-
       objectoffset = @header.to_s.size
       
-      @revisions.each { |revision|
-        
-        revision.body.values.sort.each { |object|
+      @revisions.each do |revision|
+        revision.objects.sort.each do |object|
           if object.no == no and object.generation == generation then return objectoffset
           else
             objectoffset += object.to_s.size
           end
-        }
+        end
         
         objectoffset += revision.xreftable.to_s.size
         objectoffset += revision.trailer.to_s.size
-        
-      }
+      end
       
       nil
     end

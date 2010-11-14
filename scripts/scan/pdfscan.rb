@@ -192,7 +192,7 @@ def lsscan(pdf, stats)
   # UBER-SLOW !!
   #
   objects = pdf.objects(:include_keys => false, :include_objectstreams => true)
-  indirects = pdf.indirect_objects.values
+  indirects = pdf.indirect_objects
 
   # Structure
   #colorprint("[Structure]\n", Colors::CYAN)
