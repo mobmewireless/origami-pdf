@@ -212,7 +212,7 @@ module Origami
     end
     
     def to_s #:nodoc:
-      super(TOKENS.first + Filter::ASCIIHex.encode(value) + TOKENS.last)
+      super(TOKENS.first + Filter::ASCIIHex.encode(to_str) + TOKENS.last)
     end
 
     #
