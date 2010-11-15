@@ -38,7 +38,7 @@ module Origami
       MINVERSION = 0
       MAXVERSION = 7
 
-      MAGIC = /\A%PDF-(\d)\.(\d)/
+      MAGIC = /\A%PDF-(\d+)\.(\d+)/
     
       attr_accessor :majorversion, :minorversion
     
@@ -62,7 +62,7 @@ module Origami
           maj = stream[1].to_i
           min = stream[2].to_i
         else
-          raise InvalidHeaderError, "Invalid header format"
+          raise InvalidHeaderError, "Invalid header format : #{stream.peek(15).inspect}"
         end
      
         PDF::Header.new(maj,min)

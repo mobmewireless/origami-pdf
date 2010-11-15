@@ -302,7 +302,7 @@ module Origami
         
         if @options[:force] == true
           @data.skip_until(/%PDF-/).nil?
-          @data.pos = stream.pos - 5
+          @data.pos = @data.pos - 5
         end
 
         pdf = PDF.new(false)
