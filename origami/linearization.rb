@@ -48,9 +48,9 @@ module Origami
       raise RuntimeError, 'Not a linearized document' unless is_linearized?
       
       #
-      # Saves the catalog location.
+      # Saves the first trailer.
       #
-      catalog_ref = self.Catalog.reference
+      prev_trailer = @revisions.first.trailer
 
       lin_dict = @revisions.first.objects.first
       hints = lin_dict[:H]
@@ -71,6 +71,7 @@ module Origami
       end
 
       #
+      # Remove all xrefs.
       # Fix: Should be merged instead.
       #
       remove_xrefs
@@ -81,11 +82,13 @@ module Origami
       remove_revision(0)
 
       #
-      # Restore the Catalog.
+      # Update the trailer.
       #
-      @revisions.last.trailer ||= Trailer.new
-      @revisions.last.trailer.dictionary ||= Dictionary.new
-      @revisions.last.trailer.dictionary[:Root] = catalog_ref
+      last_trailer = (@revisions.last.trailer ||= Trailer.new)
+
+      last_trailer.dictionary ||= Dictionary.new
+      last_trailer.dictionary =
+        last_trailer.dictionary.merge(prev_trailer.dictionary)
 
       self
     end
@@ -96,7 +99,6 @@ module Origami
   # Class representing a linearization dictionary.
   #
   class Linearization < Dictionary
-
     include Configurable
 
     field   :Linearized,   :Type => Real, :Default => 1.0, :Required => true
@@ -118,9 +120,7 @@ module Origami
   end
 
   module HintTable
-
     module ClassMethods
-      
       def header_item_size(number, size)
         @header_items_size[number] = size
       end
@@ -144,7 +144,6 @@ module Origami
       def nb_entry_items
         @entry_items_size.size
       end
-
     end
 
     def self.included(receiver)
@@ -162,7 +161,6 @@ module Origami
     end
 
     def to_s
-      
       data = ""
 
       nitems = self.class.nb_header_items

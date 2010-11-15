@@ -210,12 +210,12 @@ module Origami
             if (min..max) === name.to_str
               names = Hash[*node[:Names].solve]
               target = names[name]
-              return target.nil? ? nil : target.solve
+              return target && target.solve
             end
           else
             names = Hash[*node[:Names].solve]
             target = names[name]
-            return target.nil? ? nil : target.solve
+            return target && target.solve
           end
 
         elsif node.has_key?(:Kids) # intermediate node

@@ -111,7 +111,7 @@ module Origami
     #
     def initialize(startxref = 0, dictionary = {})
      
-      @startxref, self.dictionary = startxref, dictionary.nil? ? nil : Dictionary.new(dictionary)
+      @startxref, self.dictionary = startxref, dictionary && Dictionary.new(dictionary)
     end
     
     def self.parse(stream) #:nodoc:
@@ -128,7 +128,7 @@ module Origami
 
       startxref = stream[3].to_i
         
-      Trailer.new(startxref, dictionary.nil? ? nil : dictionary.to_h)
+      Trailer.new(startxref, dictionary && dictionary.to_h)
     end
     
     def [](key)

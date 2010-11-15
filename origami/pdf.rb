@@ -445,7 +445,6 @@ module Origami
     # Returns a new number/generation for future object.
     #
     def alloc_new_object_number
-      
       no = 1
 
       # Deprecated number allocation policy (first available)
@@ -658,7 +657,6 @@ module Origami
         end # end each rev
         
         # Trailer
-
         bin << rev.xreftable.to_s if options[:use_xreftable] == true
         bin << (options[:obfuscate] == true ? rev.trailer.to_obfuscated_str : rev.trailer.to_s)
         
