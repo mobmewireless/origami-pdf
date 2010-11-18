@@ -494,7 +494,11 @@ module Origami
       # Creates and initialises a new aRC4 generator using given key
       #
       def initialize(key)
-        @state = init(key)
+        if Origami::OPTIONS[:use_openssl]
+          @key = key
+        else
+          @state = init(key)
+        end
       end
       
       #
@@ -502,15 +506,24 @@ module Origami
       #
       def cipher(data)
       
-        output = ""
-        i, j = 0, 0
-        data.each_byte do |byte|
-          i = i.succ & 0xFF
-          j = (j + @state[i]) & 0xFF
-          
-          @state[i], @state[j] = @state[j], @state[i]
-          
-          output << (@state[@state[i] + @state[j] & 0xFF] ^ byte).chr
+        if Origami::OPTIONS[:use_openssl]
+          rc4 = OpenSSL::Cipher::RC4.new
+          rc4.encrypt
+          rc4.key_len = @key.length
+          rc4.key = @key
+          output = rc4.update(data)
+          output << rc4.final
+        else
+          output = ""
+          i, j = 0, 0
+          data.each_byte do |byte|
+            i = i.succ & 0xFF
+            j = (j + @state[i]) & 0xFF
+            
+            @state[i], @state[j] = @state[j], @state[i]
+            
+            output << (@state[@state[i] + @state[j] & 0xFF] ^ byte).chr
+          end
         end
       
         output

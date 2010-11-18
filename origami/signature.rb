@@ -19,8 +19,6 @@
 
 =end
 
-require 'openssl'
-
 module Origami
 
   class PDF
@@ -32,6 +30,10 @@ module Origami
     # _ca_:: Optional CA certificates used to sign the user certificate.
     #
     def sign(certificate, key, ca = [], annotation = nil, location = nil, contact = nil, reason = nil)
+      
+      unless Origami::OPTIONS[:use_openssl]
+        fail "OpenSSL is not present or has been disabled."
+      end
       
       unless certificate.is_a?(OpenSSL::X509::Certificate)
         raise TypeError, "A OpenSSL::X509::Certificate object must be passed."
@@ -132,6 +134,10 @@ module Origami
       def signfield_size(certificate, key, ca = []) #:nodoc:
         datatest = "abcdefghijklmnopqrstuvwxyz"
         OpenSSL::PKCS7.sign(certificate, key, datatest, ca, OpenSSL::PKCS7::DETACHED | OpenSSL::PKCS7::BINARY).to_der.size + 128
+      end
+      
+      unless Origami::OPTIONS[:use_openssl]
+        fail "OpenSSL is not present or has been disabled."
       end
       
       begin

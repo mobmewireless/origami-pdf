@@ -57,9 +57,17 @@ require 'origami/xfa'
 
 module Origami
 
-  VERSION = "1.0.0-beta3"
-  REVISION = "$Revision$" #:nodoc:
+  VERSION   = "1.0.0-beta3"
+  REVISION  = "$Revision$" #:nodoc:
+  OPTIONS   = {}
   
+  begin
+    require 'openssl'
+    OPTIONS[:use_openssl] = true
+  rescue LoadError
+    OPTIONS[:use_openssl] = false
+  end
+
   @@dict_special_types = 
   { 
     :Catalog => Catalog, 
