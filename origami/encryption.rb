@@ -507,12 +507,11 @@ module Origami
       def cipher(data)
       
         if Origami::OPTIONS[:use_openssl]
-          rc4 = OpenSSL::Cipher::RC4.new
-          rc4.encrypt
+          rc4 = OpenSSL::Cipher::RC4.new.encrypt
           rc4.key_len = @key.length
           rc4.key = @key
-          output = rc4.update(data)
-          output << rc4.final
+
+          output = rc4.update(data) << rc4.final
         else
           output = ""
           i, j = 0, 0
@@ -664,26 +663,34 @@ module Origami
         padlen = BLOCKSIZE - (data.size % BLOCKSIZE)
         data << (padlen.chr * padlen)
 
-        cipher = []
-        cipherblock = []
-        nblocks = data.size / BLOCKSIZE
+        if Origami::OPTIONS[:use_openssl]
+          aes = OpenSSL::Cipher::Cipher.new("aes-#{@key.length << 3}-cbc").encrypt
+          aes.iv = @iv
+          aes.key = @key
 
-        first_round = true
-        nblocks.times do |n|
-          plainblock = data[n * BLOCKSIZE, BLOCKSIZE].unpack("C*")
+          @iv + aes.update(data) + aes.final
+        else
+          cipher = []
+          cipherblock = []
+          nblocks = data.size / BLOCKSIZE
 
-          if first_round
-            BLOCKSIZE.times do |i| plainblock[i] ^= @iv[i] end
-          else
-            BLOCKSIZE.times do |i| plainblock[i] ^= cipherblock[i] end
+          first_round = true
+          nblocks.times do |n|
+            plainblock = data[n * BLOCKSIZE, BLOCKSIZE].unpack("C*")
+
+            if first_round
+              BLOCKSIZE.times do |i| plainblock[i] ^= @iv[i] end
+            else
+              BLOCKSIZE.times do |i| plainblock[i] ^= cipherblock[i] end
+            end
+
+            first_round = false
+            cipherblock = aesEncrypt(plainblock)
+            cipher.concat(cipherblock)
           end
 
-          first_round = false
-          cipherblock = aesEncrypt(plainblock)
-          cipher.concat(cipherblock)
+          @iv + cipher.pack("C*")
         end
-
-        @iv + cipher.pack("C*")
       end 
 
       def decrypt(data)
@@ -694,40 +701,48 @@ module Origami
 
         @iv = data.slice!(0, BLOCKSIZE)
 
-        plain = []
-        plainblock = []
-        prev_cipherblock = []
-        nblocks = data.size / BLOCKSIZE
+        if Origami::OPTIONS[:use_openssl]
+          aes = OpenSSL::Cipher::Cipher.new("aes-#{@key.length << 3}-cbc").decrypt
+          aes.iv = @iv
+          aes.key = @key
 
-        first_round = true
-        nblocks.times do |n|
-          cipherblock = data[n * BLOCKSIZE, BLOCKSIZE].unpack("C*")
+          aes.update(data) + aes.final
+        else
+          plain = []
+          plainblock = []
+          prev_cipherblock = []
+          nblocks = data.size / BLOCKSIZE
 
-          plainblock = aesDecrypt(cipherblock)
+          first_round = true
+          nblocks.times do |n|
+            cipherblock = data[n * BLOCKSIZE, BLOCKSIZE].unpack("C*")
 
-          if first_round
-            BLOCKSIZE.times do |i| plainblock[i] ^= @iv[i] end
-          else
-            BLOCKSIZE.times do |i| plainblock[i] ^= prev_cipherblock[i] end
+            plainblock = aesDecrypt(cipherblock)
+
+            if first_round
+              BLOCKSIZE.times do |i| plainblock[i] ^= @iv[i] end
+            else
+              BLOCKSIZE.times do |i| plainblock[i] ^= prev_cipherblock[i] end
+            end
+
+            first_round = false
+            prev_cipherblock = cipherblock
+            plain.concat(plainblock)
           end
 
-          first_round = false
-          prev_cipherblock = cipherblock
-          plain.concat(plainblock)
-        end
-      
-        padlen = plain[-1]
-        unless (1..16) === padlen
-          raise EncryptionError, "Incorrect padding length : #{padlen}"
-        end
+          padlen = plain[-1]
+          unless (1..16) === padlen
+            raise EncryptionError, "Incorrect padding length : #{padlen}"
+          end
 
-        padlen.times do 
-          pad = plain.pop
-          raise EncryptionError, 
-            "Incorrect padding byte : 0x#{pad.to_s 16}" if pad != padlen
-        end
+          padlen.times do 
+            pad = plain.pop
+            raise EncryptionError, 
+              "Incorrect padding byte : 0x#{pad.to_s 16}" if pad != padlen
+          end
 
-        plain.pack("C*")
+          plain.pack("C*")
+        end
       end
 
       private
