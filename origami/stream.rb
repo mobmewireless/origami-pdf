@@ -103,7 +103,7 @@ module Origami
         rawdata = stream.scan_until(@@regexp_close)
         if rawdata.nil?
           raise InvalidStreamObjectError, 
-            "Stream shall end with a '#{TOKENS.last}' statement"
+            "Stream shall end with a 'endstream' statement"
         end
       else
         len = len.value
@@ -315,6 +315,10 @@ module Origami
 
         dparms = params[nfilter].is_a?(Null) ? nil : params[nfilter]
         Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).decode(data, dparms)
+      
+      rescue Filter::InvalidFlateDataError => flate_e
+        return flate_e.zlib_stream.flush_next_out   
+      
       rescue Exception => e
         raise InvalidStreamObjectError, "Error while decoding stream #{self.reference}\n\t-> [#{e.class}] #{e.message}"
       end
