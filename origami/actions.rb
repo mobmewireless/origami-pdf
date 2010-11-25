@@ -216,8 +216,8 @@ module Origami
         
       end
     
-      def initialize(filespec, dest, newwindow = false)
-        super(:F => filespec, :D => dest, :NewWindow => newwindow)
+      def initialize(filename, dest, newwindow = false)
+        super(:T => EmbeddedTarget.new(:R => :C, :N => filename), :D => dest, :NewWindow => newwindow)
       end
       
     end
