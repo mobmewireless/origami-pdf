@@ -174,7 +174,6 @@ module Origami
   # Class representing an hexadecimal-writen String Object.
   #
   class HexaString < ::String
-    
     include String
     
     TOKENS = %w{ < > } #:nodoc:

@@ -309,8 +309,16 @@ module Origami
         pdf.filename = @filename
 
         info "...Reading header..."
-        pdf.header = PDF::Header.parse(@data)
-        @options[:callback].call(pdf.header)
+        begin
+          pdf.header = PDF::Header.parse(@data)
+          @options[:callback].call(pdf.header)
+        rescue InvalidHeaderError => e
+          if @options[:ignore_errors] == true
+            warn "PDF header is invalid, ignoring..."
+          else
+            raise e
+          end
+        end
         
         #
         # Parse each revision

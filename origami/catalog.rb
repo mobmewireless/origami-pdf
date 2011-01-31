@@ -168,7 +168,7 @@ module Origami
     #
     def ls_names(root)
       namesroot = get_names_root(root)
-      return nil if namesroot.nil?
+      return {} if namesroot.nil?
 
       names = names_from_node(namesroot)
       if names.length % 2 != 0
@@ -247,7 +247,7 @@ module Origami
 
     def get_names_root(root) #:nodoc:
       namedirs = self.Catalog.Names
-      return nil if namedirs.nil?
+      return nil if namedirs.nil? or namedirs[root].nil?
 
       namedirs[root].solve
     end
