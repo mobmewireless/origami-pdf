@@ -89,8 +89,9 @@ module Origami
     TOKENS = %w{ trailer %%EOF } #:nodoc:
     XREF_TOKEN = "startxref" #:nodoc:
     
-    @@regexp_open = Regexp.new('\A' + WHITESPACES + TOKENS.first + WHITESPACES)
-    @@regexp_xref = Regexp.new('\A' + WHITESPACES + XREF_TOKEN + WHITESPACES + "(\\d+)" + WHITESPACES + TOKENS.last + WHITESPACES)
+    @@regexp_open   = Regexp.new('\A' + WHITESPACES + TOKENS.first + WHITESPACES)
+    @@regexp_xref   = Regexp.new('\A' + WHITESPACES + XREF_TOKEN + WHITESPACES + "(\\d+)")
+    @@regexp_close  = Regexp.new('\A' + WHITESPACES + TOKENS.last + WHITESPACES)
     
     attr_accessor :pdf
     attr_accessor :startxref
@@ -123,10 +124,14 @@ module Origami
       end
       
       if not stream.scan(@@regexp_xref)
-        raise InvalidTrailerError, "Cannot get startxref value"
+        #raise InvalidTrailerError, "Cannot get startxref value"
       end
 
-      startxref = stream[3].to_i
+      startxref = (stream[3] && stream[3].to_i)
+
+      if not stream.scan(@@regexp_close)
+        #raise InvalidTrailerError, "No %%EOF token found"
+      end
         
       Trailer.new(startxref, dictionary && dictionary.to_h)
     end
