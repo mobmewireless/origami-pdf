@@ -38,7 +38,7 @@ module Origami
     
     TOKENS = [ %w{ true false } ] #:nodoc:
   
-    @@regexp = Regexp.new('\A' + WHITESPACES + "(#{TOKENS.first.join('|')})")
+    @@regexp = Regexp.new(WHITESPACES + "(#{TOKENS.first.join('|')})")
     
     #
     # Creates a new Boolean value.

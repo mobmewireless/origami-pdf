@@ -37,7 +37,7 @@ module Origami
     
     TOKENS = [ "stream" + WHITECHARS  + "\\r?\\n", "endstream" ] #:nodoc:
    
-    @@regexp_open = Regexp.new('\A' + WHITESPACES + TOKENS.first)
+    @@regexp_open = Regexp.new(WHITESPACES + TOKENS.first)
     @@regexp_close = Regexp.new(TOKENS.last)
 
     #

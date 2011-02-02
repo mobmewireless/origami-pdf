@@ -38,7 +38,7 @@ module Origami
       MINVERSION = 0
       MAXVERSION = 7
 
-      MAGIC = /\A%PDF-(\d+)\.(\d+)/
+      MAGIC = /%PDF-(\d+)\.(\d+)/
     
       attr_accessor :majorversion, :minorversion
     

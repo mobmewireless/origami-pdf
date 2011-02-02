@@ -34,7 +34,7 @@ module Origami
 
     TOKENS = [ "(\\d+)" + WHITESPACES +  "(\\d+)" + WHITESPACES + "R" ] #:nodoc:   
     REGEXP_TOKEN = Regexp.new(TOKENS.first, Regexp::MULTILINE)
-    @@regexp = Regexp.new('\A' + WHITESPACES + TOKENS.first + WHITESPACES)
+    @@regexp = Regexp.new(WHITESPACES + TOKENS.first + WHITESPACES)
     
     attr_accessor :refno, :refgen
     

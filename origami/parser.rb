@@ -210,17 +210,18 @@ module Origami
         file << e.obj
 
         @options[:callback].call(e.obj)
+
+        Object.skip_until_next_obj(@data)
         retry
 
       rescue Exception => e
         error "Breaking on: #{(@data.peek(10) + "...").inspect} at offset 0x#{@data.pos.to_s(16)}"
         error "Last exception: [#{e.class}] #{e.message}"
         debug "-> Stopped reading body : #{file.revisions.last.body.size} indirect objects have been parsed" if file.is_a?(PDF)
-        puts e.backtrace    
         abort("Manually fix the file or set :ignore_errors parameter.") if not @options[:ignore_errors]
 
         debug 'Skipping this indirect object.'
-        return if @data.skip_until(/endobj/).nil?
+        raise(e) if Object.skip_until_next_obj(@data).nil?
             
         retry
       end

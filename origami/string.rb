@@ -178,7 +178,7 @@ module Origami
     
     TOKENS = %w{ < > } #:nodoc:
     
-    @@regexp_open = Regexp.new('\A' + WHITESPACES + TOKENS.first)
+    @@regexp_open = Regexp.new(WHITESPACES + TOKENS.first)
     @@regexp_close = Regexp.new(TOKENS.last)
 
     #
@@ -240,7 +240,7 @@ module Origami
     
     TOKENS = %w{ ( ) } #:nodoc:
     
-    @@regexp_open = Regexp.new('\A' + WHITESPACES + Regexp.escape(TOKENS.first))
+    @@regexp_open = Regexp.new(WHITESPACES + Regexp.escape(TOKENS.first))
     @@regexp_close = Regexp.new(Regexp.escape(TOKENS.last))
     
     #
@@ -273,13 +273,13 @@ module Origami
         c = stream.get_byte
         case c
         when "\\"
-          if stream.match?(/\A\d{1,3}/)
+          if stream.match?(/\d{1,3}/)
             oct = stream.peek(3).oct.chr
             stream.pos += 3
             result << oct
-          elsif stream.match?(/\A((\r?\n)|(\r\n?))/)
+          elsif stream.match?(/((\r?\n)|(\r\n?))/)
             
-            stream.skip(/\A((\r?\n)|(\r\n?))/)
+            stream.skip(/((\r?\n)|(\r\n?))/)
             next
             
           else
@@ -375,7 +375,7 @@ module Origami
     
     def self.parse(stream) #:nodoc:
       
-      dateReg = Regexp.new('\A' + REGEXP_TOKEN)
+      dateReg = Regexp.new(REGEXP_TOKEN)
       
       raise InvalidDate if stream.scan(dateReg).nil?
         

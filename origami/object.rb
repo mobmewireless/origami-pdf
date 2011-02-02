@@ -260,8 +260,8 @@ module Origami
     
     TOKENS = %w{ obj endobj } #:nodoc:
     
-    @@regexp_obj = Regexp.new('\A' + WHITESPACES + "(\\d+)" + WHITESPACES + "(\\d+)" + WHITESPACES + TOKENS.first + WHITESPACES)
-    @@regexp_endobj = Regexp.new('\A' + WHITESPACES + TOKENS.last + WHITESPACES)
+    @@regexp_obj = Regexp.new(WHITESPACES + "(\\d+)" + WHITESPACES + "(\\d+)" + WHITESPACES + TOKENS.first + WHITESPACES)
+    @@regexp_endobj = Regexp.new(WHITESPACES + TOKENS.last + WHITESPACES)
 
     attr_accessor :no, :generation, :file_offset, :objstm_offset
     attr_accessor :parent
@@ -435,7 +435,7 @@ module Origami
         #
         # End of body ?
         #
-        return nil if stream.match?(/xref/) or stream.match?(/startxref/)
+        return nil if stream.match?(/xref/) or stream.match?(/trailer/) or stream.match?(/startxref/)
  
         if stream.scan(@@regexp_obj).nil?
           raise InvalidObjectError, 
@@ -468,6 +468,13 @@ module Origami
         end
           
         newObj
+      end
+
+      def skip_until_next_obj(stream) #:nodoc:
+        return nil unless stream.exist?(@@regexp_obj)
+        stream.pos += 1 until stream.match?(@@regexp_obj) or stream.eos?
+        
+        not stream.eos?
       end
       
     end

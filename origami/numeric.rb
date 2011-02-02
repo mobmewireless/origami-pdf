@@ -102,7 +102,7 @@ module Origami
 
     REGEXP_TOKEN = Regexp.new(TOKENS.first)
 
-    @@regexp = Regexp.new('\A' + WHITESPACES + "((\\+|-)?[\\d]+)")
+    @@regexp = Regexp.new(WHITESPACES + "((\\+|-)?[\\d]+)")
 
     #
     # Creates a new Integer from  a Ruby Fixnum / Bignum.
@@ -145,7 +145,7 @@ module Origami
 
     REGEXP_TOKEN = Regexp.new(TOKENS.first)
     
-    @@regexp = Regexp.new('\A' + WHITESPACES + "(" + TOKENS.first + ")")
+    @@regexp = Regexp.new(WHITESPACES + "(" + TOKENS.first + ")")
     
     #
     # Creates a new Real from a Ruby Float.

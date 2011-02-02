@@ -65,7 +65,7 @@ module Origami
     USED = "n"
     FIRSTFREE = 65535
 
-    @@regexp = /\A(\d{10}) (\d{5}) (n|f)(\r| )\n/
+    @@regexp = /(\d{10}) (\d{5}) (n|f)(\r| )\n/
     
     attr_accessor :offset, :generation, :state
     
@@ -129,7 +129,7 @@ module Origami
     #
     class Subsection
       
-      @@regexp = Regexp.new("\\A(\\d+) (\\d+)" + WHITESPACES + "(\\r?\\n|\\r\\n?)")
+      @@regexp = Regexp.new("(\\d+) (\\d+)" + WHITESPACES + "(\\r?\\n|\\r\\n?)")
       
       attr_reader :range
       
@@ -208,8 +208,8 @@ module Origami
     #
     class Section
       
-      @@regexp_open = Regexp.new('\A' + WHITESPACES + "xref" + WHITESPACES + "(\\r?\\n|\\r\\n?)")
-      @@regexp_sub = Regexp.new("\\A(\\d+) (\\d+)" + WHITESPACES + "(\\r?\\n|\\r\\n?)")
+      @@regexp_open = Regexp.new(WHITESPACES + "xref" + WHITESPACES + "(\\r?\\n|\\r\\n?)")
+      @@regexp_sub = Regexp.new("(\\d+) (\\d+)" + WHITESPACES + "(\\r?\\n|\\r\\n?)")
       
       #
       # Creates a new XRef section.

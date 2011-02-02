@@ -89,9 +89,9 @@ module Origami
     TOKENS = %w{ trailer %%EOF } #:nodoc:
     XREF_TOKEN = "startxref" #:nodoc:
     
-    @@regexp_open   = Regexp.new('\A' + WHITESPACES + TOKENS.first + WHITESPACES)
-    @@regexp_xref   = Regexp.new('\A' + WHITESPACES + XREF_TOKEN + WHITESPACES + "(\\d+)")
-    @@regexp_close  = Regexp.new('\A' + WHITESPACES + TOKENS.last + WHITESPACES)
+    @@regexp_open   = Regexp.new(WHITESPACES + TOKENS.first + WHITESPACES)
+    @@regexp_xref   = Regexp.new(WHITESPACES + XREF_TOKEN + WHITESPACES + "(\\d+)")
+    @@regexp_close  = Regexp.new(WHITESPACES + TOKENS.last + WHITESPACES)
     
     attr_accessor :pdf
     attr_accessor :startxref

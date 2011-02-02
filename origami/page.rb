@@ -400,8 +400,22 @@ module Origami
       end
     end
 
+    #
+    # Iterate through each Annotation of the Page.
+    #
+    def each_annot(&b)
+      annots = self.Annots
+      return unless annots.is_a?(Array)
+
+      annots.each do |annot|
+        b.call(annot.solve) 
+      end
+    end
+
+    #
+    # Embed a SWF Flash application in the page.
+    #
     def add_flash_application(swfspec, params = {})
-      
       options =
       {
         :windowed => false,

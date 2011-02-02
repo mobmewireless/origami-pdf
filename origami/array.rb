@@ -37,8 +37,8 @@ module Origami
     include Origami::Object
     
     TOKENS = %w{ [ ] } #:nodoc:
-    @@regexp_open = Regexp.new('\A' + WHITESPACES + Regexp.escape(TOKENS.first) + WHITESPACES)   
-    @@regexp_close = Regexp.new('\A' + WHITESPACES + Regexp.escape(TOKENS.last) + WHITESPACES)    
+    @@regexp_open = Regexp.new(WHITESPACES + Regexp.escape(TOKENS.first) + WHITESPACES)   
+    @@regexp_close = Regexp.new(WHITESPACES + Regexp.escape(TOKENS.last) + WHITESPACES)    
 
     attr_reader :strings_cache
 

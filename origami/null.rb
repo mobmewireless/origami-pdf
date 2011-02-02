@@ -37,7 +37,7 @@ module Origami
     
     TOKENS = %w{ null } #:nodoc:
     
-    @@regexp = Regexp.new('\A' + WHITESPACES + TOKENS.first)
+    @@regexp = Regexp.new(WHITESPACES + TOKENS.first)
     
     def initialize
       super

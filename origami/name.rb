@@ -40,7 +40,7 @@ module Origami
     
     TOKENS = %w{ / } #:nodoc:
     
-    @@regexp = Regexp.new('\A' + WHITESPACES + TOKENS.first + "(" + REGULARCHARS + ")" + WHITESPACES) #:nodoc
+    @@regexp = Regexp.new(WHITESPACES + TOKENS.first + "(" + REGULARCHARS + ")" + WHITESPACES) #:nodoc
     
     #
     # Creates a new Name.
