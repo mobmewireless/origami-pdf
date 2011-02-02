@@ -335,7 +335,7 @@ module Origami
           
           5.times do |p|
             c = inblock / 85 ** (4 - p)
-            outblock << (?! + c).chr
+            outblock << ("!"[0].ord + c).chr
             
             inblock -= c * 85 ** (4 - p)
           end
@@ -376,7 +376,7 @@ module Origami
             addend = 0
           end
           
-          if input[i].ord == ?z
+          if input[i].ord == "z"[0].ord
             inblock = 0
           else
             
@@ -385,10 +385,10 @@ module Origami
             
             # Checking if this string is in base85
             5.times { |j|
-              if input[i+j].ord > ?u or input[i+j].ord < ?!
+              if input[i+j].ord > "u"[0].ord or input[i+j].ord < "!"[0].ord
                 raise InvalidASCII85StringError, string
               else
-                inblock += (input[i+j].ord - ?!) * 85 ** (4 - j)
+                inblock += (input[i+j].ord - "!"[0].ord) * 85 ** (4 - j)
               end
             }
           
