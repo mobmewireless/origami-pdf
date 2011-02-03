@@ -129,7 +129,7 @@ module Origami
     # Enable the document Usage Rights.
     # _rights_:: list of rights defined in UsageRights::Rights
     #
-    def enable_usage_rights(*rights)
+    def enable_usage_rights(cert, pkey, *rights)
       
       def signfield_size(certificate, key, ca = []) #:nodoc:
         datatest = "abcdefghijklmnopqrstuvwxyz"
@@ -140,13 +140,9 @@ module Origami
         fail "OpenSSL is not present or has been disabled."
       end
       
-      begin
-        key = OpenSSL::PKey::RSA.new(File.open('adobe.key','r').binmode.read)
-        certificate = OpenSSL::X509::Certificate.new(File.open('adobe.crt','r').binmode.read)
-      rescue
-        warn "The Adobe private key is necessary to enable usage rights.\nYou do not seem to be Adobe :)... Aborting."
-        return nil
-      end
+      # Load key pair
+      key = pkey.is_a?(OpenSSL::PKey::RSA) ? pkey : OpenSSL::PKey::RSA.new(pkey)
+      certificate = cert.is_a?(OpenSSL::X509::Certificate) ? cert : OpenSSL::X509::Certificate.new(cert)
       
       digsig = Signature::DigitalSignature.new.set_indirect(true)
       
