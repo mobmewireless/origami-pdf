@@ -221,7 +221,7 @@ module Origami
         abort("Manually fix the file or set :ignore_errors parameter.") if not @options[:ignore_errors]
 
         debug 'Skipping this indirect object.'
-        raise(e) if Object.skip_until_next_obj(@data).nil?
+        raise(e) if not Object.skip_until_next_obj(@data)
             
         retry
       end

@@ -471,8 +471,9 @@ module Origami
       end
 
       def skip_until_next_obj(stream) #:nodoc:
-        return nil unless stream.exist?(@@regexp_obj)
-        stream.pos += 1 until stream.match?(@@regexp_obj) or stream.eos?
+        stream.pos += 1 until stream.match?(@@regexp_obj) or 
+          stream.match?(/xref/) or stream.match?(/trailer/) or stream.match?(/startxref/) or
+          stream.eos?
         
         not stream.eos?
       end

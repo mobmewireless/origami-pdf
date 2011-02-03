@@ -24,7 +24,7 @@ module Origami
   class PDF
 
     def append_page(page = Page.new, *more)
-      raise InvalidPDFError, "No page tree" if not self.Catalog or not self.Catalog.Pages
+      raise InvalidPDFError, "Invalid page tree" if not self.Catalog or not self.Catalog.Pages or not self.Catalog.Pages.is_a?(PageTreeNode)
       pages = [ page ].concat(more)
       
       treeroot = self.Catalog.Pages
@@ -41,9 +41,9 @@ module Origami
     end
 
     def insert_page(index, page)
-      raise InvalidPDFError, "No page tree" if not self.Catalog or not self.Catalog.Pages
+      raise InvalidPDFError, "Invalid page tree" if not self.Catalog or not self.Catalog.Pages or not self.Catalog.Pages.is_a?(PageTreeNode)
 
-      treeroot.insert_page(index, page)
+      self.Catalog.Pages.insert_page(index, page)
       self
     end
 
@@ -51,7 +51,7 @@ module Origami
     # Returns an array of Page
     #
     def pages
-      raise InvalidPDFError, "No page tree" if not self.Catalog or not self.Catalog.Pages
+      raise InvalidPDFError, "Invalid page tree" if not self.Catalog or not self.Catalog.Pages or not self.Catalog.Pages.is_a?(PageTreeNode)
       
       self.Catalog.Pages.children
     end
@@ -60,7 +60,7 @@ module Origami
     # Iterate through each page, returns self.
     #
     def each_page(&b)
-      raise InvalidPDFError, "No page tree" if not self.Catalog or not self.Catalog.Pages
+      raise InvalidPDFError, "Invalid page tree" if not self.Catalog or not self.Catalog.Pages or not self.Catalog.Pages.is_a?(PageTreeNode)
      
        self.Catalog.Pages.each_page(&b)
        self
@@ -70,7 +70,7 @@ module Origami
     # Get the n-th Page object.
     #
     def get_page(n)
-      raise InvalidPDFError, "No page tree" if not self.Catalog or not self.Catalog.Pages
+      raise InvalidPDFError, "Invalid page tree" if not self.Catalog or not self.Catalog.Pages or not self.Catalog.Pages.is_a?(PageTreeNode)
 
       self.Catalog.Pages.get_page(n)
     end
