@@ -37,33 +37,33 @@ module Origami
 
   module Colors #:nodoc;
     if RUBY_PLATFORM =~ /win32/
-      BLACK = 0
-      BLUE = 1
-      GREEN = 2
-      CYAN = 3
-      RED = 4
-      MAGENTA = 5
-      YELLOW = 6
-      GREY = 7
-      WHITE = 8
+      BLACK     = 0
+      BLUE      = 1
+      GREEN     = 2
+      CYAN      = 3
+      RED       = 4
+      MAGENTA   = 5
+      YELLOW    = 6
+      GREY      = 7
+      WHITE     = 8
     else
-      GREY = '0;0'
-      BLACK = '0;30'
-      RED = '0;31'
-      GREEN = '0;32'
-      BROWN  = '0;33'
-      BLUE = '0;34'
-      CYAN = '0;36'
-      MAGENTA = '0;35'
-      #~ :light_gray   => '0;37',
-      #~ :dark_gray    => '1;30',
-      #~ :light_red    => '1;31',
-      #~ :light_green  => '1;32',
-      YELLOW = '1;33'
-      #~ :light_blue   => '1;34',
-      #~ :light_cyan   => '1;36',
-      #~ :light_purple => '1;35',
-      WHITE  = '1;37'
+      GREY      = '0;0'
+      BLACK     = '0;30'
+      RED       = '0;31'
+      GREEN     = '0;32'
+      YELLOW    = '0;33'
+      BLUE      = '0;34'
+      MAGENTA   = '0;35'
+      CYAN      = '0;36'
+      WHITE     = '0;37'
+      BRIGHT_GREY       = '1;30'
+      BRIGHT_RED        = '1;31'
+      BRIGHT_GREEN      = '1;32'
+      BRIGHT_YELLOW     = '1;33'
+      BRIGHT_BLUE       = '1;34'
+      BRIGHT_MAGENTA    = '1;35'
+      BRIGHT_CYAN       = '1;36'
+      BRIGHT_WHITE      = '1;37'
     end
   end
 
