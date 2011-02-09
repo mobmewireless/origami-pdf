@@ -282,19 +282,13 @@ module Origami
       def decode(string)
         
         input = string.include?(?>) ? string[0..string.index(?>) - 1] : string
+        digits = input.delete(" \f\t\r\n\0").split(/(..)/).delete_if{|digit| digit.empty?}
         
-        digits = input.delete(" \f\t\r\n\0").split(//)
-        
-        if not digits.all? { |d| d =~ /[a-fA-F0-9>]/ }
+        if not digits.all? { |d| d =~ /[a-fA-F0-9]{1,2}/ }
           raise InvalidASCIIHexStringError, input
         end
         
-        digits << "0" unless digits.size % 2 == 0
-        
-        bytes = []
-        for i in 0..digits.size/2-1 do bytes << digits[2*i].to_s + digits[2*i+1].to_s end
-        
-        bytes.pack("H2" * (digits.size / 2))
+        digits.pack("H2" * digits.size)
       end
       
     end
@@ -340,7 +334,7 @@ module Origami
             inblock -= c * 85 ** (4 - p)
           end
           
-          if outblock == "!!!!!" and addend == 0 then outblock = "z" end
+          outblock = "z" if outblock == "!!!!!" and addend == 0
           
           if addend != 0
             outblock = outblock[0,(4 - addend) + 1]
@@ -384,13 +378,13 @@ module Origami
             outblock = ""
             
             # Checking if this string is in base85
-            5.times { |j|
+            5.times do |j|
               if input[i+j].ord > "u"[0].ord or input[i+j].ord < "!"[0].ord
                 raise InvalidASCII85StringError, string
               else
                 inblock += (input[i+j].ord - "!"[0].ord) * 85 ** (4 - j)
               end
-            }
+            end
           
             if inblock > 2**32 - 1
               raise InvalidASCII85StringError, "Invalid value"
@@ -593,9 +587,9 @@ module Origami
       
       def clear(table) #:nodoc:
         table.clear
-        256.times { |i|
+        256.times do |i|
           table[i.chr] = i
-        }
+        end
         
         table[CLEARTABLE] = CLEARTABLE
         table[EOD] = EOD

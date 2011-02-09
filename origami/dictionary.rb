@@ -97,24 +97,29 @@ module Origami
       
       alias to_h to_hash
       
-      def to_s(base = 1)  #:nodoc:
-        
-        content = TOKENS.first + EOL
-        self.each_pair { |key,value|
-          content << "\t" * base + key.to_s + " " + (value.is_a?(Dictionary) ? value.to_s(base+1) : value.to_s) + EOL
-        }
-        
-        content << "\t" * (base-1) + TOKENS.last
-        
+      def to_s(indent = 1)  #:nodoc:
+        if indent > 0
+          content = TOKENS.first + EOL
+          self.each_pair do |key,value|
+            content << "\t" * indent + key.to_s + " " + (value.is_a?(Dictionary) ? value.to_s(indent + 1) : value.to_s) + EOL
+          end
+          
+          content << "\t" * (indent - 1) + TOKENS.last
+        else
+          content = TOKENS.first.dup
+          self.each_pair do |key,value|
+            content << "#{key.to_s} #{value.is_a?(Dictionary) ? value.to_s(0) : value.to_s}"
+          end
+          content << TOKENS.last
+        end
+
         super(content)
       end
       
       def map!(&b)
-        
-        self.each_pair { |k,v|
+        self.each_pair do |k,v|
           self[k] = b.call(v)
-        }
-        
+        end
       end
 
       def merge(dict)

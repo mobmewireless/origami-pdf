@@ -253,7 +253,11 @@ module Origami
     def saveas(filename, params = {})
       
       if self.frozen?
-        params[:recompile] = params[:rebuildxrefs] = false
+        params[:recompile] = 
+        params[:rebuildxrefs] = 
+        params[:noindent] = 
+        params[:obfuscate] = false # incompatible with signed doc
+
         save(filename, params)
       else 
         @filename = filename
@@ -511,11 +515,11 @@ module Origami
       options =
       {
         :rebuildxrefs => true,
+        :noindent => false,
         :obfuscate => false,
         :use_xrefstm => has_objstm,
         :use_xreftable => (not has_objstm),
         :up_to_revision => @revisions.size
-        #todo linearize
       }
       options.update(params)
 
@@ -574,7 +578,7 @@ module Origami
         end if options[:rebuildxrefs] == true and options[:use_xrefstm] == true
 
         # For each object, in number order
-        objset.sort.each { |obj|
+        objset.sort.each do |obj|
          
           # Create xref entry.
           if options[:rebuildxrefs] == true
@@ -637,9 +641,14 @@ module Origami
               xrefstm.post_build
             end
 
-            bin << (options[:obfuscate] == true ? obj.to_obfuscated_str : obj.to_s)
+            # Output object code
+            if (obj.is_a?(Dictionary) or obj.is_a?(Stream)) and options[:noindent]
+              bin << obj.to_s(0)
+            else
+              bin << obj.to_s
+            end
           end
-        }
+        end
       
         rev.trailer ||= Trailer.new
         
@@ -839,16 +848,16 @@ module Origami
         # Finalize any subobjects before building the stream.
         #
         if obj.is_a?(ObjectStream)
-          obj.each { |subobj|
+          obj.each do |subobj|
             build(subobj, revision)
-          }
+          end
         end
   
         obj.pre_build
 
         if obj.is_a?(Dictionary) or obj.is_a?(Array)
             
-            obj.map! { |subobj|
+            obj.map! do |subobj|
               if subobj.is_indirect?
                 if get_object(subobj.reference)
                   subobj.reference
@@ -860,11 +869,11 @@ module Origami
               else
                 subobj
               end
-            }
+            end
             
-            obj.each { |subobj|
+            obj.each do |subobj|
               build(subobj, revision)
-            }
+            end
             
         elsif obj.is_a?(Stream)
           build(obj.dictionary, revision)
@@ -874,9 +883,9 @@ module Origami
         
       end
       
-      indirect_objects_by_rev.each { |obj, revision|
+      indirect_objects_by_rev.each do |obj, revision|
           build(obj, revision)          
-      }
+      end
       
       self
     end

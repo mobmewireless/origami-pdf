@@ -121,10 +121,7 @@ module Origami
       forbiddenchars = /[ #\t\r\n\0\[\]<>()%\/]/
       
       name.gsub!(forbiddenchars) { |c|
-        hexchar = c[0].to_s(base=16)
-        hexchar = "0" + hexchar if hexchar.length < 2
-        
-        "#" + hexchar
+        "#" + c[0].ord.to_s(16).rjust(2,"0")
       }
       
       name

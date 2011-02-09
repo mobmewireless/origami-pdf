@@ -140,9 +140,9 @@ module Origami
     def add_font(name, font)
       target = self.is_a?(Resources) ? self : (self.Resources ||= Resources.new)
 
-      fontdir = target[:Font] ||= {}
-      (fontdir.is_a?(Reference) ? fontdir.solve : fontdir)[name] = font
-    
+      target.Font ||= {}
+      target.Font[name] = font
+      
       self
     end
 
@@ -175,7 +175,6 @@ module Origami
     field   :Properties,  :Type => Dictionary, :Version => "1.2"
 
     def pre_build
-      
       unless self.Font
         fnt = Font::Type1::Standard::Helvetica.new.pre_build
         fnt.Name = :F1

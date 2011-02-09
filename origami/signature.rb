@@ -140,10 +140,15 @@ module Origami
         fail "OpenSSL is not present or has been disabled."
       end
       
+      #
       # Load key pair
+      #
       key = pkey.is_a?(OpenSSL::PKey::RSA) ? pkey : OpenSSL::PKey::RSA.new(pkey)
       certificate = cert.is_a?(OpenSSL::X509::Certificate) ? cert : OpenSSL::X509::Certificate.new(cert)
       
+      #
+      # Forge digital signature dictionary
+      #
       digsig = Signature::DigitalSignature.new.set_indirect(true)
       
       self.Catalog.AcroForm ||= InteractiveForm.new
@@ -166,12 +171,10 @@ module Origami
       sigref.TransformParams.Type = :TransformParams #:nodoc:
       sigref.TransformParams.V = UsageRights::TransformParams::VERSION
       
-      rights.each { |right|
-        
+      rights.each do |right|
         sigref.TransformParams[right.first] ||= []
         sigref.TransformParams[right.first].concat(right[1..-1])
-        
-      }
+      end
       
       digsig.Reference = [ sigref ]
       
@@ -270,40 +273,38 @@ module Origami
         super
       end
       
-      def to_s(base = 1)
-        
+      def to_s(dummy_param = nil) #:nodoc:
+        indent = 1
         pairs = self.to_a
         content = TOKENS.first + EOL
         
-        pairs.sort_by{ |k| k.to_s }.reverse.each { |pair|
+        pairs.sort_by{ |k| k.to_s }.reverse.each do |pair|
           key, value = pair[0].to_o, pair[1].to_o
             
-          content << "\t" * base + key.to_s + " " + (value.is_a?(Dictionary) ? value.to_s(base+1) : value.to_s) + EOL
-        }
+          content << "\t" * indent + key.to_s + " " + (value.is_a?(Dictionary) ? value.to_s(indent + 1) : value.to_s) + EOL
+        end
         
-        content << "\t" * (base-1) + TOKENS.last
+        content << "\t" * (indent - 1) + TOKENS.last
         
         output(content)
       end
       
       def sigOffset #:nodoc:
-        
         base = 1
         pairs = self.to_a
         content = "#{no} #{generation} obj" + EOL + TOKENS.first + EOL
         
-        pairs.sort_by{ |k| k.to_s }.reverse.each { |pair|
+        pairs.sort_by{ |k| k.to_s }.reverse.each do |pair|
+          key, value = pair[0].to_o, pair[1].to_o
           
-            key, value = pair[0].to_o, pair[1].to_o
+          if key == :Contents
+            content << "\t" * base + key.to_s + " "
             
-            if key == :Contents
-              content << "\t" * base + key.to_s + " "
-              
-              return content.size
-            else
-              content << "\t" * base + key.to_s + " " + (value.is_a?(Dictionary) ? value.to_s(base+1) : value.to_s) + EOL
-            end
-        }
+            return content.size
+          else
+            content << "\t" * base + key.to_s + " " + (value.is_a?(Dictionary) ? value.to_s(base+1) : value.to_s) + EOL
+          end
+        end
           
         nil
       end

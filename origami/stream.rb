@@ -254,11 +254,11 @@ module Origami
       self
     end
     
-    def to_s #:nodoc:
+    def to_s(indent = 1) #:nodoc:
       
       content = ""
       
-      content << @dictionary.to_s
+      content << @dictionary.to_s(indent)
       content << "stream" + EOL
       content << self.rawdata
       content << EOL << TOKENS.last
