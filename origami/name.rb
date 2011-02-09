@@ -23,6 +23,31 @@
 
 =end
 
+if RUBY_VERSION < '1.9'
+  class EmptySymbol
+    def ==(sym)
+      sym.is_a?(EmptySymbol)
+    end
+
+    def id2name
+      ""
+    end
+    alias to_s id2name
+
+    def to_sym
+      self
+    end
+
+    def to_o
+      Name.new("")
+    end
+
+    def inspect
+      ":"
+    end
+  end
+end
+
 module Origami
 
   REGULARCHARS = "([^ \\t\\r\\n\\0\\[\\]<>()%\\/]|#[a-fA-F0-9][a-fA-F0-9])*" #:nodoc:
@@ -47,7 +72,6 @@ module Origami
     # _name_:: A symbol representing the new Name value.
     #
     def initialize(name = "")
-      
       unless name.is_a?(Symbol) or name.is_a?(::String)
         raise TypeError, "Expected type Symbol or String, received #{name.class}."
       end
@@ -57,8 +81,14 @@ module Origami
       super()
     end
 
-    def value
-      @value.to_sym
+    if RUBY_VERSION < '1.9'
+      def value   
+        ( @value.empty? ) ? EmptySymbol.new : @value.to_sym
+      end
+    else
+      def value   
+        @value.to_sym
+      end
     end
 
     def ==(object) #:nodoc:
@@ -86,7 +116,6 @@ module Origami
         
         Name.new(value.include?('#') ? contract(value) : value)
       end
-      
     end
     
     def self.contract(name) #:nodoc:
@@ -120,9 +149,9 @@ module Origami
       
       forbiddenchars = /[ #\t\r\n\0\[\]<>()%\/]/
       
-      name.gsub!(forbiddenchars) { |c|
+      name.gsub!(forbiddenchars) do |c|
         "#" + c[0].ord.to_s(16).rjust(2,"0")
-      }
+      end
       
       name
     end

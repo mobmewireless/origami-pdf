@@ -88,7 +88,6 @@ module Origami
         
         value = type.parse(stream)  
         data << value
-      
       end
     
       Array.new(data)

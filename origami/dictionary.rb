@@ -50,7 +50,7 @@ module Origami
         super()
         
         @strings_cache = []
-        hash.each_pair { |k,v|
+        hash.each_pair do |k,v|
           case val = v.to_o
             when String then @strings_cache << val
             when Dictionary,Array then 
@@ -59,7 +59,7 @@ module Origami
           end
 
           self[k.to_o] = val unless k.nil?
-        }
+        end
       end
       
       def self.parse(stream) #:nodoc:
@@ -71,20 +71,15 @@ module Origami
         end
           
         while stream.skip(@@regexp_close).nil? do
-        
-          #unless Object.typeof(stream) == Name
-          #  raise InvalidDictionaryError, "Key value must be declared as name"
-          #end
-          
           key = Name.parse(stream)
           
           type = Object.typeof(stream)
           if type.nil?
-            raise InvalidDictionaryObjectError, "Cannot determine value type for field #{key.to_s}"
+            raise InvalidDictionaryObjectError, "Invalid object for field #{key.to_s}"
           end
           value = type.parse(stream)
           
-          pairs[key.value] = value
+          pairs[key] = value
         end
         
         if pairs[:Type] and @@dict_special_types.include?(pairs[:Type].value)
@@ -92,7 +87,6 @@ module Origami
         else
           return Dictionary.new(pairs)
         end
-        
       end
       
       alias to_h to_hash
