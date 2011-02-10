@@ -82,8 +82,9 @@ module Origami
           pairs[key] = value
         end
         
-        if pairs[:Type] and @@dict_special_types.include?(pairs[:Type].value)
-          return @@dict_special_types[pairs[:Type].value].new(pairs)
+        type = pairs[Name.new(:Type)]
+        if type.is_a?(Name) and @@dict_special_types.include?(type.value)
+          return @@dict_special_types[type.value].new(pairs)
         else
           return Dictionary.new(pairs)
         end
