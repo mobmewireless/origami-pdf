@@ -422,6 +422,7 @@ module Origami
     def indirect_objects
       @revisions.inject([]) do |set, rev| set.concat(rev.objects) end
     end
+    alias :root_objects :indirect_objects
     
     #
     # Adds a new object to the PDF file.

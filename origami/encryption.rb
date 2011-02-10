@@ -505,6 +505,7 @@ module Origami
       # Encrypt/decrypt data with the aRC4 encryption algorithm
       #
       def cipher(data)
+        return "" if data.empty?
       
         if Origami::OPTIONS[:use_openssl]
           rc4 = OpenSSL::Cipher::RC4.new.encrypt
