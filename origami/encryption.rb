@@ -707,7 +707,7 @@ module Origami
           aes.iv = @iv
           aes.key = @key
 
-          aes.update(data) + aes.final
+          plain = (aes.update(data) + aes.final).unpack("C*")
         else
           plain = []
           plainblock = []
@@ -730,20 +730,20 @@ module Origami
             prev_cipherblock = cipherblock
             plain.concat(plainblock)
           end
-
-          padlen = plain[-1]
-          unless (1..16) === padlen
-            raise EncryptionError, "Incorrect padding length : #{padlen}"
-          end
-
-          padlen.times do 
-            pad = plain.pop
-            raise EncryptionError, 
-              "Incorrect padding byte : 0x#{pad.to_s 16}" if pad != padlen
-          end
-
-          plain.pack("C*")
         end
+
+        padlen = plain[-1]
+        unless (1..16) === padlen
+          raise EncryptionError, "Incorrect padding length : #{padlen}"
+        end
+
+        padlen.times do 
+          pad = plain.pop
+          raise EncryptionError, 
+            "Incorrect padding byte : 0x#{pad.to_s 16}" if pad != padlen
+        end
+
+        plain.pack("C*")
       end
 
       private

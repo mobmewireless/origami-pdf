@@ -20,7 +20,7 @@ require 'stringio'
       end
 
       assert_nothing_raised do
-        pdf.saveas(@output)
+        pdf.save(@output)
       end
 
       assert null.is_indirect?

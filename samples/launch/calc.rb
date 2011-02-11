@@ -51,7 +51,7 @@ contents.write "Comments:",
 
 content = <<-EOS
 Windows:
-  - Foxit: runs calc.exe at the document opening without any user confirmation message (!)      
+  - Foxit 2: runs calc.exe at the document opening without any user confirmation message (!)      
   - Acrobat Reader *:
       1. popup proposing to open \"calc.exe\" (warning)
       2.  starts  \"calc.exe\"
@@ -82,6 +82,6 @@ contents.write content,
 page = Page.new.setContents( contents )
 pdf.append_page( page )
 
-pdf.saveas(OUTPUTFILE)
+pdf.save(OUTPUTFILE)
 puts "PDF file saved as #{OUTPUTFILE}."
 

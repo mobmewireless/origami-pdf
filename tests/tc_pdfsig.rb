@@ -29,7 +29,7 @@ require 'stringio'
       assert @target.frozen?
 
       assert_nothing_raised do
-        @target.saveas(@output)
+        @target.save(@output)
       end
 
     end

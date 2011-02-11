@@ -56,5 +56,5 @@ disable_triggers(pdf) if type == "all" or type == "triggers"
 disable_main_actions(pdf) if type == "all" or type == "main" 
 disable_form_actions(pdf) if type == "all" or type == "forms"
 
-pdf.saveas(output_name)
+pdf.save(output_name)
 

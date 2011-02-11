@@ -136,10 +136,8 @@ module Origami
     def parse(stream)
       data = 
       if stream.respond_to? :read
-        @filename = stream.path
         StringScanner.new(stream.read)
       elsif stream.is_a? ::String
-        @filename = stream
         StringScanner.new(File.open(stream, "r").binmode.read)
       elsif stream.is_a? StringScanner
         stream

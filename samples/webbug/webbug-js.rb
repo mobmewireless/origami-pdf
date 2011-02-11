@@ -62,6 +62,6 @@ jsaction = Action::JavaScript.new( Stream.new(jscript,:Filter => :FlateDecode) )
 pdf.register(Names::Root::JAVASCRIPT, "Update", jsaction)
 
 # Save the resulting file
-pdf.saveas(OUTPUTFILE)
+pdf.save(OUTPUTFILE)
 
 puts "PDF file saved as #{OUTPUTFILE}."

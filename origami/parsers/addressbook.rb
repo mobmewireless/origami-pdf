@@ -29,8 +29,6 @@ module Origami
         super
 
         addrbk = Adobe::AddressBook.new
-        addrbk.filename = @filename
-
         addrbk.header = Adobe::AddressBook::Header.parse(stream)
         @options[:callback].call(addrbk.header)
         
@@ -43,7 +41,7 @@ module Origami
       end
       
       def book_specialize_entries(addrbk) #:nodoc:
-        addrbk.revisions.first.body.each_pair { |ref, obj|
+        addrbk.revisions.first.body.each_pair do |ref, obj|
           
           if obj.is_a?(Dictionary)
             
@@ -79,9 +77,9 @@ module Origami
             end
 
           end
-        }
+        end
       end
     end
   end
-
 end
+

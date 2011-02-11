@@ -26,6 +26,6 @@ annot = page.add_flash_application(swf, :windowed => true, :navigation_pane => t
 # Setting the player position on the page.
 annot.Rect = Rectangle.new(204, 573, 403, 718)
 
-pdf.saveas(OUTPUTFILE)
+pdf.save(OUTPUTFILE)
 
 puts "PDF file saved as #{OUTPUTFILE}."

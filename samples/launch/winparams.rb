@@ -19,4 +19,4 @@ params.P = "test.txt" # parameter to pass if F is an application
 action = Action::Launch.new
 action.Win = params
 
-PDF.new.onDocumentOpen( action ).saveas(OUTPUTFILE)
+PDF.new.onDocumentOpen( action ).save(OUTPUTFILE)

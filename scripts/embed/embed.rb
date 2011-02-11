@@ -59,7 +59,7 @@ pdf.pages.first.add_annot(annot)
 pdf.pages.first.onOpen(jsaction)
 
 # Save the modified document
-pdf.saveas(output_filename)
+pdf.save(output_filename)
 
 puts "PDF file saved as #{output_filename}."
 

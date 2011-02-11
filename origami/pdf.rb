@@ -162,7 +162,6 @@ module Origami
       end
     end
 
-    attr_accessor :filename
     attr_accessor :header, :revisions
     
     class << self
@@ -220,9 +219,10 @@ module Origami
     end
     
     #
-    # Saves the current file as its current filename.
+    # Saves the current document. 
+    # _filename_:: The path where to save this PDF.
     #
-    def save(file, params = {})
+    def save(path, params = {})
       
       options = 
       {
@@ -231,41 +231,28 @@ module Origami
       }
       options.update(params)
 
-      if file.respond_to?(:write)
-        fd = file
-      else
-        fd = File.open(file, 'w').binmode
+      if self.frozen? # incompatible flags with frozen doc (signed)
+        options[:recompile] = 
+        options[:rebuildxrefs] = 
+        options[:noindent] = 
+        options[:obfuscate] = false
       end
       
-      self.delinearize! if options[:delinearize] == true and is_linearized?
-      self.compile if options[:recompile] == true
+      if path.respond_to?(:write)
+        fd = path
+      else
+        fd = File.open(path, 'w').binmode
+      end
+      
+      self.delinearize! if options[:delinearize] and self.is_linearized?
+      self.compile if options[:recompile]
 
       fd.write self.to_bin(options)
       fd.close
       
       self
     end
-    
-    #
-    # Sets the current filename to the argument given, then save it.
-    # _filename_:: The path where to save this PDF.
-    #
-    def saveas(filename, params = {})
-      
-      if self.frozen?
-        params[:recompile] = 
-        params[:rebuildxrefs] = 
-        params[:noindent] = 
-        params[:obfuscate] = false # incompatible with signed doc
-
-        save(filename, params)
-      else 
-        @filename = filename
-        save(filename, params)
-      end
-      
-      self
-    end
+    alias saveas save
     
     #
     # Saves the file up to given revision number.
@@ -274,7 +261,7 @@ module Origami
     # _filename_:: The path where to save this PDF.
     #
     def save_upto(revision, filename)
-      saveas(filename, :up_to_revision => revision)  
+      save(filename, :up_to_revision => revision)  
     end
 
     #

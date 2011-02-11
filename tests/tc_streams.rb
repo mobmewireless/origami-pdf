@@ -103,7 +103,7 @@ require 'stringio'
       stm.pre_build
       assert stm.Length == stm.rawdata.length
 
-      @target.saveas(@output)
+      @target.save(@output)
     end
 
 end

@@ -40,7 +40,6 @@ module Origami
         end
 
         pdf = PDF.new(false)
-        pdf.filename = @filename
 
         info "...Reading header..."
         begin

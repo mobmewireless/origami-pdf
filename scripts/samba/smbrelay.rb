@@ -26,6 +26,6 @@ dst = ExternalFile.new("\\\\#{ARGV[0]}\\origami\\owned.pdf")
 gotor = Action::GoToR.new(dst, Destination::GlobalFit.new(0), true)
 pdf.pages.first.onOpen(gotor)
 
-pdf.saveas(output_filename)
+pdf.save(output_filename)
 puts "PDF file saved as #{output_filename}."
 

@@ -26,6 +26,6 @@ pdf.append_page(page)
 
 pdf.onDocumentOpen Action::Named.new(Action::Named::PRINT)
 
-pdf.saveas(OUTPUTFILE)
+pdf.save(OUTPUTFILE)
 
 puts "PDF file saved as #{OUTPUTFILE}."

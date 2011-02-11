@@ -35,6 +35,6 @@ pageset.each { |page|
 puts "Corrupting last page"
 pageset.last.onOpen(Action::Named.new(Action::Named::FIRSTPAGE))
   
-pdf.saveas(output_filename)
+pdf.save(output_filename)
 
 puts "Infected copy saved as #{output_filename}."

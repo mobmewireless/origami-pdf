@@ -63,6 +63,6 @@ pdf.append_page(page)
 # Starting action
 pdf.onDocumentOpen Action::URI.new(URL)
 
-pdf.saveas(OUTPUTFILE)
+pdf.save(OUTPUTFILE)
 
 puts "PDF file saved as #{OUTPUTFILE}."

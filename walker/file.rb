@@ -225,13 +225,10 @@ module PDFWalker
       dialog.filter = FileFilter.new.add_pattern("*.gz")
       
       if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
-        
         @opened.serialize(dialog.filename)
-        
       end
       
       dialog.destroy
-      
     end
     
     def save_data(caption, data, filename = "")
@@ -249,15 +246,12 @@ module PDFWalker
       dialog.filter = FileFilter.new.add_pattern("*.*")
       
       if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
-        
         fd = File.open(dialog.filename, "w").binmode
           fd << data
         fd.close
-        
       end
       
       dialog.destroy
-      
     end
     
     def save
@@ -276,11 +270,10 @@ module PDFWalker
       dialog.set_current_folder(folder)
       
       if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
-        @opened.saveas(dialog.filename)
+        @opened.save(dialog.filename)
       end
       
       dialog.destroy
-      
     end
 
     def save_dot

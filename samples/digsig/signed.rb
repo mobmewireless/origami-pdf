@@ -46,7 +46,7 @@ pdf.add_field(sigannot)
 pdf.sign(cert, key, [], sigannot, "France", "fred@security-labs.org", "Proof of Concept (owned)")
 
 # Save the resulting file
-pdf.saveas(OUTPUTFILE)
+pdf.save(OUTPUTFILE)
 
 # Export a graph of the output document
 pdf.export_to_graph('digsig.dot')

@@ -28,7 +28,7 @@ require 'stringio'
       assert_equal @target.Catalog.Pages, p3.Parent
 
       assert_nothing_raised do
-        @target.saveas(@output)
+        @target.save(@output)
       end
 
       assert_equal @target.Catalog.Pages.Count, 3

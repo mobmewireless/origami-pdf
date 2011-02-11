@@ -22,6 +22,6 @@ OWNERPASSWD = ARGV[0]
 
 # Encrypts a document 
 pdf.encrypt(USERPASSWD, OWNERPASSWD, :Algorithm => :AES)
-pdf.saveas(output_filename)
+pdf.save(output_filename)
 
 puts "PDF file saved as #{output_filename}."

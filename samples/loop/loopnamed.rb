@@ -20,6 +20,6 @@ pdf = PDF.read("sample.pdf", :verbosity => Parser::VERBOSE_DEBUG )
   
   infected_name = "loopnamed_" + pdf.filename
   
-  pdf.saveas(infected_name)
+  pdf.save(infected_name)
   
   puts "Infected copy saved as #{infected_name}."

@@ -17,7 +17,7 @@ require 'stringio'
       end
 
       assert_nothing_raised do
-        @target.saveas(@output)
+        @target.save(@output)
       end
     end
 

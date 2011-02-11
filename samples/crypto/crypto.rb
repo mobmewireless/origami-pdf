@@ -24,6 +24,6 @@ contents.write "Crypto sample",
 
 pdf.append_page Page.new.setContents(contents)
 
-pdf.saveas(OUTPUTFILE)
+pdf.save(OUTPUTFILE)
 
 puts "PDF file saved as #{OUTPUTFILE}."

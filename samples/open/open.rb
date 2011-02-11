@@ -128,7 +128,7 @@ def populate(method, desc)
 
   end
 
-  pdf.saveas("#{method}.pdf")
+  pdf.save("#{method}.pdf")
   puts "PDF file saved as #{method}.pdf."
 
 end

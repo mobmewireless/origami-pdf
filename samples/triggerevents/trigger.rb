@@ -65,6 +65,6 @@ page.add_annot(rect)
 pdf.append_page(page)
 
 # Save the resulting file.
-pdf.saveas(OUTPUTFILE)
+pdf.save(OUTPUTFILE)
 
 puts "PDF file saved as #{OUTPUTFILE}."

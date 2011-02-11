@@ -47,59 +47,46 @@ module Origami
     class AddressBook
       
       class Revision #:nodoc;
-      
         attr_accessor :pdf
         attr_accessor :body, :xreftable, :trailer
         
         def initialize(adbk)
-          
           @pdf = adbk
           @body = {}
           @xreftable = nil
           @trailer = nil
-          
         end
 
         def trailer=(trl)
           trl.pdf = @pdf
           @trailer = trl
         end
-        
       end
 
-      attr_accessor :filename
       attr_accessor :header, :revisions
       
       def initialize #:nodoc:
-        
         @header = AddressBook::Header.new
         @revisions = [ Revision.new(self) ]
         @revisions.first.trailer = Trailer.new
-        
       end
       
       def objects
-        
         def append_subobj(root, objset)
-          
           if objset.find{ |o| o.object_id == root.object_id }.nil?
-            
             objset << root
-            
             if root.is_a?(Array) or root.is_a?(Dictionary)
               root.each { |subobj| append_subobj(subobj, objset) unless subobj.is_a?(Reference) }
             end
-          
           end
-          
         end
         
         objset = []
-        @revisions.first.body.values.each { |object|
+        @revisions.first.body.values.each do |object|
           unless object.is_a?(Reference)
             append_subobj(object, objset)
           end
-        }
+        end
         
         objset
       end
@@ -125,7 +112,7 @@ module Origami
         get_object(@trailer.Root)
       end
       
-      def saveas(filename)
+      def save(filename)
         
         bin = ""
         bin << @header.to_s
@@ -164,6 +151,7 @@ module Origami
         
         show_entries
       end
+      alias saveas save
       
       #
       # Prints registered users in the address book
@@ -196,9 +184,10 @@ module Origami
       # Prints certificate with the specified id
       #
       def show_cert(id)
-        certs = @revisions.first.body.values.find_all { |obj| obj.is_a?(Certificate) and obj.ID == id }
-        
-        certs.each { |cert| cert.show; puts }
+        @revisions.first.body.values.find_all { |obj| obj.is_a?(Certificate) and obj.ID == id }.each do |cert|
+          cert.show
+          puts
+        end
         
         nil
       end
@@ -207,15 +196,14 @@ module Origami
       # Returns a Certificate dictionary corresponding to the specified id
       #
       def get_cert(id)
-        
         @revisions.first.body.values.find { |obj| obj.is_a?(Certificate) and obj.ID == id }
-        
       end
       
       def show_user(id)
-        users = @revisions.first.body.values.find_all { |obj| obj.is_a?(User) and obj.ID == id }
-        
-        users.each { |user| cert.show; puts }
+        users = @revisions.first.body.values.find_all { |obj| obj.is_a?(User) and obj.ID == id }.each do |user|
+          user.show
+          puts
+        end
         
         nil
       end

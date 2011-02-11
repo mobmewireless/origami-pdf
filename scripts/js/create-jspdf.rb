@@ -44,6 +44,6 @@ jsaction = Action::JavaScript.new(Stream.new(jscript, :Filter => :FlateDecode))
 pdf.onDocumentOpen(jsaction)
 
 # Saving the resulting PDF
-pdf.saveas(OUTPUTFILE)
+pdf.save(OUTPUTFILE)
 
 puts "PDF file saved as #{OUTPUTFILE}."

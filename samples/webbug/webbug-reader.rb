@@ -85,6 +85,6 @@ pdf.onDocumentOpen Action::SubmitForm.new(URL, [], flags)
 #  - does not follow the Redirect answers
 
 # Save the resulting file.
-pdf.saveas(OUTPUTFILE)
+pdf.save(OUTPUTFILE)
 
 puts "PDF file saved as #{OUTPUTFILE}."
