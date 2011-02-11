@@ -58,7 +58,7 @@ module Origami
         true
       end
 
-      def to_s
+      def inspect
         self.data.hexdump
       end
     end

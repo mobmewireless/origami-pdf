@@ -10,7 +10,7 @@ include Origami
 require 'console.rb'
 require 'readline'
 
-DEFAULT_BANNER = "Welcome to the PDF shell (release #{Origami::VERSION})\n#{Origami::REVISION}\n\n"
+DEFAULT_BANNER = "Welcome to the PDF shell (release #{Origami::VERSION})\n\n"
 
 def set_completion
 
