@@ -74,10 +74,17 @@ module Origami
       yield
       @@setConsoleTextAttribute.call(@@hOut, Colors::GREY)
     else
-      col, nocol = [color, Colors::GREY].map { |key| "\033[#{key}m" }
+      col, nocol = [color, Colors::GREY].map! { |key| "\033[#{key}m" }
       fd << col
       yield
       fd << nocol
+    end
+  end
+
+  unless RUBY_PLATFORM =~ /win32/
+    def colorize(text, color, bright = false)
+      col, nocol = [color, Colors::GREY].map! { |key| "\033[#{key}m" }
+      "#{col}#{text}#{nocol}"
     end
   end
 
