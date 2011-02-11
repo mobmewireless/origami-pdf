@@ -47,9 +47,7 @@ module Origami
         # _minorversion_:: Minor version.
         #
         def initialize(majorversion = 2, minorversion = 1)
-          
           @majorversion, @minorversion = majorversion, minorversion
-          
         end
         
         def self.parse(stream) #:nodoc:

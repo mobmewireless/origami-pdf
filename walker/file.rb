@@ -369,7 +369,7 @@ module PDFWalker
         return passwd
       }
       
-      Origami.parse(filename, 
+      PDF.read(filename, 
         :verbosity => Parser::VERBOSE_INSANE, 
         :ignoreerrors => false, 
         :callback => update_bar,
@@ -378,23 +378,14 @@ module PDFWalker
     end
     
     def create_progressbar
-      
-      @progresswin = Dialog.new("Parsing file...",
-                                              self,
-                                              Dialog::MODAL)
-      
+      @progresswin = Dialog.new("Parsing file...", self, Dialog::MODAL)
       @progresswin.vbox.add(@progressbar = ProgressBar.new.set_pulse_step(0.05))
-      
       @progresswin.show_all
-      
     end
     
     def close_progressbar
-      
       @progresswin.close
-      
     end
-    
   end
-
 end
+
