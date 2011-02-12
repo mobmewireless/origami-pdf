@@ -184,11 +184,11 @@ module PDFWalker
       else case obj
         when Origami::PDF
           :"PDF File"
-        when Origami::PDF::Revision, Origami::Adobe::AddressBook::Revision
+        when Origami::PDF::Revision, Origami::Adobe::PPKLite::Revision
           :Revision
         when ::Array
           :Body
-        when Origami::PDF::Header, Origami::Adobe::AddressBook::Header
+        when Origami::PDF::Header, Origami::Adobe::PPKLite::Header
           :Header
         when Origami::Trailer
           :Trailer

@@ -20,5 +20,5 @@
 =end
 
 require 'origami/parsers/pdf'
-require 'origami/parsers/addressbook'
+require 'origami/parsers/ppklite'
 

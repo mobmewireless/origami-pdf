@@ -1,7 +1,7 @@
 =begin
 
 = File
-	adobe/addressbook.rb
+	adobe/ppklite.rb
 
 = Info
 	This file is part of Origami, PDF manipulation framework for Ruby
@@ -44,7 +44,7 @@ module Origami
     #
     # Class representing an Adobe Reader certificate store.
     #
-    class AddressBook
+    class PPKLite
       
       class Revision #:nodoc;
         attr_accessor :pdf
@@ -66,7 +66,7 @@ module Origami
       attr_accessor :header, :revisions
       
       def initialize #:nodoc:
-        @header = AddressBook::Header.new
+        @header = PPKLite::Header.new
         @revisions = [ Revision.new(self) ]
         @revisions.first.trailer = Trailer.new
       end

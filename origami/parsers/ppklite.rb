@@ -1,7 +1,7 @@
 =begin
 
 = File
-	parsers/addressbook.rb
+	parsers/ppklite.rb
 
 = Info
 	Origami is free software: you can redistribute it and/or modify
@@ -19,17 +19,17 @@
 
 =end
 
-require 'origami/adobe/addressbook'
+require 'origami/adobe/ppklite'
 
 module Origami
 
-  class Adobe::AddressBook
+  class Adobe::PPKLite
     class Parser < Origami::Parser
       def parse(stream) #:nodoc:
         super
 
-        addrbk = Adobe::AddressBook.new
-        addrbk.header = Adobe::AddressBook::Header.parse(stream)
+        addrbk = Adobe::PPKLite.new
+        addrbk.header = Adobe::PPKLite::Header.parse(stream)
         @options[:callback].call(addrbk.header)
         
         parse_objects(addrbk)
@@ -47,30 +47,30 @@ module Origami
             
             if obj[:Type] == :Catalog
               
-              o = Adobe::AddressBook::Catalog.new(obj)
+              o = Adobe::PPKLite::Catalog.new(obj)
               o.generation, o.no, o.file_offset = obj.generation, obj.no, obj.file_offset
               
               if o.PPK.is_a?(Dictionary) and o.PPK[:Type] == :PPK
-                o.PPK = Adobe::AddressBook::PPK.new(o.PPK)
+                o.PPK = Adobe::PPKLite::PPK.new(o.PPK)
                 
                 if o.PPK.User.is_a?(Dictionary) and o.PPK.User[:Type] == :User
-                  o.PPK.User = Adobe::AddressBook::UserList.new(o.PPK.User)
+                  o.PPK.User = Adobe::PPKLite::UserList.new(o.PPK.User)
                 end
                 
                 if o.PPK.AddressBook.is_a?(Dictionary) and o.PPK.AddressBook[:Type] == :AddressBook
-                  o.PPK.AddressBook = Adobe::AddressBook::AddressList.new(o.PPK.AddressBook)
+                  o.PPK.AddressBook = Adobe::PPKLite::AddressList.new(o.PPK.AddressBook)
                 end
               end
               
               addrbk.revisions.first.body[ref] = o
               
-            elsif obj[:ABEType] == Adobe::AddressBook::Descriptor::USER
-              o = Adobe::AddressBook::User.new(obj)
+            elsif obj[:ABEType] == Adobe::PPKLite::Descriptor::USER
+              o = Adobe::PPKLite::User.new(obj)
               o.generation, o.no, o.file_offset = obj.generation, obj.no, obj.file_offset
               
               addrbk.revisions.first.body[ref] = o
-            elsif obj[:ABEType] == Adobe::AddressBook::Descriptor::CERTIFICATE
-              o = Adobe::AddressBook::Certificate.new(obj)
+            elsif obj[:ABEType] == Adobe::PPKLite::Descriptor::CERTIFICATE
+              o = Adobe::PPKLite::Certificate.new(obj)
               o.generation, o.no, o.file_offset = obj.generation, obj.no, obj.file_offset
               
               addrbk.revisions.first.body[ref] = o

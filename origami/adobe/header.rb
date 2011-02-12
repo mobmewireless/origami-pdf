@@ -30,7 +30,7 @@ module Origami
     class InvalidHeader < Exception #:nodoc:
     end
 
-    class AddressBook
+    class PPKLite
       
       #
       # Class representing a certificate store header.
@@ -59,7 +59,7 @@ module Origami
             raise InvalidHeader, "Invalid header format"
           end
           
-          AddressBook::Header.new(maj,min)
+          PPKLite::Header.new(maj,min)
         end
         
         #

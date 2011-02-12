@@ -81,8 +81,8 @@ module PDFWalker
             @pdfbuffer.set_text(stm)
             
           elsif (not object.is_a?(::Array) or object.is_a?(Array)) and 
-                not object.is_a?(PDF) and not object.is_a?(Adobe::AddressBook) and 
-                not object.is_a?(PDF::Revision) and not object.is_a?(Adobe::AddressBook::Revision) and
+                not object.is_a?(PDF) and not object.is_a?(Adobe::PPKLite) and 
+                not object.is_a?(PDF::Revision) and not object.is_a?(Adobe::PPKLite::Revision) and
                 not object.is_a?(XRefToCompressedObj)
             
             @pdfbuffer.set_text(object.to_s)
