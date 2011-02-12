@@ -23,7 +23,6 @@
 
 =end
 
-require 'origami/adobe/header'
 require 'origami/object'
 require 'origami/name'
 require 'origami/dictionary'
@@ -46,6 +45,53 @@ module Origami
     #
     class PPKLite
       
+      #
+      # Class representing a certificate store header.
+      #
+      class Header
+
+        MAGIC = /\A%PPKLITE-(\d)\.(\d)/
+        
+        attr_accessor :majorversion, :minorversion
+        
+        #
+        # Creates a file header, with the given major and minor versions.
+        # _majorversion_:: Major version.
+        # _minorversion_:: Minor version.
+        #
+        def initialize(majorversion = 2, minorversion = 1)
+          @majorversion, @minorversion = majorversion, minorversion
+        end
+        
+        def self.parse(stream) #:nodoc:
+          
+          if not stream.scan(MAGIC).nil?
+            maj = stream[1].to_i
+            min = stream[2].to_i
+          else
+            raise InvalidHeader, "Invalid header format"
+          end
+          
+          PPKLite::Header.new(maj,min)
+        end
+        
+        #
+        # Outputs self into PDF code.
+        #
+        def to_s
+          "%PPKLITE-#{@majorversion}.#{@minorversion}" + EOL
+        end
+        
+        def to_sym #:nodoc:
+          "#{@majorversion}.#{@minorversion}".to_sym
+        end
+        
+        def to_f #:nodoc:
+          to_sym.to_s.to_f
+        end
+      
+      end
+
       class Revision #:nodoc;
         attr_accessor :pdf
         attr_accessor :body, :xreftable, :trailer
@@ -440,3 +486,4 @@ module Origami
   end
   
 end
+

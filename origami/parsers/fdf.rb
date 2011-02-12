@@ -1,7 +1,7 @@
 =begin
 
 = File
-	origami.rb
+	parsers/fdf.rb
 
 = Info
 	Origami is free software: you can redistribute it and/or modify
@@ -19,7 +19,26 @@
 
 =end
 
-require 'origami/parsers/pdf'
-require 'origami/parsers/fdf'
-require 'origami/parsers/ppklite'
+require 'origami/adobe/fdf'
+
+module Origami
+
+  class Adobe::FDF
+    class Parser < Origami::Parser
+      def parse(stream) #:nodoc:
+        super
+
+        fdf = Adobe::FDF.new
+        fdf.header = Adobe::FDF::Header.parse(stream)
+        @options[:callback].call(fdf.header)
+        
+        parse_objects(fdf)
+        parse_xreftable(fdf)
+        parse_trailer(fdf)
+
+        addrbk
+      end
+    end
+  end
+end
 
