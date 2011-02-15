@@ -72,7 +72,7 @@ module Origami
     end
     
     def eql?(ref) #:nodoc
-      ref.refno == @refno and ref.refgen == @refgen
+      ref.is_a?(Reference) and ref.refno == @refno and ref.refgen == @refgen
     end
     
     def hash #:nodoc:

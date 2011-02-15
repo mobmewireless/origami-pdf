@@ -62,6 +62,12 @@ module Origami
         self.data.hexdump
       end
     end
+
+    class Page
+      def edit 
+        self.Contents.edit
+      end
+    end
   end
   
   class PDF
