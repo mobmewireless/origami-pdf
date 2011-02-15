@@ -91,6 +91,14 @@ module Origami
     }    
   end
 
+	EOL = "\r\n" #:nodoc:
+  DEFINED_TOKENS = "[<\\[(%\\/)\\]>]" #:nodoc:
+  WHITESPACES = "([ \\f\\t\\r\\n\\0]|%[^\\n]*\\n)*" #:nodoc:
+  WHITECHARS = "[ \\f\\t\\r\\n\\0]*" #:nodoc:
+  WHITECHARS_NORET = "[ \\f\\t\\0]*" #:nodoc:
+  
+  REGEXP_WHITESPACES = Regexp.new(WHITESPACES) #:nodoc:
+
   class Parser #:nodoc:
 
     class ParsingError < Exception #:nodoc:

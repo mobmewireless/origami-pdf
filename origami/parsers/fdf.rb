@@ -19,6 +19,7 @@
 
 =end
 
+require 'origami/parser'
 require 'origami/adobe/fdf'
 
 module Origami

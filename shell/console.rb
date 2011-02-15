@@ -73,16 +73,16 @@ module Origami
           colorprint("#{obj.reference.to_s.rjust(8,' ')}".ljust(10), Colors::MAGENTA)
           colorprint("#{obj.type}\n", Colors::YELLOW)
         }
-        colorprint("---------- Xrefs -----------\n", Colors::BRIGHT_WHITE, true)
-        set_fg_color(Colors::BLUE, true) {
-          if not @xreftable
-            puts "  [x] No xref table found."
-          else
-            @xreftable.to_s.each_line { |line|
-              puts "  " + line
-            }
-          end
-        }
+        #colorprint("---------- Xrefs -----------\n", Colors::BRIGHT_WHITE, true)
+        #set_fg_color(Colors::BLUE, true) {
+        #  if not @xreftable
+        #    puts "  [x] No xref table found."
+        #  else
+        #    @xreftable.to_s.each_line { |line|
+        #      puts "  " + line
+        #    }
+        #  end
+        #}
         colorprint("---------- Trailer ---------\n", Colors::BRIGHT_WHITE, true) 
         if not @trailer.dictionary
           set_fg_color(Colors::BLUE, true) {

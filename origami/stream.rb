@@ -35,7 +35,7 @@ module Origami
     include Origami::Object
     include Configurable
     
-    TOKENS = [ "stream" + WHITECHARS  + "\\r?\\n", "endstream" ] #:nodoc:
+    TOKENS = [ "stream" + WHITECHARS_NORET  + "\\r?\\n", "endstream" ] #:nodoc:
    
     @@regexp_open = Regexp.new(WHITESPACES + TOKENS.first)
     @@regexp_close = Regexp.new(TOKENS.last)
@@ -109,6 +109,7 @@ module Origami
         len = len.value
         rawdata = stream.peek(len)
         stream.pos += len
+
         if not ( unmatched = stream.scan_until(@@regexp_close) )
           raise InvalidStreamObjectError, 
             "Stream shall end with a 'endstream' statement"

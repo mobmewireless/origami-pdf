@@ -20,8 +20,8 @@
 =end
 
 
-require 'origami/pdf'
 require 'origami/parser'
+require 'origami/pdf'
 
 module Origami
 

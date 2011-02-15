@@ -101,13 +101,6 @@ end
 #
 module Origami
 
-	EOL = "\r\n" #:nodoc:
-  DEFINED_TOKENS = "[<\\[(%\\/)\\]>]" #:nodoc:
-  WHITESPACES = "([ \\f\\t\\r\\n\\0]|%[^\\n]*\\n)*" #:nodoc:
-  WHITECHARS = "[ \\f\\t\\r\\n\\0]*" #:nodoc:
-  
-  REGEXP_WHITESPACES = Regexp.new(WHITESPACES) #:nodoc:
-
   #
   # Mixin' module for objects which can store their options into an inner Dictionary.
   #
