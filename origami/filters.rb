@@ -32,6 +32,178 @@ module Origami
   #
   module Filter
 
+    module Utils
+      
+      class BitWriterError < Exception #:nodoc:
+      end
+      
+      #
+      # Class used to forge a String from a stream of bits.
+      # Internally used by some filters.
+      #
+      class BitWriter
+        def initialize
+          @data = ''
+          @last_byte = nil
+          @ptr_bit = 0
+        end
+
+        #
+        # Writes _data_ represented as Fixnum to a _length_ number of bits.
+        #
+        def write(data, length)
+          return BitWriterError, "Invalid data length" unless length > 0 and (1 << length) > data
+
+          while length > 0
+            if length >= 8 - @ptr_bit
+              length -= 8 - @ptr_bit
+              @last_byte = 0 unless @last_byte
+              @last_byte |= (data >> length) & ((1 << (8 - @ptr_bit)) - 1)
+
+              data &= (1 << length) - 1
+              @data << @last_byte.chr
+              @last_byte = nil
+              @ptr_bit = 0
+            else
+              @last_byte = 0 unless @last_byte
+              @last_byte |= (data & ((1 << length) - 1)) << (8 - @ptr_bit - length)
+              @ptr_bit += length
+              
+              if @ptr_bit == 8
+                @data << @last_byte.chr
+                @last_byte = nil
+                @ptr_bit = 0
+              end
+              
+              length = 0
+            end
+          end
+
+          self
+        end
+
+        #
+        # Returns the data size in bits.
+        #
+        def size
+          @data.size + @ptr_bit
+        end
+
+        #
+        # Finalizes the stream.
+        #
+        def final
+          @data << @last_byte.chr if @last_byte
+          @last_byte = 0
+          @p = 0
+
+          self
+        end
+
+        #
+        # Outputs the stream as a String.
+        #
+        def to_s
+          @data.dup
+        end
+      end
+
+      class BitReaderError < Exception #:nodoc:
+      end
+
+      #
+      # Class used to read a String as a stream of bits.
+      # Internally used by some filters.
+      #
+      class BitReader
+        def initialize(data)
+          @data = data
+          reset
+        end
+
+        #
+        # Resets the read pointer.
+        #
+        def reset
+          @ptr_byte, @ptr_bit = 0, 0
+          self
+        end
+
+        #
+        # Returns true if end of data has been reached.
+        #
+        def eod?
+          @ptr_byte >= @data.size
+        end
+
+        #
+        # Returns the read pointer position in bits.
+        #
+        def pos
+          (@ptr_byte << 3) + @ptr_bit
+        end
+
+        #
+        # Returns the data size in bits.
+        #
+        def size
+          @data.size << 3
+        end
+
+        #
+        # Sets the read pointer position in bits.
+        #
+        def pos=(bits)
+          raise BitReaderError, "Pointer position out of data" if bits > self.size
+
+          pbyte = bits >> 3
+          pbit = bits - (pbyte << 3)
+          @ptr_byte, @ptr_bit = pbyte, pbit
+          
+          bits
+        end
+
+        #
+        # Reads _length_ bits as a Fixnum and advances read pointer.
+        #
+        def read(length)
+          n = self.peek(length)
+          self.pos += length
+
+          n
+        end
+        
+        #
+        # Reads _length_ bits as a Fixnum. Does not advance read pointer.
+        #
+        def peek(length)
+          return BitReaderError, "Invalid read length" unless length > 0 
+          return BitReaderError, "Insufficient data" if self.pos + length > self.size
+
+          n = 0
+          ptr_byte, ptr_bit = @ptr_byte, @ptr_bit
+
+          while length > 0
+            byte = @data[ptr_byte].ord
+    
+            if length > 8 - ptr_bit
+              length -= 8 - ptr_bit
+              n |= ( byte & ((1 << (8 - ptr_bit)) - 1) ) << length
+
+              ptr_byte += 1
+              ptr_bit = 0
+            else
+              n |= (byte >> (8 - ptr_bit - length)) & ((1 << length) - 1)
+              length = 0
+            end
+          end
+
+          n
+        end
+
+      end
+    end
+
     class PredictorError < Exception #:nodoc:
     end
     
@@ -67,6 +239,9 @@ module Origami
         # bytes per row
         bpr = (nvals * bpc + 7) >> 3
 
+        #
+        # TODO: Support for truncated images.
+        #
         unless data.size % bpr == 0
           raise PredictorError, "Invalid data size #{data.size}, should be multiple of bpr=#{bpr}"
         end
@@ -101,6 +276,9 @@ module Origami
         # bytes per row
         bpr = ((nvals * bpc + 7) >> 3) + 1
 
+        #
+        # TODO: Support for truncated images.
+        #
         unless data.size % bpr == 0
           raise PredictorError, "Invalid data size #{data.size}, should be multiple of bpr=#{bpr}"
         end
@@ -461,7 +639,8 @@ module Origami
         end       
         
         codesize = 9
-        result = byte2binary(CLEARTABLE)
+        result = Utils::BitWriter.new
+        result.write(CLEARTABLE, codesize)
         table = clear({})
         
         s = ''        
@@ -473,7 +652,7 @@ module Origami
             when 1024 then codesize = 11
             when 2048 then codesize = 12
             when 4096
-              result << byte2binary(CLEARTABLE,codesize)
+              result.write(CLEARTABLE, codesize)
               codesize = 9
               clear table
               redo
@@ -483,16 +662,16 @@ module Origami
           if table.has_key?(it)
             s = it
           else
-            result << byte2binary(table[s], codesize)
+            result.write(table[s], codesize)
             table[it] = table.size
             s = char
           end
         end
          
-        result << byte2binary(table[s], codesize)
-        result << byte2binary(EOD,codesize)
+        result.write(table[s], codesize)
+        result.write(EOD, codesize)
         
-        binary2string(result)
+        result.final.to_s
       end
       
       #
@@ -502,14 +681,13 @@ module Origami
       def decode(string)
        
         result = ""
-        bstring = string2binary(string)
+        bstring = Utils::BitReader.new(string)
         codesize = 9
-        table = clear({})
+        table = clear(Hash.new)
         prevbyte = nil
 
-        until bstring.empty? do
-          
-          byte = binary2byte(bstring, codesize)
+        until bstring.eod? do
+          byte = bstring.read(codesize)
 
           case table.size
             when 510 then codesize = 10
@@ -563,28 +741,6 @@ module Origami
       
       private
 
-      def binary2string(bin)
-        bin << "0" * (bin.size % 8)
-        [bin].pack("B*")
-      end
-
-      def string2binary(string)
-        string.unpack("B*")[0]
-      end
-
-      def byte2binary(byte, output_size = 9)
-        s = byte.to_s(2)
-        ("0" * (output_size - s.size)) + s
-      end
-
-      def binary2byte(bstring, codesize)
-        if bstring.size < codesize
-          raise InvalidLZWDataError, "Unterminated data"
-        end
-
-        bstring.slice!(0,codesize).to_i(2)
-      end
-      
       def clear(table) #:nodoc:
         table.clear
         256.times do |i|
