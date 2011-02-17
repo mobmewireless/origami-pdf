@@ -696,7 +696,8 @@ module Origami
             when 4094
               if byte != CLEARTABLE
               then
-                raise InvalidLZWDataError, "LZW table is full and no clear flag was set"
+                raise InvalidLZWDataError, 
+                  "LZW table is full and no clear flag was set (codeword #{byte.to_s(2).rjust(codesize,'0')} at bit #{bstring.pos - codesize}/#{bstring.size})"
               end
           end
 

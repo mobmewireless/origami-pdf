@@ -445,10 +445,8 @@ module Origami
         unless @decrypted
           key = derive_key ? compute_object_key : @encryption_key
 
-          @rawdata = @algorithm.decrypt(key, @rawdata)
+          self.rawdata = @algorithm.decrypt(key, @rawdata)
           @decrypted = true
-
-          decode!
         end
 
         self

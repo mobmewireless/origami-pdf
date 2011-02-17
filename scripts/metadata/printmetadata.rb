@@ -14,21 +14,14 @@ if ARGV.size < 1
   exit
 end
 
-pdf = PDF.read(ARGV[0], :verbosity => Parser::VERBOSE_INSANE)
-
-colorprint("="*ARGV[0].length + "\n", Colors::BROWN)
-colorprint(ARGV[0]+"\n", Colors::GREEN)
-colorprint("="*ARGV[0].length+"\n", Colors::BROWN)
+pdf = PDF.read(ARGV[0], :verbosity => Parser::VERBOSE_QUIET)
 
 if pdf.has_document_info?
-  puts "-------------------------------"
-  puts "Document information dictionary"
-  puts "-------------------------------"
+  colorprint "[*] Document information dictionary:\n", Colors::MAGENTA
 
   docinfo = pdf.get_document_info
   docinfo.each_pair do |name, item|
-    item = item.solve if item.is_a? Reference
-    puts "#{name.value}: #{item.value}"
+    puts "#{colorize(name.value.to_s.ljust(20,' '), Colors::GREEN)}: #{item.solve.value}"
   end
 else
   colorprint("No document information dictionary found.\n", Colors::RED)
@@ -37,14 +30,13 @@ end
 puts
 
 if pdf.has_metadata?
-  puts "---------------"
-  puts "Metadata stream"
-  puts "---------------"
+  colorprint "[*] Metadata stream:\n", Colors::MAGENTA
 
   metadata = pdf.get_metadata
   metadata.each_pair do |name, item|
-    puts "#{name}: #{item}"
+    puts "#{colorize(name.ljust(20,' '), Colors::GREEN)}: #{item}"
   end
 else
   colorprint("No metadata stream found.\n", Colors::RED)
 end
+
