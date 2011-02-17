@@ -131,8 +131,7 @@ module Origami
         while i < input.size do
           
           if input.length - i < 5
-          then
-            if input.length - i == 1 then raise InvalidASCII85StringError, "Invalid length" end
+            raise InvalidASCII85StringError, "Invalid length" if input.length - i == 1
             
             addend = 5 - (input.length - i)
             input << "u" * addend
@@ -140,17 +139,20 @@ module Origami
             addend = 0
           end
           
+          outblock = ""
+
           if input[i].ord == "z"[0].ord
             inblock = 0
+            codelen = 1
           else
             
             inblock = 0
-            outblock = ""
+            codelen = 5
             
             # Checking if this string is in base85
             5.times do |j|
               if input[i+j].ord > "u"[0].ord or input[i+j].ord < "!"[0].ord
-                raise InvalidASCII85StringError, string
+                raise InvalidASCII85StringError, "Invalid character sequence: #{input[i,5].inspect}"
               else
                 inblock += (input[i+j].ord - "!"[0].ord) * 85 ** (4 - j)
               end
@@ -175,7 +177,7 @@ module Origami
         
           result << outblock
           
-          i = i + 5
+          i = i + codelen
         end
         
         result
