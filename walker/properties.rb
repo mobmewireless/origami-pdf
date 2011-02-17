@@ -31,11 +31,9 @@ module PDFWalker
   class Walker < Window
     
     def display_file_properties
-      
       if @opened
         prop = Properties.new(self, @opened)
       end
-      
     end
     
     class Properties < Dialog
@@ -53,19 +51,18 @@ module PDFWalker
       }
       
       def initialize(parent, pdf)
-        
         super("Document properties", parent, Dialog::MODAL, [Stock::CLOSE, Dialog::RESPONSE_NONE])
         
         docframe = Frame.new(" File properties ")
         
         i = Iconv.new("UTF-8//IGNORE//TRANSLIT", "ISO-8859-1")
         
-        stat = File.stat(pdf.filename)
+        stat = File.stat(parent.filename)
         labels = 
         [ 
-          [ "Filename:", pdf.filename ],
-          [ "File size:", "#{File.size(pdf.filename)} bytes" ],
-          [ "MD5:", Digest::MD5.hexdigest(File.open(pdf.filename).read) ],
+          [ "Filename:", parent.filename ],
+          [ "File size:", "#{File.size(parent.filename)} bytes" ],
+          [ "MD5:", Digest::MD5.hexdigest(File.open(parent.filename).read) ],
           [ "Read-only:", "#{not stat.writable?}" ],
           [ "Creation date:", i.iconv("#{stat.ctime}") ],
           [ "Last modified:", i.iconv("#{stat.mtime}") ]

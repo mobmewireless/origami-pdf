@@ -193,7 +193,7 @@ module PDFWalker
           root = @treestore.append(nil)
           @treestore.set_value(root, OBJCOL, pdf)
         
-          set_node(root, :Filename, pdf.filename)
+          set_node(root, :Filename, @parent.filename)
         
           #
           # Create header entry

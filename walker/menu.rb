@@ -304,7 +304,7 @@ module PDFWalker
 
       @file_menu_open.signal_connect('activate') do open end
       @file_menu_deserialize.signal_connect('activate') do deserialize end
-      @file_menu_refresh.signal_connect('activate') do open(@opened.filename) end
+      @file_menu_refresh.signal_connect('activate') do open(@filename) end
       @file_menu_close.signal_connect('activate') do close end
       @file_menu_serialize.signal_connect('activate') do serialize end
       @file_menu_exit.signal_connect('activate') do self.destroy end

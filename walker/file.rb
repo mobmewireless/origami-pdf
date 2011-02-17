@@ -36,6 +36,7 @@ module PDFWalker
     def close
       
       @opened = nil
+      @filename = ''
       @explorer_history.clear
       
       @treeview.clear
@@ -54,7 +55,6 @@ module PDFWalker
       @statusbar.pop(@main_context)
       
       GC.start
-      
     end
     
     def open(filename = nil)
@@ -101,8 +101,9 @@ module PDFWalker
           if target
             close if @opened
             @opened = target
+            @filename = filename
             
-            @config.last_opened_file(@opened.filename)
+            @config.last_opened_file(filename)
             @config.save
             update_recent_menu
             
@@ -127,7 +128,7 @@ module PDFWalker
             
             @explorer_history.clear
             
-            @statusbar.push(@main_context, "Viewing #{@opened.filename}")
+            @statusbar.push(@main_context, "Viewing #{filename}")
 
             if @opened.is_a?(PDF)
               pagemenu = Menu.new
@@ -197,7 +198,7 @@ module PDFWalker
           
           @explorer_history.clear
           
-          @statusbar.push(@main_context, "Viewing dump of #{@opened.filename}")
+          @statusbar.push(@main_context, "Viewing dump of #{filename}")
           
         rescue Exception => e
           error("This file cannot be loaded.\n#{e} (#{e.class})")
@@ -221,7 +222,7 @@ module PDFWalker
       
       dialog.do_overwrite_confirmation = true
       dialog.current_folder = "#{Dir.pwd}/dumps"
-      dialog.current_name = "#{File.basename(@opened.filename)}.dmp.gz"
+      dialog.current_name = "#{File.basename(@filename)}.dmp.gz"
       dialog.filter = FileFilter.new.add_pattern("*.gz")
       
       if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
@@ -266,7 +267,7 @@ module PDFWalker
       
       dialog.filter = FileFilter.new.add_pattern("*.acrodata").add_pattern("*.pdf").add_pattern("*.fdf")
         
-      folder = @opened.filename[0..@opened.filename.size - File.basename(@opened.filename).size - 1]
+      folder = @filename[0..@filename.size - File.basename(@filename).size - 1]
       dialog.set_current_folder(folder)
       
       if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
@@ -288,17 +289,14 @@ module PDFWalker
       
       dialog.filter = FileFilter.new.add_pattern("*.dot")
       
-      folder = @opened.filename[0..@opened.filename.size - File.basename(@opened.filename).size - 1]
+      folder = @filename[0..@filename.size - File.basename(@filename).size - 1]
       dialog.set_current_folder(folder)
       
       if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
-        
         @opened.export_to_graph(dialog.filename)
-        
       end
       
       dialog.destroy
-      
     end
     
     def save_graphml
@@ -313,17 +311,14 @@ module PDFWalker
       
       dialog.filter = FileFilter.new.add_pattern("*.graphml")
       
-      folder = @opened.filename[0..@opened.filename.size - File.basename(@opened.filename).size - 1]
+      folder = @filename[0..@filename.size - File.basename(@filename).size - 1]
       dialog.set_current_folder(folder)
       
       if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
-        
         @opened.export_to_graphml(dialog.filename)
-        
       end
       
       dialog.destroy
-      
     end
 
     private
@@ -380,5 +375,5 @@ module PDFWalker
       @progresswin.close
     end
   end
-end
 
+end

@@ -50,6 +50,7 @@ module PDFWalker  #:nodoc:all
     attr_reader :treeview, :hexview, :objectview
     attr_reader :explorer_history
     attr_reader :config
+    attr_reader :filename
 
     def self.start
       Gtk.init

@@ -1,0 +1,72 @@
+=begin
+
+= File
+	filters/ccitt.rb
+
+= Info
+	This file is part of Origami, PDF manipulation framework for Ruby
+	Copyright (C) 2010	Guillaume Delugré <guillaume@security-labs.org>
+	All right reserved.
+	
+  Origami is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Origami is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with Origami.  If not, see <http://www.gnu.org/licenses/>.
+
+=end
+
+module Origami
+
+  module Filter
+
+    #
+    # Class representing a Filter used to encode and decode data with CCITT-facsimile compression algorithm.
+    #
+    class CCITTFax
+      include Filter
+      
+      class DecodeParms < Dictionary
+        include Configurable
+
+        field   :K,           :Type => Integer, :Default => 0
+        field   :EndOfLine,   :Type => Boolean, :Default => false
+        field   :EncodedByteAlign,  :Type => Boolean, :Default => false
+        field   :Columns,     :Type => Integer, :Default => 1728
+        field   :Rows,        :Type => Integer, :Default => 0
+        field   :EndOfBlock,  :Type => Boolean, :Default => true
+        field   :BlackIs1,    :Type => Boolean, :Default => false
+        field   :DamagedRowsBeforeError,  :Type => :Integer, :Default => 0
+      end
+
+      #
+      # Creates a new CCITT Fax Filter.
+      #
+      def initialize(parameters = DecodeParms.new)
+        super(parameters)  
+      end
+      
+      #
+      # Not supported.
+      #
+      def encode(stream)
+        raise NotImplementedError, "#{self.class} is not yet supported"
+      end
+      
+      #
+      # Not supported.
+      #
+      def decode(stream)
+        raise NotImplementedError, "#{self.class} is not yet supported"
+      end
+    end
+    
+  end
+end

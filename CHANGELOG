@@ -2,6 +2,11 @@
 
 beta4 (dev):
   - Added a Rakefile to run unit tests, build rdoc and build gem.
+  - Added a Ruby shell for Origami.
+  |origami|:
+    - Encryption/decryption can be achieved with or without openssl.
+    - Name trees lookup methods.
+    - Lots of bug fixes.
   |doc|:
     - Updated.
 
