@@ -59,7 +59,7 @@ module Origami
       # _parameters_:: A hash of filter options (ignored).
       #
       def initialize(parameters = DecodeParms.new)
-        super(parameters)
+        super(parameters || DecodeParms.new)
       end
       
       #

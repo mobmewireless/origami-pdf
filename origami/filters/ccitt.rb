@@ -289,20 +289,20 @@ module Origami
       # Creates a new CCITT Fax Filter.
       #
       def initialize(parameters = DecodeParms.new)
-        super(parameters)  
+        super(parameters || DecodeParms.new)  
       end
       
       #
       # Not supported.
       #
       def encode(stream)
-        raise NotImplementedError, "#{self.class} is not yet supported"
+        #raise NotImplementedError, "#{self.class} is not yet supported"
       
-        if @params.K != 0
+        if @params.has_key?(:K) and @params.K != 0
           raise NotImplementedError, "CCITT encoding scheme not supported"
         end
 
-        columns = @params.Columns.value
+        columns = @params.has_key?(:Columns) ? @params.Columns.value : (stream.size << 3)
         unless columns.is_a?(::Integer) and columns > 0 and columns % 8 == 0
           raise CCITTFaxFilterError, "Invalid value for parameter `Column'"
         end

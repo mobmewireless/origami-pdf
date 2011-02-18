@@ -40,7 +40,7 @@ module Origami
       end
 
       def initialize(parameters = DecodeParms.new)
-        super(parameters)
+        super(parameters || DecodeParms.new)
       end
 
       def encode(stream)
