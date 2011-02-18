@@ -84,7 +84,7 @@ module Origami
         # Returns the data size in bits.
         #
         def size
-          @data.size + @ptr_bit
+          (@data.size << 3) + @ptr_bit
         end
 
         #

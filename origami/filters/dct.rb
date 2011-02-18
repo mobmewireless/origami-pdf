@@ -43,19 +43,15 @@ module Origami
         super(parameters)
       end
 
-      #
-      # Not supported.
-      #
       def encode(stream)
-        #raise NotImplementedError, "#{self.class} is not yet supported"
         stream
       end
       
       #
-      # Not supported.
+      # DCTDecode implies that data is a JPEG image container.
+      # Just returns the raw JPEG image as is.
       #
       def decode(stream)
-        #raise NotImplementedError, "#{self.class} is not yet supported"
         stream
       end
     end
