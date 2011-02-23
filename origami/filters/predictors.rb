@@ -62,9 +62,6 @@ module Origami
         # bytes per row
         bpr = (nvals * bpc + 7) >> 3
 
-        #
-        # TODO: Support for truncated images.
-        #
         unless data.size % bpr == 0
           raise PredictorError, "Invalid data size #{data.size}, should be multiple of bpr=#{bpr}"
         end
@@ -99,12 +96,9 @@ module Origami
         # bytes per row
         bpr = ((nvals * bpc + 7) >> 3) + 1
 
-        #
-        # TODO: Support for truncated images.
-        #
-        unless data.size % bpr == 0
-          raise PredictorError, "Invalid data size #{data.size}, should be multiple of bpr=#{bpr}"
-        end
+        #unless data.size % bpr == 0
+        #  raise PredictorError, "Invalid data size #{data.size}, should be multiple of bpr=#{bpr}"
+        #end
 
         if predictor == TIFF
           raise PredictorError, "TIFF prediction not yet supported"
@@ -120,7 +114,7 @@ module Origami
         result = ""
         uprow = "\0" * bpr
         thisrow = "\0" * bpr
-        nrows = data.size / bpr
+        nrows = (data.size + bpr - 1) / bpr
         
         nrows.times do |irow|
 
@@ -128,7 +122,7 @@ module Origami
           predictor = 10 + line[0]
           line[0] = "\0"
 
-          for i in (1..bpr-1)
+          for i in (1..line.size-1)
             up = uprow[i]
 
             if bpp > i
