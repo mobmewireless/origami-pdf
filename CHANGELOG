@@ -5,6 +5,8 @@ beta4 (dev):
   - Added a Ruby shell for Origami.
   |origami|:
     - Encryption/decryption can be achieved with or without openssl.
+    - Support for G3 unidimensional encoding/decoding of CCITTFax filter.
+    - Renamed PDF#saveas to PDF#save.
     - Name trees lookup methods.
     - Lots of bug fixes.
   |doc|:

@@ -501,7 +501,7 @@ module Origami
       end
 
       def write_bit_range(bitw, bit_value, length) #:nodoc:
-        length.times do bitw.write(bit_value, 1) end
+        bitw.write((bit_value << length) - bit_value, length)
       end
     end
 
