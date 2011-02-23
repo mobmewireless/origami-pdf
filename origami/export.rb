@@ -40,7 +40,7 @@ module Origami
           when Catalog
             fontcolor = "red"
             color = "mistyrose"
-            shape = "doublecircle"
+            shape = "ellipse"
           when Name, Number
             label = object.value 
             fontcolor = "brown"
@@ -77,7 +77,7 @@ module Origami
           
           object.each_pair { |name, subobj|
             subobj = subobj.solve if subobj.is_a?(Reference) 
-            fd << "\t#{object.object_id} -> #{subobj.object_id} [label=\"#{name.value}\",fontsize=10];\n" unless subobj.nil?
+            fd << "\t#{object.object_id} -> #{subobj.object_id} [label=\"#{name.value}\",fontsize=9];\n" unless subobj.nil?
           }
           
         end
@@ -86,7 +86,7 @@ module Origami
           
           object.dictionary.each_pair { |key, value|
             value = value.solve if value.is_a?(Reference)
-            fd << "\t#{object.object_id} -> #{value.object_id} [label=\"#{key.value}\",fontsize=10];\n" unless value.nil?
+            fd << "\t#{object.object_id} -> #{value.object_id} [label=\"#{name.value}\",fontsize=9];\n" unless value.nil?
           }
           
         end
@@ -104,14 +104,14 @@ module Origami
         objects.each { |object|
           attr = appearance(object)
           
-          fd << "\t#{object.object_id} [label=\"#{attr[:label]}\",shape=#{attr[:shape]},color=#{attr[:color]},style=filled,fontcolor=#{attr[:fontcolor]},fontsize=18];\n"
+          fd << "\t#{object.object_id} [label=\"#{attr[:label]}\",shape=#{attr[:shape]},color=#{attr[:color]},style=filled,fontcolor=#{attr[:fontcolor]},fontsize=16];\n"
           
           if object.is_a?(Stream)
             
             object.dictionary.each { |value|
               unless value.is_a?(Reference)
                 attr = appearance(value)
-                fd << "\t#{value.object_id} [label=\"#{attr[:label]}\",shape=#{attr[:shape]},color=#{attr[:color]},style=filled,fontcolor=#{attr[:fontcolor]},fontsize=18];\n"
+                fd << "\t#{value.object_id} [label=\"#{attr[:label]}\",shape=#{attr[:shape]},color=#{attr[:color]},style=filled,fontcolor=#{attr[:fontcolor]},fontsize=16];\n"
               end
             }
             

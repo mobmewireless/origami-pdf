@@ -152,13 +152,14 @@ module Origami
 
     def set_predictor(predictor, colors = 1, bitspercomponent = 8, columns = 1)
       
-      filters = @dictionary[:Filter].is_a?(::Array) ? filters : [ @dictionary[:Filter] ]
+      filters = self.Filter
+      filters = [ filters ] unless filters.is_a?(::Array)
 
       if not filters.include?(:FlateDecode) and not filters.include?(:LZWDecode)
         raise InvalidStreamObjectError, 'Predictor functions can only be used with Flate or LZW filters'
       end
 
-      nfilter = filters.index(:FlateDecode) or filters.index(:LZWDecode)
+      layer = filters.index(:FlateDecode) or filters.index(:LZWDecode)
 
       params = Filter::LZW::DecodeParms.new
       params[:Predictor] = predictor
@@ -166,7 +167,7 @@ module Origami
       params[:BitsPerComponent] = bitspercomponent if bitspercomponent != 8
       params[:Columns] = columns if columns != 1
 
-      set_decode_params(nfilter, params)
+      set_decode_params(layer, params)
   
       self
     end
@@ -217,21 +218,29 @@ module Origami
     def decode!
       self.decrypt! if self.is_a?(Encryption::EncryptedStream)
       
-      if @rawdata
+      unless is_decoded?
         filters = self.Filter
         
         if filters.nil?
-          @data = @rawdata
-        elsif filters.is_a?(Array)
-          @data = @rawdata
-          
-          filters.length.times do |nfilter|
-            @data = decode_data(@data, nfilter)
-          end
-        elsif filters.is_a?(Name)
-          @data = decode_data(@rawdata, 0)
+          @data = @rawdata.dup
         else
-          raise InvalidStreamObjectError, "Invalid Filter type parameter"
+          case filters
+            when Array, Name then
+              dparams = self.DecodeParms || []
+
+              dparams = [ dparams ] unless dparams.is_a?(::Array)
+              filters = [ filters ] unless filters.is_a?(::Array)
+          
+              @data = @rawdata.dup
+              filters.length.times do |layer|
+                params = dparams[layer].is_a?(Dictionary) ? dparams[layer] : {}
+                filter = filters[layer]
+
+                @data = decode_data(@data, filter, params)
+              end
+            else
+              raise InvalidStreamObjectError, "Invalid Filter type parameter"
+          end
         end
       end
       
@@ -242,21 +251,30 @@ module Origami
     # Compress the stream data.
     #
     def encode!
-      if @data
+
+      unless is_encoded?
         filters = self.Filter
         
         if filters.nil?
-          @rawdata = @data
-        elsif filters.is_a?(Array)
-          @rawdata = @data
-          
-          (filters.length - 1).downto(0) do |nfilter|
-            @rawdata = encode_data(@rawdata, nfilter)
-          end
-        elsif filters.is_a?(Name)
-          @rawdata = encode_data(@data, 0)
+          @rawdata = @data.dup
         else
-          raise InvalidStreamObjectError, "Invalid filter type parameter"
+          case filters
+            when Array, Name then
+              dparams = self.DecodeParms || []
+
+              dparams = [ dparams ] unless dparams.is_a?(::Array)
+              filters = [ filters ] unless filters.is_a?(::Array)
+          
+              @rawdata = @data.dup
+              (filters.length - 1).downto(0) do |layer|
+                params = dparams[layer].is_a?(Dictionary) ? dparams[layer] : {}
+                filter = filters[layer]
+
+                @rawdata = encode_data(@rawdata, filter, params)
+              end
+            else
+              raise InvalidStreamObjectError, "Invalid filter type parameter"
+          end
         end
         
         self.Length = @rawdata.length
@@ -293,38 +311,37 @@ module Origami
 
     private
 
-    def set_decode_params(nfilter, params) #:nodoc:
+    def is_decoded? #:nodoc:
+      not @data.nil?
+    end
+
+    def is_encoded? #:nodoc:
+      not @rawdata.nil?
+    end
+
+    def set_decode_params(layer, params) #:nodoc:
       dparms = self.DecodeParms
       unless dparms.is_a? ::Array
         @dictionary[:DecodeParms] = dparms = []
       end 
 
-      if nfilter > dparms.length - 1
-        dparms.concat(::Array.new(nfilter - dparms.length + 1, Null.new))
+      if layer > dparms.length - 1
+        dparms.concat(::Array.new(layer - dparms.length + 1, Null.new))
       end
 
-      dparms[nfilter] = params
+      dparms[layer] = params
       @dictionary[:DecodeParms] = dparms.first if dparms.length == 1
 
       self
     end
     
-    def decode_data(data, nfilter) #:nodoc:
-      filters = self.Filter
-      filters = [ filters ] unless filters.is_a?(::Array)
-
-      filter = filters[nfilter]
-
-      unless @@defined_filters.include? filter.value
+    def decode_data(data, filter, params) #:nodoc:
+      unless @@defined_filters.include?(filter.value)
         raise InvalidStreamObjectError, "Unknown filter : #{filter}"
       end
 
       begin
-        params = self.DecodeParms
-        params = [ params ] unless params.is_a?(::Array)
-
-        dparms = params[nfilter].is_a?(Dictionary) ? params[nfilter] : {}
-        Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).decode(data, dparms)
+        Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).decode(data, params)
       
       rescue Filter::InvalidFlateDataError => flate_e
         return flate_e.zlib_stream.flush_next_out   
@@ -334,21 +351,12 @@ module Origami
       end
     end
     
-    def encode_data(data, nfilter) #:nodoc:
-      filters = self.Filter
-      filters = [ filters ] unless filters.is_a?(::Array)
-
-      filter = filters[nfilter]
-
-      if not @@defined_filters.include? filter.value
+    def encode_data(data, filter, params) #:nodoc:
+      unless @@defined_filters.include?(filter.value)
         raise InvalidStreamObjectError, "Unknown filter : #{filter}"
       end
  
-      params = self.DecodeParms
-      params = [ params ] unless params.is_a?(::Array)
-
-      dparms = params[nfilter].is_a?(Dictionary) ? params[nfilter] : {}
-      encoded = Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).encode(data, dparms)
+      encoded = Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).encode(data, params)
 
       if filter.value == :ASCIIHexDecode or filter.value == :ASCII85Decode
         encoded << Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,""))::EOD
