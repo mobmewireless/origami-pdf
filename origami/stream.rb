@@ -94,21 +94,21 @@ module Origami
     end
     
     def self.parse(stream) #:nodoc:
-    
+      
       dictionary = Dictionary.parse(stream)
       return dictionary if not stream.skip(@@regexp_open)
      
-      len = dictionary[:Length]
-      if not len.is_a?(Origami::Integer)
+      length = dictionary[:Length]
+      if not length.is_a?(Integer)
         rawdata = stream.scan_until(@@regexp_close)
         if rawdata.nil?
           raise InvalidStreamObjectError, 
             "Stream shall end with a 'endstream' statement"
         end
       else
-        len = len.value
-        rawdata = stream.peek(len)
-        stream.pos += len
+        length = length.value
+        rawdata = stream.peek(length)
+        stream.pos += length
 
         if not ( unmatched = stream.scan_until(@@regexp_close) )
           raise InvalidStreamObjectError, 
@@ -118,23 +118,33 @@ module Origami
         rawdata << unmatched
       end
        
+      stm = 
+        if Origami::OPTIONS[:enable_type_guessing]
+          type, subtype = dictionary[:Type], dictionary[:Subtype]
+          
+          if type.is_a?(Name)
+            if @@stm_special_types.include?(type.value)
+              @@stm_special_types[type.value].new("", dictionary.to_h)
+            else
+              if type == :XObject and subtype.is_a?(Name) and @@stm_xobj_subtypes.include?(subtype.value)
+                @@stm_xobj_subtypes[subtype.value].new("", dictionary.to_h)
+              else
+                Stream.new('', dictionary.to_h)
+              end
+            end
+                    
+          else
+            Stream.new('', dictionary.to_h)
+          end
+
+        else
+          Stream.new('', dictionary.to_h)
+        end
+      
       rawdata.chomp!(TOKENS.last)
       rawdata.chomp!("\r") if rawdata.chomp!("\n")
-
-      stm = 
-      if dictionary.has_key? :Type
-        if @@stm_special_types.include?(dictionary[:Type].value)
-          @@stm_special_types[dictionary[:Type].value].new("", dictionary.to_h)
-        elsif dictionary[:Type] == :XObject and dictionary.has_key? :Subtype
-          if @@stm_xobj_subtypes.include?(dictionary[:Subtype].value)
-            @@stm_xobj_subtypes[dictionary[:Subtype].value].new("", dictionary.to_h)
-          end
-        end
-      end
-
-      stm ||= Stream.new("", dictionary.to_h)
-
-      rawdata.chomp! if len.is_a?(Integer) and len < rawdata.length
+      #rawdata.chomp! if length.is_a?(Integer) and length < rawdata.length
+      
       stm.rawdata = rawdata
 
       stm
@@ -286,8 +296,7 @@ module Origami
     def set_decode_params(nfilter, params) #:nodoc:
       dparms = self.DecodeParms
       unless dparms.is_a? ::Array
-        @dictionary[:DecodeParms] = []
-        dparms = @dictionary[:DecodeParms]
+        @dictionary[:DecodeParms] = dparms = []
       end 
 
       if nfilter > dparms.length - 1
@@ -314,7 +323,7 @@ module Origami
         params = self.DecodeParms
         params = [ params ] unless params.is_a?(::Array)
 
-        dparms = params[nfilter].is_a?(Null) ? nil : params[nfilter]
+        dparms = params[nfilter].is_a?(Dictionary) ? params[nfilter] : {}
         Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).decode(data, dparms)
       
       rescue Filter::InvalidFlateDataError => flate_e
@@ -338,7 +347,7 @@ module Origami
       params = self.DecodeParms
       params = [ params ] unless params.is_a?(::Array)
 
-      dparms = params[nfilter].is_a?(Null) ? nil : params[nfilter]
+      dparms = params[nfilter].is_a?(Dictionary) ? params[nfilter] : {}
       encoded = Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).encode(data, dparms)
 
       if filter.value == :ASCIIHexDecode or filter.value == :ASCII85Decode

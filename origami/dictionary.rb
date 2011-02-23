@@ -64,12 +64,11 @@ module Origami
       
       def self.parse(stream) #:nodoc:
         
-        pairs = {}
-        
         if stream.skip(@@regexp_open).nil?
           raise InvalidDictionaryObjectError, "No token '#{TOKENS.first}' found"
         end
           
+        pairs = {}
         while stream.skip(@@regexp_close).nil? do
           key = Name.parse(stream)
           
@@ -81,12 +80,17 @@ module Origami
           
           pairs[key] = value
         end
-        
-        type = pairs[Name.new(:Type)]
-        if type.is_a?(Name) and @@dict_special_types.include?(type.value)
-          return @@dict_special_types[type.value].new(pairs)
+       
+        if Origami::OPTIONS[:enable_type_guessing]
+          type = pairs[Name.new(:Type)]
+          if type.is_a?(Name) and @@dict_special_types.include?(type.value)
+            @@dict_special_types[type.value].new(pairs)
+          else
+            Dictionary.new(pairs)
+          end
+
         else
-          return Dictionary.new(pairs)
+          Dictionary.new(pairs)
         end
       end
       

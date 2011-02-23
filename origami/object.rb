@@ -104,16 +104,16 @@ module Origami
   #
   # Mixin' module for objects which can store their options into an inner Dictionary.
   #
-  module Configurable
+  module Configurable #:nodoc:
 
     DEFAULT_ATTRIBUTES = { :Type => Object, :Version => "1.1" } #:nodoc:
 
-    def self.included(receiver)
+    def self.included(receiver) #:nodoc:
       receiver.instance_variable_set(:@fields, Hash.new(DEFAULT_ATTRIBUTES))
       receiver.extend(ClassMethods)
     end
 
-    module ClassMethods
+    module ClassMethods #:nodoc:all
     
       def inherited(subclass)
         subclass.instance_variable_set(:@fields, Marshal.load(Marshal.dump(@fields)))
@@ -134,7 +134,7 @@ module Origami
         define_field_methods(name)
       end
 
-      def define_field_methods(field) #:nodoc:
+      def define_field_methods(field)
         reader = lambda { obj = self[field]; obj.is_a?(Reference) ? obj.solve : obj }
         writer = lambda { |value| self[field] = value }
         set = lambda { |value| self[field] = value; self }
@@ -147,7 +147,7 @@ module Origami
       #
       # Returns an array of required fields for the current Object.
       #
-      def required_fields #:nodoc:
+      def required_fields
         fields = []
         @fields.each_pair { |name, attributes|
             fields << name if attributes[:Required] == true
@@ -161,7 +161,7 @@ module Origami
     def pre_build #:nodoc:
       
       set_default_values
-      do_type_check
+      do_type_check if Origami::OPTIONS[:enable_type_checking] == true
       
       super
     end
@@ -177,7 +177,7 @@ module Origami
     #
     # Returns the version and level required by the current Object.
     #
-    def version_required #:nodoc:
+    def pdf_version_required #:nodoc:
       max = [ 1.0, 0 ]
       
       self.each_key do |field|
@@ -189,7 +189,7 @@ module Origami
 
         max = current if (current <=> max) > 0
 
-        sub = self[field.value].version_required
+        sub = self[field.value].pdf_version_required
         max = sub if (sub <=> max) > 0
       end
       
@@ -210,17 +210,15 @@ module Origami
     end
     
     def do_type_check #:nodoc:
-      
-      self.class.fields.each_pair { |field, attributes|
+      self.class.fields.each_pair do |field, attributes|
         
         if not self[field].nil? and not attributes[:Type].nil?
           types = attributes[:Type].is_a?(::Array) ? attributes[:Type] : [ attributes[:Type] ]
-          puts "Warning: in object #{self.class}, field `#{field.to_s}' has unexpected type #{self[field].class}" if not self[field].is_a?(Reference) and types.all? { |type|
-            not self[field].is_a?(type)
-          }
+          if not self[field].is_a?(Reference) and types.all? {|type| not self[field].is_a?(type)}
+            puts "Warning: in object #{self.class}, field `#{field.to_s}' has unexpected type #{self[field].class}" 
+          end
         end
-      }
-      
+      end
     end
   
   end
@@ -473,7 +471,7 @@ module Origami
       
     end
     
-    def version_required #:nodoc:
+    def pdf_version_required #:nodoc:
       [ 1.0, 0 ]
     end
       
@@ -483,7 +481,6 @@ module Origami
     def type
       self.class.to_s.split("::").last.to_sym
     end
-    
     alias real_type type
     
     #

@@ -59,7 +59,7 @@ module Origami
       EOL = codeword('000000000001')
       RTC = codeword('000000000001' * 6)
 
-      WHITE_TERMINAL_TABLE =
+      WHITE_TERMINAL_ENCODE_TABLE =
       {
         0   => codeword('00110101'), 
         1   => codeword('000111'),
@@ -126,8 +126,9 @@ module Origami
         62  => codeword('00110011'),
         63  => codeword('00110100')
       }
+      WHITE_TERMINAL_DECODE_TABLE = WHITE_TERMINAL_ENCODE_TABLE.invert
 
-      BLACK_TERMINAL_TABLE =
+      BLACK_TERMINAL_ENCODE_TABLE =
       {
         0   => codeword('0000110111'), 
         1   => codeword('010'),
@@ -194,8 +195,9 @@ module Origami
         62  => codeword('000001100110'),
         63  => codeword('000001100111')
       }
+      BLACK_TERMINAL_DECODE_TABLE = BLACK_TERMINAL_ENCODE_TABLE.invert
 
-      WHITE_CONFIGURATION_TABLE =
+      WHITE_CONFIGURATION_ENCODE_TABLE =
       {
         64    => codeword('11011'),
         128   => codeword('10010'),
@@ -239,8 +241,9 @@ module Origami
         2496  => codeword('000000011110'),
         2560  => codeword('000000011111')
       }
+      WHITE_CONFIGURATION_DECODE_TABLE = WHITE_CONFIGURATION_ENCODE_TABLE.invert
 
-      BLACK_CONFIGURATION_TABLE =
+      BLACK_CONFIGURATION_ENCODE_TABLE =
       {
         64    => codeword('0000001111'),
         128   => codeword('000011001000'),
@@ -284,19 +287,19 @@ module Origami
         2496  => codeword('000000011110'),
         2560  => codeword('000000011111')
       }
+      BLACK_CONFIGURATION_DECODE_TABLE = BLACK_CONFIGURATION_ENCODE_TABLE.invert
 
       #
       # Creates a new CCITT Fax Filter.
       #
-      def initialize(parameters = DecodeParms.new)
-        super(parameters || DecodeParms.new)  
+      def initialize(parameters = {})
+        super(DecodeParms.new(parameters))  
       end
       
       #
-      # Not supported.
+      # Encodes data using CCITT-facsimile compression method.
       #
       def encode(stream)
-        #raise NotImplementedError, "#{self.class} is not yet supported"
       
         if @params.has_key?(:K) and @params.K != 0
           raise NotImplementedError, "CCITT encoding scheme not supported"
@@ -304,7 +307,7 @@ module Origami
 
         columns = @params.has_key?(:Columns) ? @params.Columns.value : (stream.size << 3)
         unless columns.is_a?(::Integer) and columns > 0 and columns % 8 == 0
-          raise CCITTFaxFilterError, "Invalid value for parameter `Column'"
+          raise CCITTFaxFilterError, "Invalid value for parameter `Columns'"
         end
 
         if stream.size % (columns >> 3) != 0
@@ -357,26 +360,129 @@ module Origami
       end
       
       #
-      # Not supported.
+      # Decodes data using CCITT-facsimile compression method.
       #
       def decode(stream)
-        raise NotImplementedError, "#{self.class} is not yet supported"
+        
+        if @params.has_key?(:K) and @params.K != 0
+          raise NotImplementedError, "CCITT encoding scheme not supported"
+        end
+
+        columns = @params.has_key?(:Columns) ? @params.Columns.value : 1728
+        unless columns.is_a?(::Integer) and columns > 0 and columns % 8 == 0
+          raise CCITTFaxFilterError, "Invalid value for parameter `Columns'"
+        end
+
+        white, black = (@params.BlackIs1 == true) ? [0,1] : [1,0]
+        aligned = @params.EncodedByteAlign == true
+        has_eob = @params.EndOfBlock.nil? or @params.EndOfBlock == true
+        has_eol = @params.EndOfLine == true
+
+        unless has_eob
+          unless @params.has_key?(:Rows) and @params.Rows.is_a?(::Integer) and @params.Rows.value > 0
+            raise CCITTFaxFilterError, "Invalid value for parameter `Rows'"
+          end
+
+          rows = @params.Rows.to_i
+        end
+
+        bitr = Utils::BitReader.new(stream)
+        bitw = Utils::BitWriter.new
+
+        current_color = white
+        until bitr.eod? or rows == 0
+          
+          # realign the read line on a 8-bit boundary if required
+          if aligned and bitr.pos % 8 != 0
+            bitr.pos += 8 - (bitr.pos % 8)          
+          end
+
+          # received return-to-control code 
+          if has_eob and bitr.peek(RTC[1]) == RTC[0]
+            bitr.pos += RTC[1]
+            break
+          end
+
+          # checking for the presence of EOL
+          if bitr.peek(EOL[1]) != EOL[0]
+            raise CCITTFaxFilterError, "No end-of-line pattern found (at bit pos #{bitr.pos}/#{bitr.size}})" if has_eol
+          else
+            bitr.pos += EOL[1]
+          end
+
+          line_length = 0
+          while line_length < columns
+            if current_color == white
+              bit_length = get_white_bits(bitr)
+            else
+              bit_length = get_black_bits(bitr)
+            end
+
+            raise CCITTFaxFilterError, "Unfinished line (at bit pos #{bitr.pos}/#{bitr.size}})" if bit_length.nil?
+            
+            line_length += bit_length
+            raise CCITTFaxFilterError, "Line is too long (at bit pos #{bitr.pos}/#{bitr.size}})" if line_length > columns
+
+            write_bit_range(bitw, current_color, bit_length)
+            current_color ^= 1
+          end
+
+          rows -= 1 unless has_eob
+        end
+
+        bitw.final.to_s
       end
 
       private
 
       def get_white_bits(bitr) #:nodoc:
+        get_color_bits(bitr, WHITE_CONFIGURATION_DECODE_TABLE, WHITE_TERMINAL_DECODE_TABLE)
       end
 
       def get_black_bits(bitr) #:nodoc:
+        get_color_bits(bitr, BLACK_CONFIGURATION_DECODE_TABLE, BLACK_TERMINAL_DECODE_TABLE)
+      end
+
+      def get_color_bits(bitr, config_words, term_words) #:nodoc:
+        bits = 0
+        check_conf = true
+
+        while check_conf
+          check_conf = false
+          (2..13).each do |length|
+            codeword = bitr.peek(length)
+            config_value = config_words[[codeword, length]]
+
+            if config_value
+              bitr.pos += length
+              bits += config_value
+              check_conf = true if config_value == 2560
+              break
+            end
+          end
+        end
+
+        (2..13).each do |length|
+          codeword = bitr.peek(length)
+          term_value = term_words[[codeword, length]]
+
+          if term_value
+            bitr.pos += length
+            bits += term_value
+            
+            return bits
+          end
+        end
+
+        nil
       end
 
       def put_white_bits(bitw, length) #:nodoc:
-        put_color_bits(bitw, length, WHITE_CONFIGURATION_TABLE, WHITE_TERMINAL_TABLE)
+        put_color_bits(bitw, length, WHITE_CONFIGURATION_ENCODE_TABLE, WHITE_TERMINAL_ENCODE_TABLE)
       end
 
       def put_black_bits(bitw, length) #:nodoc:
-        put_color_bits(bitw, length, BLACK_CONFIGURATION_TABLE, BLACK_TERMINAL_TABLE)
+        put_color_bits(bitw, length, BLACK_CONFIGURATION_ENCODE_TABLE, BLACK_TERMINAL_ENCODE_TABLE)
       end
 
       def put_color_bits(bitw, length, config_words, term_words) #:nodoc:
@@ -394,7 +500,12 @@ module Origami
         bitw.write(*term_words[length])
       end
 
+      def write_bit_range(bitw, bit_value, length) #:nodoc:
+        length.times do bitw.write(bit_value, 1) end
+      end
     end
-    
+
   end
+
 end
+

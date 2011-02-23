@@ -59,7 +59,16 @@ module Origami
 
   VERSION   = "1.0.0-beta3"
   REVISION  = "$Revision$" #:nodoc:
-  OPTIONS   = {}
+  
+  #
+  # Global options for Origami.
+  #
+  OPTIONS   = 
+  {
+    :enable_type_checking => true,  # set to false to disable type consistency checks during compilation.
+    :enable_type_guessing => true,  # set to false to prevent the parser to guess the type of special dictionary and streams (not recommended).
+    :use_openssl => true            # set to false to use Origami crypto backend.
+  }
   
   begin
     require 'openssl'
@@ -946,7 +955,7 @@ module Origami
       max = [ 1.0, 0 ]
       @revisions.each { |revision|
         revision.objects.each { |object|
-          current = object.version_required
+          current = object.pdf_version_required
           max = current if (current <=> max) > 0
         }
       }

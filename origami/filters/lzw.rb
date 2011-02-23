@@ -40,7 +40,6 @@ module Origami
       include Filter
 
       class DecodeParms < Dictionary
-
         include Configurable
 
         field   :Predictor,         :Type => Integer, :Default => 1
@@ -48,7 +47,6 @@ module Origami
         field   :BitsPerComponent,  :Type => Integer, :Default => 8
         field   :Columns,           :Type => Integer, :Default => 1
         field   :EarlyChange,       :Type => Integer, :Default => 1
-
       end
  
       EOD = 257 #:nodoc:
@@ -58,8 +56,8 @@ module Origami
       # Creates a new LZW Filter.
       # _parameters_:: A hash of filter options (ignored).
       #
-      def initialize(parameters = DecodeParms.new)
-        super(parameters || DecodeParms.new)
+      def initialize(parameters = {})
+        super(DecodeParms.new(parameters))
       end
       
       #
@@ -67,13 +65,12 @@ module Origami
       # _stream_:: The data to encode.
       #
       def encode(string)
-  
-        if @params and not @params[:Predictor].nil?
-          colors =  @params.has_key?(:Colors) ? @params[:Colors].to_i : 1
-          bpc =     @params.has_key?(:BitsPerComponent) ? @params[:BitsPerComponent].to_i : 8
-          columns = @params.has_key?(:Columns) ? @params[:Columns].to_i : 1
+        if @params.Predictor.is_a?(Integer)
+          colors  = @params.Colors.is_a?(Integer) ?  @params.Colors.to_i : 1
+          bpc     = @params.BitsPerComponent.is_a?(Integer) ? @params.BitsPerComponent.to_i : 8
+          columns = @params.Columns.is_a?(Integer) ? @params.Columns.to_i : 1
 
-          string = Predictor.do_pre_prediction(string, @params[:Predictor].to_i, colors, bpc, columns)
+          string = Predictor.do_pre_prediction(string, @params.Predictor.to_i, colors, bpc, columns)
         end       
         
         codesize = 9
@@ -167,12 +164,12 @@ module Origami
           end
         end
  
-        if @params and not @params[:Predictor].nil?
-          colors =  @params.has_key?(:Colors) ? @params[:Colors].to_i : 1
-          bpc =     @params.has_key?(:BitsPerComponent) ? @params[:BitsPerComponent].to_i : 8
-          columns = @params.has_key?(:Columns) ? @params[:Columns].to_i : 1
+        if @params.Predictor.is_a?(Integer)
+          colors  = @params.Colors.is_a?(Integer) ?  @params.Colors.to_i : 1
+          bpc     = @params.BitsPerComponent.is_a?(Integer) ? @params.BitsPerComponent.to_i : 8
+          columns = @params.Columns.is_a?(Integer) ? @params.Columns.to_i : 1
 
-          result = Predictor.do_post_prediction(result, @params[:Predictor].to_i, colors, bpc, columns)
+          result = Predictor.do_post_prediction(result, @params.Predictor.to_i, colors, bpc, columns)
         end
 
         result

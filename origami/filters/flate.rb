@@ -62,8 +62,8 @@ module Origami
       # Create a new Flate Filter.
       # _parameters_:: A hash of filter options (ignored).
       #
-      def initialize(parameters = DecodeParms.new)
-        super(parameters || DecodeParms.new)
+      def initialize(parameters = {})
+        super(DecodeParms.new(parameters))
       end
       
       #
@@ -71,15 +71,14 @@ module Origami
       # _stream_:: The data to encode.
       #
       def encode(stream)
+        if @params.Predictor.is_a?(Integer)
+          colors  = @params.Colors.is_a?(Integer) ? @params.Colors.to_i : 1
+          bpc     = @params.BitsPerComponent.is_a?(Integer) ? @params.BitsPerComponent.to_i : 8
+          columns = @params.Columns.is_a?(Integer) ? @params.Columns.to_i : 1
 
-        if @params and not @params[:Predictor].nil?
-          colors =  @params.has_key?(:Colors) ? @params[:Colors].to_i : 1
-          bpc =     @params.has_key?(:BitsPerComponent) ? @params[:BitsPerComponent].to_i : 8
-          columns = @params.has_key?(:Columns) ? @params[:Columns].to_i : 1
-
-          stream = Predictor.do_pre_prediction(stream, @params[:Predictor].to_i, colors, bpc, columns)
-        end
-
+          stream = Predictor.do_pre_prediction(stream, @params.Predictor.to_i, colors, bpc, columns)
+        end       
+        
         Zlib::Deflate.deflate(stream, Zlib::BEST_COMPRESSION)
       end
       
@@ -96,12 +95,12 @@ module Origami
           raise InvalidFlateDataError.new(zlib_stream, zlib_except)
         end
 
-        if @params and not @params[:Predictor].nil?
-          colors =  @params.has_key?(:Colors) ? @params[:Colors].to_i : 1
-          bpc =     @params.has_key?(:BitsPerComponent) ? @params[:BitsPerComponent].to_i : 8
-          columns = @params.has_key?(:Columns) ? @params[:Columns].to_i : 1
+        if @params.Predictor.is_a?(Integer)
+          colors  = @params.Colors.is_a?(Integer) ? @params.Colors.to_i : 1
+          bpc     = @params.BitsPerComponent.is_a?(Integer) ? @params.BitsPerComponent.to_i : 8
+          columns = @params.Columns.is_a?(Integer) ? @params.Columns.to_i : 1
 
-          uncompressed = Predictor.do_post_prediction(uncompressed, @params[:Predictor].to_i, colors, bpc, columns)
+          uncompressed = Predictor.do_post_prediction(uncompressed, @params.Predictor.to_i, colors, bpc, columns)
         end
 
         uncompressed

@@ -39,8 +39,8 @@ module Origami
         field   :ColorTransform,    :Type => Integer
       end
 
-      def initialize(parameters = DecodeParms.new)
-        super(parameters || DecodeParms.new)
+      def initialize(parameters = {})
+        super(DecodeParms.new(parameters))
       end
 
       def encode(stream)

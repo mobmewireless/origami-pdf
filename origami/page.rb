@@ -378,7 +378,7 @@ module Origami
     end
 
     def pre_build
-      self.Resources = Resources.new.pre_build unless has_field?(:Resources)
+      self.Resources = Resources.new.pre_build unless self.has_key?(:Resources)
 
       super
     end

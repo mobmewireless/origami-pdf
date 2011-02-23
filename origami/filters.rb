@@ -207,7 +207,7 @@ module Origami
       # Decodes the given data.
       # _stream_:: The data to decode.
       #
-      def decode(stream, params = nil)
+      def decode(stream, params = {})
         self.new(params).decode(stream)
       end
       
@@ -215,12 +215,12 @@ module Origami
       # Encodes the given data.
       # _stream_:: The data to encode.
       #
-      def encode(stream, params = nil)
+      def encode(stream, params = {})
         self.new(params).encode(stream)
       end
     end
 
-    def initialize(parameters= nil)
+    def initialize(parameters = {})
       @params = parameters
     end
     

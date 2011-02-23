@@ -179,7 +179,7 @@ module Origami
     # _ownerpasswd_:: The owner password.
     # _options_:: A set of options to configure encryption.
     #
-    def encrypt(userpasswd, ownerpasswd, options = {})
+    def encrypt(userpasswd = '', ownerpasswd = '', options = {})
     
       if self.is_encrypted?
         raise EncryptionError, "PDF is already encrypted"

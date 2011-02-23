@@ -39,8 +39,8 @@ module Origami
         field   :JBIG2Globals,    :Type => Stream
       end
 
-      def initialize(parameters = DecodeParms.new)
-        super(parameters || DecodeParms.new)
+      def initialize(parameters = {})
+        super(DecodeParms.new(parameters))
       end
 
       #
