@@ -67,7 +67,7 @@ module Origami
         end
 
         if predictor == TIFF
-          raise PredictorError, "TIFF prediction not yet supported"
+          do_tiff_pre_prediction(data, colors, bpc, columns)
         elsif predictor >= 10 # PNG
           do_png_pre_prediction(data, predictor, bpp, bpr)
         else
@@ -96,12 +96,8 @@ module Origami
         # bytes per row
         bpr = ((nvals * bpc + 7) >> 3) + 1
 
-        #unless data.size % bpr == 0
-        #  raise PredictorError, "Invalid data size #{data.size}, should be multiple of bpr=#{bpr}"
-        #end
-
         if predictor == TIFF
-          raise PredictorError, "TIFF prediction not yet supported"
+          do_tiff_post_prediction(data, colors, bpc, columns)
         elsif predictor >= 10 # PNG
           do_png_post_prediction(data, bpp, bpr)
         else
@@ -222,7 +218,59 @@ module Origami
         result
       end
 
+      def self.do_tiff_post_prediction(data, colors, bpc, columns) #:nodoc:
+
+        bpr = (colors * bpc * columns + 7) >> 3
+        nrows = data.size / bpr
+        bitmask = (1 << bpc) - 1
+        result = Utils::BitWriter.new
+
+        nrows.times do |irow|
+          line = Utils::BitReader.new(data[irow * bpr, bpr])
+
+          pixel = ::Array.new(colors, 0)
+          columns.times do
+            diffpixel = ::Array.new(colors) { line.read(bpc) }
+            pixel = pixel.zip(diffpixel).map!{|c, diff| (c + diff) & bitmask}
+            
+            pixel.each do |c|
+              result.write(c, bpc)
+            end
+          end
+          
+          result.final
+        end
+
+        result.final.to_s
+      end
+
+      def self.do_tiff_pre_prediction(data, colors, bpc, columns) #:nodoc:
+
+        bpr = (colors * bpc * columns + 7) >> 3
+        nrows = data.size / bpr
+        bitmask = (1 << bpc) - 1
+        result = Utils::BitWriter.new
+
+        nrows.times do |irow|
+          line = Utils::BitReader.new(data[irow * bpr, bpr])
+
+          diffpixel = ::Array.new(colors, 0)
+          columns.times do
+            pixel = ::Array.new(colors) { line.read(bpc) }
+            diffpixel = diffpixel.zip(pixel).map!{|diff, c| (c - diff) & bitmask}
+            
+            diffpixel.each do |c|
+              result.write(c, bpc)
+            end
+          end
+          
+          result.final
+        end
+       
+        result.final.to_s
+      end
     end
+
   end
 end
 

@@ -52,6 +52,12 @@ module Origami
         def write(data, length)
           return BitWriterError, "Invalid data length" unless length > 0 and (1 << length) > data
 
+          # optimization for aligned byte writing
+          if length == 8 and @last_byte.nil? and @ptr_bit == 0
+            @data << data.chr
+            return self
+          end
+
           while length > 0
             if length >= 8 - @ptr_bit
               length -= 8 - @ptr_bit
@@ -92,7 +98,7 @@ module Origami
         #
         def final
           @data << @last_byte.chr if @last_byte
-          @last_byte = 0
+          @last_byte = nil
           @p = 0
 
           self
