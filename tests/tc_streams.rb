@@ -11,7 +11,15 @@ require 'stringio'
     # def teardown
     # end
     
-    def test_png_predictors
+    def test_predictors
+
+      stm = Stream.new(@data, :Filter => :FlateDecode)
+      stm.set_predictor(Filter::Predictor::TIFF)
+      raw = stm.rawdata
+      stm.data = nil
+      stm.rawdata = raw
+
+      assert_equal @data, stm.data
 
       stm = Stream.new(@data, :Filter => :FlateDecode)
       stm.set_predictor(Filter::Predictor::PNG_SUB)
@@ -21,6 +29,7 @@ require 'stringio'
 
       assert_equal @data, stm.data
 
+      stm = Stream.new(@data, :Filter => :FlateDecode)
       stm.set_predictor(Filter::Predictor::PNG_UP)
       raw = stm.rawdata
       stm.data = nil
@@ -28,6 +37,7 @@ require 'stringio'
 
       assert_equal stm.data, @data
 
+      stm = Stream.new(@data, :Filter => :FlateDecode)
       stm.set_predictor(Filter::Predictor::PNG_AVERAGE)
       raw = stm.rawdata
       stm.data = nil
@@ -35,6 +45,7 @@ require 'stringio'
 
       assert_equal stm.data, @data
 
+      stm = Stream.new(@data, :Filter => :FlateDecode)
       stm.set_predictor(Filter::Predictor::PNG_PAETH)
       raw = stm.rawdata
       stm.data = nil
@@ -94,10 +105,19 @@ require 'stringio'
       assert_equal stm.data, @data
     end
 
+    def test_filter_ccittfax
+      
+      stm = Stream.new(@data[0, 216], :Filter => :CCITTFaxDecode)
+      
+      raw = stm.rawdata
+      stm.data = nil
+      stm.rawdata = raw
+
+      assert_equal stm.data, @data[0, 216]
+    end
+
     def test_stream
-
       stm = Stream.new(@data, :Filter => :ASCIIHexDecode )
-
       @target << stm
 
       stm.pre_build

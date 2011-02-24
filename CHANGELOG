@@ -6,8 +6,9 @@ beta4 (dev):
   |origami|:
     - Encryption/decryption can be achieved with or without openssl.
     - Support for G3 unidimensional encoding/decoding of CCITTFax filter.
-    - Renamed PDF#saveas to PDF#save.
+    - Support for TIFF stream predictor functions.
     - Name trees lookup methods.
+    - Renamed PDF#saveas to PDF#save.
     - Lots of bug fixes.
   |doc|:
     - Updated.

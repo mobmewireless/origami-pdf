@@ -50,6 +50,17 @@ module Origami
       super(rawdata, dictionary)
     end
 
+    def pre_build #:nodoc:
+      load! if @instructions.nil?
+      if @gs.text_state.is_in_text_object?
+        @instructions << PDF::Instruction.new('ET').update_state(@gs)
+      end
+
+      @data = @instructions.join
+      
+      super
+    end
+
     def instructions
       load! if @instructions.nil?
 
@@ -377,17 +388,6 @@ module Origami
       end
 
       self
-    end
-
-    def pre_build #:nodoc:
-      load! if @instructions.nil?
-      if @gs.text_state.is_in_text_object?
-        @instructions << PDF::Instruction.new('ET').update_state(@gs)
-      end
-
-      @data = @instructions.join
-      
-      super
     end
 
     private
