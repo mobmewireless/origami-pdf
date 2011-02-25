@@ -26,7 +26,7 @@
 module Origami
 
   class Outline < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :Type,            :Type => Name, :Default => :Outlines
     field   :First,           :Type => Dictionary
@@ -35,7 +35,7 @@ module Origami
   end
 
   class OutlineItem < Dictionary
-    include Configurable
+    include StandardObject
 
     module Style
       ITALIC  = 1 << 0

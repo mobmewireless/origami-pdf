@@ -99,7 +99,7 @@ module Origami
   # Class representing a linearization dictionary.
   #
   class Linearization < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :Linearized,   :Type => Real, :Default => 1.0, :Required => true
     field   :L,            :Type => Integer, :Required => true

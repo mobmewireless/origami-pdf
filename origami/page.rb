@@ -162,7 +162,7 @@ module Origami
   #
   class Resources < Dictionary
     
-    include Configurable
+    include StandardObject
     include ResourcesHolder
 
     field   :ExtGState,   :Type => Dictionary
@@ -191,7 +191,7 @@ module Origami
   # Class representing a node in a Page tree.
   #
   class PageTreeNode < Dictionary
-    include Configurable
+    include StandardObject
    
     field   :Type,          :Type => Name, :Default => :Pages, :Required => true
     field   :Parent,        :Type => Dictionary
@@ -337,7 +337,7 @@ module Origami
   #
   class Page < Dictionary
     
-    include Configurable
+    include StandardObject
     include ResourcesHolder
    
     field   :Type,                  :Type => Name, :Default => :Page, :Required => true
@@ -536,7 +536,7 @@ module Origami
   # Class representing additional actions which can be associated to a Page.
   #
   class PageAdditionalActions < Dictionary
-    include Configurable
+    include StandardObject
    
     field   :O,   :Type => Dictionary, :Version => "1.2" # Page Open
     field   :C,   :Type => Dictionary, :Version => "1.2" # Page Close
@@ -546,7 +546,7 @@ module Origami
   # Class representing a navigation node associated to a Page.
   #
   class NavigationNode < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :Type,    :Type => Name, :Default => :NavNode
     field   :NA,      :Type => Dictionary # Next action

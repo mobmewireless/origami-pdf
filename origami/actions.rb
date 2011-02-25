@@ -47,7 +47,7 @@ module Origami
   #
   class Action < Dictionary
     
-    include Configurable
+    include StandardObject
 
     field   :Type,    :Type => Name, :Default => :Action
     field   :S,       :Type => Name, :Required => true
@@ -132,7 +132,7 @@ module Origami
       #
       class WindowsLaunchParams < Dictionary
         
-        include Configurable
+        include StandardObject
        
         field   :F,         :Type => ByteString, :Required => true
         field   :D,         :Type => ByteString
@@ -201,7 +201,7 @@ module Origami
       #
       class EmbeddedTarget < Dictionary
         
-        include Configurable
+        include StandardObject
         
         module Relationship
           PARENT = :P
@@ -281,7 +281,7 @@ module Origami
       field   :CMD,         :Type => Dictionary, :Version => "1.7", :ExtensionLevel => 3, :Required => true
 
       class Command < Dictionary
-        include Configurable
+        include StandardObject
 
         field   :Type,      :Type => Name, :Default => :RichMediaCommand, :Version => "1.7", :ExtensionLevel => 3
         field   :C,         :Type => String, :Version => "1.7", :ExtensionLevel => 3, :Required => true

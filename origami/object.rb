@@ -104,7 +104,7 @@ module Origami
   #
   # Mixin' module for objects which can store their options into an inner Dictionary.
   #
-  module Configurable #:nodoc:
+  module StandardObject #:nodoc:
 
     DEFAULT_ATTRIBUTES = { :Type => Object, :Version => "1.1" } #:nodoc:
 
@@ -272,7 +272,7 @@ module Origami
     # Indirect objects are allocated numbers at build time.
     #
     def set_indirect(dir)
-      unless dir == true  or dir == false
+      unless dir == true or dir == false
         raise TypeError, "The argument must be boolean"
       end
       

@@ -129,7 +129,7 @@ module Origami
   #
   class FileSpec < Dictionary
     
-    include Configurable
+    include StandardObject
    
     field   :Type,          :Type => Name, :Default => :FileSpec
     field   :FS,            :Type => Name, :Default => :URL
@@ -190,7 +190,7 @@ module Origami
     #
     class EmbeddedFileStream < Stream
      
-      include Configurable
+      include StandardObject
       
       field   :Type,          :Type => Name, :Default => :EmbeddedFile
       field   :Subtype,       :Type => Name
@@ -203,7 +203,7 @@ module Origami
     #
     class EmbeddedFileParameters < Dictionary
       
-      include Configurable
+      include StandardObject
       
       field   :Size,          :Type => Integer
       field   :CreationDate,  :Type => ByteString

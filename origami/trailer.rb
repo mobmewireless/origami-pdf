@@ -84,7 +84,7 @@ module Origami
   #
   class Trailer
     
-    include Configurable
+    include StandardObject
     
     TOKENS = %w{ trailer %%EOF } #:nodoc:
     XREF_TOKEN = "startxref" #:nodoc:

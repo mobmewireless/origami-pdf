@@ -30,7 +30,7 @@ module Origami
   #
   class Font < Dictionary
     
-    include Configurable
+    include StandardObject
    
     field   :Type,                    :Type => Name, :Default => :Font, :Required => true
     field   :Subtype,                 :Type => Name, :Default => :Type1, :Required => true
@@ -156,7 +156,7 @@ module Origami
   #
   class FontDescriptor < Dictionary
     
-    include Configurable
+    include StandardObject
     
     FIXEDPITCH  = 1 << 1
     SERIF       = 1 << 2
@@ -198,7 +198,7 @@ module Origami
   #
   class Encoding < Dictionary
     
-    include Configurable
+    include StandardObject
 
     field   :Type,                    :Type => Name, :Default => :Encoding
     field   :BaseEncoding,            :Type => Name

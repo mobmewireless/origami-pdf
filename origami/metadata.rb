@@ -87,8 +87,7 @@ module Origami
   # Class representing an information Dictionary, containing title, author, date of creation and the like.
   #
   class Metadata < Dictionary
-    
-    include Configurable
+    include StandardObject
 
     field   :Title,                   :Type => String, :Version => "1.1"
     field   :Author,                  :Type => String
@@ -99,7 +98,6 @@ module Origami
     field   :CreationDate,            :Type => ByteString
     field   :ModDate,                 :Type => ByteString, :Version => "1.1"
     field   :Trapped,                 :Type => Name, :Default => :Unknown, :Version => "1.3"
-       
   end
   
   #
@@ -107,12 +105,10 @@ module Origami
   # This stream can contain the same information as the Metadata dictionary, but is storing in XML data.
   #
   class MetadataStream < Stream
-    
-    include Configurable
+    include StandardObject
    
     field   :Type,                    :Type => Name, :Default => :Metadata, :Required => true
     field   :Subtype,                 :Type => Name, :Default =>:XML, :Required => true
-    
   end
 
 end

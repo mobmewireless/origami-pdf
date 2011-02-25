@@ -50,7 +50,7 @@ module Origami
       EOD = 257 #:nodoc:
  
       class DecodeParms < Dictionary
-        include Configurable
+        include StandardObject
 
         field   :Predictor,         :Type => Integer, :Default => 1
         field   :Colors,            :Type => Integer, :Default => 1

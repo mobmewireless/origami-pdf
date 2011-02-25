@@ -48,7 +48,7 @@ module Origami
    
     #
     # Decrypts the current document (only RC4 40..128 bits).
-    # TODO: AESv2, AESv3, lazy decryption
+    # TODO: AESv3
     # _passwd_:: The password to decrypt the document.
     #
     def decrypt(passwd = "")
@@ -66,7 +66,7 @@ module Origami
 
       case handler.V.to_i
         when 1,2 then str_algo = stm_algo = Encryption::ARC4
-        when 4
+        when 4,5
           if handler[:CF].is_a?(Dictionary)
             cfs = handler[:CF]
             
@@ -74,12 +74,13 @@ module Origami
               cfdict = cfs[handler[:StrF]]
               
               str_algo =
-              if cfdict[:CFM] == :V2 then Encryption::ARC4
-              elsif cfdict[:CFM] == :AESV2 then Encryption::AES
-              elsif cfdict[:CFM] == :None then Encryption::Identity
-              else
-                Encryption::Identity
-              end
+                if cfdict[:CFM] == :V2 then Encryption::ARC4
+                elsif cfdict[:CFM] == :AESV2 then Encryption::AES
+                elsif cfdict[:CFM] == :None then Encryption::Identity
+                elsif cfdict[:CFM] == :AESV3 and handler.V.to_i == 5 then Encryption::AES
+                else
+                  raise EncryptionNotSupportedError, "Unsupported encryption version : #{handler.V}"
+                end
             else
               str_algo = Encryption::Identity
             end
@@ -88,12 +89,13 @@ module Origami
               cfdict = cfs[handler[:StmF]]
 
               stm_algo =
-              if cfdict[:CFM] == :V2 then Encryption::ARC4
-              elsif cfdict[:CFM] == :AESV2 then Encryption::AES
-              elsif cfdict[:CFM] == :None then Encryption::Identity
-              else
-                Encryption::Identity
-              end
+                if cfdict[:CFM] == :V2 then Encryption::ARC4
+                elsif cfdict[:CFM] == :AESV2 then Encryption::AES
+                elsif cfdict[:CFM] == :None then Encryption::Identity
+                elsif cfdict[:CFM] == :AESV3 and handler.V.to_i == 5 then Encryption::AES
+                else
+                  raise EncryptionNotSupportedError, "Unsupported encryption version : #{handler.V}"
+                end
             else
               stm_algo = Encryption::Identity
             end
@@ -101,22 +103,32 @@ module Origami
           else
             str_algo = stm_algo = Encryption::Identity
           end
+
+        else
+          raise EncryptionNotSupportedError, "Unsupported encryption version : #{handler.V}"
+      end
+      
+      doc_id = get_doc_attr(:ID)
+      unless doc_id.is_a?(Array)
+        raise EncryptionError, "Document ID was not found or is invalid" unless handler.V.to_i == 5
       else
-        raise EncryptionNotSupportedError, "Unsupported encryption version : #{handler.V}"
+        doc_id = doc_id.first
       end
 
-      id = get_doc_attr(:ID)
-      if id.nil? or not id.is_a?(Array)
-        raise EncryptionError, "Document ID was not found or is invalid"
+      if not handler.is_owner_password?(passwd, doc_id)
+        if handler.V.to_i < 5
+          user_passwd = retrieve_user_password(passwd)
+          encryption_key = handler.compute_user_encryption_key(user_passwd, doc_id)
+        else
+          encryption_key = handler.compute_owner_encryption_key(passwd)
+        end
+      
+      elsif handler.is_user_password?(passwd, doc_id)
+        encryption_key = handler.compute_user_encryption_key(passwd, doc_id)
       else
-        id = id.first
-      end
-
-      if not handler.is_owner_password?(passwd, id) and not handler.is_user_password?(passwd, id)
         raise EncryptionInvalidPasswordError
       end
 
-      encryption_key = handler.compute_encryption_key(passwd, id)
 
       #self.extend(Encryption::EncryptedDocument)
       #self.encryption_dict = encrypt_dict
@@ -143,16 +155,17 @@ module Origami
         end
 
         encrypted_objects.each do |obj|
-          parent = obj.indirect_parent
-          no, gen = parent.no, parent.generation
-
-          k = encryption_key + [no].pack("I")[0..2] + [gen].pack("I")[0..1]
-          key_len = (k.length > 16) ? 16 : k.length
 
           case obj
             when String
-              next if obj.equal?(encrypt_dict[:U]) or obj.equal?(encrypt_dict[:O])
+              next if obj.equal?(encrypt_dict[:U]) or 
+                      obj.equal?(encrypt_dict[:O]) or
+                      obj.equal?(encrypt_dict[:UE]) or
+                      obj.equal?(encrypt_dict[:OE]) or
+                      obj.equal?(encrypt_dict[:Perms])
+
               obj.extend(Encryption::EncryptedString)
+              obj.encryption_handler = handler
               obj.encryption_key = encryption_key
               obj.algorithm = stm_algo
               obj.decrypted = false
@@ -161,11 +174,11 @@ module Origami
             when Stream
               next if obj.is_a?(XRefStream) or (not encrypt_metadata and obj.equal?(metadata))
               obj.extend(Encryption::EncryptedStream)
+              obj.encryption_handler = handler
               obj.encryption_key = encryption_key
               obj.algorithm = stm_algo
               obj.decrypted = false
           end
-
         end
       end
 
@@ -190,9 +203,9 @@ module Origami
       #
       params = 
       {
-        :Algorithm => :RC4,         # :RC4 or :AES
-        :KeyLength => 128,          # Key size in bits
-        :EncryptMetadata => true,    # Metadata shall be encrypted?
+        :Algorithm => :RC4,           # :RC4 or :AES
+        :KeyLength => 128,            # Key size in bits
+        :EncryptMetadata => true,     # Metadata shall be encrypted?
         :Permissions => Encryption::Standard::Permissions::ALL    # Document permissions
       }
 
@@ -216,6 +229,8 @@ module Origami
         algorithm = Encryption::AES
         if params[:KeyLength] == 128 
           version = revision = 4
+        elsif params[:KeyLength] == 256
+          version = revision = 5
         else
           raise EncryptionError, "Invalid key length"
         end
@@ -223,7 +238,7 @@ module Origami
         raise EncryptionNotSupportedError, "Algorithm not supported : #{params[:Algorithm]}"
       end
      
-      id = (get_doc_attr(:ID) || gen_id).first
+      doc_id = (get_doc_attr(:ID) || gen_id).first
 
       handler = Encryption::Standard::Dictionary.new
       handler.Filter = :Standard #:nodoc:
@@ -232,22 +247,26 @@ module Origami
       handler.Length = params[:KeyLength]
       handler.P = -1 # params[:Permissions] 
       
-      if revision == 4
+      if revision >= 4
         handler.EncryptMetadata = params[:EncryptMetadata]
         handler.CF = Dictionary.new
         cryptfilter = Encryption::CryptFilterDictionary.new
         cryptfilter.AuthEvent = :DocOpen
-        cryptfilter.CFM = :AESV2
+        
+        if revision == 4
+          cryptfilter.CFM = :AESV2
+        else
+          cryptfilter.CFM = :AESV3
+        end
+
         cryptfilter.Length = params[:KeyLength] >> 3
 
         handler.CF[:StdCF] = cryptfilter
         handler.StmF = handler.StrF = :StdCF
       end
-      
-      handler.set_owner_password(userpasswd, ownerpasswd)
-      handler.set_user_password(userpasswd, id)
-      
-      encryption_key = handler.compute_encryption_key(userpasswd, id)
+     
+      handler.set_passwords(ownerpasswd, userpasswd, doc_id)
+      encryption_key = handler.compute_user_encryption_key(userpasswd, doc_id)
 
       fileInfo = get_trailer_info
       fileInfo[:Encrypt] = self << handler
@@ -291,10 +310,14 @@ module Origami
           when String
             if not obj.equal?(@encryption_dict[:U]) and 
                not obj.equal?(@encryption_dict[:O]) and 
+               not obj.equal?(@encryption_dict[:UE]) and 
+               not obj.equal?(@encryption_dict[:OE]) and 
+               not obj.equal?(@encryption_dict[:Perms]) and 
                not embedded 
               
               obj.extend(EncryptedString)
               obj.decrypted = true
+              obj.encryption_handler = @encryption_dict
               obj.encryption_key = @encryption_key
               obj.algorithm = @str_algo
             end
@@ -304,6 +327,7 @@ module Origami
             return if obj.equal?(self.Catalog.Metadata) and not @encryption_dict.EncryptMetadata
             obj.extend(EncryptedStream)
             obj.decrypted = true
+            obj.encryption_handler = @encryption_dict
             obj.encryption_key = @encryption_key
             obj.algorithm = @stm_algo
 
@@ -347,6 +371,7 @@ module Origami
 
       attr_writer :encryption_key
       attr_writer :algorithm
+      attr_writer :encryption_handler
       attr_accessor :decrypted
 
       def self.extended(obj)
@@ -362,14 +387,18 @@ module Origami
       private 
 
       def compute_object_key
-        parent = self.indirect_parent
-        no, gen = parent.no, parent.generation
-        k = @encryption_key + [no].pack("I")[0..2] + [gen].pack("I")[0..1]
+        if @encryption_handler.V < 5
+          parent = self.indirect_parent
+          no, gen = parent.no, parent.generation
+          k = @encryption_key + [no].pack("I")[0..2] + [gen].pack("I")[0..1]
        
-        key_len = (k.length > 16) ? 16 : k.length        
-        k << "sAlT" if @algorithm == Encryption::AES
+          key_len = (k.length > 16) ? 16 : k.length        
+          k << "sAlT" if @algorithm == Encryption::AES
  
-        Digest::MD5.digest(k)[0, key_len]
+          Digest::MD5.digest(k)[0, key_len]
+        else
+          @encryption_key
+        end
       end
 
     end
@@ -380,15 +409,15 @@ module Origami
     module EncryptedString
       include EncryptedObject
 
-      def encrypt!(derive_key = true)
+      def encrypt!
         if @decrypted
-          key = derive_key ? compute_object_key : @encryption_key
+          key = compute_object_key
           
           encrypted_data = 
           if @algorithm == ARC4 or @algorithm == Identity
             @algorithm.encrypt(key, self.value)
           else
-            iv = ::Array.new(16) { rand(255) }.pack('C*')
+            iv = ::Array.new(AES::BLOCKSIZE) { rand(256) }.pack('C*')
             @algorithm.encrypt(key, iv, self.value)
           end
 
@@ -401,9 +430,9 @@ module Origami
         self
       end
 
-      def decrypt!(derive_key = true)
+      def decrypt!
         unless @decrypted
-          key = derive_key ? compute_object_key : @encryption_key
+          key = compute_object_key
           self.replace(@algorithm.decrypt(key, self.to_str))
           @decrypted = true
         end
@@ -428,7 +457,7 @@ module Origami
           if @algorithm == ARC4 or @algorithm == Identity
             @algorithm.encrypt(key, self.rawdata)
           else
-            iv = ::Array.new(16) { rand(255) }.pack('C*')
+            iv = ::Array.new(AES::BLOCKSIZE) { rand(256) }.pack('C*')
             @algorithm.encrypt(key, iv, @rawdata)
           end
 
@@ -458,7 +487,6 @@ module Origami
     # Identity transformation.
     #
     module Identity
-
       def Identity.encrypt(key, data)
         data
       end
@@ -466,7 +494,6 @@ module Origami
       def Identity.decrypt(key, data)
         data
       end
-
     end
 
     #
@@ -637,10 +664,10 @@ module Origami
       end
 
       def AES.decrypt(key, data)
-        AES.new(key).decrypt(data)
+        AES.new(key, nil).decrypt(data)
       end
       
-      def initialize(key, iv = nil)
+      def initialize(key, iv, use_padding = true)
         unless key.size == 16 or key.size == 24 or key.size == 32
           raise EncryptionError, "Key must have a length of 128, 192 or 256 bits."
         end
@@ -651,6 +678,7 @@ module Origami
 
         @key = key
         @iv = iv
+        @use_padding = use_padding
       end
 
       def encrypt(data)
@@ -659,13 +687,16 @@ module Origami
           raise EncryptionError, "No initialization vector has been set."
         end
         
-        padlen = BLOCKSIZE - (data.size % BLOCKSIZE)
-        data << (padlen.chr * padlen)
+        if @use_padding
+          padlen = BLOCKSIZE - (data.size % BLOCKSIZE)
+          data << (padlen.chr * padlen)
+        end
 
         if Origami::OPTIONS[:use_openssl]
           aes = OpenSSL::Cipher::Cipher.new("aes-#{@key.length << 3}-cbc").encrypt
           aes.iv = @iv
           aes.key = @key
+          aes.padding = 0
 
           @iv + aes.update(data) + aes.final
         else
@@ -678,7 +709,7 @@ module Origami
             plainblock = data[n * BLOCKSIZE, BLOCKSIZE].unpack("C*")
 
             if first_round
-              BLOCKSIZE.times do |i| plainblock[i] ^= @iv[i] end
+              BLOCKSIZE.times do |i| plainblock[i] ^= @iv[i].ord end
             else
               BLOCKSIZE.times do |i| plainblock[i] ^= cipherblock[i] end
             end
@@ -704,8 +735,10 @@ module Origami
           aes = OpenSSL::Cipher::Cipher.new("aes-#{@key.length << 3}-cbc").decrypt
           aes.iv = @iv
           aes.key = @key
+          aes.padding = 0
 
           plain = (aes.update(data) + aes.final).unpack("C*")
+          #plain = aes.update(data).unpack("C*")
         else
           plain = []
           plainblock = []
@@ -719,7 +752,7 @@ module Origami
             plainblock = aesDecrypt(cipherblock)
 
             if first_round
-              BLOCKSIZE.times do |i| plainblock[i] ^= @iv[i] end
+              BLOCKSIZE.times do |i| plainblock[i] ^= @iv[i].ord end
             else
               BLOCKSIZE.times do |i| plainblock[i] ^= prev_cipherblock[i] end
             end
@@ -730,15 +763,17 @@ module Origami
           end
         end
 
-        padlen = plain[-1]
-        unless (1..16) === padlen
-          raise EncryptionError, "Incorrect padding length : #{padlen}"
-        end
+        if @use_padding
+          padlen = plain[-1]
+          unless (1..16) === padlen
+            raise EncryptionError, "Incorrect padding length : #{padlen}"
+          end
 
-        padlen.times do 
-          pad = plain.pop
-          raise EncryptionError, 
-            "Incorrect padding byte : 0x#{pad.to_s 16}" if pad != padlen
+          padlen.times do 
+            pad = plain.pop
+            raise EncryptionError, 
+              "Incorrect padding byte : 0x#{pad.to_s 16}" if pad != padlen
+          end
         end
 
         plain.pack("C*")
@@ -954,22 +989,19 @@ module Origami
     # Class representing a crypt filter Dictionary
     #
     class CryptFilterDictionary < Dictionary
-
-      include Configurable
+      include StandardObject
 
       field   :Type,          :Type => Name, :Default => :CryptFilter
       field   :CFM,           :Type => Name, :Default => :None
       field   :AuthEvent,     :Type => Name, :Default => :DocOpen
       field   :Length,        :Type => Integer
-
     end
 
     #
     # Common class for encryption dictionaries.
     #
     class EncryptionDictionary < Dictionary
-      
-      include Configurable
+      include StandardObject
 
       field   :Filter,        :Type => Name, :Default => :Standard, :Required => true
       field   :SubFilter,     :Type => Name, :Version => "1.3"
@@ -979,7 +1011,6 @@ module Origami
       field   :StmF,          :Type => Name, :Default => :Identity, :Version => "1.5"
       field   :StrF,          :Type => Name, :Default => :Identity, :Version => "1.5"
       field   :EFF,           :Type => Name, :Version => "1.6"
-
     end
     
     #
@@ -1014,93 +1045,167 @@ module Origami
         field   :R,             :Type => Number, :Required => true
         field   :O,             :Type => String, :Required => true
         field   :U,             :Type => String, :Required => true
+        field   :OE,            :Type => String, :Version => '1.7', :ExtensionLevel => 3
+        field   :UE,            :Type => String, :Version => '1.7', :ExtensionLevel => 3
+        field   :Perms,         :Type => String, :Version => '1.7', :ExtensionLevel => 3
         field   :P,             :Type => Integer, :Default => 0, :Required => true
         field   :EncryptMetadata, :Type => Boolean, :Default => true, :Version => "1.5"
         
         #
-        # Computes the key that will be used to encrypt/decrypt the document.
+        # Computes the key that will be used to encrypt/decrypt the document contents with user password.
         #
-        def compute_encryption_key(password, fileid)
-          
-          padded = pad_password(password)
+        def compute_user_encryption_key(userpassword, fileid)
+         
+          if self.R < 5
+            padded = pad_password(userpassword)
 
-          padded << self.O
-          padded << [ self.P ].pack("i")
-          
-          padded << fileid
-          
-          encrypt_metadata = self.EncryptMetadata != false
-          padded << "\xFF\xFF\xFF\xFF" if self.R >= 4 and not encrypt_metadata
+            padded << self.O
+            padded << [ self.P ].pack("i")
+            
+            padded << fileid
+            
+            encrypt_metadata = self.EncryptMetadata != false
+            padded << "\xFF\xFF\xFF\xFF" if self.R >= 4 and not encrypt_metadata
 
-          key = Digest::MD5.digest(padded)
+            key = Digest::MD5.digest(padded)
 
-          50.times { key = Digest::MD5.digest(key[0, self.Length / 8]) } if self.R >= 3
+            50.times { key = Digest::MD5.digest(key[0, self.Length / 8]) } if self.R >= 3
 
-          if self.R == 2
-            key[0, 5]
-          elsif self.R >= 3
-            key[0, self.Length / 8]
+            if self.R == 2
+              key[0, 5]
+            elsif self.R >= 3
+              key[0, self.Length / 8]
+            end
+          else
+            passwd = password_to_utf8(userpassword)
+            
+            uks = self.U[40, 8]
+            ukey = Digest::SHA256.digest(passwd + uks)
+            
+            iv = ::Array.new(AES::BLOCKSIZE, 0).pack("C*")
+            AES.new(ukey, nil, false).decrypt(iv + self.UE.value)
           end
-           
         end
-        
+
         #
-        # Set owner password.
+        # Computes the key that will be used to encrypt/decrypt the document contents with owner password.
+        # Revision 5 only.
         #
-        def set_owner_password(userpassword, ownerpassword = nil)
-          
-          key = compute_owner_encryption_key(userpassword, ownerpassword)
-          upadded = pad_password(userpassword)
-          
-          owner_key = ARC4.encrypt(key, upadded)
-          19.times { |i| owner_key = ARC4.encrypt(xor(key,i+1), owner_key) } if self.R >= 3
-          
-          self.O = owner_key
+        def compute_owner_file_key(ownerpassword)
+          if self.R > 5
+            passwd = password_to_utf8(ownerpassword)
+
+            oks = self.O[40, 8]
+            okey = Digest::SHA256.digest(passwd + oks + self.U)
+            
+            iv = ::Array.new(AES::BLOCKSIZE, 0).pack("C*")
+            AES.new(okey, nil, false).decrypt(iv + self.OE.value)
+          end
         end
-        
+
         #
-        # Set user password.
+        # Set up document passwords.
         #
-        def set_user_password(userpassword, fileid = nil)
+        def set_passwords(ownerpassword, userpassword, salt = nil)
+          if self.R < 5
+            key = compute_owner_key(ownerpassword)
+            upadded = pad_password(userpassword)
+            
+            owner_key = ARC4.encrypt(key, upadded)
+            19.times { |i| owner_key = ARC4.encrypt(xor(key,i+1), owner_key) } if self.R >= 3
           
-          self.U = compute_user_password(userpassword, fileid)
+            self.O = owner_key
+            self.U = compute_user_password(userpassword, salt)
+          
+          elsif self.R == 5  
+            upass = password_to_utf8(userpassword)
+            opass = password_to_utf8(ownerpassword)
+
+            uvs, uks, ovs, oks = ::Array.new(4) { ::Array.new(8) { rand(255) }.pack("C*") }
+            file_key = ::Array.new(32) { rand(256) }.pack("C*")
+            iv = ::Array.new(AES::BLOCKSIZE, 0).pack("C*")
+
+            ukey = Digest::SHA256.digest(upass + uks)
+            okey = Digest::SHA256.digest(opass + oks)
+            
+            self.UE = AES.new(ukey, iv, false).encrypt(file_key)[iv.size, 32]
+            self.OE = AES.new(okey, iv, false).encrypt(file_key)[iv.size, 32]
+            self.U = Digest::SHA256.digest(upass + uvs) + uvs + uks
+            self.O = Digest::SHA256.digest(opass + ovs + self.U) + ovs + oks
+
+            perms = 
+              [ self.P ].pack("V") +                              # 0-3
+              "\xff" * 4 +                                        # 4-7
+              (self.EncryptMetadata == true ? "T" : "F") +        # 8
+              "adb" +                                             # 9-11
+              "\x00" * 4                                          # 12-15
+
+            self.Perms = AES.new(file_key, iv, false).encrypt(perms)[iv.size, 16]
+
+            file_key
+          end
         end
         
         #
         # Checks user password.
+        # For version 2,3 and 4, _salt_ is the document ID.
+        # For version 5, _salt_ is the User Key Salt.
         #
-        def is_user_password?(pass, fileid)
+        def is_user_password?(pass, salt)
           
           if self.R == 2 
-            compute_user_password(pass, fileid) == self.U
-          elsif self.R >= 3
-            compute_user_password(pass, fileid)[0, 16] == self.U[0, 16]
+            compute_user_password(pass, salt) == self.U
+          elsif self.R == 3 or self.R == 4
+            compute_user_password(pass, salt)[0, 16] == self.U[0, 16]
+          elsif self.R == 5
+            uvs = self.U[32, 8]
+            Digest::SHA256.digest(pass + uvs) == self.U[0, 32]
           end
-          
         end
         
         #
         # Checks owner password.
+        # For version 2,3 and 4, _salt_ is the document ID.
+        # For version 5, _salt_ is (Owner Key Salt + U)
         #
-        def is_owner_password?(pass, fileid)
+        def is_owner_password?(pass, salt)
         
-          key = compute_owner_encryption_key(pass)
+          if self.R < 5
+            user_password = retrieve_user_password(pass)
+            is_user_password?(user_password, salt)
+          elsif self.R == 5
+            ovs = self.O[32, 8]
+            Digest::SHA256.digest(pass + ovs + self.U) == self.O[0, 32]
+          end
+        end
+
+        #
+        # Retrieve user password from owner password.
+        # Cannot be used with revision 5.
+        #
+        def retrieve_user_password(ownerpassword)
+          key = compute_owner_key(ownerpassword)
 
           if self.R == 2
-            user_password = ARC4.decrypt(key, self.O)
-          elsif self.R >= 3
+            ARC4.decrypt(key, self.O)
+          elsif self.R == 3 or self.R == 4
             user_password = ARC4.decrypt(xor(key, 19), self.O)
             19.times { |i| user_password = ARC4.decrypt(xor(key, 18-i), user_password) }
+            
+            user_password 
           end
-          
-          is_user_password?(user_password, fileid)
         end
         
         private
-        
-        def compute_owner_encryption_key(userpassword, ownerpassword = nil) #:nodoc:
 
-          opadded = pad_password(ownerpassword || userpassword)
+        #
+        # Used to encrypt/decrypt the O field.
+        # Rev 2,3,4: O = crypt(user_pass, owner_key).
+        # Rev 5: unused.
+        #
+        def compute_owner_key(ownerpassword) #:nodoc:
+
+          opadded = pad_password(ownerpassword)
           
           hash = Digest::MD5.digest(opadded)
           50.times { hash = Digest::MD5.digest(hash) } if self.R >= 3
@@ -1110,17 +1215,21 @@ module Origami
           elsif self.R >= 3
             hash[0, self.Length / 8]
           end
-
         end
+       
+        #
+        # Compute the value of the U field.
+        # Cannot be used with revision 5.
+        #
+        def compute_user_password(userpassword, salt) #:nodoc:
         
-        def compute_user_password(userpassword, fileid) #:nodoc:
-        
-          key = compute_encryption_key(userpassword, fileid)
-          
           if self.R == 2
+            key = compute_user_encryption_key(userpassword, salt)
             user_key = ARC4.encrypt(key, PADDING)
-          elsif self.R >= 3
-            upadded = PADDING + fileid
+          elsif self.R == 3 or self.R == 4
+            key = compute_user_encryption_key(userpassword, salt)
+            
+            upadded = PADDING + salt
             hash = Digest::MD5.digest(upadded)
             
             user_key = ARC4.encrypt(key, hash)
@@ -1129,7 +1238,6 @@ module Origami
             
             user_key.ljust(32, "\xFF")
           end
-        
         end
         
         def xor(str, byte) #:nodoc:
@@ -1139,6 +1247,10 @@ module Origami
         def pad_password(password) #:nodoc:
           return PADDING.dup if password.empty? # Fix for Ruby 1.9 bug
           password[0,32].ljust(32, PADDING)
+        end
+
+        def password_to_utf8(passwd) #:nodoc:
+          passwd.unpack("C*").map!{|c| c + "\x00"}.pack("C*")[0, 127]
         end
       
       end

@@ -33,7 +33,7 @@ module Origami
   class Stream
     
     include Origami::Object
-    include Configurable
+    include StandardObject
     
     TOKENS = [ "stream" + WHITECHARS_NORET  + "\\r?\\n", "endstream" ] #:nodoc:
    

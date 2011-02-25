@@ -38,12 +38,12 @@ module PDFWalker
     class DumpView < ScrolledWindow
     
       def initialize(parent)
-        
         @parent = parent
         super()
 
         set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
+        @current_obj = nil
         @valuebuffer = TextBuffer.new
         @valueview = TextView.new(@valuebuffer).set_editable(false).set_cursor_visible(false).set_left_margin(5).set_right_margin(5)
 
@@ -55,7 +55,6 @@ module PDFWalker
         )
 
         add_with_viewport @valueview
-       
       end
 
       def clear
@@ -63,6 +62,8 @@ module PDFWalker
       end
 
       def load(object)
+        return if @current_obj.equal?(object)
+
         begin
           self.clear
 
@@ -76,6 +77,7 @@ module PDFWalker
           end
 
           @valuebuffer.apply_tag("HexView", @valuebuffer.start_iter, @valuebuffer.end_iter)
+          @current_obj = object
 
         rescue Exception => e 
           @parent.error("An error occured while loading this object.\n#{e} (#{e.class})")

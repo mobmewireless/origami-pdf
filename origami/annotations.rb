@@ -31,7 +31,7 @@ module Origami
   #
   class Annotation < Dictionary
     
-    include Configurable
+    include StandardObject
     
     field   :Type,            :Type => Name, :Default => :Annot
     field   :Subtype,         :Type => Name, :Default => :Text, :Required => true
@@ -218,7 +218,7 @@ module Origami
 
     class AppearanceDictionary < Dictionary
 
-      include Configurable
+      include StandardObject
 
       field   :N,               :Type => [ Stream, Dictionary ], :Required => true
       field   :R,               :Type => [ Stream, Dictionary ]
@@ -230,7 +230,7 @@ module Origami
     
     class BorderStyle < Dictionary
       
-      include Configurable
+      include StandardObject
       
       SOLID = :S
       DASHED = :D
@@ -247,7 +247,7 @@ module Origami
     
     class AppearanceCharacteristics < Dictionary
       
-      include Configurable
+      include StandardObject
       
       module CaptionStyle
         CAPTIONONLY = 0
@@ -452,7 +452,7 @@ module Origami
       field   :RichMediaContent,    :Type => Dictionary, :Version => "1.7", :ExtensionLevel => 3, :Required => true
 
       class Settings < Dictionary
-        include Configurable
+        include StandardObject
 
         field   :Type,              :Type => Name, :Default => :RichMediaSettings, :Version => "1.7", :ExtensionLevel => 3
         field   :Activation,        :Type => Dictionary, :Version => "1.7", :ExtensionLevel => 3
@@ -460,7 +460,7 @@ module Origami
       end
       
       class Activation < Dictionary
-        include Configurable
+        include StandardObject
 
         USER_ACTION   = :XA
         PAGE_OPEN     = :PO
@@ -476,7 +476,7 @@ module Origami
       end
 
       class Deactivation < Dictionary
-        include Configurable
+        include StandardObject
 
         USER_ACTION     = :XD
         PAGE_CLOSE      = :PC
@@ -487,7 +487,7 @@ module Origami
       end
 
       class Animation < Dictionary
-        include Configurable
+        include StandardObject
 
         NONE          = :None
         LINEAR        = :Linear
@@ -500,7 +500,7 @@ module Origami
       end
 
       class Presentation < Dictionary
-        include Configurable
+        include StandardObject
 
         WINDOWED = :Windowed
         EMBEDDED = :Embedded
@@ -515,7 +515,7 @@ module Origami
       end
 
       class Window < Dictionary
-        include Configurable
+        include StandardObject
 
         field   :Type,              :Type => Name, :Default => :RichMediaWindow, :Version => "1.7", :ExtensionLevel => 3 
         field   :Width,             :Type => Dictionary, :Default => {:Default => 288, :Max => 576, :Min => 72}, :Version => "1.7", :ExtensionLevel => 3
@@ -524,7 +524,7 @@ module Origami
       end
 
       class Position < Dictionary
-        include Configurable
+        include StandardObject
 
         NEAR    = :Near
         CENTER  = :Center
@@ -538,7 +538,7 @@ module Origami
       end
 
       class Content < Dictionary
-        include Configurable
+        include StandardObject
 
         field   :Type,              :Type => Name, :Default => :RichMediaContent, :Version => "1.7", :ExtensionLevel => 3 
         field   :Assets,            :Type => Dictionary, :Version => "1.7", :ExtensionLevel => 3 
@@ -547,7 +547,7 @@ module Origami
       end
       
       class Configuration < Dictionary
-        include Configurable
+        include StandardObject
 
         U3D     = :"3D"
         FLASH   = :Flash
@@ -561,7 +561,7 @@ module Origami
       end
 
       class Instance < Dictionary
-        include Configurable
+        include StandardObject
 
         U3D     = :"3D"
         FLASH   = :Flash
@@ -575,7 +575,7 @@ module Origami
       end
 
       class Parameters < Dictionary
-        include Configurable
+        include StandardObject
 
         module Binding
           NONE        = :None
@@ -593,7 +593,7 @@ module Origami
       end
 
       class CuePoint < Dictionary
-        include Configurable
+        include StandardObject
 
         NAVIGATION  = :Navigation
         EVENT       = :Event
@@ -775,7 +775,7 @@ module Origami
     #
     class AdditionalActions < Dictionary
       
-      include Configurable
+      include StandardObject
       
       field   :E,             :Type => Dictionary, :Version => "1.2" # Mouse Enter
       field   :X,             :Type => Dictionary, :Version => "1.2" # Mouse Exit

@@ -39,7 +39,7 @@ module Origami
       field   :"3DB",       :Type => Array
 
       class Activation < Dictionary
-        include Configurable
+        include StandardObject
 
         module Events
           PAGE_OPEN       = :PO
@@ -68,7 +68,7 @@ module Origami
   end
 
   class U3DStream < Stream
-    include Configurable
+    include StandardObject
 
     field   :Type,          :Type => Name, :Default => :"3D"
     field   :Subtype,       :Type => Name, :Default => :U3D, :Required => true
@@ -84,7 +84,7 @@ module Origami
   end
 
   class AnimationStyle3D < Dictionary
-    include Configurable
+    include StandardObject
 
     module Styles
       NONE                = :None
@@ -99,14 +99,14 @@ module Origami
   end
 
   class Reference3D < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :Type,          :Type => Name, :Default => :"3DRef"
     field   :"3DD",         :Type => Stream
   end
 
   class View3D < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :Type,          :Type => Name, :Default => :"3DView"
     field   :XN,            :Type => ByteString, :Required => true
@@ -126,7 +126,7 @@ module Origami
   end
 
   class Projection3D < Dictionary
-    include Configurable
+    include StandardObject
 
     ORTHOGRAPHIC          = :O
     PERSPECTIVE           = :P
@@ -155,7 +155,7 @@ module Origami
   end
 
   class Background3D < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :Type,          :Type => Name, :Default => :"3DBG"
     field   :Subtype,       :Type => Name, :Default => :SC
@@ -165,7 +165,7 @@ module Origami
   end
 
   class RenderMode3D < Dictionary
-    include Configurable
+    include StandardObject
 
     module Modes
       SOLID                           = :Solid
@@ -194,7 +194,7 @@ module Origami
   end
 
   class LightingScheme3D < Dictionary
-    include Configurable
+    include StandardObject
 
     module Styles
       ARTWORK                         = :Artwork
@@ -216,7 +216,7 @@ module Origami
   end
 
   class CrossSection3D < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :Type,          :Type => Name, :Default => :"3DCrossSection"
     field   :C,             :Type => Array, :Default => [ 0, 0, 0 ]
@@ -228,7 +228,7 @@ module Origami
   end
 
   class Node3D < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :Type,          :Type => Name, :Default => :"3DNode"
     field   :N,             :Type => ByteString, :Version => "1.7", :Required => true

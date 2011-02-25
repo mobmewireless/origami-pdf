@@ -276,7 +276,7 @@ module Origami
   #
   class Catalog < Dictionary
     
-    include Configurable
+    include StandardObject
 
     field   :Type,                :Type => Name, :Default => :Catalog, :Required => true
     field   :Version,             :Type => Name, :Version => "1.4"
@@ -320,7 +320,7 @@ module Origami
   # Class representing additional actions which can be associated with a Catalog.
   #
   class CatalogAdditionalActions < Dictionary
-    include Configurable
+    include StandardObject
    
     field   :WC,                  :Type => Dictionary, :Version => "1.4"
     field   :WS,                  :Type => Dictionary, :Version => "1.4"
@@ -336,7 +336,7 @@ module Origami
   # Class representing the Names Dictionary of a PDF file.
   #
   class Names < Dictionary
-    include Configurable
+    include StandardObject
     
     #
     # Defines constants for Names tree root entries.
@@ -372,7 +372,7 @@ module Origami
   # Class representing a node in a Name tree.
   #
   class NameTreeNode < Dictionary
-    include Configurable
+    include StandardObject
    
     field   :Kids,              :Type => Array
     field   :Names,             :Type => Array
@@ -404,7 +404,7 @@ module Origami
   # This dictionary modifies the way the UI looks when the file is opened in a viewer.
   #
   class ViewerPreferences < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :HideToolbar,             :Type => Boolean, :Default => false
     field   :HideMenubar,             :Type => Boolean, :Default => false
@@ -428,10 +428,10 @@ module Origami
   end
 
   class Requirement < Dictionary
-    include Configurable
+    include StandardObject
 
     class Handler < Dictionary
-      include Configurable
+      include StandardObject
 
       module Type
         JS    = :JS
@@ -452,7 +452,7 @@ module Origami
   # Class representing an extension Dictionary.
   #
   class Extensions < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :Type,                    :Type => Name, :Default => :Extensions
   end
@@ -461,7 +461,7 @@ module Origami
   # Class representing a developer extension.
   #
   class DeveloperExtension < Dictionary
-    include Configurable
+    include StandardObject
 
     field   :Type,                    :Type => Name, :Default => :DeveloperExtensions
     field   :BaseVersion,             :Type => Name, :Required => true

@@ -65,7 +65,7 @@ module Origami
       end
 
       class Shading < Dictionary
-        include Configurable
+        include StandardObject
         include Pattern
 
         module Type
@@ -94,7 +94,7 @@ module Origami
         end
 
         class FunctionBased < Dictionary
-          include Configurable
+          include StandardObject
           include ShadingObject
 
           field   :ShadingType,         :Type => Integer, :Default => Shading::Type::FUNCTIONBASED, :Required => true
@@ -104,7 +104,7 @@ module Origami
         end
 
         class Axial < Dictionary
-          include Configurable
+          include StandardObject
           include ShadingObject
 
           field   :ShadingType,         :Type => Integer, :Default => Shading::Type::AXIAL, :Required => true
@@ -115,7 +115,7 @@ module Origami
         end
 
         class Radial < Dictionary
-          include Configurable
+          include StandardObject
           include ShadingObject
 
           field   :ShadingType,         :Type => Integer, :Default => Shading::Type::RADIAL, :Required => true

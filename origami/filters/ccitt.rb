@@ -40,7 +40,7 @@ module Origami
       include Filter
       
       class DecodeParms < Dictionary
-        include Configurable
+        include StandardObject
 
         field   :K,           :Type => Integer, :Default => 0
         field   :EndOfLine,   :Type => Boolean, :Default => false

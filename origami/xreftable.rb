@@ -313,7 +313,7 @@ module Origami
     XREF_COMPRESSED = 2
   
     include Enumerable
-    include Configurable
+    include StandardObject
 
     attr_reader :xrefs
  

@@ -4,6 +4,7 @@ beta4 (dev):
   - Added a Rakefile to run unit tests, build rdoc and build gem.
   - Added a Ruby shell for Origami.
   |origami|:
+    - AESV3 support (AES256 encryption/decryption).
     - Encryption/decryption can be achieved with or without openssl.
     - Support for G3 unidimensional encoding/decoding of CCITTFax filter.
     - Support for TIFF stream predictor functions.

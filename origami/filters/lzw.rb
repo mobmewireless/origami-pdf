@@ -40,7 +40,7 @@ module Origami
       include Filter
 
       class DecodeParms < Dictionary
-        include Configurable
+        include StandardObject
 
         field   :Predictor,         :Type => Integer, :Default => 1
         field   :Colors,            :Type => Integer, :Default => 1

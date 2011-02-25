@@ -25,7 +25,7 @@ module Origami
   
     class SpiderInfo < Dictionary
       
-      include Configurable
+      include StandardObject
 
       field   :V,         :Type => Real, :Default => 1.0, :Version => "1.3", :Required => true
       field   :C,         :Type => Array
@@ -40,7 +40,7 @@ module Origami
         SUBMIT = 1 << 3
       end
 
-      include Configurable
+      include StandardObject
 
       field   :URL,       :Type => String, :Required => true
       field   :L,         :Type => Integer, :Default => 1
@@ -54,7 +54,7 @@ module Origami
       
       class CommandSettings < Dictionary
         
-        include Configurable
+        include StandardObject
    
         field   :G,       :Type => Dictionary
         field   :C,       :Type => Dictionary
@@ -63,7 +63,7 @@ module Origami
 
       class SourceInformation < Dictionary
 
-        include Configurable
+        include StandardObject
         
         module SubmissionType
           NOFORM   = 0

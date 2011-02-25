@@ -480,7 +480,7 @@ module Origami
     end
 
     class ReferenceDictionary < Dictionary
-      include Configurable
+      include StandardObject
 
       field   :F,             :Type => Dictionary, :Required => true
       field   :Page,          :Type => [Integer, String], :Required => true

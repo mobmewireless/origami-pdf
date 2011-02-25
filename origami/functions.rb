@@ -57,7 +57,7 @@ module Origami
 
     class Exponential < Dictionary
       
-      include Configurable
+      include StandardObject
       include Function
 
       field   :FunctionType,  :Type => Integer, :Default => Type::EXPONENTIAL, :Version => "1.3", :Required => true
@@ -69,7 +69,7 @@ module Origami
 
     class Stitching < Dictionary
 
-      include Configurable
+      include StandardObject
       include Function
 
       field   :FunctionType,  :Type => Integer, :Default => Type::STITCHING, :Version => "1.3", :Required => true

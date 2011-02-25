@@ -88,4 +88,23 @@ require 'stringio'
       assert_equal pdf.Catalog[:Test], "test"
     end
 
+    def test_decrypt_aes_256b
+      pdf = nil
+      @output.string = ""
+      assert_nothing_raised do
+        pdf = PDF.new.encrypt("","", :Algorithm => :AES, :KeyLength => 256)
+        pdf.Catalog[:Test] = "test"
+        pdf.save(@output)
+      end
+
+      assert_not_equal pdf.Catalog[:Test], "test"
+
+      assert_nothing_raised do
+        @output = @output.reopen(@output.string, "r")
+        pdf = PDF.read(@output, :ignore_errors => false, :verbosity => Parser::VERBOSE_QUIET)
+      end
+
+      assert_equal pdf.Catalog[:Test], "test"
+    end
+
 end

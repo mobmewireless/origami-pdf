@@ -67,7 +67,7 @@ module Origami
   #
   class InteractiveForm < Dictionary
     
-    include Configurable
+    include StandardObject
     
     #
     # Flags relative to signature fields.
@@ -190,7 +190,7 @@ module Origami
     end
 
     class Subform < Dictionary
-      include Configurable
+      include StandardObject
       include Field
 
       def add_fields(*fields)
@@ -205,7 +205,7 @@ module Origami
 
     class AdditionalActions < Dictionary
       
-      include Configurable
+      include StandardObject
 
       field   :K,     :Type => Dictionary, :Version => "1.3"
       field   :F,     :Type => Dictionary, :Version => "1.3"
@@ -215,7 +215,7 @@ module Origami
     
     class SignatureLock < Dictionary
       
-      include Configurable
+      include StandardObject
       
       module Actions
         ALL = :All
@@ -240,7 +240,7 @@ module Origami
     
     class SignatureSeedValue < Dictionary
       
-      include Configurable
+      include StandardObject
       
       module Digest
         SHA1 = :SHA1
@@ -267,7 +267,7 @@ module Origami
     
     class CertificateSeedValue < Dictionary
       
-      include Configurable
+      include StandardObject
       
       module URL
         BROWSER = :Browser

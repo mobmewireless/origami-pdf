@@ -287,7 +287,7 @@ module Origami
       
       class Catalog < Dictionary
         
-        include Configurable
+        include StandardObject
 
         field   :Type,      :Type => Name, :Default => :Catalog, :Required => true
         field   :PPK,       :Type => Dictionary, :Required => true
@@ -300,7 +300,7 @@ module Origami
       
       class PPK < Dictionary
         
-        include Configurable
+        include StandardObject
 
         field   :Type,        :Type => Name, :Default => :PPK, :Required => true
         field   :User,        :Type => Dictionary, :Required => true
@@ -315,7 +315,7 @@ module Origami
       
       class UserList < Dictionary
         
-        include Configurable
+        include StandardObject
 
         field   :Type,        :Type => Name, :Default => :User, :Required => true
         
@@ -327,7 +327,7 @@ module Origami
       
       class AddressList < Dictionary
         
-        include Configurable
+        include StandardObject
 
         field   :Type,        :Type => Name, :Default => :AddressBook, :Required => true
         field   :NextID,      :Type => Integer
@@ -357,7 +357,7 @@ module Origami
       
       class User < Dictionary
         
-        include Configurable
+        include StandardObject
         include Descriptor
 
         field   :ABEType,       :Type => Integer, :Default => Descriptor::USER, :Required => true
@@ -375,7 +375,7 @@ module Origami
       
       class Certificate < Dictionary
         
-        include Configurable
+        include StandardObject
         include Descriptor
         
         module Flags

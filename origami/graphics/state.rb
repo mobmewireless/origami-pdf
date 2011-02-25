@@ -112,7 +112,7 @@ module Origami
     #
     class ExtGState < Dictionary
       
-      include Configurable
+      include StandardObject
 
       field   :Type,          :Type => Name, :Default => :ExtGState, :Required => true
       field   :LW,            :Type => Integer, :Version => "1.3"

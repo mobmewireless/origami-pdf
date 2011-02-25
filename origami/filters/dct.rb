@@ -34,7 +34,7 @@ module Origami
       include Filter
       
       class DecodeParms < Dictionary
-        include Configurable
+        include StandardObject
 
         field   :ColorTransform,    :Type => Integer
       end

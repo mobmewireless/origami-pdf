@@ -230,7 +230,7 @@ module Origami
   
   class Perms < Dictionary
     
-    include Configurable
+    include StandardObject
    
     field   :DocMDP,          :Type => Dictionary
     field   :UR,              :Type => Dictionary
@@ -245,7 +245,7 @@ module Origami
     #
     class DigitalSignature < Dictionary
       
-      include Configurable
+      include StandardObject
   
       field   :Type,            :Type => Name, :Default => :Sig
       field   :Filter,          :Type => Name, :Default => "Adobe.PPKMS".to_sym, :Required => true
@@ -317,7 +317,7 @@ module Origami
     #
     class Reference < Dictionary
       
-      include Configurable
+      include StandardObject
      
       field   :Type,            :Type => Name, :Default => :SigRef
       field   :TransformMethod, :Type => Name, :Default => :DocMDP, :Required => true
@@ -336,7 +336,7 @@ module Origami
     
     class BuildProperties < Dictionary
       
-      include Configurable
+      include StandardObject
       
       field   :Filter,          :Type => Dictionary, :Version => "1.5"
       field   :PubSec,          :Type => Dictionary, :Version => "1.5"
@@ -378,7 +378,7 @@ module Origami
     
     class BuildData < Dictionary
       
-      include Configurable
+      include StandardObject
      
       field   :Name,              :Type => Name,  :Version => "1.5"
       field   :Date,              :Type => String, :Version => "1.5"
@@ -451,7 +451,7 @@ module Origami
     
     class TransformParams < Dictionary
       
-      include Configurable
+      include StandardObject
       
       VERSION = Name.new("2.2")
      

@@ -35,7 +35,7 @@ module Origami
       include Filter
 
       class DecodeParms < Dictionary
-        include Configurable
+        include StandardObject
 
         field   :Type,      :Type => Name, :Default => :Crypt
         field   :Name,      :Type => Name, :Default => :Identity
