@@ -6,6 +6,7 @@ beta4 (dev):
   |origami|:
     - AESV3 support (AES256 encryption/decryption).
     - Encryption/decryption can be achieved with or without openssl.
+    - Changed PDF#encrypt prototype.
     - Support for G3 unidimensional encoding/decoding of CCITTFax filter.
     - Support for TIFF stream predictor functions.
     - Name trees lookup methods.

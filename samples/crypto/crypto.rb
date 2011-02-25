@@ -10,13 +10,11 @@ end
 include Origami
 
 OUTPUTFILE = "#{File.basename(__FILE__, ".rb")}.pdf"
-USERPASSWD = ""
-OWNERPASSWD = ""
 
 puts "Now generating a new PDF file from scratch!"
 
-# Creates an encrypted document with AES128 (256 not implemented yet) and a null password.
-pdf = PDF.new.encrypt(USERPASSWD, OWNERPASSWD, :Algorithm => :AES )
+# Creates an encrypted document with AES256 and a null password.
+pdf = PDF.new.encrypt(:cipher => 'aes', :key_size => 256)
 
 contents = ContentStream.new
 contents.write "Crypto sample",

@@ -192,7 +192,7 @@ module Origami
     # _ownerpasswd_:: The owner password.
     # _options_:: A set of options to configure encryption.
     #
-    def encrypt(userpasswd = '', ownerpasswd = '', options = {})
+    def encrypt(options = {})
     
       if self.is_encrypted?
         raise EncryptionError, "PDF is already encrypted"
@@ -203,39 +203,41 @@ module Origami
       #
       params = 
       {
-        :Algorithm => :RC4,           # :RC4 or :AES
-        :KeyLength => 128,            # Key size in bits
-        :EncryptMetadata => true,     # Metadata shall be encrypted?
-        :Permissions => Encryption::Standard::Permissions::ALL    # Document permissions
-      }
+        :user_passwd => '',
+        :owner_passwd => '',
+        :cipher => 'rc4',            # :RC4 or :AES
+        :key_size => 128,            # Key size in bits
+        :encrypt_metadata => true,   # Metadata shall be encrypted?
+        :permissions => Encryption::Standard::Permissions::ALL    # Document permissions
+      }.update(options)
 
-      params.update(options)
+      userpasswd, ownerpasswd = params[:user_passwd], params[:owner_passwd]
 
-      case params[:Algorithm]
-      when :RC4
-        algorithm = Encryption::ARC4
-        if (40..128) === params[:KeyLength] and params[:KeyLength] % 8 == 0
-          if params[:KeyLength] > 40
-            version = 2
-            revision = 3
+      case params[:cipher].upcase
+        when 'RC4'
+          algorithm = Encryption::ARC4
+          if (40..128) === params[:key_size] and params[:key_size] % 8 == 0
+            if params[:key_size] > 40
+              version = 2
+              revision = 3
+            else
+              version = 1
+              revision = 2
+            end
           else
-            version = 1
-            revision = 2
+            raise EncryptionError, "Invalid RC4 key length"
+          end
+        when 'AES'
+          algorithm = Encryption::AES
+          if params[:key_size] == 128 
+            version = revision = 4
+          elsif params[:key_size] == 256
+            version = revision = 5
+          else
+            raise EncryptionError, "Invalid AES key length (Only 128 and 256 bits keys are supported)"
           end
         else
-          raise EncryptionError, "Invalid key length"
-        end
-      when :AES
-        algorithm = Encryption::AES
-        if params[:KeyLength] == 128 
-          version = revision = 4
-        elsif params[:KeyLength] == 256
-          version = revision = 5
-        else
-          raise EncryptionError, "Invalid key length"
-        end
-      else
-        raise EncryptionNotSupportedError, "Algorithm not supported : #{params[:Algorithm]}"
+          raise EncryptionNotSupportedError, "Cipher not supported : #{params[:cipher]}"
       end
      
       doc_id = (get_doc_attr(:ID) || gen_id).first
@@ -244,11 +246,11 @@ module Origami
       handler.Filter = :Standard #:nodoc:
       handler.V = version
       handler.R = revision
-      handler.Length = params[:KeyLength]
+      handler.Length = params[:key_size]
       handler.P = -1 # params[:Permissions] 
       
       if revision >= 4
-        handler.EncryptMetadata = params[:EncryptMetadata]
+        handler.EncryptMetadata = params[:encrypt_metadata]
         handler.CF = Dictionary.new
         cryptfilter = Encryption::CryptFilterDictionary.new
         cryptfilter.AuthEvent = :DocOpen
@@ -259,7 +261,7 @@ module Origami
           cryptfilter.CFM = :AESV3
         end
 
-        cryptfilter.Length = params[:KeyLength] >> 3
+        cryptfilter.Length = params[:key_size] >> 3
 
         handler.CF[:StdCF] = cryptfilter
         handler.StmF = handler.StrF = :StdCF
@@ -447,11 +449,11 @@ module Origami
     module EncryptedStream
       include EncryptedObject
 
-      def encrypt!(derive_key = true)
+      def encrypt!
         if @decrypted
           encode!
 
-          key = derive_key ? compute_object_key : @encryption_key
+          key = compute_object_key
 
           @rawdata = 
           if @algorithm == ARC4 or @algorithm == Identity
@@ -470,9 +472,9 @@ module Origami
         self
       end
 
-      def decrypt!(derive_key = true)
+      def decrypt!
         unless @decrypted
-          key = derive_key ? compute_object_key : @encryption_key
+          key = compute_object_key
 
           self.rawdata = @algorithm.decrypt(key, @rawdata)
           @decrypted = true

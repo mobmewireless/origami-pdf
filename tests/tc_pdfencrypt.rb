@@ -13,21 +13,21 @@ require 'stringio'
     def test_encrypt_rc4_40b
       @output.string = ""
       assert_nothing_raised do
-        @target.encrypt("", "", :Algorithm => :RC4, :KeyLength => 40).save(@output);
+        @target.encrypt(:cipher => 'rc4', :key_size => 40).save(@output);
       end
     end
 
     def test_encrypt_rc4_128b
       @output.string = ""
       assert_nothing_raised do
-        @target.encrypt("","", :Algorithm => :RC4).save(@output);
+        @target.encrypt(:cipher => 'rc4').save(@output);
       end
     end
 
     def test_encrypt_aes_128b
       @output.string = ""
       assert_nothing_raised do
-        @target.encrypt("","", :Algorithm => :AES).save(@output);
+        @target.encrypt(:cipher => 'aes').save(@output);
       end
     end
 
@@ -35,7 +35,7 @@ require 'stringio'
       pdf = nil
       @output.string = ""
       assert_nothing_raised do
-        pdf = PDF.new.encrypt("","", :Algorithm => :RC4, :KeyLength => 40)
+        pdf = PDF.new.encrypt(:cipher => 'rc4', :key_size => 40)
         pdf.Catalog[:Test] = "test"
         pdf.save(@output)
       end
@@ -54,7 +54,7 @@ require 'stringio'
       pdf = nil
       @output.string = ""
       assert_nothing_raised do
-        pdf = PDF.new.encrypt("","", :Algorithm => :RC4)
+        pdf = PDF.new.encrypt(:cipher => 'rc4')
         pdf.Catalog[:Test] = "test"
         pdf.save(@output)
       end
@@ -73,7 +73,7 @@ require 'stringio'
       pdf = nil
       @output.string = ""
       assert_nothing_raised do
-        pdf = PDF.new.encrypt("","", :Algorithm => :AES)
+        pdf = PDF.new.encrypt(:cipher => 'aes')
         pdf.Catalog[:Test] = "test"
         pdf.save(@output)
       end
@@ -92,7 +92,7 @@ require 'stringio'
       pdf = nil
       @output.string = ""
       assert_nothing_raised do
-        pdf = PDF.new.encrypt("","", :Algorithm => :AES, :KeyLength => 256)
+        pdf = PDF.new.encrypt(:cipher => 'aes', :key_size => 256)
         pdf.Catalog[:Test] = "test"
         pdf.save(@output)
       end
