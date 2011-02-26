@@ -25,6 +25,7 @@
 
 require 'digest/md5'
 require 'digest/sha2'
+require 'iconv'
 
 module Origami
 
@@ -1252,7 +1253,7 @@ module Origami
         end
 
         def password_to_utf8(passwd) #:nodoc:
-          passwd.unpack("C*").map!{|c| c + "\x00"}.pack("C*")[0, 127]
+          Origami::ByteString.new(passwd).to_utf8[0, 127]
         end
       
       end
