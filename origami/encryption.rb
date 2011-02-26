@@ -741,7 +741,6 @@ module Origami
           aes.padding = 0
 
           plain = (aes.update(data) + aes.final).unpack("C*")
-          #plain = aes.update(data).unpack("C*")
         else
           plain = []
           plainblock = []
@@ -1094,12 +1093,12 @@ module Origami
         # Computes the key that will be used to encrypt/decrypt the document contents with owner password.
         # Revision 5 only.
         #
-        def compute_owner_file_key(ownerpassword)
-          if self.R > 5
+        def compute_owner_encryption_key(ownerpassword)
+          if self.R == 5
             passwd = password_to_utf8(ownerpassword)
 
             oks = self.O[40, 8]
-            okey = Digest::SHA256.digest(passwd + oks + self.U)
+            okey = Digest::SHA256.digest(passwd + oks)
             
             iv = ::Array.new(AES::BLOCKSIZE, 0).pack("C*")
             AES.new(okey, nil, false).decrypt(iv + self.OE.value)
