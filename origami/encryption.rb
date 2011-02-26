@@ -115,9 +115,9 @@ module Origami
         doc_id = doc_id.first
       end
 
-      if not handler.is_owner_password?(passwd, doc_id)
+      if handler.is_owner_password?(passwd, doc_id)
         if handler.V.to_i < 5
-          user_passwd = retrieve_user_password(passwd)
+          user_passwd = handler.retrieve_user_password(passwd)
           encryption_key = handler.compute_user_encryption_key(user_passwd, doc_id)
         else
           encryption_key = handler.compute_owner_encryption_key(passwd)

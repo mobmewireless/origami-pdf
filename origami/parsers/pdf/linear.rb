@@ -94,9 +94,10 @@ module Origami
           rescue EncryptionInvalidPasswordError
             if passwd.empty?
               passwd = @options[:prompt_password].call
-              retry unless passwd.empty?
-              raise EncryptionInvalidPasswordError
+              retry 
             end
+
+            raise EncryptionInvalidPasswordError
           end
         end
 
