@@ -69,7 +69,7 @@ module Origami
     #
     def onDocumentOpen(action)   
       
-      unless action.is_a?(Action)
+      unless action.is_a?(Action) or action.is_a?(Reference)
         raise TypeError, "An Action object must be passed."
       end
       
@@ -88,7 +88,7 @@ module Origami
     #
     def onDocumentClose(action)
       
-      unless action.is_a?(Action::JavaScript)
+      unless action.is_a?(Action::JavaScript) or action.is_a?(Reference)
         raise TypeError, "An Action::JavaScript object must be passed."
       end
       
@@ -108,7 +108,7 @@ module Origami
     #
     def onDocumentPrint(action)
       
-      unless action.is_a?(Action::JavaScript)
+      unless action.is_a?(Action::JavaScript) or action.is_a?(Reference)
         raise TypeError, "An Action::JavaScript object must be passed."
       end
       

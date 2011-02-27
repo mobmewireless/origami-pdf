@@ -438,7 +438,7 @@ module Origami
     # Will execute an action when the page is opened.
     #
     def onOpen(action)
-      unless action.is_a?(Action)
+      unless action.is_a?(Action) or action.is_a?(Reference)
         raise TypeError, "An Action object must be passed."
       end
       
@@ -452,7 +452,7 @@ module Origami
     # Will execute an action when the page is closed.
     #
     def onClose(action)
-      unless action.is_a?(Action)
+      unless action.is_a?(Action) or action.is_a?(Reference)
         raise TypeError, "An Action object must be passed."
       end
       
@@ -466,7 +466,7 @@ module Origami
     # Will execute an action when navigating forward from this page.
     #
     def onNavigateForward(action) #:nodoc:
-      unless action.is_a?(Action)
+      unless action.is_a?(Action) or action.is_a?(Reference)
         raise TypeError, "An Action object must be passed."
       end
       
@@ -480,7 +480,7 @@ module Origami
     # Will execute an action when navigating backward from this page.
     #
     def onNavigateBackward(action) #:nodoc:
-      unless action.is_a?(Action)
+      unless action.is_a?(Action) or action.is_a?(Reference)
         raise TypeError, "An Action object must be passed."
       end
       
