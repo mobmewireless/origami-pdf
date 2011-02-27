@@ -276,8 +276,39 @@ module Origami
     #
     # Returns an array of Objects whose content is matching _pattern_.
     #
-    def grep(*patterns)
+#    def grep(*patterns)
+#
+#      patterns.map! do |pattern|
+#        pattern.is_a?(::String) ? Regexp.new(Regexp.escape(pattern)) : pattern
+#      end
+#
+#      unless patterns.all? { |pattern| pattern.is_a?(Regexp) }
+#        raise TypeError, "Expected a String or Regexp"
+#      end
+#
+#      result = []
+#      objects.each do |obj|
+#        begin
+#          case obj
+#            when String, Name
+#              result << obj if patterns.any?{|pattern| obj.value.to_s.match(pattern)}
+#            when Stream
+#              result << obj if patterns.any?{|pattern| obj.data.match(pattern)}
+#          end
+#        rescue Exception => e
+#          puts "[#{e.class}] #{e.message}"
+#
+#          next
+#        end
+#      end
+#
+#      result
+#    end
 
+    #
+    # Returns an array of strings and streams matching the given pattern.
+    #
+    def grep(*patterns) #:nodoc:
       patterns.map! do |pattern|
         pattern.is_a?(::String) ? Regexp.new(Regexp.escape(pattern)) : pattern
       end
@@ -286,23 +317,26 @@ module Origami
         raise TypeError, "Expected a String or Regexp"
       end
 
-      result = []
-      objects.each do |obj|
-        begin
-          case obj
-            when String, Name
-              result << obj if patterns.any?{|pattern| obj.value.to_s.match(pattern)}
-            when Stream
-              result << obj if patterns.any?{|pattern| obj.data.match(pattern)}
-          end
-        rescue Exception => e
-          puts "[#{e.class}] #{e.message}"
-
-          next
+      objset = []
+      self.indirect_objects.each do |indobj|
+        case indobj
+          when String,Stream then objset << indobj
+          when Dictionary,Array then objset |= indobj.strings_cache
         end
       end
 
-      result
+      objset.delete_if do |obj|
+        begin
+          case obj
+            when String
+              not patterns.any?{|pattern| obj.value.to_s.match(pattern)}
+            when Stream
+              not patterns.any?{|pattern| obj.data.match(pattern)}
+          end
+        rescue Exception => e
+          true
+        end
+      end
     end
 
     #

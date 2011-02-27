@@ -132,10 +132,11 @@ module Origami
       @options = 
       { 
         :verbosity => VERBOSE_INFO, # Verbose level.
-        :ignore_errors => true,    # Try to keep on parsing when errors occur.
+        :ignore_errors => true,     # Try to keep on parsing when errors occur.
         :callback => Proc.new {},   # Callback procedure whenever a structure is read.
-        :prompt_password => Proc.new { print "Password: "; gets.chomp }, #Callback procedure to prompt password when document is encrypted.
-        :force => false # Force PDF header detection
+        :password => '',            # Default password being tried when opening a protected document.
+        :prompt_password => Proc.new { print "Password: "; gets.chomp }, # Callback procedure to prompt password when document is encrypted.
+        :force => false             # Force PDF header detection
       }
      
       @options.update(options)

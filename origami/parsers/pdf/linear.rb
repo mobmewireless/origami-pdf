@@ -88,7 +88,7 @@ module Origami
         if pdf.is_encrypted?
           warn "This document contains encrypted data !"
         
-          passwd = ""
+          passwd = @options[:password]
           begin
             pdf.decrypt(passwd)
           rescue EncryptionInvalidPasswordError
