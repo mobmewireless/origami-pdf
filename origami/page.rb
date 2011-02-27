@@ -394,7 +394,7 @@ module Origami
       self.Annots ||= []
 
       annotations.each do |annot| 
-        annot.P = self if is_indirect?
+        annot.solve[:P] = self if is_indirect?
         self.Annots << annot 
       end
     end
