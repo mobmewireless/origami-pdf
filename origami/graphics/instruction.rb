@@ -40,7 +40,7 @@ module Origami
       if self.class.has_op?(operator)
         opdef = self.class.get_operands(operator)
 
-        if opdef.size != operands.size
+        if not opdef.include('*') and opdef.size != operands.size
           raise InvalidPDFInstructionError, 
             "Numbers of operands mismatch for #{operator}: #{operands.inspect}"
         end
