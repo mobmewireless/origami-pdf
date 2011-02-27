@@ -176,10 +176,20 @@ module Origami
     class << self
       
       #
-      # Read and parse a PDF file from disk.
+      # Reads and parses a PDF file from disk.
       #
       def read(filename, options = {:verbosity => Parser::VERBOSE_INSANE})
         PDF::LinearParser.new(options).parse(filename)
+      end
+
+      #
+      # Creates a new PDF and saves it.
+      # If a block is passed, the PDF instance can be processed before saving.
+      #
+      def create(output, options = {})
+        pdf = PDF.new
+        yield(pdf) if block_given?
+        pdf.save(output, options)
       end
       
       #

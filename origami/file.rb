@@ -42,14 +42,16 @@ module Origami
         :Register => true,                      # Shall the file be registered in the name directory ?
         :EmbeddedName => File.basename(path),   # The inner filename of the attachment.
         :Filter => :FlateDecode                 # The stream filter used to store data.
-      }
+      }.update(options)
 
-      params.update(options)
-      
-      fdata = File.open(path, "r").binmode.read
+      if path.respond_to?(:read)
+        fd = path
+      else
+        fd = File.open(path, 'r').binmode
+      end
       
       fstream = EmbeddedFileStream.new
-      fstream.data = fdata
+      fstream.data = fd.read
       fstream.setFilter(params[:Filter])
       
       name = params[:EmbeddedName]
@@ -62,6 +64,8 @@ module Origami
         name.dup, 
         fspec
       ) if params[:Register] == true
+      
+      fd.close
 
       fspec
     end
