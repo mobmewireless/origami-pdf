@@ -387,7 +387,7 @@ module Origami
     # Add an Annotation to the Page.
     #
     def add_annot(*annotations)
-      unless annotations.all?{|annot| annot.is_a?(Annotation)}
+      unless annotations.all?{|annot| annot.is_a?(Annotation) or annot.is_a?(Reference)}
         raise TypeError, "Only Annotation objects must be passed."
       end
       
