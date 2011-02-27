@@ -407,8 +407,12 @@ module Origami
             return (stream.peek(2) == '<<') ? Stream : HexaString
           when '(' then return ByteString
           when '[' then return Origami::Array
-          when 'n' then return Null
-          when 't', 'f' then return Boolean
+          when 'n' then 
+            return Null if stream.peek(4) == 'null'
+          when 't' then
+            return Boolean if stream.peek(4) == 'true'
+          when 'f' then 
+            return Boolean if stream.peek(5) == 'false'
         else
           if not noref and stream.check(Reference::REGEXP_TOKEN) then return Reference
           elsif stream.check(Real::REGEXP_TOKEN) then return Real
@@ -417,7 +421,8 @@ module Origami
             nil
           end
         end
-
+  
+        nil
       end
         
       def parse(stream) #:nodoc:
