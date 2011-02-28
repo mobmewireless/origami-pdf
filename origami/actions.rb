@@ -288,8 +288,8 @@ module Origami
         field   :A,         :Type => Object, :Version => "1.7", :ExtensionLevel => 3
       end
 
-      def initialize(annotation, command)
-        super(:TA => annotation, :CMD => command)
+      def initialize(annotation, command, *params)
+        super(:TA => annotation, :CMD => Command.new(:C => command, :A => params))
       end
     
     end
