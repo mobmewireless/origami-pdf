@@ -136,7 +136,7 @@ module Origami
           super(key,val)
           
           key.parent = self
-          val.parent = self unless val.parent.equal?(self)
+          val.parent = self unless val.is_indirect? or val.parent.equal?(self)
 
           val
         else

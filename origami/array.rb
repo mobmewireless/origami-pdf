@@ -122,7 +122,7 @@ module Origami
 
     def <<(item)
       obj = item.to_o
-      obj.parent = self
+      obj.parent = self unless obj.is_indirect?
 
       super(obj)
     end
@@ -131,7 +131,7 @@ module Origami
       key, val = key.to_o, val.to_o
       super(key.to_o,val.to_o)
  
-      val.parent = self unless val.parent.equal?(self)
+      val.parent = self unless val.is_indirect? or val.parent.equal?(self)
 
       val
     end

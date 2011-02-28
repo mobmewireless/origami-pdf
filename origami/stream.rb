@@ -415,7 +415,7 @@ module Origami
       prolog = ""
       data = ""
       objoff = 0
-      @objects.to_a.sort.each { |num,obj|
+      @objects.to_a.sort.each do |num,obj|
         
         obj.set_indirect(false)
         obj.objstm_offset = objoff
@@ -425,8 +425,8 @@ module Origami
         
         objoff += objdata.size
         data << objdata
-        
-      }
+        obj.set_indirect(true)
+      end
       
       @data = prolog + data
       
