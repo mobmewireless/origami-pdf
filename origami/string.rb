@@ -134,7 +134,7 @@ module Origami
       require 'iconv'
 
       infer_encoding
-      i = Iconv.new("UTF-8", "UTF16")
+      i = Iconv.new("UTF-8", "UTF-16BE")
         utf8str = i.iconv(self.encoding.to_utf16be(self.value))
       i.close
 
