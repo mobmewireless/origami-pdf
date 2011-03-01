@@ -296,14 +296,23 @@ module Origami
       attr_writer :stm_algo
       attr_writer :str_algo
 
-      def physicalize
+      def physicalize(options = {})
 
-        def build(obj, revision) #:nodoc:
-          return if obj.is_a?(EncryptedObject) # already built
+        def build(obj, revision, options) #:nodoc:
+          if obj.is_a?(EncryptedObject) # already built
+            if options[:decrypt] == true
+              obj.pre_build
+              obj.decrypt!
+              obj.decrypted = false # makes it believe no encryption pass is required
+              obj.post_build
+            end
+
+            return
+          end
      
           if obj.is_a?(ObjectStream)
             obj.each do |subobj|
-              build(subobj, revision)
+              build(subobj, revision, options)
             end
           end
 
@@ -341,7 +350,7 @@ module Origami
                   subobj.reference
                 else
                   ref = add_to_revision(subobj, revision)
-                  build(subobj, revision)
+                  build(subobj, revision, options)
                   ref
                 end
               else
@@ -350,7 +359,7 @@ module Origami
             end
             
             obj.each do |subobj|
-              build(subobj, revision)
+              build(subobj, revision, options)
             end
           end
 
@@ -359,7 +368,13 @@ module Origami
       
         # stack up every root objects
         indirect_objects_by_rev.each do |obj, revision|
-          build(obj, revision)          
+          build(obj, revision, options)
+        end
+
+        # remove encrypt dictionary if requested
+        if options[:decrypt]
+          delete_object(get_trailer_info[:Encrypt])
+          get_trailer_info[:Encrypt] = nil
         end
         
         self
@@ -457,12 +472,12 @@ module Origami
           key = compute_object_key
 
           @rawdata = 
-          if @algorithm == ARC4 or @algorithm == Identity
-            @algorithm.encrypt(key, self.rawdata)
-          else
-            iv = ::Array.new(AES::BLOCKSIZE) { rand(256) }.pack('C*')
-            @algorithm.encrypt(key, iv, @rawdata)
-          end
+            if @algorithm == ARC4 or @algorithm == Identity
+              @algorithm.encrypt(key, self.rawdata)
+            else
+              iv = ::Array.new(AES::BLOCKSIZE) { rand(256) }.pack('C*')
+              @algorithm.encrypt(key, iv, @rawdata)
+            end
 
           @decrypted = false
 

@@ -142,7 +142,14 @@ module Origami
         end
       
       rawdata.chomp!(TOKENS.last)
-      rawdata.chomp!("\r") if rawdata.chomp!("\n")
+
+      if rawdata[-1,1] == "\n"
+        if rawdata[-2,1] == "\r"
+          rawdata = rawdata[0, rawdata.size - 2]
+        else
+          rawdata = rawdata[0, rawdata.size - 1]
+        end
+      end
       #rawdata.chomp! if length.is_a?(Integer) and length < rawdata.length
       
       stm.rawdata = rawdata
@@ -181,7 +188,7 @@ module Origami
     #
     def data
       self.decode! if @data.nil?
-      
+
       @data 
     end
    
@@ -199,7 +206,7 @@ module Origami
     #
     def rawdata
       self.encode! if @rawdata.nil? 
-       
+
       @rawdata
     end
     

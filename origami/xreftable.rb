@@ -390,14 +390,15 @@ module Origami
     end
 
     def clear
-      @rawdata = ""
+      @rawdata, @data = nil, ''
       @xrefs = []
+      self.Index = []
     end
 
     private
 
     def load! #:nodoc:
-      if (@data.nil? or @data.empty?) and has_field?(:W)
+      if @xrefs.nil? and has_field?(:W)
         widths = self.W
 
         if not widths.is_a?(Array) or widths.length != 3 or widths.any?{|width| not width.is_a?(Integer) }

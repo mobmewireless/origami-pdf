@@ -247,6 +247,7 @@ module Origami
       {
         :delinearize => true,
         :recompile => true,
+        :decrypt => false
       }
       options.update(params)
 
@@ -264,7 +265,7 @@ module Origami
       end
       
       self.delinearize! if options[:delinearize] and self.is_linearized?
-      self.compile if options[:recompile]
+      self.compile(options) if options[:recompile]
 
       fd.write self.to_bin(options)
       fd.close
@@ -519,8 +520,8 @@ module Origami
     # * Allocates objects references.
     # * Sets some objects missing required values.
     #
-    def compile
-      
+    def compile(options = {})
+
       #
       # A valid document must have at least one page.
       #
@@ -530,7 +531,11 @@ module Origami
       # Allocates object numbers and creates references.
       # Invokes object finalization methods.
       #
-      physicalize
+      if self.is_a?(Encryption::EncryptedDocument)
+        physicalize(options)
+      else
+        physicalize
+      end
             
       #
       # Sets the PDF version header.
