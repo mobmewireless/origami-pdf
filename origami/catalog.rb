@@ -69,7 +69,7 @@ module Origami
     #
     def onDocumentOpen(action)   
       
-      unless action.is_a?(Action) or action.is_a?(Reference)
+      unless action.is_a?(Action) or action.is_a?(Destination) or action.is_a?(Reference)
         raise TypeError, "An Action object must be passed."
       end
       
