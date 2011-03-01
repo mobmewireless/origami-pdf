@@ -298,13 +298,13 @@ module Origami
 
       def physicalize
 
-        def build(obj, revision, embedded = false) #:nodoc:
+        def build(obj, revision) #:nodoc:
           return if obj.is_a?(EncryptedObject) # already built
      
           if obj.is_a?(ObjectStream)
-            obj.each { |subobj|
-              build(subobj, revision, true)
-            }
+            obj.each do |subobj|
+              build(subobj, revision)
+            end
           end
 
           obj.pre_build
@@ -316,7 +316,7 @@ module Origami
                not obj.equal?(@encryption_dict[:UE]) and 
                not obj.equal?(@encryption_dict[:OE]) and 
                not obj.equal?(@encryption_dict[:Perms]) and 
-               not embedded 
+               not obj.indirect_parent.parent.is_a?(ObjectStream)
               
               obj.extend(EncryptedString)
               obj.decrypted = true
@@ -335,23 +335,23 @@ module Origami
             obj.algorithm = @stm_algo
 
           when Dictionary, Array
-              obj.map! { |subobj|
-                if subobj.is_indirect?
-                  if get_object(subobj.reference)
-                    subobj.reference
-                  else
-                    ref = add_to_revision(subobj, revision)
-                    build(subobj, revision, embedded)
-                    ref
-                  end
+            obj.map! do |subobj|
+              if subobj.is_indirect?
+                if get_object(subobj.reference)
+                  subobj.reference
                 else
-                  subobj
+                  ref = add_to_revision(subobj, revision)
+                  build(subobj, revision)
+                  ref
                 end
-              }
-              
-              obj.each do |subobj|
-                build(subobj, revision, embedded)
+              else
+                subobj
               end
+            end
+            
+            obj.each do |subobj|
+              build(subobj, revision)
+            end
           end
 
           obj.post_build

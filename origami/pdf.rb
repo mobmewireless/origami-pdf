@@ -900,7 +900,7 @@ module Origami
             
             obj.map! do |subobj|
               if subobj.is_indirect?
-                if subobj.parent.is_a?(ObjectStream) or get_object(subobj.reference)
+                if get_object(subobj.reference)
                   subobj.reference
                 else
                   ref = add_to_revision(subobj, revision)
