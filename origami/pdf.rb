@@ -861,7 +861,6 @@ module Origami
             elsif xrefstm.has_field?(:Prev)
               done << xrefstm
               xrefstm = get_object_by_offset(xrefstm.Prev)
-              redo
             else
               break
             end
