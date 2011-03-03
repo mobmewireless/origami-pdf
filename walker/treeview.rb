@@ -136,6 +136,8 @@ module PDFWalker
       else
         if obj.is_a?(Name) and obj.parent.is_a?(Dictionary) and obj.parent.has_key?(obj)
           obj = obj.parent[obj]
+        elsif obj.is_a?(Reference)
+          obj = obj.solve
         end
 
         @treestore.each { |model, path, iter|

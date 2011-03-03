@@ -991,11 +991,11 @@ module Origami
     # Instanciates basic structures required for a valid PDF file.
     #
     def init
-      catalog = (self.Catalog ||= Catalog.new)
-      catalog.Pages = PageTreeNode.new.set_indirect(true)      
+      catalog = (self.Catalog = (get_doc_attr(:Root) || Catalog.new))
+      catalog.Pages = PageTreeNode.new.set_indirect(true)
       @revisions.last.trailer.Root = catalog.reference
-   
-      self   
+
+      self
     end
     
     def version_required #:nodoc:

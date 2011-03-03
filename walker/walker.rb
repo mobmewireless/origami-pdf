@@ -201,7 +201,7 @@ module PDFWalker  #:nodoc:all
     end
 
     def goto_catalog
-      @treeview.goto(@opened.Catalog)
+      @treeview.goto(@opened.Catalog.reference)
     end
 
     def goto_object

@@ -44,7 +44,21 @@ module Origami
     # Returns the current Catalog Dictionary.
     #
     def Catalog
-      get_doc_attr(:Root)
+      cat = get_doc_attr(:Root)
+
+      case cat
+        when Catalog then
+          cat
+        when Dictionary then
+          casted = Catalog.new(cat)
+          casted.no, casted.generation = cat.no, cat.generation
+          casted.set_indirect(true)
+          casted.set_pdf(self)
+
+          casted
+        else
+          raise InvalidPDFError, "Broken catalog"
+      end
     end
     
     #
