@@ -86,7 +86,7 @@ module Origami
           
           object.dictionary.each_pair { |key, value|
             value = value.solve if value.is_a?(Reference)
-            fd << "\t#{object.object_id} -> #{value.object_id} [label=\"#{name.value}\",fontsize=9];\n" unless value.nil?
+            fd << "\t#{object.object_id} -> #{value.object_id} [label=\"#{key.value}\",fontsize=9];\n" unless value.nil?
           }
           
         end
@@ -192,7 +192,7 @@ module Origami
           
           object.each { |subobj|
             
-            if subobj.is_a?(Reference) then subobj = subobj.solve end
+            subobj = subobj.solve if subobj.is_a?(Reference)
             
             unless subobj.nil?
               fd << declare_edge("e#{id}", "n#{object.object_id}", "n#{subobj.object_id}")
@@ -204,7 +204,7 @@ module Origami
           
           object.each_pair { |name, subobj|
             
-            if subobj.is_a?(Reference) then subobj = subobj.solve end
+            subobj = subobj.solve if subobj.is_a?(Reference)
             
             unless subobj.nil?
               fd << declare_edge("e#{id}", "n#{object.object_id}", "n#{subobj.object_id}", name.value)
@@ -218,7 +218,7 @@ module Origami
           
           object.dictionary.each_pair { |key, value|
           
-            if value.is_a?(Reference) then value = subobj.solve end
+            value = value.solve if value.is_a?(Reference)
             
             unless value.nil?
               fd << declare_edge("e#{id}", "n#{object.object_id}", "n#{value.object_id}", key.value)
@@ -250,7 +250,7 @@ module Origami
         fd << '<key id="d1" for="edge" yfiles.type="edgegraphics"/>' << "\n"
         fd << "<graph id=\"#{graphname}\" edgedefault=\"directed\">\n"
         
-        objects = self.objects(true).find_all{ |obj| not obj.is_a?(Reference) }
+        objects = self.objects(:include_keys => false).find_all{ |obj| not obj.is_a?(Reference) }
         
         objects.each { |object|
           
