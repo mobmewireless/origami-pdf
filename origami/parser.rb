@@ -23,7 +23,7 @@ require 'strscan'
 
 module Origami
   
-  if RUBY_PLATFORM =~ /win32/ 
+  if RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
     require "Win32API"
   
     getStdHandle = Win32API.new("kernel32", "GetStdHandle", ['L'], 'L')
@@ -33,7 +33,7 @@ module Origami
   end
 
   module Colors #:nodoc;
-    if RUBY_PLATFORM =~ /win32/
+    if RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
       BLACK     = 0
       BLUE      = 1
       GREEN     = 2
@@ -65,7 +65,7 @@ module Origami
   end
 
   def set_fg_color(color, bright = false, fd = STDOUT) #:nodoc:
-    if RUBY_PLATFORM =~ /win32/
+    if RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
       if bright then color |= Colors::WHITE end
       @@setConsoleTextAttribute.call(@@hOut, color)
       yield
@@ -78,7 +78,7 @@ module Origami
     end
   end
 
-  unless RUBY_PLATFORM =~ /win32/
+  unless RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
     def colorize(text, color, bright = false)
       col, nocol = [color, Colors::GREY].map! { |key| "\033[#{key}m" }
       "#{col}#{text}#{nocol}"

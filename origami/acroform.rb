@@ -39,7 +39,7 @@ module Origami
     #
     def create_acroform(*fields)
       acroform = self.Catalog.AcroForm ||= InteractiveForm.new.set_indirect(true)
-      add_fields(*fields)
+      self.add_fields(*fields)
 
       acroform
     end
@@ -60,6 +60,36 @@ module Origami
       self
     end
  
+    #
+    # Returns an array of Acroform fields.
+    #
+    def fields
+      if self.has_form?
+        if self.Catalog.AcroForm.has_key?(:Fields)
+          self.Catalog.AcroForm[:Fields].map {|field| field.solve}
+        end
+      end
+    end
+
+    #
+    # Iterates over each Acroform Field.
+    #
+    def each_field(&b)
+      if self.has_form?
+        if self.Catalog.AcroForm.has_key?(:Fields)
+          self.Catalog.AcroForm[:Fields].each {|field| b.call(field.solve)}
+        end
+      end
+    end
+    
+    #
+    # Returns the corresponding named Field.
+    #
+    def get_field(name)
+      self.each_field do |field|
+        return field if field[:T].solve == name
+      end
+    end
   end
 
   #
