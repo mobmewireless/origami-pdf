@@ -64,7 +64,7 @@ USAGE
     opts = OptionParser.new do |opts|
       opts.banner = BANNER
 
-      opts.on("-o", "--output", "Output log file (default STDOUT)") do |o|
+      opts.on("-o", "--output LOG_FILE", "Output log file (default STDOUT)") do |o|
         options[:output_log] = o
       end
 
@@ -93,7 +93,7 @@ end
 
 @options = OptParser.parse(ARGV)
 if @options.has_key?(:output_log)
-  LOGGER = File.open(options[:output_log], "a+")
+  LOGGER = File.open(@options[:output_log], "a+")
 else
   LOGGER = STDOUT
 end

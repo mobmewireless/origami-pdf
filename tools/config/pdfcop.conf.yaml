@@ -108,7 +108,7 @@ POLICY_STANDARD:
   #
   allowASCII85Filter: false
   allowASCIIHexFilter: false
-  allowCCITTFaxFilter: false
+  allowCCITTFaxFilter: true
   allowCryptFilter: true
   allowDCTFilter: true
   allowFlateFilter: true

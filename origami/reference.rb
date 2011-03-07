@@ -49,8 +49,8 @@ module Origami
       end
       
       refno = stream[2].to_i
-      refgen = stream[3].to_i
-       
+      refgen = stream[4].to_i
+
       Reference.new(refno,refgen)
     end
     
