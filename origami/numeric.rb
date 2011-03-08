@@ -141,7 +141,7 @@ module Origami
     
     include Number
     
-    TOKENS = [ "(\\+|-)?([\\d]*\\.[\\d]+|[\\d]+\\.[\\d]*)" ] #:nodoc:
+    TOKENS = [ "(\\+|-)?([\\d]*\\.[\\d]+|[\\d]+\\.[\\d]*)([eE](\\+|-)?[\\d]+)?" ] #:nodoc:
 
     REGEXP_TOKEN = Regexp.new(TOKENS.first)
     
