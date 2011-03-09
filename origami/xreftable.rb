@@ -381,7 +381,7 @@ module Origami
       (ranges.size / 2).times do |i|
         brange = ranges[i*2].to_i
         size = ranges[i*2+1].to_i
-        return @xrefs[index + no - brange] if Range.new(brange, brange + size) === no
+        return @xrefs[index + no - brange] if Range.new(brange, brange + size - 1) === no
 
         index += size
       end

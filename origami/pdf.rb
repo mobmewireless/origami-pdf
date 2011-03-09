@@ -846,6 +846,7 @@ module Origami
           done = []
           while xrefstm.is_a?(XRefStream) and not done.include?(xrefstm)
             xref = xrefstm.find(target.refno)
+            
             #
             # We found a matching XRef.
             #
@@ -865,7 +866,6 @@ module Origami
               break
             end
           end
-
         end
 
         #
