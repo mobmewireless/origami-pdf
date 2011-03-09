@@ -47,7 +47,7 @@ module PDFWalker
         1.4 => "5.x",
         1.5 => "6.x",
         1.6 => "7.x",
-        1.7 => "8.x / 9.x"
+        1.7 => "8.x / 9.x / 10.x"
       }
       
       def initialize(parent, pdf)
@@ -123,7 +123,6 @@ module PDFWalker
         signal_connect('response') { destroy }
         
         show_all
-        
       end
       
     end

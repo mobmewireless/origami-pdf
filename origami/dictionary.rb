@@ -39,7 +39,7 @@ module Origami
       @@regexp_open = Regexp.new(WHITESPACES + Regexp.escape(TOKENS.first) + WHITESPACES)
       @@regexp_close = Regexp.new(WHITESPACES + Regexp.escape(TOKENS.last) + WHITESPACES)
       
-      attr_reader :strings_cache
+      attr_reader :strings_cache, :xref_cache
 
       #
       # Creates a new Dictionary.
@@ -50,12 +50,21 @@ module Origami
         super()
         
         @strings_cache = []
+        @xref_cache = {}
+
         hash.each_pair do |k,v|
           case val = v.to_o
             when String then @strings_cache << val
+            when Reference then
+              (@xref_cache[val] ||= []).push(self)
             when Dictionary,Array then 
               @strings_cache |= val.strings_cache
+              @xref_cache.update(val.xref_cache) do |ref, cache1, cache2|
+                cache1.concat(cache2)  
+              end
+
               val.strings_cache.clear
+              val.xref_cache.clear
           end
 
           self[k.to_o] = val unless k.nil?

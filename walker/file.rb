@@ -340,8 +340,14 @@ module PDFWalker
           [ Gtk::Stock::CANCEL, Gtk::Dialog::RESPONSE_CANCEL ]
         )
 
+        dialog.set_default_response(Gtk::Dialog::RESPONSE_OK)
+
         label = Gtk::Label.new("Please enter password:")
         entry = Gtk::Entry.new
+        entry.signal_connect('activate') {
+          dialog.response(Gtk::Dialog::RESPONSE_OK)
+        }
+
         dialog.vbox.add(label)
         dialog.vbox.add(entry)
         dialog.show_all

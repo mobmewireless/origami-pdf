@@ -53,7 +53,7 @@ module PDFWalker
       @view.append_column(column)
 
       target.xrefs.each { |obj|
-        str = obj.parent.class.to_s
+        str = obj.class.to_s
         iter = @list.append
         @list.set_value(iter, OBJCOL, obj)
         @list.set_value(iter, TEXTCOL, str)
@@ -66,11 +66,12 @@ module PDFWalker
         end
       }
 
-      vbox.add(@view)
+      scroll = ScrolledWindow.new.set_policy(POLICY_NEVER, POLICY_AUTOMATIC)
+      scroll.add(@view)
+      vbox.add(scroll)
 
       signal_connect('response') { destroy }  
       show_all
-
     end
     
   end
