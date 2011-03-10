@@ -343,8 +343,7 @@ module Origami
         raise InvalidObjectError, "Not attached to any PDF"
       end
 
-      xref_cache = {}
-      thisref = self.reference
+      xref_cache = Hash.new([])
       @pdf.root_objects.each do |obj|
         case obj
           when Dictionary,Array then
@@ -353,13 +352,17 @@ module Origami
             end
 
           when Stream then
+            obj.dictionary.xref_cache.each do |ref, cache|
+              cache.map!{obj}
+            end
+
             xref_cache.update(obj.dictionary.xref_cache) do |ref, cache1, cache2|
-              cache1.concat(cache2.map!{obj})
+              cache1.concat(cache2)
             end
         end
       end
 
-      xref_cache[thisref]
+      xref_cache[self.reference]
     end
 
     #
