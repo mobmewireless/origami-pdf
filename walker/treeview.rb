@@ -77,8 +77,7 @@ module PDFWalker
         if iter
           obj = @treestore.get_value(iter, OBJCOL)
           
-          if obj.is_a?(Stream) and not iter.has_child?
-            load_object(iter, obj.dictionary, "Stream Dictionary")
+          if obj.is_a?(Stream) and iter.n_children == 1
            
             # Processing with an XRef or Object Stream
             if obj.is_a?(ObjectStream)
@@ -283,14 +282,15 @@ module PDFWalker
       type = object.real_type.to_s.split('::').last.to_sym
       
       if name.nil?
-        name = case object
-        when Origami::String
-          '"' + object.value + '"'
-        when Origami::Number, Name
-          object.value.to_s
-        else
-          object.type.to_s
-        end
+        name = 
+          case object
+            when Origami::String
+              '"' + object.value + '"'
+            when Origami::Number, Name
+              object.value.to_s
+            else
+              object.type.to_s
+          end
       end
 
       set_node(obj, type, name)
@@ -303,6 +303,8 @@ module PDFWalker
         object.each_key { |subkey|
           load_object(obj, object[subkey.value], subkey.value.to_s)
         }
+      elsif object.is_a? Origami::Stream
+        load_object(obj, object.dictionary, "Stream Dictionary")
       end
     
     end

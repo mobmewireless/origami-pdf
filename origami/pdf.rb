@@ -321,7 +321,11 @@ module Origami
     #
     def grep(*patterns) #:nodoc:
       patterns.map! do |pattern|
-        pattern.is_a?(::String) ? Regexp.new(Regexp.escape(pattern)) : pattern
+        if pattern.is_a?(::String)
+          Regexp.new(Regexp.escape(pattern), Regexp::IGNORECASE)
+        else
+          pattern
+        end
       end
 
       unless patterns.all? { |pattern| pattern.is_a?(Regexp) }
@@ -331,15 +335,21 @@ module Origami
       objset = []
       self.indirect_objects.each do |indobj|
         case indobj
-          when String,Stream then objset << indobj
-          when Dictionary,Array then objset |= indobj.strings_cache
+          when Stream then
+            objset.push indobj
+            objset.concat(indobj.dictionary.strings_cache)
+            objset.concat(indobj.dictionary.names_cache)
+          when Name,String then objset.push indobj
+          when Dictionary,Array then 
+            objset.concat(indobj.strings_cache)
+            objset.concat(indobj.names_cache)
         end
       end
 
       objset.delete_if do |obj|
         begin
           case obj
-            when String
+            when String, Name
               not patterns.any?{|pattern| obj.value.to_s.match(pattern)}
             when Stream
               not patterns.any?{|pattern| obj.data.match(pattern)}
