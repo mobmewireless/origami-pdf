@@ -7,8 +7,15 @@
 			/JS (app.alert\('Document is closing'\);)
 		>>
 	>>
+	/OpenAction <<
+		/S /JavaScript
+		/JS (app.alert\('Document is opened'\);)
+	>>
 	/Pages 2 0 R
 	/Type /Catalog
+	/Names <<
+		/JavaScript 5 0 R
+	>>
 >>
 endobj
 2 0 obj
@@ -103,18 +110,31 @@ ET
 
 endstream
 endobj
+5 0 obj
+<<
+	/Names [ (test) 6 0 R ]
+>>
+endobj
+6 0 obj
+<<
+	/S /JavaScript
+	/JS (app.alert\('Names directory script'\);)
+>>
+endobj
 xref
-0 5
+0 7
 0000000000 65535 f
 0000000010 00000 n
-0000000162 00000 n
-0000000231 00000 n
-0000001430 00000 n
+0000000284 00000 n
+0000000353 00000 n
+0000001552 00000 n
+0000001686 00000 n
+0000001737 00000 n
 trailer
 <<
 	/Root 1 0 R
-	/Size 5
+	/Size 7
 >>
 startxref
-1564
+1826
 %%EOF

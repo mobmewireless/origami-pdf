@@ -14,13 +14,3 @@
     is done by swapping the case of these keywords (as PDF language is
     case sensitive).
 
-``samba/``
-* Implementation of a SMB relay attack using PDF. When opened in a
-  browser on Windows, the document tries to access a document shared
-  on a malicious SMB server (on a LAN). The server will then be able
-  to steal user credentials. This script merely forges the malicious
-  PDF document.
-
-``exploits/``
-* Basic exploits PoC generation.
-
