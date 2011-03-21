@@ -78,6 +78,8 @@ module Origami
       
       def self.parse(stream) #:nodoc:
         
+        offset = stream.pos
+
         if stream.skip(@@regexp_open).nil?
           raise InvalidDictionaryObjectError, "No token '#{TOKENS.first}' found"
         end
@@ -95,17 +97,22 @@ module Origami
           pairs[key] = value
         end
        
-        if Origami::OPTIONS[:enable_type_guessing]
-          type = pairs[Name.new(:Type)]
-          if type.is_a?(Name) and @@dict_special_types.include?(type.value)
-            @@dict_special_types[type.value].new(pairs)
+        dict = 
+          if Origami::OPTIONS[:enable_type_guessing]
+            type = pairs[Name.new(:Type)]
+            if type.is_a?(Name) and @@dict_special_types.include?(type.value)
+              @@dict_special_types[type.value].new(pairs)
+            else
+              Dictionary.new(pairs)
+            end
+
           else
             Dictionary.new(pairs)
           end
 
-        else
-          Dictionary.new(pairs)
-        end
+        dict.file_offset = offset
+
+        dict
       end
       
       alias to_h to_hash

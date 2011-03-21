@@ -87,6 +87,7 @@ module Origami
     
     def self.parse(stream) #:nodoc:
       data = []
+      offset = stream.pos
       
       if not stream.skip(@@regexp_open)
         raise InvalidArrayObjectError, "No token '#{TOKENS.first}' found"
@@ -103,7 +104,10 @@ module Origami
         data << value
       end
     
-      Array.new(data)
+      array = Array.new(data)
+      array.file_offset = offset
+
+      array
     end
     
     #

@@ -195,6 +195,8 @@ module Origami
     end
     
     def self.parse(stream) #:nodoc:
+
+      offset = stream.pos
         
       if stream.skip(@@regexp_open).nil?
         raise InvalidHexaStringObjectError, "Hexadecimal string shall start with a '#{TOKENS.first}' token"
@@ -207,7 +209,10 @@ module Origami
 
       decoded = Filter::ASCIIHex.decode(hexa.chomp!(TOKENS.last))
         
-      HexaString.new(decoded)
+      hexastr = HexaString.new(decoded)
+      hexastr.file_offset = offset
+
+      hexastr
     end
     
     def to_s #:nodoc:
@@ -257,6 +262,8 @@ module Origami
     end
 
     def self.parse(stream) #:nodoc:
+
+      offset = stream.pos
       
       if not stream.skip(@@regexp_open)
         raise InvalidByteStringObjectError, "No literal string start token found"
@@ -317,7 +324,10 @@ module Origami
         raise InvalidByteStringObjectError, "Byte string shall be terminated with '#{TOKENS.last}'"
       end
 
-      ByteString.new(result)
+      bytestr = ByteString.new(result)
+      bytestr.file_offset
+
+      bytestr
     end
 
     def expand #:nodoc:

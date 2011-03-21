@@ -44,12 +44,17 @@ module Origami
     end
     
     def self.parse(stream) #:nodoc:
+
+      offset = stream.pos
       
       if stream.skip(@@regexp).nil?
         raise InvalidNullObjectError
       end
       
-      Null.new
+      null = Null.new
+      null.file_offset = offset
+
+      null
     end
     
     #

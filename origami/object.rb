@@ -453,7 +453,7 @@ module Origami
  
         if stream.scan(@@regexp_obj).nil?
           raise InvalidObjectError, 
-            "Object shall begin with '$no $gen obj' statement"
+            "Object shall begin with '%d %d obj' statement"
         end
           
         no = stream[2].to_i

@@ -97,7 +97,7 @@ module Origami
       
       dictionary = Dictionary.parse(stream)
       return dictionary if not stream.skip(@@regexp_open)
-     
+
       length = dictionary[:Length]
       if not length.is_a?(Integer)
         rawdata = stream.scan_until(@@regexp_close)
@@ -153,6 +153,7 @@ module Origami
       #rawdata.chomp! if length.is_a?(Integer) and length < rawdata.length
       
       stm.rawdata = rawdata
+      stm.file_offset = dictionary.file_offset
 
       stm
     end   

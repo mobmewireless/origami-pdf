@@ -108,14 +108,21 @@ module Origami
     end
     
     def self.parse(stream) #:nodoc:
+
+      offset = stream.pos
       
-      if stream.scan(@@regexp).nil?
-        raise InvalidNameObjectError, "Bad name format"
-      else
-        value = stream[2]
-        
-        Name.new(value.include?('#') ? contract(value) : value)
-      end
+      name = 
+        if stream.scan(@@regexp).nil?
+          raise InvalidNameObjectError, "Bad name format"
+        else
+          value = stream[2]
+          
+          Name.new(value.include?('#') ? contract(value) : value)
+        end
+
+      name.file_offset = offset
+
+      name
     end
     
     def self.contract(name) #:nodoc:

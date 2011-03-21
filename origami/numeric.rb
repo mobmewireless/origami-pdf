@@ -118,12 +118,18 @@ module Origami
     end
       
     def self.parse(stream) #:nodoc:
+
+      offset = stream.pos
+
       if not stream.scan(@@regexp)
         raise InvalidIntegerObjectError, "Invalid integer format"
       end
 
       value = stream[2].to_i
-      Integer.new(value)
+      int = Integer.new(value)
+      int.file_offset = offset
+
+      int
     end
     
     alias value to_i
@@ -161,13 +167,18 @@ module Origami
     end
   
     def self.parse(stream) #:nodoc:
+
+      offset = stream.pos
       
       if not stream.scan(@@regexp)
         raise InvalidRealObjectError, "Invalid real number format"
       end
        
       value = stream[2].to_f
-      Real.new(value)
+      real = Real.new(value)
+      real.file_offset = offset
+
+      real
     end
     
     alias value to_f

@@ -60,6 +60,8 @@ module Origami
     end
     
     def self.parse(stream) #:nodoc:
+
+      offset = stream.pos
     
       if stream.scan(@@regexp).nil?
         raise InvalidBooleanObjectError
@@ -67,7 +69,10 @@ module Origami
 
       value = stream[2] == "true" ? true : false
         
-      Boolean.new(value)
+      bool = Boolean.new(value)
+      bool.file_offset = offset
+
+      bool
     end
     
     #

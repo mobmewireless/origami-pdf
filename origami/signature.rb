@@ -112,17 +112,15 @@ module Origami
       # No more modification are allowed after signing.
       #
       self.freeze
-      
     end
     
     #
     # Returns whether the document contains a digital signature.
     #
     def is_signed?
-      
-      #~ not self.Catalog.AcroForm.nil? and (self.Catalog.AcroForm[:SigFlags] & InteractiveForm::SigFlags::SIGNATUREEXISTS) != 0
-      "todo"
-      
+      not self.Catalog.AcroForm.nil? and 
+      self.Catalog.AcroForm.has_key?(:SigFlags) and 
+      (self.Catalog.AcroForm[:SigFlags].solve & InteractiveForm::SigFlags::SIGNATURESEXIST != 0)
     end
     
     #
@@ -220,10 +218,7 @@ module Origami
     end
     
     def has_usage_rights?
-      
-      #~ not self.Catalog.Perms.nil? and (not self.Catalog.Perms.UR3.nil? or not self.Catalog.Perms.UR.nil?)
-      "todo"
-      
+      not self.Catalog.Perms.nil? and (not self.Catalog.Perms.has_key?(:UR3) or not self.Catalog.Perms.has_key?(:UR))
     end
 
   end
