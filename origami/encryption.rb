@@ -163,7 +163,8 @@ module Origami
                       obj.equal?(encrypt_dict[:O]) or
                       obj.equal?(encrypt_dict[:UE]) or
                       obj.equal?(encrypt_dict[:OE]) or
-                      obj.equal?(encrypt_dict[:Perms])
+                      obj.equal?(encrypt_dict[:Perms]) or
+                      (obj.parent.is_a?(Signature::DigitalSignature) and obj.equal?(obj.parent[:Contents]))
 
               obj.extend(Encryption::EncryptedString)
               obj.encryption_handler = handler
@@ -325,6 +326,7 @@ module Origami
                not obj.equal?(@encryption_dict[:UE]) and 
                not obj.equal?(@encryption_dict[:OE]) and 
                not obj.equal?(@encryption_dict[:Perms]) and 
+               not (obj.parent.is_a?(Signature::DigitalSignature) and obj.equal?(obj.parent[:Contents])) and
                not obj.indirect_parent.parent.is_a?(ObjectStream)
               
               obj.extend(EncryptedString)

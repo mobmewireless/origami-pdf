@@ -3,6 +3,8 @@
 beta4 (dev):
   - Added a Rakefile to run unit tests, build rdoc and build gem.
   - Added a Ruby shell for Origami.
+  - Added a tools folder, with some very useful scripts.
+
   |origami|:
     - AESV3 support (AES256 encryption/decryption).
     - Encryption/decryption can be achieved with or without openssl.
