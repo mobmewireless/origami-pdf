@@ -477,6 +477,10 @@ module Origami
         nil
       end
 
+      def lookup_bits(table, codeword, length)
+        table.rassoc [codeword, length]
+      end
+
       def put_white_bits(bitw, length) #:nodoc:
         put_color_bits(bitw, length, WHITE_CONFIGURATION_ENCODE_TABLE, WHITE_TERMINAL_ENCODE_TABLE)
       end

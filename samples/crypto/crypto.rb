@@ -25,3 +25,4 @@ pdf.append_page Page.new.setContents(contents)
 pdf.save(OUTPUTFILE)
 
 puts "PDF file saved as #{OUTPUTFILE}."
+

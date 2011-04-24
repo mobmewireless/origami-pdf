@@ -9,7 +9,7 @@ rescue LoadError
 end
 include Origami
 
-INPUTFILE = "test.swf"
+INPUTFILE = "helloworld.swf"
 OUTPUTFILE = "#{File.basename(__FILE__, ".rb")}.pdf"
 
 puts "Now generating a new PDF file from scratch!"
