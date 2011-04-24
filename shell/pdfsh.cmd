@@ -1,4 +1,4 @@
 @echo off
 
 set IRBRC=".irbrc"
-irb
+irb -I.

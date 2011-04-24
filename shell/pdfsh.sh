@@ -1,5 +1,5 @@
 #!/bin/sh
 
 export IRBRC=".irbrc"
-irb
+irb -I.
 
