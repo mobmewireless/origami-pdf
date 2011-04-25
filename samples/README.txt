@@ -1,6 +1,9 @@
 :: SUBDIRECTORIES
 =================
 
+``attachments/``
+* Adding a file attachment to a PDF document.
+
 ``crypto/``
 * PDF encryption (supports RC4 40-128 bits, and AES128).
   - crypto.rb : Create a simple encrypted document.

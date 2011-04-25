@@ -1,0 +1,92 @@
+%PDF-1.4
+1 0 obj
+<<
+	/Pages 2 0 R
+	/Names <<
+		/EmbeddedFiles 5 0 R
+	>>
+	/OpenAction <<
+		/JS (  this.exportDataObject\({cName:"README.txt", nLaunch:2}\);\n)
+		/S /JavaScript
+	>>
+	/Type /Catalog
+>>
+endobj
+2 0 obj
+<<
+	/Count 1
+	/Kids [ 3 0 R ]
+	/Type /Pages
+>>
+endobj
+3 0 obj
+<<
+	/Contents 4 0 R
+	/Parent 2 0 R
+	/Resources <<
+		/Font <<
+			/F1 <<
+				/Type /Font
+				/Subtype /Type1
+				/BaseFont /Helvetica
+				/Name /F1
+			>>
+		>>
+	>>
+	/Type /Page
+	/MediaBox [ 0 0 795 842 ]
+>>
+endobj
+4 0 obj
+<<
+	/Length 61
+>>stream
+BT
+/F1 30 Tf
+250 750 Td
+20 TL
+(File attachment sample) Tj
+ET
+
+endstream
+endobj
+5 0 obj
+<<
+	/Names [ (README.txt) 6 0 R ]
+>>
+endobj
+6 0 obj
+<<
+	/Type /Filespec
+	/F (README.txt)
+	/EF <<
+		/F 7 0 R
+	>>
+>>
+endobj
+7 0 obj
+<<
+	/Filter /ASCIIHexDecode
+	/Length 65
+>>stream
+2A2A2A544849532049532054484520454D4245444445442046494C452A2A2A0A>
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f
+0000000010 00000 n
+0000000219 00000 n
+0000000288 00000 n
+0000000525 00000 n
+0000000643 00000 n
+0000000700 00000 n
+0000000787 00000 n
+trailer
+<<
+	/Root 1 0 R
+	/Size 8
+>>
+startxref
+935
+%%EOF
