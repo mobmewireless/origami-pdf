@@ -128,7 +128,7 @@ module Origami
             when 510 then codesize = 10
             when 1022 then codesize = 11
             when 2046 then codesize = 12
-            when 4094
+            when 4095
               if byte != CLEARTABLE
               then
                 raise InvalidLZWDataError, 
@@ -147,18 +147,18 @@ module Origami
           else
             if prevbyte.nil?
               prevbyte = byte
-              result << table.index(byte)
+              result << table.key(byte)
               redo
             else
               if table.has_value?(byte)
-                entry = table.index(byte)
+                entry = table.key(byte)
               else
-                entry = table.index(prevbyte)
+                entry = table.key(prevbyte)
                 entry += entry[0,1]
               end
 
               result << entry
-              table[table.index(prevbyte) + entry[0,1]] = table.size
+              table[table.key(prevbyte) + entry[0,1]] = table.size
               prevbyte = byte
             end
           end

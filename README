@@ -48,8 +48,8 @@ See the COPYING.LESSER file for more details.
 ``samples/``
 * Many samples, mostly sorted to generate specially crafted PDFs.
 
-``scripts/``
-* Simple Ruby scripts playing with PDF files.
+``tools/``
+* Useful tools based on Origami.
 
 ``tests/``
 * Test case units.

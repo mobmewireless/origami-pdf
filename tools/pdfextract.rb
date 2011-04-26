@@ -104,7 +104,7 @@ begin
     target = ARGV.shift
   end
 
-  unless @options[:streams] or @options[:javascript] or @options[:attachments] or @options[:fonts] or @options[:metadata]
+  unless [:streams,:javascript,:attachments,:fonts,:metadata].any? {|opt| @options[opt]} 
     @options[:streams] =
     @options[:javascript] =
     @options[:fonts] =

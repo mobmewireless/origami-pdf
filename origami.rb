@@ -19,6 +19,17 @@
 
 =end
 
+
+if RUBY_VERSION < '1.9'
+  class Fixnum
+    def ord; self; end
+  end
+
+  class Hash
+    alias key index
+  end
+end
+
 require 'origami/parsers/pdf'
 require 'origami/parsers/fdf'
 require 'origami/parsers/ppklite'

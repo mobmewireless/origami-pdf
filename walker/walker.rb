@@ -102,8 +102,6 @@ module PDFWalker  #:nodoc:all
       
       add @vbox
       
-      # set_icon("icons/gnome-pdf.png")
-      
       set_default_size(self.screen.width * 0.5, self.screen.height * 0.5)
       #maximize
       show_all

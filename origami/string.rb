@@ -19,12 +19,6 @@
 
 =end
 
-if RUBY_VERSION < '1.9'
-  class Fixnum
-    def ord; self; end
-  end
-end
-
 module Origami
 
   #
