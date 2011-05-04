@@ -82,7 +82,7 @@ module Origami
           i = i + 1
         end
 
-        result << EOD
+        result << EOD.chr
       end
 
 
@@ -91,11 +91,11 @@ module Origami
       # _stream_:: The data to decode.
       #
       def decode(stream)
-        raise InvalidRunLengthDataError, "No end marker" unless stream.include?(EOD)
+        raise InvalidRunLengthDataError, "No end marker" unless stream.include?(EOD.chr)
         
         i = 0
         result = ""
-        until stream[i] == EOD do
+        until stream[i].ord == EOD do
         
           length = stream[i]
           if length < EOD

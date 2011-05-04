@@ -145,9 +145,17 @@ module Origami
     def parse(stream)
       data = 
       if stream.respond_to? :read
-        StringScanner.new(stream.read)
+        if ''.respond_to? :force_encoding
+          StringScanner.new(stream.read.force_encoding('binary')) # 1.9 compat
+        else
+          StringScanner.new(stream.read)
+        end
       elsif stream.is_a? ::String
-        StringScanner.new(File.open(stream, "r").binmode.read)
+        if ''.respond_to? :force_encoding
+          StringScanner.new(File.open(stream, "r", :encoding => 'binary').binmode.read)
+        else
+          StringScanner.new(File.open(stream, "r").binmode.read)
+        end
       elsif stream.is_a? StringScanner
         stream
       else

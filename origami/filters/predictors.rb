@@ -115,33 +115,33 @@ module Origami
         nrows.times do |irow|
 
           line = data[irow * bpr, bpr]
-          predictor = 10 + line[0]
+          predictor = 10 + line[0].ord
           line[0] = "\0"
 
           for i in (1..line.size-1)
-            up = uprow[i]
+            up = uprow[i].ord
 
             if bpp > i
               left = upleft = 0
             else
-              left = line[i-bpp]
-              upleft = uprow[i-bpp]
+              left = line[i-bpp].ord
+              upleft = uprow[i-bpp].ord
             end
 
             case predictor
               when PNG_NONE
                 thisrow = line 
               when PNG_SUB
-                thisrow[i] = ((line[i] + left) & 0xFF).chr
+                thisrow[i] = ((line[i].ord + left) & 0xFF).chr
               when PNG_UP
-                thisrow[i] = ((line[i] + up) & 0xFF).chr
+                thisrow[i] = ((line[i].ord + up) & 0xFF).chr
               when PNG_AVERAGE
-                thisrow[i] = ((line[i] + ((left + up) / 2)) & 0xFF).chr
+                thisrow[i] = ((line[i].ord + ((left + up) / 2)) & 0xFF).chr
               when PNG_PAETH
                 p = left + up - upleft
                 pa, pb, pc = (p - left).abs, (p - up).abs, (p - upleft).abs
 
-                thisrow[i] = ((line[i] + 
+                thisrow[i] = ((line[i].ord + 
                   case [ pa, pb, pc ].min
                     when pa then left
                     when pb then up
@@ -180,22 +180,22 @@ module Origami
 
           bpr.downto(1) do |i|
 
-            up = uprow[i]
-            left = line[i-bpp]
-            upleft = uprow[i-bpp]
+            up = uprow[i].ord
+            left = line[i-bpp].ord
+            upleft = uprow[i-bpp].ord
 
             case predictor
               when PNG_SUB
-                line[i] = ((line[i] - left) & 0xFF).chr
+                line[i] = ((line[i].ord - left) & 0xFF).chr
               when PNG_UP
-                line[i] = ((line[i] - up) & 0xFF).chr
+                line[i] = ((line[i].ord - up) & 0xFF).chr
               when PNG_AVERAGE
-                line[i] = ((line[i] - ((left + up) / 2)) & 0xFF).chr
+                line[i] = ((line[i].ord - ((left + up) / 2)) & 0xFF).chr
               when PNG_PAETH
                 p = left + up - upleft
                 pa, pb, pc = (p - left).abs, (p - up).abs, (p - upleft).abs
 
-                line[i] = ((line[i] - 
+                line[i] = ((line[i].ord - 
                 case [ pa, pb, pc ].min
                   when pa then left
                   when pb then up
