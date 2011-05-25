@@ -92,8 +92,8 @@
       <p>
 Class representing a <a href="PDF.html">PDF</a> <a
 href="Stream.html">Stream</a> <a href="Object.html">Object</a>. Streams can
-be used to hold any kind of <a href="Stream.html#M000634">data</a>,
-especially binary <a href="Stream.html#M000634">data</a>.
+be used to hold any kind of <a href="Stream.html#M000683">data</a>,
+especially binary <a href="Stream.html#M000683">data</a>.
 </p>
 
     </div>
@@ -105,19 +105,19 @@ especially binary <a href="Stream.html#M000634">data</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000634">data</a>&nbsp;&nbsp;
-      <a href="#M000635">data=</a>&nbsp;&nbsp;
-      <a href="#M000638">decode!</a>&nbsp;&nbsp;
-      <a href="#M000639">encode!</a>&nbsp;&nbsp;
-      <a href="#M000630">new</a>&nbsp;&nbsp;
-      <a href="#M000632">post_build</a>&nbsp;&nbsp;
-      <a href="#M000631">pre_build</a>&nbsp;&nbsp;
-      <a href="#M000636">rawdata</a>&nbsp;&nbsp;
-      <a href="#M000637">rawdata=</a>&nbsp;&nbsp;
-      <a href="#M000640">real_type</a>&nbsp;&nbsp;
-      <a href="#M000633">set_predictor</a>&nbsp;&nbsp;
-      <a href="#M000642">to_docmdp_str</a>&nbsp;&nbsp;
-      <a href="#M000641">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000683">data</a>&nbsp;&nbsp;
+      <a href="#M000684">data=</a>&nbsp;&nbsp;
+      <a href="#M000687">decode!</a>&nbsp;&nbsp;
+      <a href="#M000688">encode!</a>&nbsp;&nbsp;
+      <a href="#M000679">new</a>&nbsp;&nbsp;
+      <a href="#M000681">post_build</a>&nbsp;&nbsp;
+      <a href="#M000680">pre_build</a>&nbsp;&nbsp;
+      <a href="#M000685">rawdata</a>&nbsp;&nbsp;
+      <a href="#M000686">rawdata=</a>&nbsp;&nbsp;
+      <a href="#M000689">real_type</a>&nbsp;&nbsp;
+      <a href="#M000682">set_predictor</a>&nbsp;&nbsp;
+      <a href="#M000691">to_docmdp_str</a>&nbsp;&nbsp;
+      <a href="#M000690">to_obfuscated_str</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -130,7 +130,7 @@ especially binary <a href="Stream.html#M000634">data</a>.
 
       <div id="includes-list">
         <span class="include-name"><a href="Object.html">Origami::Object</a></span>
-        <span class="include-name"><a href="Configurable.html">Configurable</a></span>
+        <span class="include-name">StandardObject</span>
       </div>
     </div>
 
@@ -178,23 +178,23 @@ especially binary <a href="Stream.html#M000634">data</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000630" class="method-detail">
-        <a name="M000630"></a>
+      <div id="method-M000679" class="method-detail">
+        <a name="M000679"></a>
 
         <div class="method-heading">
-          <a href="#M000630" class="method-signature">
+          <a href="#M000679" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(data = &quot;&quot;, dictionary = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Stream.html#M000630">new</a> <a href="PDF.html">PDF</a>
+Creates a <a href="Stream.html#M000679">new</a> <a href="PDF.html">PDF</a>
 <a href="Stream.html">Stream</a>.
 </p>
 <table>
-<tr><td valign="top"><em><a href="Stream.html#M000634">data</a></em>:</td><td>The <a href="Stream.html">Stream</a> uncompressed <a
-href="Stream.html#M000634">data</a>.
+<tr><td valign="top"><em><a href="Stream.html#M000683">data</a></em>:</td><td>The <a href="Stream.html">Stream</a> uncompressed <a
+href="Stream.html#M000683">data</a>.
 
 </td></tr>
 <tr><td valign="top"><em>dictionary</em>:</td><td>A hash representing the <a href="Stream.html">Stream</a> attributes.
@@ -202,8 +202,8 @@ href="Stream.html#M000634">data</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000630-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000630-source">
+            onclick="toggleCode('M000679-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000679-source">
 <pre>
     <span class="ruby-comment cmt"># File origami/stream.rb, line 75</span>
 75:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">data</span> = <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">dictionary</span> = {})
@@ -221,11 +221,11 @@ href="Stream.html#M000634">data</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000634" class="method-detail">
-        <a name="M000634"></a>
+      <div id="method-M000683" class="method-detail">
+        <a name="M000683"></a>
 
         <div class="method-heading">
-          <a href="#M000634" class="method-signature">
+          <a href="#M000683" class="method-signature">
           <span class="method-name">data</span><span class="method-args">()</span>
           </a>
         </div>
@@ -235,25 +235,25 @@ href="Stream.html#M000634">data</a>.
 Returns the uncompressed stream content.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000634-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000634-source">
+            onclick="toggleCode('M000683-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000683-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 170</span>
-170:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">data</span>
-171:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">decode!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">nil?</span>
-172:       
-173:       <span class="ruby-ivar">@data</span> 
-174:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 190</span>
+190:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">data</span>
+191:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">decode!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">nil?</span>
+192: 
+193:       <span class="ruby-ivar">@data</span> 
+194:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000635" class="method-detail">
-        <a name="M000635"></a>
+      <div id="method-M000684" class="method-detail">
+        <a name="M000684"></a>
 
         <div class="method-heading">
-          <a href="#M000635" class="method-signature">
+          <a href="#M000684" class="method-signature">
           <span class="method-name">data=</span><span class="method-args">(str)</span>
           </a>
         </div>
@@ -263,130 +263,147 @@ Returns the uncompressed stream content.
 Sets the uncompressed stream content.
 </p>
 <table>
-<tr><td valign="top"><em>str</em>:</td><td>The <a href="Stream.html#M000630">new</a> uncompressed <a
-href="Stream.html#M000634">data</a>.
+<tr><td valign="top"><em>str</em>:</td><td>The <a href="Stream.html#M000679">new</a> uncompressed <a
+href="Stream.html#M000683">data</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000635-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000635-source">
+            onclick="toggleCode('M000684-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000684-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 180</span>
-180:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">data=</span>(<span class="ruby-identifier">str</span>)      
-181:       <span class="ruby-ivar">@rawdata</span> = <span class="ruby-keyword kw">nil</span>
-182:       <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">str</span>
-183:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 200</span>
+200:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">data=</span>(<span class="ruby-identifier">str</span>)      
+201:       <span class="ruby-ivar">@rawdata</span> = <span class="ruby-keyword kw">nil</span>
+202:       <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">str</span>
+203:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000638" class="method-detail">
-        <a name="M000638"></a>
+      <div id="method-M000687" class="method-detail">
+        <a name="M000687"></a>
 
         <div class="method-heading">
-          <a href="#M000638" class="method-signature">
+          <a href="#M000687" class="method-signature">
           <span class="method-name">decode!</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Uncompress the stream <a href="Stream.html#M000634">data</a>.
+Uncompress the stream <a href="Stream.html#M000683">data</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000638-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000638-source">
+            onclick="toggleCode('M000687-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000687-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 206</span>
-206:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode!</span>
-207:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">decrypt!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Encryption</span><span class="ruby-operator">::</span><span class="ruby-constant">EncryptedStream</span>)
-208:       
-209:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@rawdata</span>
-210:         <span class="ruby-identifier">filters</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Filter</span>
-211:         
-212:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">nil?</span>
-213:           <span class="ruby-ivar">@data</span> = <span class="ruby-ivar">@rawdata</span>
-214:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
-215:           <span class="ruby-ivar">@data</span> = <span class="ruby-ivar">@rawdata</span>
-216:           
-217:           <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">length</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">nfilter</span><span class="ruby-operator">|</span>
-218:             <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">decode_data</span>(<span class="ruby-ivar">@data</span>, <span class="ruby-identifier">nfilter</span>)
-219:           <span class="ruby-keyword kw">end</span>
-220:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Name</span>)
-221:           <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">decode_data</span>(<span class="ruby-ivar">@rawdata</span>, <span class="ruby-value">0</span>)
-222:         <span class="ruby-keyword kw">else</span>
-223:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidStreamObjectError</span>, <span class="ruby-value str">&quot;Invalid Filter type parameter&quot;</span>
-224:         <span class="ruby-keyword kw">end</span>
-225:       <span class="ruby-keyword kw">end</span>
-226:       
-227:       <span class="ruby-keyword kw">self</span>
-228:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 226</span>
+226:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode!</span>
+227:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">decrypt!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Encryption</span><span class="ruby-operator">::</span><span class="ruby-constant">EncryptedStream</span>)
+228:       
+229:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">is_decoded?</span>
+230:         <span class="ruby-identifier">filters</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Filter</span>
+231:         
+232:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">nil?</span>
+233:           <span class="ruby-ivar">@data</span> = <span class="ruby-ivar">@rawdata</span>.<span class="ruby-identifier">dup</span>
+234:         <span class="ruby-keyword kw">else</span>
+235:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">filters</span>
+236:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Array</span>, <span class="ruby-constant">Name</span> <span class="ruby-keyword kw">then</span>
+237:               <span class="ruby-identifier">dparams</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">DecodeParms</span> <span class="ruby-operator">||</span> []
+238: 
+239:               <span class="ruby-identifier">dparams</span> = [ <span class="ruby-identifier">dparams</span> ] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">dparams</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>)
+240:               <span class="ruby-identifier">filters</span> = [ <span class="ruby-identifier">filters</span> ] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>)
+241:           
+242:               <span class="ruby-ivar">@data</span> = <span class="ruby-ivar">@rawdata</span>.<span class="ruby-identifier">dup</span>
+243:               <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">length</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">layer</span><span class="ruby-operator">|</span>
+244:                 <span class="ruby-identifier">params</span> = <span class="ruby-identifier">dparams</span>[<span class="ruby-identifier">layer</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Dictionary</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">dparams</span>[<span class="ruby-identifier">layer</span>] <span class="ruby-operator">:</span> {}
+245:                 <span class="ruby-identifier">filter</span> = <span class="ruby-identifier">filters</span>[<span class="ruby-identifier">layer</span>]
+246: 
+247:                 <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">decode_data</span>(<span class="ruby-ivar">@data</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">params</span>)
+248:               <span class="ruby-keyword kw">end</span>
+249:             <span class="ruby-keyword kw">else</span>
+250:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidStreamObjectError</span>, <span class="ruby-value str">&quot;Invalid Filter type parameter&quot;</span>
+251:           <span class="ruby-keyword kw">end</span>
+252:         <span class="ruby-keyword kw">end</span>
+253:       <span class="ruby-keyword kw">end</span>
+254:       
+255:       <span class="ruby-keyword kw">self</span>
+256:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000639" class="method-detail">
-        <a name="M000639"></a>
+      <div id="method-M000688" class="method-detail">
+        <a name="M000688"></a>
 
         <div class="method-heading">
-          <a href="#M000639" class="method-signature">
+          <a href="#M000688" class="method-signature">
           <span class="method-name">encode!</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Compress the stream <a href="Stream.html#M000634">data</a>.
+Compress the stream <a href="Stream.html#M000683">data</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000639-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000639-source">
+            onclick="toggleCode('M000688-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000688-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 233</span>
-233:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode!</span>
-234:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@data</span>
-235:         <span class="ruby-identifier">filters</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Filter</span>
-236:         
-237:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">nil?</span>
-238:           <span class="ruby-ivar">@rawdata</span> = <span class="ruby-ivar">@data</span>
-239:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
-240:           <span class="ruby-ivar">@rawdata</span> = <span class="ruby-ivar">@data</span>
-241:           
-242:           (<span class="ruby-identifier">filters</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>).<span class="ruby-identifier">downto</span>(<span class="ruby-value">0</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">nfilter</span><span class="ruby-operator">|</span>
-243:             <span class="ruby-ivar">@rawdata</span> = <span class="ruby-identifier">encode_data</span>(<span class="ruby-ivar">@rawdata</span>, <span class="ruby-identifier">nfilter</span>)
-244:           <span class="ruby-keyword kw">end</span>
-245:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Name</span>)
-246:           <span class="ruby-ivar">@rawdata</span> = <span class="ruby-identifier">encode_data</span>(<span class="ruby-ivar">@data</span>, <span class="ruby-value">0</span>)
-247:         <span class="ruby-keyword kw">else</span>
-248:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidStreamObjectError</span>, <span class="ruby-value str">&quot;Invalid filter type parameter&quot;</span>
-249:         <span class="ruby-keyword kw">end</span>
-250:         
-251:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Length</span> = <span class="ruby-ivar">@rawdata</span>.<span class="ruby-identifier">length</span>
-252:       <span class="ruby-keyword kw">end</span>
-253:       
-254:       <span class="ruby-keyword kw">self</span>
-255:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 261</span>
+261:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode!</span>
+262: 
+263:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">is_encoded?</span>
+264:         <span class="ruby-identifier">filters</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Filter</span>
+265:         
+266:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">nil?</span>
+267:           <span class="ruby-ivar">@rawdata</span> = <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">dup</span>
+268:         <span class="ruby-keyword kw">else</span>
+269:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">filters</span>
+270:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Array</span>, <span class="ruby-constant">Name</span> <span class="ruby-keyword kw">then</span>
+271:               <span class="ruby-identifier">dparams</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">DecodeParms</span> <span class="ruby-operator">||</span> []
+272: 
+273:               <span class="ruby-identifier">dparams</span> = [ <span class="ruby-identifier">dparams</span> ] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">dparams</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>)
+274:               <span class="ruby-identifier">filters</span> = [ <span class="ruby-identifier">filters</span> ] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>)
+275:           
+276:               <span class="ruby-ivar">@rawdata</span> = <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">dup</span>
+277:               (<span class="ruby-identifier">filters</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>).<span class="ruby-identifier">downto</span>(<span class="ruby-value">0</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">layer</span><span class="ruby-operator">|</span>
+278:                 <span class="ruby-identifier">params</span> = <span class="ruby-identifier">dparams</span>[<span class="ruby-identifier">layer</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Dictionary</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">dparams</span>[<span class="ruby-identifier">layer</span>] <span class="ruby-operator">:</span> {}
+279:                 <span class="ruby-identifier">filter</span> = <span class="ruby-identifier">filters</span>[<span class="ruby-identifier">layer</span>]
+280: 
+281:                 <span class="ruby-ivar">@rawdata</span> = <span class="ruby-identifier">encode_data</span>(<span class="ruby-ivar">@rawdata</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">params</span>)
+282:               <span class="ruby-keyword kw">end</span>
+283:             <span class="ruby-keyword kw">else</span>
+284:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidStreamObjectError</span>, <span class="ruby-value str">&quot;Invalid filter type parameter&quot;</span>
+285:           <span class="ruby-keyword kw">end</span>
+286:         <span class="ruby-keyword kw">end</span>
+287:         
+288:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Length</span> = <span class="ruby-ivar">@rawdata</span>.<span class="ruby-identifier">length</span>
+289:       <span class="ruby-keyword kw">end</span>
+290:       
+291:       <span class="ruby-keyword kw">self</span>
+292:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000632" class="method-detail">
-        <a name="M000632"></a>
+      <div id="method-M000681" class="method-detail">
+        <a name="M000681"></a>
 
         <div class="method-heading">
-          <a href="#M000632" class="method-signature">
+          <a href="#M000681" class="method-signature">
           <span class="method-name">post_build</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000632-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000632-source">
+            onclick="toggleCode('M000681-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000681-source">
 <pre>
     <span class="ruby-comment cmt"># File origami/stream.rb, line 90</span>
 90:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post_build</span>
@@ -399,19 +416,19 @@ Compress the stream <a href="Stream.html#M000634">data</a>.
         </div>
       </div>
 
-      <div id="method-M000631" class="method-detail">
-        <a name="M000631"></a>
+      <div id="method-M000680" class="method-detail">
+        <a name="M000680"></a>
 
         <div class="method-heading">
-          <a href="#M000631" class="method-signature">
+          <a href="#M000680" class="method-signature">
           <span class="method-name">pre_build</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000631-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000631-source">
+            onclick="toggleCode('M000680-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000680-source">
 <pre>
     <span class="ruby-comment cmt"># File origami/stream.rb, line 84</span>
 84:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
@@ -424,11 +441,11 @@ Compress the stream <a href="Stream.html#M000634">data</a>.
         </div>
       </div>
 
-      <div id="method-M000636" class="method-detail">
-        <a name="M000636"></a>
+      <div id="method-M000685" class="method-detail">
+        <a name="M000685"></a>
 
         <div class="method-heading">
-          <a href="#M000636" class="method-signature">
+          <a href="#M000685" class="method-signature">
           <span class="method-name">rawdata</span><span class="method-args">()</span>
           </a>
         </div>
@@ -438,25 +455,25 @@ Compress the stream <a href="Stream.html#M000634">data</a>.
 Returns the raw compressed stream content.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000636-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000636-source">
+            onclick="toggleCode('M000685-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000685-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 188</span>
-188:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rawdata</span>
-189:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">encode!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@rawdata</span>.<span class="ruby-identifier">nil?</span> 
-190:        
-191:       <span class="ruby-ivar">@rawdata</span>
-192:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 208</span>
+208:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rawdata</span>
+209:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">encode!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@rawdata</span>.<span class="ruby-identifier">nil?</span> 
+210: 
+211:       <span class="ruby-ivar">@rawdata</span>
+212:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000637" class="method-detail">
-        <a name="M000637"></a>
+      <div id="method-M000686" class="method-detail">
+        <a name="M000686"></a>
 
         <div class="method-heading">
-          <a href="#M000637" class="method-signature">
+          <a href="#M000686" class="method-signature">
           <span class="method-name">rawdata=</span><span class="method-args">(str)</span>
           </a>
         </div>
@@ -466,99 +483,100 @@ Returns the raw compressed stream content.
 Sets the raw compressed stream content.
 </p>
 <table>
-<tr><td valign="top"><em>str</em>:</td><td>the <a href="Stream.html#M000630">new</a> raw <a
-href="Stream.html#M000634">data</a>.
+<tr><td valign="top"><em>str</em>:</td><td>the <a href="Stream.html#M000679">new</a> raw <a
+href="Stream.html#M000683">data</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000637-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000637-source">
+            onclick="toggleCode('M000686-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000686-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 198</span>
-198:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rawdata=</span>(<span class="ruby-identifier">str</span>)
-199:       <span class="ruby-ivar">@rawdata</span> = <span class="ruby-identifier">str</span>
-200:       <span class="ruby-ivar">@data</span> = <span class="ruby-keyword kw">nil</span>
-201:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 218</span>
+218:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rawdata=</span>(<span class="ruby-identifier">str</span>)
+219:       <span class="ruby-ivar">@rawdata</span> = <span class="ruby-identifier">str</span>
+220:       <span class="ruby-ivar">@data</span> = <span class="ruby-keyword kw">nil</span>
+221:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000640" class="method-detail">
-        <a name="M000640"></a>
+      <div id="method-M000689" class="method-detail">
+        <a name="M000689"></a>
 
         <div class="method-heading">
-          <a href="#M000640" class="method-signature">
+          <a href="#M000689" class="method-signature">
           <span class="method-name">real_type</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000640-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000640-source">
+            onclick="toggleCode('M000689-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000689-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 281</span>
-281:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Stream</span> <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 318</span>
+318:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Stream</span> <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000633" class="method-detail">
-        <a name="M000633"></a>
+      <div id="method-M000682" class="method-detail">
+        <a name="M000682"></a>
 
         <div class="method-heading">
-          <a href="#M000633" class="method-signature">
+          <a href="#M000682" class="method-signature">
           <span class="method-name">set_predictor</span><span class="method-args">(predictor, colors = 1, bitspercomponent = 8, columns = 1)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000633-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000633-source">
+            onclick="toggleCode('M000682-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000682-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 142</span>
-142:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_predictor</span>(<span class="ruby-identifier">predictor</span>, <span class="ruby-identifier">colors</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">bitspercomponent</span> = <span class="ruby-value">8</span>, <span class="ruby-identifier">columns</span> = <span class="ruby-value">1</span>)
-143:       
-144:       <span class="ruby-identifier">filters</span> = <span class="ruby-ivar">@dictionary</span>[<span class="ruby-identifier">:Filter</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">filters</span> <span class="ruby-operator">:</span> [ <span class="ruby-ivar">@dictionary</span>[<span class="ruby-identifier">:Filter</span>] ]
-145: 
-146:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:FlateDecode</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:LZWDecode</span>)
-147:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidStreamObjectError</span>, <span class="ruby-value str">'Predictor functions can only be used with Flate or LZW filters'</span>
-148:       <span class="ruby-keyword kw">end</span>
-149: 
-150:       <span class="ruby-identifier">nfilter</span> = <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">:FlateDecode</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">:LZWDecode</span>)
-151: 
-152:       <span class="ruby-identifier">params</span> = <span class="ruby-constant">Filter</span><span class="ruby-operator">::</span><span class="ruby-constant">LZW</span><span class="ruby-operator">::</span><span class="ruby-constant">DecodeParms</span>.<span class="ruby-identifier">new</span>
-153:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:Predictor</span>] = <span class="ruby-identifier">predictor</span>
-154:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:Colors</span>] = <span class="ruby-identifier">colors</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">colors</span> <span class="ruby-operator">!=</span> <span class="ruby-value">1</span>
-155:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:BitsPerComponent</span>] = <span class="ruby-identifier">bitspercomponent</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">bitspercomponent</span> <span class="ruby-operator">!=</span> <span class="ruby-value">8</span>
-156:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:Columns</span>] = <span class="ruby-identifier">columns</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">columns</span> <span class="ruby-operator">!=</span> <span class="ruby-value">1</span>
-157: 
-158:       <span class="ruby-identifier">set_decode_params</span>(<span class="ruby-identifier">nfilter</span>, <span class="ruby-identifier">params</span>)
-159:   
-160:       <span class="ruby-keyword kw">self</span>
-161:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 161</span>
+161:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_predictor</span>(<span class="ruby-identifier">predictor</span>, <span class="ruby-identifier">colors</span> = <span class="ruby-value">1</span>, <span class="ruby-identifier">bitspercomponent</span> = <span class="ruby-value">8</span>, <span class="ruby-identifier">columns</span> = <span class="ruby-value">1</span>)
+162:       
+163:       <span class="ruby-identifier">filters</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Filter</span>
+164:       <span class="ruby-identifier">filters</span> = [ <span class="ruby-identifier">filters</span> ] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Array</span>)
+165: 
+166:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:FlateDecode</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:LZWDecode</span>)
+167:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidStreamObjectError</span>, <span class="ruby-value str">'Predictor functions can only be used with Flate or LZW filters'</span>
+168:       <span class="ruby-keyword kw">end</span>
+169: 
+170:       <span class="ruby-identifier">layer</span> = <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">:FlateDecode</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">:LZWDecode</span>)
+171: 
+172:       <span class="ruby-identifier">params</span> = <span class="ruby-constant">Filter</span><span class="ruby-operator">::</span><span class="ruby-constant">LZW</span><span class="ruby-operator">::</span><span class="ruby-constant">DecodeParms</span>.<span class="ruby-identifier">new</span>
+173:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:Predictor</span>] = <span class="ruby-identifier">predictor</span>
+174:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:Colors</span>] = <span class="ruby-identifier">colors</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">colors</span> <span class="ruby-operator">!=</span> <span class="ruby-value">1</span>
+175:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:BitsPerComponent</span>] = <span class="ruby-identifier">bitspercomponent</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">bitspercomponent</span> <span class="ruby-operator">!=</span> <span class="ruby-value">8</span>
+176:       <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:Columns</span>] = <span class="ruby-identifier">columns</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">columns</span> <span class="ruby-operator">!=</span> <span class="ruby-value">1</span>
+177: 
+178:       <span class="ruby-identifier">set_decode_params</span>(<span class="ruby-identifier">layer</span>, <span class="ruby-identifier">params</span>)
+179:   
+180:       <span class="ruby-keyword kw">self</span>
+181:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000642" class="method-detail">
-        <a name="M000642"></a>
+      <div id="method-M000691" class="method-detail">
+        <a name="M000691"></a>
 
         <div class="method-heading">
-          <a href="#M000642" class="method-signature">
+          <a href="#M000691" class="method-signature">
           <span class="method-name">to_docmdp_str</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000642-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000642-source">
+            onclick="toggleCode('M000691-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000691-source">
 <pre>
     <span class="ruby-comment cmt"># File origami/docmdp.rb, line 89</span>
 89:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_docmdp_str</span>
@@ -571,19 +589,19 @@ href="Stream.html#M000634">data</a>.
         </div>
       </div>
 
-      <div id="method-M000641" class="method-detail">
-        <a name="M000641"></a>
+      <div id="method-M000690" class="method-detail">
+        <a name="M000690"></a>
 
         <div class="method-heading">
-          <a href="#M000641" class="method-signature">
+          <a href="#M000690" class="method-signature">
           <span class="method-name">to_obfuscated_str</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000641-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000641-source">
+            onclick="toggleCode('M000690-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000690-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/obfuscation.rb, line 206</span>
 206:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>

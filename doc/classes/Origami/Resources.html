@@ -95,7 +95,7 @@ href="Dictionary.html">Dictionary</a> for a <a href="Page.html">Page</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000586">pre_build</a>&nbsp;&nbsp;
+      <a href="#M000631">pre_build</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -107,7 +107,7 @@ href="Dictionary.html">Dictionary</a> for a <a href="Page.html">Page</a>.
       <h3 class="section-bar">Included Modules</h3>
 
       <div id="includes-list">
-        <span class="include-name"><a href="Configurable.html">Configurable</a></span>
+        <span class="include-name">StandardObject</span>
         <span class="include-name"><a href="ResourcesHolder.html">ResourcesHolder</a></span>
       </div>
     </div>
@@ -138,32 +138,31 @@ href="Dictionary.html">Dictionary</a> for a <a href="Page.html">Page</a>.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000586" class="method-detail">
-        <a name="M000586"></a>
+      <div id="method-M000631" class="method-detail">
+        <a name="M000631"></a>
 
         <div class="method-heading">
-          <a href="#M000586" class="method-signature">
+          <a href="#M000631" class="method-signature">
           <span class="method-name">pre_build</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000586-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000586-source">
+            onclick="toggleCode('M000631-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000631-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/page.rb, line 152</span>
-152:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
-153:       
-154:       <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Font</span>
-155:         <span class="ruby-identifier">fnt</span> = <span class="ruby-constant">Font</span><span class="ruby-operator">::</span><span class="ruby-constant">Type1</span><span class="ruby-operator">::</span><span class="ruby-constant">Standard</span><span class="ruby-operator">::</span><span class="ruby-constant">Helvetica</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">pre_build</span>
-156:         <span class="ruby-identifier">fnt</span>.<span class="ruby-constant">Name</span> = <span class="ruby-identifier">:F1</span>
-157:         
-158:         <span class="ruby-identifier">add_font</span>(<span class="ruby-identifier">fnt</span>.<span class="ruby-constant">Name</span>, <span class="ruby-identifier">fnt</span>)
-159:       <span class="ruby-keyword kw">end</span>
-160:       
-161:       <span class="ruby-keyword kw">super</span>
-162:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 177</span>
+177:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
+178:       <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Font</span>
+179:         <span class="ruby-identifier">fnt</span> = <span class="ruby-constant">Font</span><span class="ruby-operator">::</span><span class="ruby-constant">Type1</span><span class="ruby-operator">::</span><span class="ruby-constant">Standard</span><span class="ruby-operator">::</span><span class="ruby-constant">Helvetica</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">pre_build</span>
+180:         <span class="ruby-identifier">fnt</span>.<span class="ruby-constant">Name</span> = <span class="ruby-identifier">:F1</span>
+181:         
+182:         <span class="ruby-identifier">add_font</span>(<span class="ruby-identifier">fnt</span>.<span class="ruby-constant">Name</span>, <span class="ruby-identifier">fnt</span>)
+183:       <span class="ruby-keyword kw">end</span>
+184:       
+185:       <span class="ruby-keyword kw">super</span>
+186:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

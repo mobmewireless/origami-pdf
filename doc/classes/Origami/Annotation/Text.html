@@ -92,7 +92,7 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000420">pre_build</a>&nbsp;&nbsp;
+      <a href="#M000446">pre_build</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -127,35 +127,35 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000420" class="method-detail">
-        <a name="M000420"></a>
+      <div id="method-M000446" class="method-detail">
+        <a name="M000446"></a>
 
         <div class="method-heading">
-          <a href="#M000420" class="method-signature">
+          <a href="#M000446" class="method-signature">
           <span class="method-name">pre_build</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000420-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000420-source">
+            onclick="toggleCode('M000446-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000446-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/annotations.rb, line 320</span>
-320:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
-321:          
-322:         <span class="ruby-identifier">model</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">StateModel</span>
-323:         <span class="ruby-identifier">state</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">State</span>
-324:         
-325:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">model</span>
-326:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Marked&quot;</span>
-327:           <span class="ruby-identifier">state</span> = <span class="ruby-value str">&quot;Unmarked&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span>.<span class="ruby-identifier">nil?</span>
-328:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Review&quot;</span>
-329:           <span class="ruby-identifier">state</span> = <span class="ruby-value str">&quot;None&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span>.<span class="ruby-identifier">nil?</span>
-330:         <span class="ruby-keyword kw">end</span>
-331: 
-332:         <span class="ruby-keyword kw">super</span>
-333:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 300</span>
+300:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pre_build</span>
+301:          
+302:         <span class="ruby-identifier">model</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">StateModel</span>
+303:         <span class="ruby-identifier">state</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">State</span>
+304:         
+305:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">model</span>
+306:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Marked&quot;</span>
+307:           <span class="ruby-identifier">state</span> = <span class="ruby-value str">&quot;Unmarked&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span>.<span class="ruby-identifier">nil?</span>
+308:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Review&quot;</span>
+309:           <span class="ruby-identifier">state</span> = <span class="ruby-value str">&quot;None&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span>.<span class="ruby-identifier">nil?</span>
+310:         <span class="ruby-keyword kw">end</span>
+311: 
+312:         <span class="ruby-keyword kw">super</span>
+313:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

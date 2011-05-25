@@ -93,11 +93,11 @@ algorithm. Using mode CBC.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000274">decrypt</a>&nbsp;&nbsp;
-      <a href="#M000271">decrypt</a>&nbsp;&nbsp;
-      <a href="#M000273">encrypt</a>&nbsp;&nbsp;
-      <a href="#M000270">encrypt</a>&nbsp;&nbsp;
-      <a href="#M000272">new</a>&nbsp;&nbsp;
+      <a href="#M000281">decrypt</a>&nbsp;&nbsp;
+      <a href="#M000278">decrypt</a>&nbsp;&nbsp;
+      <a href="#M000280">encrypt</a>&nbsp;&nbsp;
+      <a href="#M000277">encrypt</a>&nbsp;&nbsp;
+      <a href="#M000279">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -185,79 +185,80 @@ Inverse of the Rijndael S-box
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000271" class="method-detail">
-        <a name="M000271"></a>
+      <div id="method-M000278" class="method-detail">
+        <a name="M000278"></a>
 
         <div class="method-heading">
-          <a href="#M000271" class="method-signature">
+          <a href="#M000278" class="method-signature">
           <span class="method-name">decrypt</span><span class="method-args">(key, data)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000271-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000271-source">
+            onclick="toggleCode('M000278-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000278-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/encryption.rb, line 624</span>
-624:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">AES</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">data</span>)
-625:         <span class="ruby-constant">AES</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">key</span>).<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">data</span>)
-626:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/encryption.rb, line 686</span>
+686:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">AES</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">data</span>)
+687:         <span class="ruby-constant">AES</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">key</span>, <span class="ruby-keyword kw">nil</span>).<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">data</span>)
+688:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000270" class="method-detail">
-        <a name="M000270"></a>
+      <div id="method-M000277" class="method-detail">
+        <a name="M000277"></a>
 
         <div class="method-heading">
-          <a href="#M000270" class="method-signature">
+          <a href="#M000277" class="method-signature">
           <span class="method-name">encrypt</span><span class="method-args">(key, iv, data)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000270-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000270-source">
+            onclick="toggleCode('M000277-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000277-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/encryption.rb, line 620</span>
-620:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">AES</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">iv</span>, <span class="ruby-identifier">data</span>)
-621:         <span class="ruby-constant">AES</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">iv</span>).<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">data</span>)
-622:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/encryption.rb, line 682</span>
+682:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">AES</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">iv</span>, <span class="ruby-identifier">data</span>)
+683:         <span class="ruby-constant">AES</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">iv</span>).<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">data</span>)
+684:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000272" class="method-detail">
-        <a name="M000272"></a>
+      <div id="method-M000279" class="method-detail">
+        <a name="M000279"></a>
 
         <div class="method-heading">
-          <a href="#M000272" class="method-signature">
-          <span class="method-name">new</span><span class="method-args">(key, iv = nil)</span>
+          <a href="#M000279" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(key, iv, use_padding = true)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000272-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000272-source">
+            onclick="toggleCode('M000279-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000279-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/encryption.rb, line 628</span>
-628:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">iv</span> = <span class="ruby-keyword kw">nil</span>)
-629:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">16</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">24</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">32</span>
-630:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, <span class="ruby-value str">&quot;Key must have a length of 128, 192 or 256 bits.&quot;</span>
-631:         <span class="ruby-keyword kw">end</span>
-632: 
-633:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">iv</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">iv</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">BLOCKSIZE</span>
-634:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, <span class="ruby-node">&quot;Initialization vector must have a length of #{BLOCKSIZE} bytes.&quot;</span>
-635:         <span class="ruby-keyword kw">end</span>
-636: 
-637:         <span class="ruby-ivar">@key</span> = <span class="ruby-identifier">key</span>
-638:         <span class="ruby-ivar">@iv</span> = <span class="ruby-identifier">iv</span>
-639:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/encryption.rb, line 690</span>
+690:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">iv</span>, <span class="ruby-identifier">use_padding</span> = <span class="ruby-keyword kw">true</span>)
+691:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">16</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">24</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">32</span>
+692:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, <span class="ruby-value str">&quot;Key must have a length of 128, 192 or 256 bits.&quot;</span>
+693:         <span class="ruby-keyword kw">end</span>
+694: 
+695:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">iv</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">iv</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">BLOCKSIZE</span>
+696:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, <span class="ruby-node">&quot;Initialization vector must have a length of #{BLOCKSIZE} bytes.&quot;</span>
+697:         <span class="ruby-keyword kw">end</span>
+698: 
+699:         <span class="ruby-ivar">@key</span> = <span class="ruby-identifier">key</span>
+700:         <span class="ruby-ivar">@iv</span> = <span class="ruby-identifier">iv</span>
+701:         <span class="ruby-ivar">@use_padding</span> = <span class="ruby-identifier">use_padding</span>
+702:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -265,115 +266,136 @@ Inverse of the Rijndael S-box
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000274" class="method-detail">
-        <a name="M000274"></a>
+      <div id="method-M000281" class="method-detail">
+        <a name="M000281"></a>
 
         <div class="method-heading">
-          <a href="#M000274" class="method-signature">
+          <a href="#M000281" class="method-signature">
           <span class="method-name">decrypt</span><span class="method-args">(data)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000274-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000274-source">
+            onclick="toggleCode('M000281-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000281-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/encryption.rb, line 672</span>
-672:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">data</span>)
-673:         
-674:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">%</span> <span class="ruby-constant">BLOCKSIZE</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-675:           <span class="ruby-identifier">puts</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span>
-676:           <span class="ruby-identifier">hexprint</span> <span class="ruby-identifier">data</span>
-677:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, <span class="ruby-value str">&quot;Data must be 16-bytes padded&quot;</span>
-678:         <span class="ruby-keyword kw">end</span>
-679: 
-680:         <span class="ruby-ivar">@iv</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>, <span class="ruby-constant">BLOCKSIZE</span>)
-681: 
-682:         <span class="ruby-identifier">plain</span> = []
-683:         <span class="ruby-identifier">plainblock</span> = []
-684:         <span class="ruby-identifier">prev_cipherblock</span> = []
-685:         <span class="ruby-identifier">nblocks</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-constant">BLOCKSIZE</span>
-686: 
-687:         <span class="ruby-identifier">first_round</span> = <span class="ruby-keyword kw">true</span>
-688:         <span class="ruby-identifier">nblocks</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span>
-689:           <span class="ruby-identifier">cipherblock</span> = <span class="ruby-identifier">data</span>[<span class="ruby-identifier">n</span> <span class="ruby-operator">*</span> <span class="ruby-constant">BLOCKSIZE</span>, <span class="ruby-constant">BLOCKSIZE</span>].<span class="ruby-identifier">unpack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
-690: 
-691:           <span class="ruby-identifier">plainblock</span> = <span class="ruby-identifier">aesDecrypt</span>(<span class="ruby-identifier">cipherblock</span>)
-692: 
-693:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">first_round</span>
-694:             <span class="ruby-constant">BLOCKSIZE</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">plainblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">^=</span> <span class="ruby-ivar">@iv</span>[<span class="ruby-identifier">i</span>] <span class="ruby-keyword kw">end</span>
-695:           <span class="ruby-keyword kw">else</span>
-696:             <span class="ruby-constant">BLOCKSIZE</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">plainblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">^=</span> <span class="ruby-identifier">prev_cipherblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-keyword kw">end</span>
-697:           <span class="ruby-keyword kw">end</span>
-698: 
-699:           <span class="ruby-identifier">first_round</span> = <span class="ruby-keyword kw">false</span>
-700:           <span class="ruby-identifier">prev_cipherblock</span> = <span class="ruby-identifier">cipherblock</span>
-701:           <span class="ruby-identifier">plain</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">plainblock</span>)
-702:         <span class="ruby-keyword kw">end</span>
-703:       
-704:         <span class="ruby-identifier">padlen</span> = <span class="ruby-identifier">plain</span>[<span class="ruby-value">-1</span>]
-705:         <span class="ruby-keyword kw">unless</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">16</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">padlen</span>
-706:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, <span class="ruby-value str">&quot;Incorrect padding byte&quot;</span>
-707:         <span class="ruby-keyword kw">end</span>
-708: 
-709:         <span class="ruby-identifier">padlen</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> 
-710:           <span class="ruby-identifier">pad</span> = <span class="ruby-identifier">plain</span>.<span class="ruby-identifier">pop</span>
-711:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, <span class="ruby-value str">&quot;Incorrect padding byte&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pad</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">padlen</span>
-712:         <span class="ruby-keyword kw">end</span>
-713: 
-714:         <span class="ruby-identifier">plain</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
-715:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/encryption.rb, line 746</span>
+746:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">data</span>)
+747:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">%</span> <span class="ruby-constant">BLOCKSIZE</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+748:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, 
+749:             <span class="ruby-node">&quot;Data must be 16-bytes padded (data size = #{data.size} bytes)&quot;</span>
+750:         <span class="ruby-keyword kw">end</span>
+751: 
+752:         <span class="ruby-ivar">@iv</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>, <span class="ruby-constant">BLOCKSIZE</span>)
+753: 
+754:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Origami</span><span class="ruby-operator">::</span><span class="ruby-constant">OPTIONS</span>[<span class="ruby-identifier">:use_openssl</span>]
+755:           <span class="ruby-identifier">aes</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;aes-#{@key.length &lt;&lt; 3}-cbc&quot;</span>).<span class="ruby-identifier">decrypt</span>
+756:           <span class="ruby-identifier">aes</span>.<span class="ruby-identifier">iv</span> = <span class="ruby-ivar">@iv</span>
+757:           <span class="ruby-identifier">aes</span>.<span class="ruby-identifier">key</span> = <span class="ruby-ivar">@key</span>
+758:           <span class="ruby-identifier">aes</span>.<span class="ruby-identifier">padding</span> = <span class="ruby-value">0</span>
+759: 
+760:           <span class="ruby-identifier">plain</span> = (<span class="ruby-identifier">aes</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">data</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">aes</span>.<span class="ruby-identifier">final</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
+761:         <span class="ruby-keyword kw">else</span>
+762:           <span class="ruby-identifier">plain</span> = []
+763:           <span class="ruby-identifier">plainblock</span> = []
+764:           <span class="ruby-identifier">prev_cipherblock</span> = []
+765:           <span class="ruby-identifier">nblocks</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-constant">BLOCKSIZE</span>
+766: 
+767:           <span class="ruby-identifier">first_round</span> = <span class="ruby-keyword kw">true</span>
+768:           <span class="ruby-identifier">nblocks</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span>
+769:             <span class="ruby-identifier">cipherblock</span> = <span class="ruby-identifier">data</span>[<span class="ruby-identifier">n</span> <span class="ruby-operator">*</span> <span class="ruby-constant">BLOCKSIZE</span>, <span class="ruby-constant">BLOCKSIZE</span>].<span class="ruby-identifier">unpack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
+770: 
+771:             <span class="ruby-identifier">plainblock</span> = <span class="ruby-identifier">aesDecrypt</span>(<span class="ruby-identifier">cipherblock</span>)
+772: 
+773:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">first_round</span>
+774:               <span class="ruby-constant">BLOCKSIZE</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">plainblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">^=</span> <span class="ruby-ivar">@iv</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">ord</span> <span class="ruby-keyword kw">end</span>
+775:             <span class="ruby-keyword kw">else</span>
+776:               <span class="ruby-constant">BLOCKSIZE</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">plainblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">^=</span> <span class="ruby-identifier">prev_cipherblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-keyword kw">end</span>
+777:             <span class="ruby-keyword kw">end</span>
+778: 
+779:             <span class="ruby-identifier">first_round</span> = <span class="ruby-keyword kw">false</span>
+780:             <span class="ruby-identifier">prev_cipherblock</span> = <span class="ruby-identifier">cipherblock</span>
+781:             <span class="ruby-identifier">plain</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">plainblock</span>)
+782:           <span class="ruby-keyword kw">end</span>
+783:         <span class="ruby-keyword kw">end</span>
+784: 
+785:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@use_padding</span>
+786:           <span class="ruby-identifier">padlen</span> = <span class="ruby-identifier">plain</span>[<span class="ruby-value">-1</span>]
+787:           <span class="ruby-keyword kw">unless</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">16</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">padlen</span>
+788:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, <span class="ruby-node">&quot;Incorrect padding length : #{padlen}&quot;</span>
+789:           <span class="ruby-keyword kw">end</span>
+790: 
+791:           <span class="ruby-identifier">padlen</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> 
+792:             <span class="ruby-identifier">pad</span> = <span class="ruby-identifier">plain</span>.<span class="ruby-identifier">pop</span>
+793:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, 
+794:               <span class="ruby-node">&quot;Incorrect padding byte : 0x#{pad.to_s 16}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pad</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">padlen</span>
+795:           <span class="ruby-keyword kw">end</span>
+796:         <span class="ruby-keyword kw">end</span>
+797: 
+798:         <span class="ruby-identifier">plain</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
+799:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000273" class="method-detail">
-        <a name="M000273"></a>
+      <div id="method-M000280" class="method-detail">
+        <a name="M000280"></a>
 
         <div class="method-heading">
-          <a href="#M000273" class="method-signature">
+          <a href="#M000280" class="method-signature">
           <span class="method-name">encrypt</span><span class="method-args">(data)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000273-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000273-source">
+            onclick="toggleCode('M000280-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000280-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/encryption.rb, line 641</span>
-641:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">data</span>)
-642: 
-643:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@iv</span>.<span class="ruby-identifier">nil?</span>
-644:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, <span class="ruby-value str">&quot;No initialization vector has been set.&quot;</span>
-645:         <span class="ruby-keyword kw">end</span>
-646:         
-647:         <span class="ruby-identifier">padlen</span> = <span class="ruby-constant">BLOCKSIZE</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">%</span> <span class="ruby-constant">BLOCKSIZE</span>)
-648:         <span class="ruby-identifier">data</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">padlen</span>.<span class="ruby-identifier">chr</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">padlen</span>)
-649: 
-650:         <span class="ruby-identifier">cipher</span> = []
-651:         <span class="ruby-identifier">cipherblock</span> = []
-652:         <span class="ruby-identifier">nblocks</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-constant">BLOCKSIZE</span>
-653: 
-654:         <span class="ruby-identifier">first_round</span> = <span class="ruby-keyword kw">true</span>
-655:         <span class="ruby-identifier">nblocks</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span>
-656:           <span class="ruby-identifier">plainblock</span> = <span class="ruby-identifier">data</span>[<span class="ruby-identifier">n</span> <span class="ruby-operator">*</span> <span class="ruby-constant">BLOCKSIZE</span>, <span class="ruby-constant">BLOCKSIZE</span>].<span class="ruby-identifier">unpack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
-657: 
-658:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">first_round</span>
-659:             <span class="ruby-constant">BLOCKSIZE</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">plainblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">^=</span> <span class="ruby-ivar">@iv</span>[<span class="ruby-identifier">i</span>] <span class="ruby-keyword kw">end</span>
-660:           <span class="ruby-keyword kw">else</span>
-661:             <span class="ruby-constant">BLOCKSIZE</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">plainblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">^=</span> <span class="ruby-identifier">cipherblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-keyword kw">end</span>
-662:           <span class="ruby-keyword kw">end</span>
-663: 
-664:           <span class="ruby-identifier">first_round</span> = <span class="ruby-keyword kw">false</span>
-665:           <span class="ruby-identifier">cipherblock</span> = <span class="ruby-identifier">aesEncrypt</span>(<span class="ruby-identifier">plainblock</span>)
-666:           <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">cipherblock</span>)
-667:         <span class="ruby-keyword kw">end</span>
-668: 
-669:         <span class="ruby-ivar">@iv</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
-670:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/encryption.rb, line 704</span>
+704:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">data</span>)
+705: 
+706:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@iv</span>.<span class="ruby-identifier">nil?</span>
+707:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">EncryptionError</span>, <span class="ruby-value str">&quot;No initialization vector has been set.&quot;</span>
+708:         <span class="ruby-keyword kw">end</span>
+709:         
+710:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@use_padding</span>
+711:           <span class="ruby-identifier">padlen</span> = <span class="ruby-constant">BLOCKSIZE</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">%</span> <span class="ruby-constant">BLOCKSIZE</span>)
+712:           <span class="ruby-identifier">data</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">padlen</span>.<span class="ruby-identifier">chr</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">padlen</span>)
+713:         <span class="ruby-keyword kw">end</span>
+714: 
+715:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Origami</span><span class="ruby-operator">::</span><span class="ruby-constant">OPTIONS</span>[<span class="ruby-identifier">:use_openssl</span>]
+716:           <span class="ruby-identifier">aes</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;aes-#{@key.length &lt;&lt; 3}-cbc&quot;</span>).<span class="ruby-identifier">encrypt</span>
+717:           <span class="ruby-identifier">aes</span>.<span class="ruby-identifier">iv</span> = <span class="ruby-ivar">@iv</span>
+718:           <span class="ruby-identifier">aes</span>.<span class="ruby-identifier">key</span> = <span class="ruby-ivar">@key</span>
+719:           <span class="ruby-identifier">aes</span>.<span class="ruby-identifier">padding</span> = <span class="ruby-value">0</span>
+720: 
+721:           <span class="ruby-ivar">@iv</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">aes</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">data</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">aes</span>.<span class="ruby-identifier">final</span>
+722:         <span class="ruby-keyword kw">else</span>
+723:           <span class="ruby-identifier">cipher</span> = []
+724:           <span class="ruby-identifier">cipherblock</span> = []
+725:           <span class="ruby-identifier">nblocks</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-constant">BLOCKSIZE</span>
+726: 
+727:           <span class="ruby-identifier">first_round</span> = <span class="ruby-keyword kw">true</span>
+728:           <span class="ruby-identifier">nblocks</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span>
+729:             <span class="ruby-identifier">plainblock</span> = <span class="ruby-identifier">data</span>[<span class="ruby-identifier">n</span> <span class="ruby-operator">*</span> <span class="ruby-constant">BLOCKSIZE</span>, <span class="ruby-constant">BLOCKSIZE</span>].<span class="ruby-identifier">unpack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
+730: 
+731:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">first_round</span>
+732:               <span class="ruby-constant">BLOCKSIZE</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">plainblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">^=</span> <span class="ruby-ivar">@iv</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">ord</span> <span class="ruby-keyword kw">end</span>
+733:             <span class="ruby-keyword kw">else</span>
+734:               <span class="ruby-constant">BLOCKSIZE</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">plainblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">^=</span> <span class="ruby-identifier">cipherblock</span>[<span class="ruby-identifier">i</span>] <span class="ruby-keyword kw">end</span>
+735:             <span class="ruby-keyword kw">end</span>
+736: 
+737:             <span class="ruby-identifier">first_round</span> = <span class="ruby-keyword kw">false</span>
+738:             <span class="ruby-identifier">cipherblock</span> = <span class="ruby-identifier">aesEncrypt</span>(<span class="ruby-identifier">plainblock</span>)
+739:             <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">cipherblock</span>)
+740:           <span class="ruby-keyword kw">end</span>
+741: 
+742:           <span class="ruby-ivar">@iv</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
+743:         <span class="ruby-keyword kw">end</span>
+744:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

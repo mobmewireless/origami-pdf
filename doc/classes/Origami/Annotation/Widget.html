@@ -94,7 +94,7 @@ fields and to manage user interactions.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000421">onActivate</a>&nbsp;&nbsp;
+      <a href="#M000447">onActivate</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -152,29 +152,29 @@ Class <a href="Widget/Text.html" class="link">Origami::Annotation::Widget::Text<
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000421" class="method-detail">
-        <a name="M000421"></a>
+      <div id="method-M000447" class="method-detail">
+        <a name="M000447"></a>
 
         <div class="method-heading">
-          <a href="#M000421" class="method-signature">
+          <a href="#M000447" class="method-signature">
           <span class="method-name">onActivate</span><span class="method-args">(action)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000421-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000421-source">
+            onclick="toggleCode('M000447-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000447-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/annotations.rb, line 643</span>
-643:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onActivate</span>(<span class="ruby-identifier">action</span>)        
-644:         
-645:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
-646:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
-647:         <span class="ruby-keyword kw">end</span>
-648:         
-649:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">A</span> = <span class="ruby-identifier">action</span>
-650:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/annotations.rb, line 623</span>
+623:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">onActivate</span>(<span class="ruby-identifier">action</span>)        
+624:         
+625:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">action</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Action</span>)
+626:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-value str">&quot;An Action object must be passed.&quot;</span>
+627:         <span class="ruby-keyword kw">end</span>
+628:         
+629:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">A</span> = <span class="ruby-identifier">action</span>
+630:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

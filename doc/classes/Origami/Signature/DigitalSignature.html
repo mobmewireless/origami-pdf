@@ -88,13 +88,6 @@ Class representing a digital signature.
 
    </div>
 
-    <div id="method-list">
-      <h3 class="section-bar">Methods</h3>
-
-      <div class="name-list">
-      <a href="#M000025">to_s</a>&nbsp;&nbsp;
-      </div>
-    </div>
 
   </div>
 
@@ -104,7 +97,7 @@ Class representing a digital signature.
       <h3 class="section-bar">Included Modules</h3>
 
       <div id="includes-list">
-        <span class="include-name"><a href="../Configurable.html">Configurable</a></span>
+        <span class="include-name">StandardObject</span>
       </div>
     </div>
 
@@ -131,46 +124,6 @@ Class representing a digital signature.
 
 
     <!-- if method_list -->
-    <div id="methods">
-      <h3 class="section-bar">Public Instance methods</h3>
-
-      <div id="method-M000025" class="method-detail">
-        <a name="M000025"></a>
-
-        <div class="method-heading">
-          <a href="#M000025" class="method-signature">
-          <span class="method-name">to_s</span><span class="method-args">(base = 1)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000025-source">
-<pre>
-     <span class="ruby-comment cmt"># File origami/signature.rb, line 271</span>
-271:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">base</span> = <span class="ruby-value">1</span>)
-272:         
-273:         <span class="ruby-identifier">pairs</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_a</span>
-274:         <span class="ruby-identifier">content</span> = <span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">+</span> <span class="ruby-constant">EOL</span>
-275:         
-276:         <span class="ruby-identifier">pairs</span>.<span class="ruby-identifier">sort_by</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span> }.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">pair</span><span class="ruby-operator">|</span>
-277:           <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> = <span class="ruby-identifier">pair</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_o</span>, <span class="ruby-identifier">pair</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_o</span>
-278:             
-279:           <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\t&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">base</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Dictionary</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">base</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">EOL</span>
-280:         }
-281:         
-282:         <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\t&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">base</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">TOKENS</span>.<span class="ruby-identifier">last</span>
-283:         
-284:         <span class="ruby-identifier">output</span>(<span class="ruby-identifier">content</span>)
-285:       <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
 
 
   </div>

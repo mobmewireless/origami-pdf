@@ -95,16 +95,16 @@ Objects.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000454">&lt;&lt;</a>&nbsp;&nbsp;
-      <a href="#M000456">delete</a>&nbsp;&nbsp;
-      <a href="#M000461">each</a>&nbsp;&nbsp;
-      <a href="#M000458">extract</a>&nbsp;&nbsp;
-      <a href="#M000459">extract_by_index</a>&nbsp;&nbsp;
-      <a href="#M000460">include?</a>&nbsp;&nbsp;
-      <a href="#M000457">index</a>&nbsp;&nbsp;
-      <a href="#M000455">insert</a>&nbsp;&nbsp;
-      <a href="#M000453">new</a>&nbsp;&nbsp;
-      <a href="#M000462">objects</a>&nbsp;&nbsp;
+      <a href="#M000480">&lt;&lt;</a>&nbsp;&nbsp;
+      <a href="#M000482">delete</a>&nbsp;&nbsp;
+      <a href="#M000487">each</a>&nbsp;&nbsp;
+      <a href="#M000484">extract</a>&nbsp;&nbsp;
+      <a href="#M000485">extract_by_index</a>&nbsp;&nbsp;
+      <a href="#M000486">include?</a>&nbsp;&nbsp;
+      <a href="#M000483">index</a>&nbsp;&nbsp;
+      <a href="#M000481">insert</a>&nbsp;&nbsp;
+      <a href="#M000479">new</a>&nbsp;&nbsp;
+      <a href="#M000488">objects</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -133,18 +133,18 @@ Objects.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000453" class="method-detail">
-        <a name="M000453"></a>
+      <div id="method-M000479" class="method-detail">
+        <a name="M000479"></a>
 
         <div class="method-heading">
-          <a href="#M000453" class="method-signature">
+          <a href="#M000479" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(rawdata = &quot;&quot;, dictionary = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="ObjectStream.html#M000453">new</a> <a
+Creates a <a href="ObjectStream.html#M000479">new</a> <a
 href="Object.html">Object</a> <a href="Stream.html">Stream</a>.
 </p>
 <table>
@@ -156,15 +156,15 @@ href="Object.html">Object</a> <a href="Stream.html">Stream</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000453-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000453-source">
+            onclick="toggleCode('M000479-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000479-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 384</span>
-384:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">rawdata</span> = <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">dictionary</span> = {})
-385:       <span class="ruby-ivar">@objects</span> = <span class="ruby-keyword kw">nil</span>
-386:      
-387:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">rawdata</span>, <span class="ruby-identifier">dictionary</span>)
-388:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 414</span>
+414:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">rawdata</span> = <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">dictionary</span> = {})
+415:       <span class="ruby-ivar">@objects</span> = <span class="ruby-keyword kw">nil</span>
+416:      
+417:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">rawdata</span>, <span class="ruby-identifier">dictionary</span>)
+418:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -172,18 +172,18 @@ href="Object.html">Object</a> <a href="Stream.html">Stream</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000454" class="method-detail">
-        <a name="M000454"></a>
+      <div id="method-M000480" class="method-detail">
+        <a name="M000480"></a>
 
         <div class="method-heading">
-          <a href="#M000454" class="method-signature">
+          <a href="#M000480" class="method-signature">
           <span class="method-name">&lt;&lt;</span><span class="method-args">(object)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Adds a <a href="ObjectStream.html#M000453">new</a> <a
+Adds a <a href="ObjectStream.html#M000479">new</a> <a
 href="Object.html">Object</a> to this <a href="Stream.html">Stream</a>.
 </p>
 <table>
@@ -192,40 +192,40 @@ href="Object.html">Object</a> to this <a href="Stream.html">Stream</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000454-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000454-source">
+            onclick="toggleCode('M000480-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000480-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 421</span>
-421:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">object</span>)
-422:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">generation</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-423:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObjectError</span>, <span class="ruby-value str">&quot;Cannot store an object with generation &gt; 0 in an ObjectStream&quot;</span>
-424:       <span class="ruby-keyword kw">end</span>
-425: 
-426:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Stream</span>)
-427:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObjectError</span>, <span class="ruby-value str">&quot;Cannot store a Stream in an ObjectStream&quot;</span>
-428:       <span class="ruby-keyword kw">end</span>
-429: 
-430:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
-431:       
-432:       <span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span>, <span class="ruby-identifier">object</span>.<span class="ruby-identifier">generation</span> = <span class="ruby-ivar">@pdf</span>.<span class="ruby-identifier">alloc_new_object_number</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-433:       
-434:       <span class="ruby-identifier">object</span>.<span class="ruby-identifier">set_indirect</span>(<span class="ruby-keyword kw">true</span>) <span class="ruby-comment cmt"># object is indirect</span>
-435:       <span class="ruby-identifier">object</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-keyword kw">self</span>      <span class="ruby-comment cmt"># set this stream as the parent</span>
-436:       <span class="ruby-identifier">object</span>.<span class="ruby-identifier">set_pdf</span>(<span class="ruby-ivar">@pdf</span>)      <span class="ruby-comment cmt"># indirect objects need pdf information</span>
-437:       <span class="ruby-ivar">@objects</span>[<span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span>] = <span class="ruby-identifier">object</span>
-438:      
-439:       <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span>, <span class="ruby-value">0</span>)
-440:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 451</span>
+451:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">object</span>)
+452:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">generation</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+453:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObjectError</span>, <span class="ruby-value str">&quot;Cannot store an object with generation &gt; 0 in an ObjectStream&quot;</span>
+454:       <span class="ruby-keyword kw">end</span>
+455: 
+456:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Stream</span>)
+457:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidObjectError</span>, <span class="ruby-value str">&quot;Cannot store a Stream in an ObjectStream&quot;</span>
+458:       <span class="ruby-keyword kw">end</span>
+459: 
+460:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
+461:       
+462:       <span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span>, <span class="ruby-identifier">object</span>.<span class="ruby-identifier">generation</span> = <span class="ruby-ivar">@pdf</span>.<span class="ruby-identifier">alloc_new_object_number</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+463:       
+464:       <span class="ruby-identifier">object</span>.<span class="ruby-identifier">set_indirect</span>(<span class="ruby-keyword kw">true</span>) <span class="ruby-comment cmt"># object is indirect</span>
+465:       <span class="ruby-identifier">object</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-keyword kw">self</span>      <span class="ruby-comment cmt"># set this stream as the parent</span>
+466:       <span class="ruby-identifier">object</span>.<span class="ruby-identifier">set_pdf</span>(<span class="ruby-ivar">@pdf</span>)      <span class="ruby-comment cmt"># indirect objects need pdf information</span>
+467:       <span class="ruby-ivar">@objects</span>[<span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span>] = <span class="ruby-identifier">object</span>
+468:      
+469:       <span class="ruby-constant">Reference</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">object</span>.<span class="ruby-identifier">no</span>, <span class="ruby-value">0</span>)
+470:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000456" class="method-detail">
-        <a name="M000456"></a>
+      <div id="method-M000482" class="method-detail">
+        <a name="M000482"></a>
 
         <div class="method-heading">
-          <a href="#M000456" class="method-signature">
+          <a href="#M000482" class="method-signature">
           <span class="method-name">delete</span><span class="method-args">(no)</span>
           </a>
         </div>
@@ -235,54 +235,54 @@ href="Object.html">Object</a> to this <a href="Stream.html">Stream</a>.
 Deletes <a href="Object.html">Object</a> <em>no</em>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000456-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000456-source">
+            onclick="toggleCode('M000482-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000482-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 446</span>
-446:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">no</span>)
-447:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
-448: 
-449:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">no</span>)
-450:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 476</span>
+476:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">no</span>)
+477:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
+478: 
+479:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">no</span>)
+480:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000461" class="method-detail">
-        <a name="M000461"></a>
+      <div id="method-M000487" class="method-detail">
+        <a name="M000487"></a>
 
         <div class="method-heading">
-          <a href="#M000461" class="method-signature">
+          <a href="#M000487" class="method-signature">
           <span class="method-name">each</span><span class="method-args">(&amp;b)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Iterates over <a href="ObjectStream.html#M000461">each</a> object in the
+Iterates over <a href="ObjectStream.html#M000487">each</a> object in the
 stream.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000461-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000461-source">
+            onclick="toggleCode('M000487-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000487-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 499</span>
-499:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-500:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span> 
-501:       
-502:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-503:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 529</span>
+529:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+530:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span> 
+531:       
+532:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+533:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000458" class="method-detail">
-        <a name="M000458"></a>
+      <div id="method-M000484" class="method-detail">
+        <a name="M000484"></a>
 
         <div class="method-heading">
-          <a href="#M000458" class="method-signature">
+          <a href="#M000484" class="method-signature">
           <span class="method-name">extract</span><span class="method-args">(no)</span>
           </a>
         </div>
@@ -298,25 +298,25 @@ href="Stream.html">Stream</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000458-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000458-source">
+            onclick="toggleCode('M000484-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000484-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 470</span>
-470:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extract</span>(<span class="ruby-identifier">no</span>)
-471:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
-472:     
-473:       <span class="ruby-ivar">@objects</span>[<span class="ruby-identifier">no</span>]
-474:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 500</span>
+500:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extract</span>(<span class="ruby-identifier">no</span>)
+501:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
+502:     
+503:       <span class="ruby-ivar">@objects</span>[<span class="ruby-identifier">no</span>]
+504:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000459" class="method-detail">
-        <a name="M000459"></a>
+      <div id="method-M000485" class="method-detail">
+        <a name="M000485"></a>
 
         <div class="method-heading">
-          <a href="#M000459" class="method-signature">
+          <a href="#M000485" class="method-signature">
           <span class="method-name">extract_by_index</span><span class="method-args">(index)</span>
           </a>
         </div>
@@ -324,35 +324,35 @@ href="Stream.html">Stream</a>.
         <div class="method-description">
           <p>
 Returns a given decompressed object by <a
-href="ObjectStream.html#M000457">index</a>.
+href="ObjectStream.html#M000483">index</a>.
 </p>
 <table>
-<tr><td valign="top"><em><a href="ObjectStream.html#M000457">index</a></em>:</td><td>The <a href="Object.html">Object</a> <a
-href="ObjectStream.html#M000457">index</a> in the <a
+<tr><td valign="top"><em><a href="ObjectStream.html#M000483">index</a></em>:</td><td>The <a href="Object.html">Object</a> <a
+href="ObjectStream.html#M000483">index</a> in the <a
 href="ObjectStream.html">ObjectStream</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000459-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000459-source">
+            onclick="toggleCode('M000485-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000485-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 480</span>
-480:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extract_by_index</span>(<span class="ruby-identifier">index</span>)
-481:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
-482: 
-483:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">sort</span>[<span class="ruby-identifier">index</span>]
-484:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 510</span>
+510:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extract_by_index</span>(<span class="ruby-identifier">index</span>)
+511:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
+512: 
+513:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">sort</span>[<span class="ruby-identifier">index</span>]
+514:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000460" class="method-detail">
-        <a name="M000460"></a>
+      <div id="method-M000486" class="method-detail">
+        <a name="M000486"></a>
 
         <div class="method-heading">
-          <a href="#M000460" class="method-signature">
+          <a href="#M000486" class="method-signature">
           <span class="method-name">include?</span><span class="method-args">(no)</span>
           </a>
         </div>
@@ -367,56 +367,56 @@ Returns whether a specific object is contained in this stream.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000460-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000460-source">
+            onclick="toggleCode('M000486-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000486-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 490</span>
-490:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
-491:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
-492:     
-493:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
-494:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 520</span>
+520:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
+521:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
+522:     
+523:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
+524:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000457" class="method-detail">
-        <a name="M000457"></a>
+      <div id="method-M000483" class="method-detail">
+        <a name="M000483"></a>
 
         <div class="method-heading">
-          <a href="#M000457" class="method-signature">
+          <a href="#M000483" class="method-signature">
           <span class="method-name">index</span><span class="method-args">(no)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns the <a href="ObjectStream.html#M000457">index</a> of <a
+Returns the <a href="ObjectStream.html#M000483">index</a> of <a
 href="Object.html">Object</a> <em>no</em>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000457-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000457-source">
+            onclick="toggleCode('M000483-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000483-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 455</span>
-455:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>(<span class="ruby-identifier">no</span>)
-456:       <span class="ruby-identifier">ind</span> = <span class="ruby-value">0</span>
-457:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">num</span>, <span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>
-458:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ind</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">num</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">no</span>
-459: 
-460:         <span class="ruby-identifier">ind</span> = <span class="ruby-identifier">ind</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
-461:       }
-462: 
-463:       <span class="ruby-keyword kw">nil</span>
-464:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 485</span>
+485:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>(<span class="ruby-identifier">no</span>)
+486:       <span class="ruby-identifier">ind</span> = <span class="ruby-value">0</span>
+487:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">num</span>, <span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>
+488:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ind</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">num</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">no</span>
+489: 
+490:         <span class="ruby-identifier">ind</span> = <span class="ruby-identifier">ind</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+491:       }
+492: 
+493:       <span class="ruby-keyword kw">nil</span>
+494:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000455" class="method-detail">
-        <a name="M000455"></a>
+      <div id="method-M000481" class="method-detail">
+        <a name="M000481"></a>
 
         <div class="method-heading">
           <span class="method-name">insert</span><span class="method-args">(object)</span>
@@ -429,29 +429,29 @@ Alias for #&lt;&lt;
         </div>
       </div>
 
-      <div id="method-M000462" class="method-detail">
-        <a name="M000462"></a>
+      <div id="method-M000488" class="method-detail">
+        <a name="M000488"></a>
 
         <div class="method-heading">
-          <a href="#M000462" class="method-signature">
+          <a href="#M000488" class="method-signature">
           <span class="method-name">objects</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns the array of inner <a href="ObjectStream.html#M000462">objects</a>.
+Returns the array of inner <a href="ObjectStream.html#M000488">objects</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000462-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000462-source">
+            onclick="toggleCode('M000488-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000488-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/stream.rb, line 508</span>
-508:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">objects</span>
-509:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
-510:     
-511:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">values</span>
-512:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/stream.rb, line 538</span>
+538:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">objects</span>
+539:       <span class="ruby-identifier">load!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">nil?</span>
+540:     
+541:       <span class="ruby-ivar">@objects</span>.<span class="ruby-identifier">values</span>
+542:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

@@ -55,8 +55,8 @@
         <tr class="top-aligned-row">
             <td><strong>In:</strong></td>
             <td>
-                <a href="../../../files/origami/filters_rb.html">
-                origami/filters.rb
+                <a href="../../../files/origami/filters/lzw_rb.html">
+                origami/filters/lzw.rb
                 </a>
         <br />
             </td>
@@ -80,8 +80,8 @@
 
     <div id="description">
       <p>
-Class representing a filter used to <a href="LZW.html#M000316">encode</a>
-and <a href="LZW.html#M000317">decode</a> data with <a
+Class representing a filter used to <a href="LZW.html#M000363">encode</a>
+and <a href="LZW.html#M000364">decode</a> data with <a
 href="LZW.html">LZW</a> compression algorithm.
 </p>
 
@@ -94,9 +94,9 @@ href="LZW.html">LZW</a> compression algorithm.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000317">decode</a>&nbsp;&nbsp;
-      <a href="#M000316">encode</a>&nbsp;&nbsp;
-      <a href="#M000315">new</a>&nbsp;&nbsp;
+      <a href="#M000364">decode</a>&nbsp;&nbsp;
+      <a href="#M000363">encode</a>&nbsp;&nbsp;
+      <a href="#M000362">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -131,18 +131,18 @@ href="LZW.html">LZW</a> compression algorithm.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000315" class="method-detail">
-        <a name="M000315"></a>
+      <div id="method-M000362" class="method-detail">
+        <a name="M000362"></a>
 
         <div class="method-heading">
-          <a href="#M000315" class="method-signature">
-          <span class="method-name">new</span><span class="method-args">(parameters = DecodeParms.new)</span>
+          <a href="#M000362" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(parameters = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="LZW.html#M000315">new</a> <a href="LZW.html">LZW</a> <a
+Creates a <a href="LZW.html#M000362">new</a> <a href="LZW.html">LZW</a> <a
 href="../Filter.html">Filter</a>.
 </p>
 <table>
@@ -151,13 +151,13 @@ href="../Filter.html">Filter</a>.
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000315-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000315-source">
+            onclick="toggleCode('M000362-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000362-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 451</span>
-451:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">parameters</span> = <span class="ruby-constant">DecodeParms</span>.<span class="ruby-identifier">new</span>)
-452:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">parameters</span>)
-453:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/filters/lzw.rb, line 59</span>
+59:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">parameters</span> = {})
+60:         <span class="ruby-keyword kw">super</span>(<span class="ruby-constant">DecodeParms</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">parameters</span>))
+61:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -165,11 +165,11 @@ href="../Filter.html">Filter</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000317" class="method-detail">
-        <a name="M000317"></a>
+      <div id="method-M000364" class="method-detail">
+        <a name="M000364"></a>
 
         <div class="method-heading">
-          <a href="#M000317" class="method-signature">
+          <a href="#M000364" class="method-signature">
           <span class="method-name">decode</span><span class="method-args">(string)</span>
           </a>
         </div>
@@ -179,86 +179,86 @@ href="../Filter.html">Filter</a>.
 Decodes given data using <a href="LZW.html">LZW</a> compression method.
 </p>
 <table>
-<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="LZW.html#M000317">decode</a>.
+<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="LZW.html#M000364">decode</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000317-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000317-source">
+            onclick="toggleCode('M000364-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000364-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 508</span>
-508:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">string</span>)
-509:        
-510:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
-511:         <span class="ruby-identifier">bstring</span> = <span class="ruby-identifier">string2binary</span>(<span class="ruby-identifier">string</span>)
-512:         <span class="ruby-identifier">codesize</span> = <span class="ruby-value">9</span>
-513:         <span class="ruby-identifier">table</span> = <span class="ruby-identifier">clear</span>({})
-514:         <span class="ruby-identifier">prevbyte</span> = <span class="ruby-keyword kw">nil</span>
-515: 
-516:         <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">bstring</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword kw">do</span>
-517:           
-518:           <span class="ruby-identifier">byte</span> = <span class="ruby-identifier">binary2byte</span>(<span class="ruby-identifier">bstring</span>, <span class="ruby-identifier">codesize</span>)
-519: 
-520:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">table</span>.<span class="ruby-identifier">size</span>
-521:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">510</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">10</span>
-522:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">1022</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">11</span>
-523:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">2046</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">12</span>
-524:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">4094</span>
-525:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">byte</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">CLEARTABLE</span>
-526:               <span class="ruby-keyword kw">then</span>
-527:                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidLZWDataError</span>, <span class="ruby-value str">&quot;LZW table is full and no clear flag was set&quot;</span>
-528:               <span class="ruby-keyword kw">end</span>
-529:           <span class="ruby-keyword kw">end</span>
-530: 
-531:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">byte</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CLEARTABLE</span>
-532:             <span class="ruby-identifier">codesize</span> = <span class="ruby-value">9</span>
-533:             <span class="ruby-identifier">code</span> = <span class="ruby-constant">EOD</span>
-534:             <span class="ruby-identifier">clear</span> <span class="ruby-identifier">table</span>
-535:             <span class="ruby-identifier">prevbyte</span> = <span class="ruby-keyword kw">nil</span>
-536:             <span class="ruby-keyword kw">redo</span>
-537:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">byte</span> <span class="ruby-operator">==</span> <span class="ruby-constant">EOD</span>
-538:             <span class="ruby-keyword kw">break</span>
-539:           <span class="ruby-keyword kw">else</span>
-540:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">prevbyte</span>.<span class="ruby-identifier">nil?</span>
-541:               <span class="ruby-identifier">prevbyte</span> = <span class="ruby-identifier">byte</span>
-542:               <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">table</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">byte</span>)
-543:               <span class="ruby-keyword kw">redo</span>
-544:             <span class="ruby-keyword kw">else</span>
-545:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">table</span>.<span class="ruby-identifier">has_value?</span>(<span class="ruby-identifier">byte</span>)
-546:                 <span class="ruby-identifier">entry</span> = <span class="ruby-identifier">table</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">byte</span>)
-547:               <span class="ruby-keyword kw">else</span>
-548:                 <span class="ruby-identifier">entry</span> = <span class="ruby-identifier">table</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">prevbyte</span>)
-549:                 <span class="ruby-identifier">entry</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">entry</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>]
-550:               <span class="ruby-keyword kw">end</span>
-551: 
-552:               <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">entry</span>
-553:               <span class="ruby-identifier">table</span>[<span class="ruby-identifier">table</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">prevbyte</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">entry</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>]] = <span class="ruby-identifier">table</span>.<span class="ruby-identifier">size</span>
-554:               <span class="ruby-identifier">prevbyte</span> = <span class="ruby-identifier">byte</span>
-555:             <span class="ruby-keyword kw">end</span>
-556:           <span class="ruby-keyword kw">end</span>
-557:         <span class="ruby-keyword kw">end</span>
-558:  
-559:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@params</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">nil?</span>
-560:           <span class="ruby-identifier">colors</span> =  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Colors</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Colors</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
-561:           <span class="ruby-identifier">bpc</span> =     <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:BitsPerComponent</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:BitsPerComponent</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">8</span>
-562:           <span class="ruby-identifier">columns</span> = <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Columns</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Columns</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
-563: 
-564:           <span class="ruby-identifier">result</span> = <span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">do_post_prediction</span>(<span class="ruby-identifier">result</span>, <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">colors</span>, <span class="ruby-identifier">bpc</span>, <span class="ruby-identifier">columns</span>)
-565:         <span class="ruby-keyword kw">end</span>
-566: 
-567:         <span class="ruby-identifier">result</span>
-568:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/filters/lzw.rb, line 116</span>
+116:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">string</span>)
+117:        
+118:         <span class="ruby-identifier">result</span> = <span class="ruby-value str">&quot;&quot;</span>
+119:         <span class="ruby-identifier">bstring</span> = <span class="ruby-constant">Utils</span><span class="ruby-operator">::</span><span class="ruby-constant">BitReader</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">string</span>)
+120:         <span class="ruby-identifier">codesize</span> = <span class="ruby-value">9</span>
+121:         <span class="ruby-identifier">table</span> = <span class="ruby-identifier">clear</span>(<span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>)
+122:         <span class="ruby-identifier">prevbyte</span> = <span class="ruby-keyword kw">nil</span>
+123: 
+124:         <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">bstring</span>.<span class="ruby-identifier">eod?</span> <span class="ruby-keyword kw">do</span>
+125:           <span class="ruby-identifier">byte</span> = <span class="ruby-identifier">bstring</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">codesize</span>)
+126: 
+127:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">table</span>.<span class="ruby-identifier">size</span>
+128:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">510</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">10</span>
+129:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">1022</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">11</span>
+130:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">2046</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">12</span>
+131:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">4095</span>
+132:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">byte</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">CLEARTABLE</span>
+133:               <span class="ruby-keyword kw">then</span>
+134:                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidLZWDataError</span>, 
+135:                   <span class="ruby-node">&quot;LZW table is full and no clear flag was set (codeword #{byte.to_s(2).rjust(codesize,'0')} at bit #{bstring.pos - codesize}/#{bstring.size})&quot;</span>
+136:               <span class="ruby-keyword kw">end</span>
+137:           <span class="ruby-keyword kw">end</span>
+138: 
+139:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">byte</span> <span class="ruby-operator">==</span> <span class="ruby-constant">CLEARTABLE</span>
+140:             <span class="ruby-identifier">codesize</span> = <span class="ruby-value">9</span>
+141:             <span class="ruby-identifier">code</span> = <span class="ruby-constant">EOD</span>
+142:             <span class="ruby-identifier">clear</span> <span class="ruby-identifier">table</span>
+143:             <span class="ruby-identifier">prevbyte</span> = <span class="ruby-keyword kw">nil</span>
+144:             <span class="ruby-keyword kw">redo</span>
+145:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">byte</span> <span class="ruby-operator">==</span> <span class="ruby-constant">EOD</span>
+146:             <span class="ruby-keyword kw">break</span>
+147:           <span class="ruby-keyword kw">else</span>
+148:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">prevbyte</span>.<span class="ruby-identifier">nil?</span>
+149:               <span class="ruby-identifier">prevbyte</span> = <span class="ruby-identifier">byte</span>
+150:               <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">table</span>.<span class="ruby-identifier">key</span>(<span class="ruby-identifier">byte</span>)
+151:               <span class="ruby-keyword kw">redo</span>
+152:             <span class="ruby-keyword kw">else</span>
+153:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">table</span>.<span class="ruby-identifier">has_value?</span>(<span class="ruby-identifier">byte</span>)
+154:                 <span class="ruby-identifier">entry</span> = <span class="ruby-identifier">table</span>.<span class="ruby-identifier">key</span>(<span class="ruby-identifier">byte</span>)
+155:               <span class="ruby-keyword kw">else</span>
+156:                 <span class="ruby-identifier">entry</span> = <span class="ruby-identifier">table</span>.<span class="ruby-identifier">key</span>(<span class="ruby-identifier">prevbyte</span>)
+157:                 <span class="ruby-identifier">entry</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">entry</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>]
+158:               <span class="ruby-keyword kw">end</span>
+159: 
+160:               <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">entry</span>
+161:               <span class="ruby-identifier">table</span>[<span class="ruby-identifier">table</span>.<span class="ruby-identifier">key</span>(<span class="ruby-identifier">prevbyte</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">entry</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>]] = <span class="ruby-identifier">table</span>.<span class="ruby-identifier">size</span>
+162:               <span class="ruby-identifier">prevbyte</span> = <span class="ruby-identifier">byte</span>
+163:             <span class="ruby-keyword kw">end</span>
+164:           <span class="ruby-keyword kw">end</span>
+165:         <span class="ruby-keyword kw">end</span>
+166:  
+167:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)
+168:           <span class="ruby-identifier">colors</span>  = <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Colors</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) <span class="ruby-operator">?</span>  <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Colors</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+169:           <span class="ruby-identifier">bpc</span>     = <span class="ruby-ivar">@params</span>.<span class="ruby-constant">BitsPerComponent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>.<span class="ruby-constant">BitsPerComponent</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">8</span>
+170:           <span class="ruby-identifier">columns</span> = <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Columns</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Columns</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+171: 
+172:           <span class="ruby-identifier">result</span> = <span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">do_post_prediction</span>(<span class="ruby-identifier">result</span>, <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">colors</span>, <span class="ruby-identifier">bpc</span>, <span class="ruby-identifier">columns</span>)
+173:         <span class="ruby-keyword kw">end</span>
+174: 
+175:         <span class="ruby-identifier">result</span>
+176:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000316" class="method-detail">
-        <a name="M000316"></a>
+      <div id="method-M000363" class="method-detail">
+        <a name="M000363"></a>
 
         <div class="method-heading">
-          <a href="#M000316" class="method-signature">
+          <a href="#M000363" class="method-signature">
           <span class="method-name">encode</span><span class="method-args">(string)</span>
           </a>
         </div>
@@ -268,59 +268,59 @@ Decodes given data using <a href="LZW.html">LZW</a> compression method.
 Encodes given data using <a href="LZW.html">LZW</a> compression method.
 </p>
 <table>
-<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="LZW.html#M000316">encode</a>.
+<tr><td valign="top"><em>stream</em>:</td><td>The data to <a href="LZW.html#M000363">encode</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000316-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000316-source">
+            onclick="toggleCode('M000363-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000363-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/filters.rb, line 459</span>
-459:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">string</span>)
-460:   
-461:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@params</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">nil?</span>
-462:           <span class="ruby-identifier">colors</span> =  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Colors</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Colors</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
-463:           <span class="ruby-identifier">bpc</span> =     <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:BitsPerComponent</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:BitsPerComponent</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">8</span>
-464:           <span class="ruby-identifier">columns</span> = <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">:Columns</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Columns</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
-465: 
-466:           <span class="ruby-identifier">string</span> = <span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">do_pre_prediction</span>(<span class="ruby-identifier">string</span>, <span class="ruby-ivar">@params</span>[<span class="ruby-identifier">:Predictor</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">colors</span>, <span class="ruby-identifier">bpc</span>, <span class="ruby-identifier">columns</span>)
-467:         <span class="ruby-keyword kw">end</span>       
-468:         
-469:         <span class="ruby-identifier">codesize</span> = <span class="ruby-value">9</span>
-470:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">byte2binary</span>(<span class="ruby-constant">CLEARTABLE</span>)
-471:         <span class="ruby-identifier">table</span> = <span class="ruby-identifier">clear</span>({})
-472:         
-473:         <span class="ruby-identifier">s</span> = <span class="ruby-value str">''</span>        
-474:         <span class="ruby-identifier">string</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">byte</span><span class="ruby-operator">|</span>
-475:           <span class="ruby-identifier">char</span> = <span class="ruby-identifier">byte</span>.<span class="ruby-identifier">chr</span>
-476:           
-477:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">table</span>.<span class="ruby-identifier">size</span>
-478:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">512</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">10</span>
-479:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">1024</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">11</span>
-480:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">2048</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">12</span>
-481:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">4096</span>
-482:               <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">byte2binary</span>(<span class="ruby-constant">CLEARTABLE</span>,<span class="ruby-identifier">codesize</span>)
-483:               <span class="ruby-identifier">codesize</span> = <span class="ruby-value">9</span>
-484:               <span class="ruby-identifier">clear</span> <span class="ruby-identifier">table</span>
-485:               <span class="ruby-keyword kw">redo</span>
-486:           <span class="ruby-keyword kw">end</span>
-487:          
-488:           <span class="ruby-identifier">it</span> = <span class="ruby-identifier">s</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">char</span>
-489:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">table</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">it</span>)
-490:             <span class="ruby-identifier">s</span> = <span class="ruby-identifier">it</span>
-491:           <span class="ruby-keyword kw">else</span>
-492:             <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">byte2binary</span>(<span class="ruby-identifier">table</span>[<span class="ruby-identifier">s</span>], <span class="ruby-identifier">codesize</span>)
-493:             <span class="ruby-identifier">table</span>[<span class="ruby-identifier">it</span>] = <span class="ruby-identifier">table</span>.<span class="ruby-identifier">size</span>
-494:             <span class="ruby-identifier">s</span> = <span class="ruby-identifier">char</span>
-495:           <span class="ruby-keyword kw">end</span>
-496:         <span class="ruby-keyword kw">end</span>
-497:          
-498:         <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">byte2binary</span>(<span class="ruby-identifier">table</span>[<span class="ruby-identifier">s</span>], <span class="ruby-identifier">codesize</span>)
-499:         <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">byte2binary</span>(<span class="ruby-constant">EOD</span>,<span class="ruby-identifier">codesize</span>)
-500:         
-501:         <span class="ruby-identifier">binary2string</span>(<span class="ruby-identifier">result</span>)
-502:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/filters/lzw.rb, line 67</span>
+ 67:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">string</span>)
+ 68:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)
+ 69:           <span class="ruby-identifier">colors</span>  = <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Colors</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) <span class="ruby-operator">?</span>  <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Colors</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+ 70:           <span class="ruby-identifier">bpc</span>     = <span class="ruby-ivar">@params</span>.<span class="ruby-constant">BitsPerComponent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>.<span class="ruby-constant">BitsPerComponent</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">8</span>
+ 71:           <span class="ruby-identifier">columns</span> = <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Columns</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Columns</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+ 72: 
+ 73:           <span class="ruby-identifier">string</span> = <span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">do_pre_prediction</span>(<span class="ruby-identifier">string</span>, <span class="ruby-ivar">@params</span>.<span class="ruby-constant">Predictor</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">colors</span>, <span class="ruby-identifier">bpc</span>, <span class="ruby-identifier">columns</span>)
+ 74:         <span class="ruby-keyword kw">end</span>       
+ 75:         
+ 76:         <span class="ruby-identifier">codesize</span> = <span class="ruby-value">9</span>
+ 77:         <span class="ruby-identifier">result</span> = <span class="ruby-constant">Utils</span><span class="ruby-operator">::</span><span class="ruby-constant">BitWriter</span>.<span class="ruby-identifier">new</span>
+ 78:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">write</span>(<span class="ruby-constant">CLEARTABLE</span>, <span class="ruby-identifier">codesize</span>)
+ 79:         <span class="ruby-identifier">table</span> = <span class="ruby-identifier">clear</span>({})
+ 80:         
+ 81:         <span class="ruby-identifier">s</span> = <span class="ruby-value str">''</span>        
+ 82:         <span class="ruby-identifier">string</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">byte</span><span class="ruby-operator">|</span>
+ 83:           <span class="ruby-identifier">char</span> = <span class="ruby-identifier">byte</span>.<span class="ruby-identifier">chr</span>
+ 84:           
+ 85:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">table</span>.<span class="ruby-identifier">size</span>
+ 86:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">512</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">10</span>
+ 87:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">1024</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">11</span>
+ 88:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">2048</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">codesize</span> = <span class="ruby-value">12</span>
+ 89:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">4096</span>
+ 90:               <span class="ruby-identifier">result</span>.<span class="ruby-identifier">write</span>(<span class="ruby-constant">CLEARTABLE</span>, <span class="ruby-identifier">codesize</span>)
+ 91:               <span class="ruby-identifier">codesize</span> = <span class="ruby-value">9</span>
+ 92:               <span class="ruby-identifier">clear</span> <span class="ruby-identifier">table</span>
+ 93:               <span class="ruby-keyword kw">redo</span>
+ 94:           <span class="ruby-keyword kw">end</span>
+ 95:          
+ 96:           <span class="ruby-identifier">it</span> = <span class="ruby-identifier">s</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">char</span>
+ 97:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">table</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">it</span>)
+ 98:             <span class="ruby-identifier">s</span> = <span class="ruby-identifier">it</span>
+ 99:           <span class="ruby-keyword kw">else</span>
+100:             <span class="ruby-identifier">result</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">table</span>[<span class="ruby-identifier">s</span>], <span class="ruby-identifier">codesize</span>)
+101:             <span class="ruby-identifier">table</span>[<span class="ruby-identifier">it</span>] = <span class="ruby-identifier">table</span>.<span class="ruby-identifier">size</span>
+102:             <span class="ruby-identifier">s</span> = <span class="ruby-identifier">char</span>
+103:           <span class="ruby-keyword kw">end</span>
+104:         <span class="ruby-keyword kw">end</span>
+105:          
+106:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">table</span>[<span class="ruby-identifier">s</span>], <span class="ruby-identifier">codesize</span>)
+107:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">write</span>(<span class="ruby-constant">EOD</span>, <span class="ruby-identifier">codesize</span>)
+108:         
+109:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">final</span>.<span class="ruby-identifier">to_s</span>
+110:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

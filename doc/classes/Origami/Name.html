@@ -105,11 +105,12 @@ structures.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000467">new</a>&nbsp;&nbsp;
-      <a href="#M000469">real_type</a>&nbsp;&nbsp;
-      <a href="#M000471">to_docmdp_str</a>&nbsp;&nbsp;
-      <a href="#M000470">to_obfuscated_str</a>&nbsp;&nbsp;
-      <a href="#M000468">value</a>&nbsp;&nbsp;
+      <a href="#M000493">new</a>&nbsp;&nbsp;
+      <a href="#M000496">real_type</a>&nbsp;&nbsp;
+      <a href="#M000498">to_docmdp_str</a>&nbsp;&nbsp;
+      <a href="#M000497">to_obfuscated_str</a>&nbsp;&nbsp;
+      <a href="#M000494">value</a>&nbsp;&nbsp;
+      <a href="#M000495">value</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -138,40 +139,39 @@ structures.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000467" class="method-detail">
-        <a name="M000467"></a>
+      <div id="method-M000493" class="method-detail">
+        <a name="M000493"></a>
 
         <div class="method-heading">
-          <a href="#M000467" class="method-signature">
+          <a href="#M000493" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(name = &quot;&quot;)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="Name.html#M000467">new</a> <a href="Name.html">Name</a>.
+Creates a <a href="Name.html#M000493">new</a> <a href="Name.html">Name</a>.
 </p>
 <table>
-<tr><td valign="top"><em>name</em>:</td><td>A symbol representing the <a href="Name.html#M000467">new</a> <a
-href="Name.html">Name</a> <a href="Name.html#M000468">value</a>.
+<tr><td valign="top"><em>name</em>:</td><td>A symbol representing the <a href="Name.html#M000493">new</a> <a
+href="Name.html">Name</a> <a href="Name.html#M000494">value</a>.
 
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000467-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000467-source">
+            onclick="toggleCode('M000493-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000493-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/name.rb, line 49</span>
-49:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span> = <span class="ruby-value str">&quot;&quot;</span>)
-50:       
-51:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">String</span>)
-52:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type Symbol or String, received #{name.class}.&quot;</span>
-53:       <span class="ruby-keyword kw">end</span>
-54:       
-55:       <span class="ruby-ivar">@value</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>
-56:       
-57:       <span class="ruby-keyword kw">super</span>()
-58:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/name.rb, line 74</span>
+74:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span> = <span class="ruby-value str">&quot;&quot;</span>)
+75:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">String</span>)
+76:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected type Symbol or String, received #{name.class}.&quot;</span>
+77:       <span class="ruby-keyword kw">end</span>
+78:       
+79:       <span class="ruby-ivar">@value</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>
+80:       
+81:       <span class="ruby-keyword kw">super</span>()
+82:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -179,40 +179,40 @@ href="Name.html">Name</a> <a href="Name.html#M000468">value</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000469" class="method-detail">
-        <a name="M000469"></a>
+      <div id="method-M000496" class="method-detail">
+        <a name="M000496"></a>
 
         <div class="method-heading">
-          <a href="#M000469" class="method-signature">
+          <a href="#M000496" class="method-signature">
           <span class="method-name">real_type</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000469-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000469-source">
+            onclick="toggleCode('M000496-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000496-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/name.rb, line 133</span>
-133:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Name</span> <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/name.rb, line 166</span>
+166:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">real_type</span> ; <span class="ruby-constant">Name</span> <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000471" class="method-detail">
-        <a name="M000471"></a>
+      <div id="method-M000498" class="method-detail">
+        <a name="M000498"></a>
 
         <div class="method-heading">
-          <a href="#M000471" class="method-signature">
+          <a href="#M000498" class="method-signature">
           <span class="method-name">to_docmdp_str</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000471-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000471-source">
+            onclick="toggleCode('M000498-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000498-source">
 <pre>
     <span class="ruby-comment cmt"># File origami/docmdp.rb, line 53</span>
 53:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_docmdp_str</span>
@@ -223,19 +223,19 @@ href="Name.html">Name</a> <a href="Name.html#M000468">value</a>.
         </div>
       </div>
 
-      <div id="method-M000470" class="method-detail">
-        <a name="M000470"></a>
+      <div id="method-M000497" class="method-detail">
+        <a name="M000497"></a>
 
         <div class="method-heading">
-          <a href="#M000470" class="method-signature">
+          <a href="#M000497" class="method-signature">
           <span class="method-name">to_obfuscated_str</span><span class="method-args">(prop = 2)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000470-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000470-source">
+            onclick="toggleCode('M000497-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000497-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/obfuscation.rb, line 185</span>
 185:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_obfuscated_str</span>(<span class="ruby-identifier">prop</span> = <span class="ruby-value">2</span>)
@@ -261,24 +261,47 @@ href="Name.html">Name</a> <a href="Name.html#M000468">value</a>.
         </div>
       </div>
 
-      <div id="method-M000468" class="method-detail">
-        <a name="M000468"></a>
+      <div id="method-M000494" class="method-detail">
+        <a name="M000494"></a>
 
         <div class="method-heading">
-          <a href="#M000468" class="method-signature">
+          <a href="#M000494" class="method-signature">
           <span class="method-name">value</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000468-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000468-source">
+            onclick="toggleCode('M000494-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000494-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/name.rb, line 60</span>
-60:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
-61:       <span class="ruby-ivar">@value</span>.<span class="ruby-identifier">to_sym</span>
-62:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/name.rb, line 85</span>
+85:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>   
+86:         ( <span class="ruby-ivar">@value</span>.<span class="ruby-identifier">empty?</span> ) <span class="ruby-operator">?</span> <span class="ruby-constant">EmptySymbol</span>.<span class="ruby-identifier">new</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@value</span>.<span class="ruby-identifier">to_sym</span>
+87:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000495" class="method-detail">
+        <a name="M000495"></a>
+
+        <div class="method-heading">
+          <a href="#M000495" class="method-signature">
+          <span class="method-name">value</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000495-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000495-source">
+<pre>
+    <span class="ruby-comment cmt"># File origami/name.rb, line 89</span>
+89:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>   
+90:         <span class="ruby-ivar">@value</span>.<span class="ruby-identifier">to_sym</span>
+91:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

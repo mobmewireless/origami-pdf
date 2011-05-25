@@ -97,9 +97,9 @@ operating systems.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000474">DOS</a>&nbsp;&nbsp;
-      <a href="#M000473">Mac</a>&nbsp;&nbsp;
-      <a href="#M000472">Unix</a>&nbsp;&nbsp;
+      <a href="#M000501">DOS</a>&nbsp;&nbsp;
+      <a href="#M000500">Mac</a>&nbsp;&nbsp;
+      <a href="#M000499">Unix</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -121,11 +121,11 @@ operating systems.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000474" class="method-detail">
-        <a name="M000474"></a>
+      <div id="method-M000501" class="method-detail">
+        <a name="M000501"></a>
 
         <div class="method-heading">
-          <a href="#M000474" class="method-signature">
+          <a href="#M000501" class="method-signature">
           <span class="method-name">DOS</span><span class="method-args">(file)</span>
           </a>
         </div>
@@ -135,31 +135,31 @@ operating systems.
 Converts Windows file path into <a href="PDF.html">PDF</a> file path.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000474-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000474-source">
+            onclick="toggleCode('M000501-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000501-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/file.rb, line 90</span>
- 90:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">DOS</span>(<span class="ruby-identifier">file</span>)
- 91:         <span class="ruby-identifier">path</span> = <span class="ruby-value str">&quot;&quot;</span>
- 92:         <span class="ruby-comment cmt"># Absolute vs relative path</span>
- 93:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">include?</span> <span class="ruby-value str">&quot;:&quot;</span>
- 94:           <span class="ruby-identifier">path</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;/&quot;</span>
- 95:           <span class="ruby-identifier">file</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-value str">&quot;:&quot;</span>,<span class="ruby-value str">&quot;&quot;</span>)
- 96:         <span class="ruby-keyword kw">end</span>
- 97:         
- 98:         <span class="ruby-identifier">file</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">&quot;\\&quot;</span>, <span class="ruby-value str">&quot;/&quot;</span>)
- 99:         <span class="ruby-constant">ByteString</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">path</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">file</span>)
-100:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/file.rb, line 115</span>
+115:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">DOS</span>(<span class="ruby-identifier">file</span>)
+116:         <span class="ruby-identifier">path</span> = <span class="ruby-value str">&quot;&quot;</span>
+117:         <span class="ruby-comment cmt"># Absolute vs relative path</span>
+118:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">include?</span> <span class="ruby-value str">&quot;:&quot;</span>
+119:           <span class="ruby-identifier">path</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;/&quot;</span>
+120:           <span class="ruby-identifier">file</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-value str">&quot;:&quot;</span>,<span class="ruby-value str">&quot;&quot;</span>)
+121:         <span class="ruby-keyword kw">end</span>
+122:         
+123:         <span class="ruby-identifier">file</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">&quot;\\&quot;</span>, <span class="ruby-value str">&quot;/&quot;</span>)
+124:         <span class="ruby-constant">ByteString</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">path</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">file</span>)
+125:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000473" class="method-detail">
-        <a name="M000473"></a>
+      <div id="method-M000500" class="method-detail">
+        <a name="M000500"></a>
 
         <div class="method-heading">
-          <a href="#M000473" class="method-signature">
+          <a href="#M000500" class="method-signature">
           <span class="method-name">Mac</span><span class="method-args">(file)</span>
           </a>
         </div>
@@ -169,23 +169,23 @@ Converts Windows file path into <a href="PDF.html">PDF</a> file path.
 Converts MacOS file path into <a href="PDF.html">PDF</a> file path.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000473-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000473-source">
+            onclick="toggleCode('M000500-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000500-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/file.rb, line 83</span>
-83:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Mac</span>(<span class="ruby-identifier">file</span>)
-84:         <span class="ruby-constant">ByteString</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;:&quot;</span>, <span class="ruby-value str">&quot;/&quot;</span>))
-85:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/file.rb, line 108</span>
+108:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Mac</span>(<span class="ruby-identifier">file</span>)
+109:         <span class="ruby-constant">ByteString</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;:&quot;</span>, <span class="ruby-value str">&quot;/&quot;</span>))
+110:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000472" class="method-detail">
-        <a name="M000472"></a>
+      <div id="method-M000499" class="method-detail">
+        <a name="M000499"></a>
 
         <div class="method-heading">
-          <a href="#M000472" class="method-signature">
+          <a href="#M000499" class="method-signature">
           <span class="method-name">Unix</span><span class="method-args">(file)</span>
           </a>
         </div>
@@ -195,13 +195,13 @@ Converts MacOS file path into <a href="PDF.html">PDF</a> file path.
 Converts UNIX file path into <a href="PDF.html">PDF</a> file path.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000472-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000472-source">
+            onclick="toggleCode('M000499-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000499-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/file.rb, line 76</span>
-76:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Unix</span>(<span class="ruby-identifier">file</span>)
-77:         <span class="ruby-constant">ByteString</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>)
-78:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/file.rb, line 101</span>
+101:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Unix</span>(<span class="ruby-identifier">file</span>)
+102:         <span class="ruby-constant">ByteString</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>)
+103:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

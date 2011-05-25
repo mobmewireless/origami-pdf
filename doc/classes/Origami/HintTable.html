@@ -80,9 +80,9 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000357">included</a>&nbsp;&nbsp;
-      <a href="#M000358">new</a>&nbsp;&nbsp;
-      <a href="#M000359">to_s</a>&nbsp;&nbsp;
+      <a href="#M000383">included</a>&nbsp;&nbsp;
+      <a href="#M000384">new</a>&nbsp;&nbsp;
+      <a href="#M000385">to_s</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -130,50 +130,50 @@ Class <a href="HintTable/SharedObjectTable.html" class="link">Origami::HintTable
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000357" class="method-detail">
-        <a name="M000357"></a>
+      <div id="method-M000383" class="method-detail">
+        <a name="M000383"></a>
 
         <div class="method-heading">
-          <a href="#M000357" class="method-signature">
+          <a href="#M000383" class="method-signature">
           <span class="method-name">included</span><span class="method-args">(receiver)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000357-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000357-source">
+            onclick="toggleCode('M000383-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000383-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/linearization.rb, line 150</span>
-150:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">receiver</span>)
-151:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@header_items_size</span>, {})
-152:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@entry_items_size</span>, {})
-153:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">ClassMethods</span>)
-154:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/linearization.rb, line 149</span>
+149:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">receiver</span>)
+150:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@header_items_size</span>, {})
+151:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@entry_items_size</span>, {})
+152:       <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">ClassMethods</span>)
+153:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000358" class="method-detail">
-        <a name="M000358"></a>
+      <div id="method-M000384" class="method-detail">
+        <a name="M000384"></a>
 
         <div class="method-heading">
-          <a href="#M000358" class="method-signature">
+          <a href="#M000384" class="method-signature">
           <span class="method-name">new</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000358-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000358-source">
+            onclick="toggleCode('M000384-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000384-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/linearization.rb, line 159</span>
-159:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
-160:       <span class="ruby-ivar">@header_items</span> = {}
-161:       <span class="ruby-ivar">@entries</span> = []
-162:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/linearization.rb, line 158</span>
+158:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+159:       <span class="ruby-ivar">@header_items</span> = {}
+160:       <span class="ruby-ivar">@entries</span> = []
+161:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -181,64 +181,63 @@ Class <a href="HintTable/SharedObjectTable.html" class="link">Origami::HintTable
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000359" class="method-detail">
-        <a name="M000359"></a>
+      <div id="method-M000385" class="method-detail">
+        <a name="M000385"></a>
 
         <div class="method-heading">
-          <a href="#M000359" class="method-signature">
+          <a href="#M000385" class="method-signature">
           <span class="method-name">to_s</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000359-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000359-source">
+            onclick="toggleCode('M000385-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000385-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/linearization.rb, line 164</span>
-164:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
-165:       
-166:       <span class="ruby-identifier">data</span> = <span class="ruby-value str">&quot;&quot;</span>
-167: 
-168:       <span class="ruby-identifier">nitems</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">nb_header_items</span>
-169:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">no</span> <span class="ruby-keyword kw">in</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">nitems</span>)
-170:         <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@header_items</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
-171:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHintTableError</span>, <span class="ruby-node">&quot;Missing item #{no} in header section of #{self.class}&quot;</span>
-172:         <span class="ruby-keyword kw">end</span>
-173: 
-174:         <span class="ruby-identifier">value</span> = <span class="ruby-ivar">@header_items</span>[<span class="ruby-identifier">no</span>]
-175:         <span class="ruby-identifier">item_size</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">get_header_item_size</span>(<span class="ruby-identifier">no</span>)
-176:         
-177:         <span class="ruby-identifier">item_size</span> = ((<span class="ruby-identifier">item_size</span> <span class="ruby-operator">+</span> <span class="ruby-value">7</span>) <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-value">3</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">3</span>
-178:         <span class="ruby-identifier">item_data</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">2</span>)
-179:         <span class="ruby-identifier">item_data</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">item_size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">item_data</span>.<span class="ruby-identifier">size</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">item_data</span>
-180: 
-181:         <span class="ruby-identifier">data</span> <span class="ruby-operator">&lt;&lt;</span> [ <span class="ruby-identifier">item_data</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;B*&quot;</span>)
-182:       <span class="ruby-keyword kw">end</span>
-183:       
-184:       <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
-185:       <span class="ruby-identifier">nitems</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">nb_entry_items</span>
-186:       <span class="ruby-ivar">@entries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>
-187:         <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">no</span> <span class="ruby-keyword kw">in</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">items</span>)
-188:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
-189:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHintTableError</span>, <span class="ruby-node">&quot;Missing item #{no} in entry #{i} of #{self.class}&quot;</span>
-190:           <span class="ruby-keyword kw">end</span>
-191: 
-192:           <span class="ruby-identifier">value</span> = <span class="ruby-identifier">entry</span>[<span class="ruby-identifier">no</span>]
-193:           <span class="ruby-identifier">item_size</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">get_entry_item_size</span>(<span class="ruby-identifier">no</span>)
-194:           
-195:           <span class="ruby-identifier">item_size</span> = ((<span class="ruby-identifier">item_size</span> <span class="ruby-operator">+</span> <span class="ruby-value">7</span>) <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-value">3</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">3</span>
-196:           <span class="ruby-identifier">item_data</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">2</span>)
-197:           <span class="ruby-identifier">item_data</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">item_size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">item_data</span>.<span class="ruby-identifier">size</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">item_data</span>
-198: 
-199:           <span class="ruby-identifier">data</span> <span class="ruby-operator">&lt;&lt;</span> [ <span class="ruby-identifier">item_data</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;B*&quot;</span>)
-200:         <span class="ruby-keyword kw">end</span>
-201: 
-202:         <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
-203:       <span class="ruby-keyword kw">end</span>
-204: 
-205:       <span class="ruby-identifier">data</span>
-206:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/linearization.rb, line 163</span>
+163:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+164:       <span class="ruby-identifier">data</span> = <span class="ruby-value str">&quot;&quot;</span>
+165: 
+166:       <span class="ruby-identifier">nitems</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">nb_header_items</span>
+167:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">no</span> <span class="ruby-keyword kw">in</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">nitems</span>)
+168:         <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@header_items</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
+169:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHintTableError</span>, <span class="ruby-node">&quot;Missing item #{no} in header section of #{self.class}&quot;</span>
+170:         <span class="ruby-keyword kw">end</span>
+171: 
+172:         <span class="ruby-identifier">value</span> = <span class="ruby-ivar">@header_items</span>[<span class="ruby-identifier">no</span>]
+173:         <span class="ruby-identifier">item_size</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">get_header_item_size</span>(<span class="ruby-identifier">no</span>)
+174:         
+175:         <span class="ruby-identifier">item_size</span> = ((<span class="ruby-identifier">item_size</span> <span class="ruby-operator">+</span> <span class="ruby-value">7</span>) <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-value">3</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">3</span>
+176:         <span class="ruby-identifier">item_data</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">2</span>)
+177:         <span class="ruby-identifier">item_data</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">item_size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">item_data</span>.<span class="ruby-identifier">size</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">item_data</span>
+178: 
+179:         <span class="ruby-identifier">data</span> <span class="ruby-operator">&lt;&lt;</span> [ <span class="ruby-identifier">item_data</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;B*&quot;</span>)
+180:       <span class="ruby-keyword kw">end</span>
+181:       
+182:       <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+183:       <span class="ruby-identifier">nitems</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">nb_entry_items</span>
+184:       <span class="ruby-ivar">@entries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>
+185:         <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">no</span> <span class="ruby-keyword kw">in</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">items</span>)
+186:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">no</span>)
+187:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidHintTableError</span>, <span class="ruby-node">&quot;Missing item #{no} in entry #{i} of #{self.class}&quot;</span>
+188:           <span class="ruby-keyword kw">end</span>
+189: 
+190:           <span class="ruby-identifier">value</span> = <span class="ruby-identifier">entry</span>[<span class="ruby-identifier">no</span>]
+191:           <span class="ruby-identifier">item_size</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">get_entry_item_size</span>(<span class="ruby-identifier">no</span>)
+192:           
+193:           <span class="ruby-identifier">item_size</span> = ((<span class="ruby-identifier">item_size</span> <span class="ruby-operator">+</span> <span class="ruby-value">7</span>) <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-value">3</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">3</span>
+194:           <span class="ruby-identifier">item_data</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">2</span>)
+195:           <span class="ruby-identifier">item_data</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">item_size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">item_data</span>.<span class="ruby-identifier">size</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">item_data</span>
+196: 
+197:           <span class="ruby-identifier">data</span> <span class="ruby-operator">&lt;&lt;</span> [ <span class="ruby-identifier">item_data</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;B*&quot;</span>)
+198:         <span class="ruby-keyword kw">end</span>
+199: 
+200:         <span class="ruby-identifier">i</span> = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+201:       <span class="ruby-keyword kw">end</span>
+202: 
+203:       <span class="ruby-identifier">data</span>
+204:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

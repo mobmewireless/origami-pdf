@@ -86,8 +86,8 @@ Module for encrypted <a href="../String.html">String</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000263">decrypt!</a>&nbsp;&nbsp;
-      <a href="#M000262">encrypt!</a>&nbsp;&nbsp;
+      <a href="#M000270">decrypt!</a>&nbsp;&nbsp;
+      <a href="#M000269">encrypt!</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -116,70 +116,70 @@ Module for encrypted <a href="../String.html">String</a>.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000263" class="method-detail">
-        <a name="M000263"></a>
+      <div id="method-M000270" class="method-detail">
+        <a name="M000270"></a>
 
         <div class="method-heading">
-          <a href="#M000263" class="method-signature">
-          <span class="method-name">decrypt!</span><span class="method-args">(derive_key = true)</span>
+          <a href="#M000270" class="method-signature">
+          <span class="method-name">decrypt!</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000263-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000263-source">
+            onclick="toggleCode('M000270-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000270-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/encryption.rb, line 400</span>
-400:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decrypt!</span>(<span class="ruby-identifier">derive_key</span> = <span class="ruby-keyword kw">true</span>)
-401:         <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@decrypted</span>
-402:           <span class="ruby-identifier">key</span> = <span class="ruby-identifier">derive_key</span> <span class="ruby-value">? </span><span class="ruby-identifier">compute_object_key</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@encryption_key</span>
-403:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-ivar">@algorithm</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_str</span>))
-404:           <span class="ruby-ivar">@decrypted</span> = <span class="ruby-keyword kw">true</span>
-405:         <span class="ruby-keyword kw">end</span>
-406: 
-407:         <span class="ruby-keyword kw">self</span>
-408:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/encryption.rb, line 453</span>
+453:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decrypt!</span>
+454:         <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@decrypted</span>
+455:           <span class="ruby-identifier">key</span> = <span class="ruby-identifier">compute_object_key</span>
+456:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-ivar">@algorithm</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_str</span>))
+457:           <span class="ruby-ivar">@decrypted</span> = <span class="ruby-keyword kw">true</span>
+458:         <span class="ruby-keyword kw">end</span>
+459: 
+460:         <span class="ruby-keyword kw">self</span>
+461:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000262" class="method-detail">
-        <a name="M000262"></a>
+      <div id="method-M000269" class="method-detail">
+        <a name="M000269"></a>
 
         <div class="method-heading">
-          <a href="#M000262" class="method-signature">
-          <span class="method-name">encrypt!</span><span class="method-args">(derive_key = true)</span>
+          <a href="#M000269" class="method-signature">
+          <span class="method-name">encrypt!</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000262-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000262-source">
+            onclick="toggleCode('M000269-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000269-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/encryption.rb, line 379</span>
-379:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encrypt!</span>(<span class="ruby-identifier">derive_key</span> = <span class="ruby-keyword kw">true</span>)
-380:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@decrypted</span>
-381:           <span class="ruby-identifier">key</span> = <span class="ruby-identifier">derive_key</span> <span class="ruby-value">? </span><span class="ruby-identifier">compute_object_key</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@encryption_key</span>
-382:           
-383:           <span class="ruby-identifier">encrypted_data</span> = 
-384:           <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@algorithm</span> <span class="ruby-operator">==</span> <span class="ruby-constant">ARC4</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@algorithm</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Identity</span>
-385:             <span class="ruby-ivar">@algorithm</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>)
-386:           <span class="ruby-keyword kw">else</span>
-387:             <span class="ruby-identifier">iv</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">16</span>) { <span class="ruby-identifier">rand</span>(<span class="ruby-value">255</span>) }.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">'C*'</span>)
-388:             <span class="ruby-ivar">@algorithm</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">iv</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>)
-389:           <span class="ruby-keyword kw">end</span>
-390: 
-391:           <span class="ruby-ivar">@decrypted</span> = <span class="ruby-keyword kw">false</span>
-392: 
-393:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">encrypted_data</span>)
-394:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">freeze</span>
-395:         <span class="ruby-keyword kw">end</span>
-396:         
-397:         <span class="ruby-keyword kw">self</span>
-398:       <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/encryption.rb, line 432</span>
+432:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encrypt!</span>
+433:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@decrypted</span>
+434:           <span class="ruby-identifier">key</span> = <span class="ruby-identifier">compute_object_key</span>
+435:           
+436:           <span class="ruby-identifier">encrypted_data</span> = 
+437:           <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@algorithm</span> <span class="ruby-operator">==</span> <span class="ruby-constant">ARC4</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@algorithm</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Identity</span>
+438:             <span class="ruby-ivar">@algorithm</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>)
+439:           <span class="ruby-keyword kw">else</span>
+440:             <span class="ruby-identifier">iv</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">AES</span><span class="ruby-operator">::</span><span class="ruby-constant">BLOCKSIZE</span>) { <span class="ruby-identifier">rand</span>(<span class="ruby-value">256</span>) }.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">'C*'</span>)
+441:             <span class="ruby-ivar">@algorithm</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">iv</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>)
+442:           <span class="ruby-keyword kw">end</span>
+443: 
+444:           <span class="ruby-ivar">@decrypted</span> = <span class="ruby-keyword kw">false</span>
+445: 
+446:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">encrypted_data</span>)
+447:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">freeze</span>
+448:         <span class="ruby-keyword kw">end</span>
+449:         
+450:         <span class="ruby-keyword kw">self</span>
+451:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

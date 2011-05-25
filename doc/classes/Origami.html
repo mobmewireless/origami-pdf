@@ -71,6 +71,46 @@
                 origami/array.rb
                 </a>
         <br />
+                <a href="../files/origami/filters/ccitt_rb.html">
+                origami/filters/ccitt.rb
+                </a>
+        <br />
+                <a href="../files/origami/filters/predictors_rb.html">
+                origami/filters/predictors.rb
+                </a>
+        <br />
+                <a href="../files/origami/filters/jpx_rb.html">
+                origami/filters/jpx.rb
+                </a>
+        <br />
+                <a href="../files/origami/filters/flate_rb.html">
+                origami/filters/flate.rb
+                </a>
+        <br />
+                <a href="../files/origami/filters/lzw_rb.html">
+                origami/filters/lzw.rb
+                </a>
+        <br />
+                <a href="../files/origami/filters/runlength_rb.html">
+                origami/filters/runlength.rb
+                </a>
+        <br />
+                <a href="../files/origami/filters/dct_rb.html">
+                origami/filters/dct.rb
+                </a>
+        <br />
+                <a href="../files/origami/filters/ascii_rb.html">
+                origami/filters/ascii.rb
+                </a>
+        <br />
+                <a href="../files/origami/filters/jbig2_rb.html">
+                origami/filters/jbig2.rb
+                </a>
+        <br />
+                <a href="../files/origami/filters/crypt_rb.html">
+                origami/filters/crypt.rb
+                </a>
+        <br />
                 <a href="../files/origami/acroform_rb.html">
                 origami/acroform.rb
                 </a>
@@ -127,6 +167,18 @@
                 origami/destinations.rb
                 </a>
         <br />
+                <a href="../files/origami/parsers/pdf/linear_rb.html">
+                origami/parsers/pdf/linear.rb
+                </a>
+        <br />
+                <a href="../files/origami/parsers/ppklite_rb.html">
+                origami/parsers/ppklite.rb
+                </a>
+        <br />
+                <a href="../files/origami/parsers/fdf_rb.html">
+                origami/parsers/fdf.rb
+                </a>
+        <br />
                 <a href="../files/origami/catalog_rb.html">
                 origami/catalog.rb
                 </a>
@@ -179,12 +231,12 @@
                 origami/trailer.rb
                 </a>
         <br />
-                <a href="../files/origami/adobe/addressbook_rb.html">
-                origami/adobe/addressbook.rb
+                <a href="../files/origami/adobe/ppklite_rb.html">
+                origami/adobe/ppklite.rb
                 </a>
         <br />
-                <a href="../files/origami/adobe/header_rb.html">
-                origami/adobe/header.rb
+                <a href="../files/origami/adobe/fdf_rb.html">
+                origami/adobe/fdf.rb
                 </a>
         <br />
                 <a href="../files/origami/font_rb.html">
@@ -223,6 +275,10 @@
                 origami/boolean.rb
                 </a>
         <br />
+                <a href="../files/origami/3d_rb.html">
+                origami/3d.rb
+                </a>
+        <br />
                 <a href="../files/origami/signature_rb.html">
                 origami/signature.rb
                 </a>
@@ -258,9 +314,9 @@ Module for parsing/generating <a href="Origami/PDF.html">PDF</a> files.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000002">parse</a>&nbsp;&nbsp;
-      <a href="#M000003">to_hex</a>&nbsp;&nbsp;
-      <a href="#M000004">value</a>&nbsp;&nbsp;
+      <a href="#M000008">colorize</a>&nbsp;&nbsp;
+      <a href="#M000009">to_hex</a>&nbsp;&nbsp;
+      <a href="#M000010">value</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -276,7 +332,6 @@ Module for parsing/generating <a href="Origami/PDF.html">PDF</a> files.
 
       Module <a href="Origami/Adobe.html" class="link">Origami::Adobe</a><br />
 Module <a href="Origami/Colors.html" class="link">Origami::Colors</a><br />
-Module <a href="Origami/Configurable.html" class="link">Origami::Configurable</a><br />
 Module <a href="Origami/Destination.html" class="link">Origami::Destination</a><br />
 Module <a href="Origami/Encryption.html" class="link">Origami::Encryption</a><br />
 Module <a href="Origami/Field.html" class="link">Origami::Field</a><br />
@@ -296,13 +351,16 @@ Module <a href="Origami/Webcapture.html" class="link">Origami::Webcapture</a><br
 Module <a href="Origami/XDP.html" class="link">Origami::XDP</a><br />
 Module <a href="Origami/XFA.html" class="link">Origami::XFA</a><br />
 Class <a href="Origami/Action.html" class="link">Origami::Action</a><br />
+Class <a href="Origami/AnimationStyle3D.html" class="link">Origami::AnimationStyle3D</a><br />
 Class <a href="Origami/Annotation.html" class="link">Origami::Annotation</a><br />
 Class <a href="Origami/Array.html" class="link">Origami::Array</a><br />
+Class <a href="Origami/Background3D.html" class="link">Origami::Background3D</a><br />
 Class <a href="Origami/Boolean.html" class="link">Origami::Boolean</a><br />
 Class <a href="Origami/ByteString.html" class="link">Origami::ByteString</a><br />
 Class <a href="Origami/Catalog.html" class="link">Origami::Catalog</a><br />
 Class <a href="Origami/CatalogAdditionalActions.html" class="link">Origami::CatalogAdditionalActions</a><br />
 Class <a href="Origami/ContentStream.html" class="link">Origami::ContentStream</a><br />
+Class <a href="Origami/CrossSection3D.html" class="link">Origami::CrossSection3D</a><br />
 Class <a href="Origami/DeveloperExtension.html" class="link">Origami::DeveloperExtension</a><br />
 Class <a href="Origami/Dictionary.html" class="link">Origami::Dictionary</a><br />
 Class <a href="Origami/EmbeddedFileParameters.html" class="link">Origami::EmbeddedFileParameters</a><br />
@@ -322,6 +380,7 @@ Class <a href="Origami/Integer.html" class="link">Origami::Integer</a><br />
 Class <a href="Origami/InteractiveForm.html" class="link">Origami::InteractiveForm</a><br />
 Class <a href="Origami/InvalidPDFInstructionError.html" class="link">Origami::InvalidPDFInstructionError</a><br />
 Class <a href="Origami/InvalidXRefStreamObjectError.html" class="link">Origami::InvalidXRefStreamObjectError</a><br />
+Class <a href="Origami/LightingScheme3D.html" class="link">Origami::LightingScheme3D</a><br />
 Class <a href="Origami/Linearization.html" class="link">Origami::Linearization</a><br />
 Class <a href="Origami/Metadata.html" class="link">Origami::Metadata</a><br />
 Class <a href="Origami/MetadataStream.html" class="link">Origami::MetadataStream</a><br />
@@ -329,6 +388,8 @@ Class <a href="Origami/Name.html" class="link">Origami::Name</a><br />
 Class <a href="Origami/NameLeaf.html" class="link">Origami::NameLeaf</a><br />
 Class <a href="Origami/NameTreeNode.html" class="link">Origami::NameTreeNode</a><br />
 Class <a href="Origami/Names.html" class="link">Origami::Names</a><br />
+Class <a href="Origami/NavigationNode.html" class="link">Origami::NavigationNode</a><br />
+Class <a href="Origami/Node3D.html" class="link">Origami::Node3D</a><br />
 Class <a href="Origami/Null.html" class="link">Origami::Null</a><br />
 Class <a href="Origami/ObjectStream.html" class="link">Origami::ObjectStream</a><br />
 Class <a href="Origami/Outline.html" class="link">Origami::Outline</a><br />
@@ -338,14 +399,20 @@ Class <a href="Origami/Page.html" class="link">Origami::Page</a><br />
 Class <a href="Origami/PageAdditionalActions.html" class="link">Origami::PageAdditionalActions</a><br />
 Class <a href="Origami/PageTreeNode.html" class="link">Origami::PageTreeNode</a><br />
 Class <a href="Origami/Perms.html" class="link">Origami::Perms</a><br />
+Class <a href="Origami/Projection3D.html" class="link">Origami::Projection3D</a><br />
 Class <a href="Origami/Real.html" class="link">Origami::Real</a><br />
 Class <a href="Origami/Rectangle.html" class="link">Origami::Rectangle</a><br />
 Class <a href="Origami/Reference.html" class="link">Origami::Reference</a><br />
+Class <a href="Origami/Reference3D.html" class="link">Origami::Reference3D</a><br />
+Class <a href="Origami/RenderMode3D.html" class="link">Origami::RenderMode3D</a><br />
+Class <a href="Origami/Requirement.html" class="link">Origami::Requirement</a><br />
 Class <a href="Origami/Resources.html" class="link">Origami::Resources</a><br />
 Class <a href="Origami/Stream.html" class="link">Origami::Stream</a><br />
 Class <a href="Origami/String.html" class="link">Origami::String</a><br />
 Class <a href="Origami/Trailer.html" class="link">Origami::Trailer</a><br />
+Class <a href="Origami/U3DStream.html" class="link">Origami::U3DStream</a><br />
 Class <a href="Origami/URL.html" class="link">Origami::URL</a><br />
+Class <a href="Origami/View3D.html" class="link">Origami::View3D</a><br />
 Class <a href="Origami/ViewerPreferences.html" class="link">Origami::ViewerPreferences</a><br />
 Class <a href="Origami/XRef.html" class="link">Origami::XRef</a><br />
 Class <a href="Origami/XRefStream.html" class="link">Origami::XRefStream</a><br />
@@ -361,7 +428,17 @@ Class <a href="Origami/XRefToCompressedObj.html" class="link">Origami::XRefToCom
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">VERSION</td>
           <td>=</td>
-          <td class="context-item-value">&quot;1.0.0-beta3&quot;</td>
+          <td class="context-item-value">&quot;1.0.1&quot;</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">OPTIONS</td>
+          <td>=</td>
+          <td class="context-item-value">{     :enable_type_checking =&gt; true,  # set to false to disable type consistency checks during compilation.     :enable_type_guessing =&gt; true,  # set to false to prevent the parser to guess the type of special dictionary and streams (not recommended).     :use_openssl =&gt; true</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Global options for <a href="Origami.html">Origami</a>.
+
+</td>
         </tr>
         </table>
       </div>
@@ -374,79 +451,37 @@ Class <a href="Origami/XRefToCompressedObj.html" class="link">Origami::XRefToCom
 
     <!-- if method_list -->
     <div id="methods">
-      <h3 class="section-bar">Public Class methods</h3>
+      <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000002" class="method-detail">
-        <a name="M000002"></a>
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
 
         <div class="method-heading">
-          <a href="#M000002" class="method-signature">
-          <span class="method-name">parse</span><span class="method-args">(file, options = {})</span>
+          <a href="#M000008" class="method-signature">
+          <span class="method-name">colorize</span><span class="method-args">(text, color, bright = false)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000002-source">
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/parser.rb, line 90</span>
- 90:   <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Origami</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">options</span> = {})
- 91:     
- 92:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:read</span>)
- 93:       <span class="ruby-identifier">filename</span> = <span class="ruby-keyword kw">nil</span>
- 94:       <span class="ruby-identifier">data</span> = <span class="ruby-identifier">file</span>.<span class="ruby-identifier">read</span>
- 95:     <span class="ruby-keyword kw">else</span>
- 96:       <span class="ruby-identifier">filename</span> = <span class="ruby-identifier">file</span>
- 97:       <span class="ruby-identifier">data</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-value str">&quot;r&quot;</span>).<span class="ruby-identifier">binmode</span>.<span class="ruby-identifier">read</span>
- 98:     <span class="ruby-keyword kw">end</span>
- 99:     
-100:     <span class="ruby-identifier">stream</span> = <span class="ruby-constant">StringScanner</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">data</span>)
-101:     
-102:     <span class="ruby-identifier">hdr</span> = <span class="ruby-keyword kw">nil</span>
-103:     [ <span class="ruby-constant">PDF</span>, <span class="ruby-constant">Adobe</span><span class="ruby-operator">::</span><span class="ruby-constant">AddressBook</span> ].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filetype</span><span class="ruby-operator">|</span>
-104:       <span class="ruby-keyword kw">begin</span>
-105:         <span class="ruby-identifier">hdr</span> = <span class="ruby-identifier">filetype</span><span class="ruby-operator">::</span><span class="ruby-constant">Header</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stream</span>)
-106:         <span class="ruby-keyword kw">break</span>
-107:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span> 
-108:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filetype</span> <span class="ruby-operator">==</span> <span class="ruby-constant">PDF</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:force</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span>
-109:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">skip_until</span>(<span class="ruby-regexp re">/%PDF-/</span>).<span class="ruby-identifier">nil?</span>
-110:             <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">pos</span> <span class="ruby-operator">-</span> <span class="ruby-value">5</span>
-111:             <span class="ruby-keyword kw">retry</span>
-112:           <span class="ruby-keyword kw">end</span>
-113:         <span class="ruby-keyword kw">end</span>
-114: 
-115:         <span class="ruby-keyword kw">next</span>
-116:       <span class="ruby-keyword kw">end</span>
-117:     <span class="ruby-keyword kw">end</span>
-118:     
-119:     <span class="ruby-identifier">parser</span> = 
-120:     <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">hdr</span>
-121:       <span class="ruby-keyword kw">when</span> <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">Header</span>
-122:         <span class="ruby-constant">PDF</span><span class="ruby-operator">::</span><span class="ruby-constant">LinearParser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">options</span>)     
-123:       <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Adobe</span><span class="ruby-operator">::</span><span class="ruby-constant">AddressBook</span><span class="ruby-operator">::</span><span class="ruby-constant">Header</span>
-124:         <span class="ruby-constant">Adobe</span><span class="ruby-operator">::</span><span class="ruby-constant">AddressBook</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">options</span>)
-125:       <span class="ruby-keyword kw">else</span>
-126:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ParsingError</span>, <span class="ruby-value str">&quot;No file type was recognized&quot;</span>
-127:     <span class="ruby-keyword kw">end</span>
-128: 
-129:     <span class="ruby-identifier">parsee</span> = <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stream</span>)
-130:     
-131:     <span class="ruby-identifier">parsee</span>.<span class="ruby-identifier">filename</span> = <span class="ruby-identifier">filename</span>
-132:     <span class="ruby-identifier">parsee</span>
-133:   <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/parser.rb, line 82</span>
+82:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">color</span>, <span class="ruby-identifier">bright</span> = <span class="ruby-keyword kw">false</span>)
+83:       <span class="ruby-identifier">col</span>, <span class="ruby-identifier">nocol</span> = [<span class="ruby-identifier">color</span>, <span class="ruby-constant">Colors</span><span class="ruby-operator">::</span><span class="ruby-constant">GREY</span>].<span class="ruby-identifier">map!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;\033[#{key}m&quot;</span> }
+84:       <span class="ruby-node">&quot;#{col}#{text}#{nocol}&quot;</span>
+85:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <h3 class="section-bar">Public Instance methods</h3>
-
-      <div id="method-M000003" class="method-detail">
-        <a name="M000003"></a>
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
 
         <div class="method-heading">
-          <a href="#M000003" class="method-signature">
+          <a href="#M000009" class="method-signature">
           <span class="method-name">to_hex</span><span class="method-args">()</span>
           </a>
         </div>
@@ -456,38 +491,38 @@ Class <a href="Origami/XRefToCompressedObj.html" class="link">Origami::XRefToCom
 Converts self to <a href="Origami/HexaString.html">HexaString</a>
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000003-source">
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/string.rb, line 342</span>
-342:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_hex</span>
-343:       <span class="ruby-constant">HexaString</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>)
-344:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/string.rb, line 345</span>
+345:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_hex</span>
+346:       <span class="ruby-constant">HexaString</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>)
+347:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000004" class="method-detail">
-        <a name="M000004"></a>
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
 
         <div class="method-heading">
-          <a href="#M000004" class="method-signature">
+          <a href="#M000010" class="method-signature">
           <span class="method-name">value</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000004-source">
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/string.rb, line 346</span>
-346:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
-347:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">decrypt!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Encryption</span><span class="ruby-operator">::</span><span class="ruby-constant">EncryptedString</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@decrypted</span>
-348: 
-349:       <span class="ruby-identifier">to_str</span>
-350:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/string.rb, line 349</span>
+349:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
+350:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">decrypt!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Encryption</span><span class="ruby-operator">::</span><span class="ruby-constant">EncryptedString</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@decrypted</span>
+351: 
+352:       <span class="ruby-identifier">to_str</span>
+353:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

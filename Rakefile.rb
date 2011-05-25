@@ -7,7 +7,7 @@ require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s|
   s.name       = "origami"
-  s.version    = "1.0.0"
+  s.version    = "1.0.1"
   s.author     = "Guillaume Delugré"
   s.email      = "guillaume at security-labs dot org"
   s.homepage   = "http://seclabs.org/origami"
@@ -23,6 +23,7 @@ As well, it can be used to create on-the-fly customized PDFs, or to inject (evil
   - Explore documents at the object level, going deep into the document structure, uncompressing PDF object streams and desobfuscating names and strings.
   - High-level operations, such as encryption/decryption, signature, file attachments...
   - A GTK interface to quickly browse into the document contents.
+  - A set of command-line tools for PDF analysis.
 DESC
 
   s.files             = FileList[

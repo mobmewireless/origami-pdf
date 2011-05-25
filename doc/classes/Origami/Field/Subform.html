@@ -86,7 +86,7 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000355">add_fields</a>&nbsp;&nbsp;
+      <a href="#M000381">add_fields</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -98,7 +98,7 @@
       <h3 class="section-bar">Included Modules</h3>
 
       <div id="includes-list">
-        <span class="include-name"><a href="../Configurable.html">Configurable</a></span>
+        <span class="include-name">StandardObject</span>
         <span class="include-name"><a href="../Field.html">Field</a></span>
       </div>
     </div>
@@ -138,30 +138,30 @@ Class <a href="Subform/SignatureSeedValue.html" class="link">Origami::Field::Sub
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000355" class="method-detail">
-        <a name="M000355"></a>
+      <div id="method-M000381" class="method-detail">
+        <a name="M000381"></a>
 
         <div class="method-heading">
-          <a href="#M000355" class="method-signature">
+          <a href="#M000381" class="method-signature">
           <span class="method-name">add_fields</span><span class="method-args">(*fields)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000355-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000355-source">
+            onclick="toggleCode('M000381-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000381-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/acroform.rb, line 196</span>
-196:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_fields</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">fields</span>)
-197:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Kids</span> <span class="ruby-operator">||=</span> []
-198:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Kids</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">fields</span>)
-199: 
-200:         <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">field</span><span class="ruby-operator">|</span> <span class="ruby-identifier">field</span>.<span class="ruby-constant">Parent</span> = <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">end</span>
-201: 
-202:         <span class="ruby-keyword kw">self</span>
-203:       <span class="ruby-keyword kw">end</span>
-204:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/acroform.rb, line 226</span>
+226:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_fields</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">fields</span>)
+227:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Kids</span> <span class="ruby-operator">||=</span> []
+228:         <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Kids</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">fields</span>)
+229: 
+230:         <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">field</span><span class="ruby-operator">|</span> <span class="ruby-identifier">field</span>.<span class="ruby-constant">Parent</span> = <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">end</span>
+231: 
+232:         <span class="ruby-keyword kw">self</span>
+233:       <span class="ruby-keyword kw">end</span>
+234:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

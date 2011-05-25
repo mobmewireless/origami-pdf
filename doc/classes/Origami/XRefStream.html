@@ -95,11 +95,11 @@ href="Stream.html">Stream</a>.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000589">&lt;&lt;</a>&nbsp;&nbsp;
-      <a href="#M000592">clear</a>&nbsp;&nbsp;
-      <a href="#M000590">each</a>&nbsp;&nbsp;
-      <a href="#M000591">find</a>&nbsp;&nbsp;
-      <a href="#M000588">new</a>&nbsp;&nbsp;
+      <a href="#M000634">&lt;&lt;</a>&nbsp;&nbsp;
+      <a href="#M000637">clear</a>&nbsp;&nbsp;
+      <a href="#M000635">each</a>&nbsp;&nbsp;
+      <a href="#M000636">find</a>&nbsp;&nbsp;
+      <a href="#M000633">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -112,7 +112,7 @@ href="Stream.html">Stream</a>.
 
       <div id="includes-list">
         <span class="include-name">Enumerable</span>
-        <span class="include-name"><a href="Configurable.html">Configurable</a></span>
+        <span class="include-name">StandardObject</span>
       </div>
     </div>
 
@@ -149,6 +149,11 @@ href="Stream.html">Stream</a>.
           <td>=</td>
           <td class="context-item-value">@xrefs.length + 1</td>
         </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Index</td>
+          <td>=</td>
+          <td class="context-item-value">[]</td>
+        </tr>
         </table>
       </div>
     </div>
@@ -175,19 +180,19 @@ href="Stream.html">Stream</a>.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000588" class="method-detail">
-        <a name="M000588"></a>
+      <div id="method-M000633" class="method-detail">
+        <a name="M000633"></a>
 
         <div class="method-heading">
-          <a href="#M000588" class="method-signature">
+          <a href="#M000633" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(data = &quot;&quot;, dictionary = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000588-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000588-source">
+            onclick="toggleCode('M000633-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000633-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/xreftable.rb, line 337</span>
 337:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">data</span> = <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">dictionary</span> = {})
@@ -202,11 +207,11 @@ href="Stream.html">Stream</a>.
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000589" class="method-detail">
-        <a name="M000589"></a>
+      <div id="method-M000634" class="method-detail">
+        <a name="M000634"></a>
 
         <div class="method-heading">
-          <a href="#M000589" class="method-signature">
+          <a href="#M000634" class="method-signature">
           <span class="method-name">&lt;&lt;</span><span class="method-args">(xref)</span>
           </a>
         </div>
@@ -217,8 +222,8 @@ Adds an <a href="XRef.html">XRef</a> to this <a
 href="Stream.html">Stream</a>.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000589-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000589-source">
+            onclick="toggleCode('M000634-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000634-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/xreftable.rb, line 357</span>
 357:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">xref</span>)
@@ -231,47 +236,48 @@ href="Stream.html">Stream</a>.
         </div>
       </div>
 
-      <div id="method-M000592" class="method-detail">
-        <a name="M000592"></a>
+      <div id="method-M000637" class="method-detail">
+        <a name="M000637"></a>
 
         <div class="method-heading">
-          <a href="#M000592" class="method-signature">
+          <a href="#M000637" class="method-signature">
           <span class="method-name">clear</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000592-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000592-source">
+            onclick="toggleCode('M000637-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000637-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/xreftable.rb, line 392</span>
 392:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clear</span>
-393:       <span class="ruby-ivar">@rawdata</span> = <span class="ruby-value str">&quot;&quot;</span>
+393:       <span class="ruby-ivar">@rawdata</span>, <span class="ruby-ivar">@data</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-value str">''</span>
 394:       <span class="ruby-ivar">@xrefs</span> = []
-395:     <span class="ruby-keyword kw">end</span>
+395:       <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Index</span> = []
+396:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000590" class="method-detail">
-        <a name="M000590"></a>
+      <div id="method-M000635" class="method-detail">
+        <a name="M000635"></a>
 
         <div class="method-heading">
-          <a href="#M000590" class="method-signature">
+          <a href="#M000635" class="method-signature">
           <span class="method-name">each</span><span class="method-args">(&amp;b)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Iterates over <a href="XRefStream.html#M000590">each</a> <a
+Iterates over <a href="XRefStream.html#M000635">each</a> <a
 href="XRef.html">XRef</a> present in the stream.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000590-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000590-source">
+            onclick="toggleCode('M000635-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000635-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/xreftable.rb, line 366</span>
 366:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
@@ -284,11 +290,11 @@ href="XRef.html">XRef</a> present in the stream.
         </div>
       </div>
 
-      <div id="method-M000591" class="method-detail">
-        <a name="M000591"></a>
+      <div id="method-M000636" class="method-detail">
+        <a name="M000636"></a>
 
         <div class="method-heading">
-          <a href="#M000591" class="method-signature">
+          <a href="#M000636" class="method-signature">
           <span class="method-name">find</span><span class="method-args">(no)</span>
           </a>
         </div>
@@ -298,8 +304,8 @@ href="XRef.html">XRef</a> present in the stream.
 Returns an <a href="XRef.html">XRef</a> matching this object number.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000591-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000591-source">
+            onclick="toggleCode('M000636-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000636-source">
 <pre>
      <span class="ruby-comment cmt"># File origami/xreftable.rb, line 375</span>
 375:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span>(<span class="ruby-identifier">no</span>)
@@ -311,7 +317,7 @@ Returns an <a href="XRef.html">XRef</a> matching this object number.
 381:       (<span class="ruby-identifier">ranges</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>).<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
 382:         <span class="ruby-identifier">brange</span> = <span class="ruby-identifier">ranges</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">*</span><span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>
 383:         <span class="ruby-identifier">size</span> = <span class="ruby-identifier">ranges</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">*</span><span class="ruby-value">2</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>
-384:         <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@xrefs</span>[<span class="ruby-identifier">index</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">no</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">brange</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Range</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">brange</span>, <span class="ruby-identifier">brange</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">size</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">no</span>
+384:         <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@xrefs</span>[<span class="ruby-identifier">index</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">no</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">brange</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Range</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">brange</span>, <span class="ruby-identifier">brange</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-operator">===</span> <span class="ruby-identifier">no</span>
 385: 
 386:         <span class="ruby-identifier">index</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">size</span>
 387:       <span class="ruby-keyword kw">end</span>

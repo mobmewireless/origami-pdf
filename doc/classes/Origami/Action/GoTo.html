@@ -92,7 +92,7 @@ Class representing a action going to a destination in the current document.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000400">new</a>&nbsp;&nbsp;
+      <a href="#M000426">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -114,18 +114,18 @@ Class representing a action going to a destination in the current document.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000400" class="method-detail">
-        <a name="M000400"></a>
+      <div id="method-M000426" class="method-detail">
+        <a name="M000426"></a>
 
         <div class="method-heading">
-          <a href="#M000400" class="method-signature">
+          <a href="#M000426" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(hash = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates a <a href="GoTo.html#M000400">new</a> <a href="GoTo.html">GoTo</a>
+Creates a <a href="GoTo.html#M000426">new</a> <a href="GoTo.html">GoTo</a>
 <a href="../Action.html">Action</a>.
 </p>
 <table>
@@ -134,19 +134,19 @@ Creates a <a href="GoTo.html#M000400">new</a> <a href="GoTo.html">GoTo</a>
 </td></tr>
 </table>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000400-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000400-source">
+            onclick="toggleCode('M000426-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000426-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/actions.rb, line 51</span>
-51:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {})
-52:         
-53:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Destination</span>
-54:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">:S</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:GoTo</span>, <span class="ruby-identifier">:D</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>)
-55:         <span class="ruby-keyword kw">else</span>
-56:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">hash</span>)
-57:         <span class="ruby-keyword kw">end</span>
-58:         
-59:       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File origami/actions.rb, line 68</span>
+68:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">hash</span> = {})
+69:         
+70:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Destination</span>
+71:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">:S</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:GoTo</span>, <span class="ruby-identifier">:D</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>)
+72:         <span class="ruby-keyword kw">else</span>
+73:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">hash</span>)
+74:         <span class="ruby-keyword kw">end</span>
+75:         
+76:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

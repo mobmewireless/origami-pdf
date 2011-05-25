@@ -96,7 +96,8 @@ begin
 
       docinfo = pdf.get_document_info
       docinfo.each_pair do |name, item|
-        puts "#{colorize(name.value.to_s.ljust(20,' '), Colors::GREEN)}: #{item.solve.value}"
+        colorprint name.value.to_s.ljust(20, ' '), Colors::GREEN
+        puts ": #{item.solve.value}"
       end
       puts
     end

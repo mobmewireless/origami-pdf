@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Mon Sep 06 18:41:27 +0200 2010</td>
+      <td>Mon Mar 21 23:45:24 +0100 2011</td>
     </tr>
     </table>
   </div>
@@ -75,6 +75,7 @@
       <div class="name-list">
       digest/md5&nbsp;&nbsp;
       digest/sha2&nbsp;&nbsp;
+      iconv&nbsp;&nbsp;
       </div>
     </div>
 
@@ -120,17 +121,17 @@
             onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000001-source">
 <pre>
-      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1122</span>
-1122: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">hexprint</span>(<span class="ruby-identifier">str</span>)
-1123:   <span class="ruby-identifier">hex</span> = <span class="ruby-value str">&quot;&quot;</span> 
-1124:   <span class="ruby-identifier">str</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span>
-1125:     <span class="ruby-identifier">digit</span> = <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">16</span>)
-1126:     <span class="ruby-identifier">digit</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">digit</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">digit</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> 
-1127:     <span class="ruby-identifier">hex</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">digit</span>
-1128:   <span class="ruby-keyword kw">end</span>
-1129:  
-1130:   <span class="ruby-identifier">puts</span> <span class="ruby-identifier">hex</span>.<span class="ruby-identifier">upcase</span>
-1131: <span class="ruby-keyword kw">end</span>
+      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1283</span>
+1283: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">hexprint</span>(<span class="ruby-identifier">str</span>)
+1284:   <span class="ruby-identifier">hex</span> = <span class="ruby-value str">&quot;&quot;</span> 
+1285:   <span class="ruby-identifier">str</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span>
+1286:     <span class="ruby-identifier">digit</span> = <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-value">16</span>)
+1287:     <span class="ruby-identifier">digit</span> = <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">digit</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">digit</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> 
+1288:     <span class="ruby-identifier">hex</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">digit</span>
+1289:   <span class="ruby-keyword kw">end</span>
+1290:  
+1291:   <span class="ruby-identifier">puts</span> <span class="ruby-identifier">hex</span>.<span class="ruby-identifier">upcase</span>
+1292: <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

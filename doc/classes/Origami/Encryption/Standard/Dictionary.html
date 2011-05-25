@@ -92,11 +92,12 @@ Class defining a standard encryption dictionary.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000256">compute_encryption_key</a>&nbsp;&nbsp;
-      <a href="#M000260">is_owner_password?</a>&nbsp;&nbsp;
-      <a href="#M000259">is_user_password?</a>&nbsp;&nbsp;
-      <a href="#M000257">set_owner_password</a>&nbsp;&nbsp;
-      <a href="#M000258">set_user_password</a>&nbsp;&nbsp;
+      <a href="#M000263">compute_owner_encryption_key</a>&nbsp;&nbsp;
+      <a href="#M000262">compute_user_encryption_key</a>&nbsp;&nbsp;
+      <a href="#M000266">is_owner_password?</a>&nbsp;&nbsp;
+      <a href="#M000265">is_user_password?</a>&nbsp;&nbsp;
+      <a href="#M000267">retrieve_user_password</a>&nbsp;&nbsp;
+      <a href="#M000264">set_passwords</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -121,7 +122,32 @@ Class defining a standard encryption dictionary.
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">U</td>
           <td>=</td>
-          <td class="context-item-value">compute_user_password(userpassword, fileid)</td>
+          <td class="context-item-value">compute_user_password(userpassword, salt)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UE</td>
+          <td>=</td>
+          <td class="context-item-value">AES.new(ukey, iv, false).encrypt(file_key)[iv.size, 32]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">OE</td>
+          <td>=</td>
+          <td class="context-item-value">AES.new(okey, iv, false).encrypt(file_key)[iv.size, 32]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">U</td>
+          <td>=</td>
+          <td class="context-item-value">Digest::SHA256.digest(upass + uvs) + uvs + uks</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">O</td>
+          <td>=</td>
+          <td class="context-item-value">Digest::SHA256.digest(opass + ovs + self.U) + ovs + oks</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Perms</td>
+          <td>=</td>
+          <td class="context-item-value">AES.new(file_key, iv, false).encrypt(perms)[iv.size, 16]</td>
         </tr>
         </table>
       </div>
@@ -136,175 +162,258 @@ Class defining a standard encryption dictionary.
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000256" class="method-detail">
-        <a name="M000256"></a>
+      <div id="method-M000263" class="method-detail">
+        <a name="M000263"></a>
 
         <div class="method-heading">
-          <a href="#M000256" class="method-signature">
-          <span class="method-name">compute_encryption_key</span><span class="method-args">(password, fileid)</span>
+          <a href="#M000263" class="method-signature">
+          <span class="method-name">compute_owner_encryption_key</span><span class="method-args">(ownerpassword)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Computes the key that will be used to encrypt/decrypt the document.
+Computes the key that will be used to encrypt/decrypt the document contents
+with owner password. Revision 5 only.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000256-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000256-source">
+            onclick="toggleCode('M000263-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000263-source">
 <pre>
-      <span class="ruby-comment cmt"># File origami/encryption.rb, line 993</span>
- 993:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compute_encryption_key</span>(<span class="ruby-identifier">password</span>, <span class="ruby-identifier">fileid</span>)
- 994:           
- 995:           <span class="ruby-identifier">padded</span> = <span class="ruby-identifier">pad_password</span>(<span class="ruby-identifier">password</span>)
- 996: 
- 997:           <span class="ruby-identifier">padded</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span>
- 998:           <span class="ruby-identifier">padded</span> <span class="ruby-operator">&lt;&lt;</span> [ <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">P</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;i&quot;</span>)
- 999:           
-1000:           <span class="ruby-identifier">padded</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fileid</span>
-1001:           
-1002:           <span class="ruby-identifier">encrypt_metadata</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">EncryptMetadata</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">false</span>
-1003:           <span class="ruby-identifier">padded</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\xFF\xFF\xFF\xFF&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">4</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">encrypt_metadata</span>
-1004: 
-1005:           <span class="ruby-identifier">key</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">padded</span>)
-1006: 
-1007:           <span class="ruby-value">50</span>.<span class="ruby-identifier">times</span> { <span class="ruby-identifier">key</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">key</span>[<span class="ruby-value">0</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Length</span> <span class="ruby-operator">/</span> <span class="ruby-value">8</span>]) } <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">3</span>
-1008: 
-1009:           <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
-1010:             <span class="ruby-identifier">key</span>[<span class="ruby-value">0</span>, <span class="ruby-value">5</span>]
-1011:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">3</span>
-1012:             <span class="ruby-identifier">key</span>[<span class="ruby-value">0</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Length</span> <span class="ruby-operator">/</span> <span class="ruby-value">8</span>]
-1013:           <span class="ruby-keyword kw">end</span>
-1014:            
-1015:         <span class="ruby-keyword kw">end</span>
+      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1113</span>
+1113:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compute_owner_encryption_key</span>(<span class="ruby-identifier">ownerpassword</span>)
+1114:           <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">5</span>
+1115:             <span class="ruby-identifier">passwd</span> = <span class="ruby-identifier">password_to_utf8</span>(<span class="ruby-identifier">ownerpassword</span>)
+1116: 
+1117:             <span class="ruby-identifier">oks</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span>[<span class="ruby-value">40</span>, <span class="ruby-value">8</span>]
+1118:             <span class="ruby-identifier">okey</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA256</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">passwd</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">oks</span>)
+1119:             
+1120:             <span class="ruby-identifier">iv</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">AES</span><span class="ruby-operator">::</span><span class="ruby-constant">BLOCKSIZE</span>, <span class="ruby-value">0</span>).<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
+1121:             <span class="ruby-constant">AES</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">okey</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">false</span>).<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">iv</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">OE</span>.<span class="ruby-identifier">value</span>)
+1122:           <span class="ruby-keyword kw">end</span>
+1123:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000260" class="method-detail">
-        <a name="M000260"></a>
+      <div id="method-M000262" class="method-detail">
+        <a name="M000262"></a>
 
         <div class="method-heading">
-          <a href="#M000260" class="method-signature">
-          <span class="method-name">is_owner_password?</span><span class="method-args">(pass, fileid)</span>
+          <a href="#M000262" class="method-signature">
+          <span class="method-name">compute_user_encryption_key</span><span class="method-args">(userpassword, fileid)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Checks owner password.
+Computes the key that will be used to encrypt/decrypt the document contents
+with user password.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000260-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000260-source">
+            onclick="toggleCode('M000262-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000262-source">
 <pre>
-      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1055</span>
-1055:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_owner_password?</span>(<span class="ruby-identifier">pass</span>, <span class="ruby-identifier">fileid</span>)
-1056:         
-1057:           <span class="ruby-identifier">key</span> = <span class="ruby-identifier">compute_owner_encryption_key</span>(<span class="ruby-identifier">pass</span>)
-1058: 
-1059:           <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
-1060:             <span class="ruby-identifier">user_password</span> = <span class="ruby-constant">ARC4</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span>)
-1061:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">3</span>
-1062:             <span class="ruby-identifier">user_password</span> = <span class="ruby-constant">ARC4</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">xor</span>(<span class="ruby-identifier">key</span>, <span class="ruby-value">19</span>), <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span>)
-1063:             <span class="ruby-value">19</span>.<span class="ruby-identifier">times</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">user_password</span> = <span class="ruby-constant">ARC4</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">xor</span>(<span class="ruby-identifier">key</span>, <span class="ruby-value">18</span><span class="ruby-operator">-</span><span class="ruby-identifier">i</span>), <span class="ruby-identifier">user_password</span>) }
-1064:           <span class="ruby-keyword kw">end</span>
-1065:           
-1066:           <span class="ruby-identifier">is_user_password?</span>(<span class="ruby-identifier">user_password</span>, <span class="ruby-identifier">fileid</span>)
-1067:         <span class="ruby-keyword kw">end</span>
+      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1076</span>
+1076:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compute_user_encryption_key</span>(<span class="ruby-identifier">userpassword</span>, <span class="ruby-identifier">fileid</span>)
+1077:          
+1078:           <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">5</span>
+1079:             <span class="ruby-identifier">padded</span> = <span class="ruby-identifier">pad_password</span>(<span class="ruby-identifier">userpassword</span>)
+1080: 
+1081:             <span class="ruby-identifier">padded</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span>
+1082:             <span class="ruby-identifier">padded</span> <span class="ruby-operator">&lt;&lt;</span> [ <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">P</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;i&quot;</span>)
+1083:             
+1084:             <span class="ruby-identifier">padded</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fileid</span>
+1085:             
+1086:             <span class="ruby-identifier">encrypt_metadata</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">EncryptMetadata</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">false</span>
+1087:             <span class="ruby-identifier">padded</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\xFF\xFF\xFF\xFF&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">4</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">encrypt_metadata</span>
+1088: 
+1089:             <span class="ruby-identifier">key</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">padded</span>)
+1090: 
+1091:             <span class="ruby-value">50</span>.<span class="ruby-identifier">times</span> { <span class="ruby-identifier">key</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">key</span>[<span class="ruby-value">0</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Length</span> <span class="ruby-operator">/</span> <span class="ruby-value">8</span>]) } <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">3</span>
+1092: 
+1093:             <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
+1094:               <span class="ruby-identifier">key</span>[<span class="ruby-value">0</span>, <span class="ruby-value">5</span>]
+1095:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">3</span>
+1096:               <span class="ruby-identifier">key</span>[<span class="ruby-value">0</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Length</span> <span class="ruby-operator">/</span> <span class="ruby-value">8</span>]
+1097:             <span class="ruby-keyword kw">end</span>
+1098:           <span class="ruby-keyword kw">else</span>
+1099:             <span class="ruby-identifier">passwd</span> = <span class="ruby-identifier">password_to_utf8</span>(<span class="ruby-identifier">userpassword</span>)
+1100:             
+1101:             <span class="ruby-identifier">uks</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span>[<span class="ruby-value">40</span>, <span class="ruby-value">8</span>]
+1102:             <span class="ruby-identifier">ukey</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA256</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">passwd</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">uks</span>)
+1103:             
+1104:             <span class="ruby-identifier">iv</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">AES</span><span class="ruby-operator">::</span><span class="ruby-constant">BLOCKSIZE</span>, <span class="ruby-value">0</span>).<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
+1105:             <span class="ruby-constant">AES</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ukey</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">false</span>).<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">iv</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">UE</span>.<span class="ruby-identifier">value</span>)
+1106:           <span class="ruby-keyword kw">end</span>
+1107:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000259" class="method-detail">
-        <a name="M000259"></a>
+      <div id="method-M000266" class="method-detail">
+        <a name="M000266"></a>
 
         <div class="method-heading">
-          <a href="#M000259" class="method-signature">
-          <span class="method-name">is_user_password?</span><span class="method-args">(pass, fileid)</span>
+          <a href="#M000266" class="method-signature">
+          <span class="method-name">is_owner_password?</span><span class="method-args">(pass, salt)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Checks user password.
+Checks owner password. For version 2,3 and 4, <em>salt</em> is the document
+ID. For version 5, <em>salt</em> is (Owner Key Salt + U)
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000259-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000259-source">
+            onclick="toggleCode('M000266-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000266-source">
 <pre>
-      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1042</span>
-1042:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_user_password?</span>(<span class="ruby-identifier">pass</span>, <span class="ruby-identifier">fileid</span>)
-1043:           
-1044:           <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span> 
-1045:             <span class="ruby-identifier">compute_user_password</span>(<span class="ruby-identifier">pass</span>, <span class="ruby-identifier">fileid</span>) <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span>
-1046:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">3</span>
-1047:             <span class="ruby-identifier">compute_user_password</span>(<span class="ruby-identifier">pass</span>, <span class="ruby-identifier">fileid</span>)[<span class="ruby-value">0</span>, <span class="ruby-value">16</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span>[<span class="ruby-value">0</span>, <span class="ruby-value">16</span>]
-1048:           <span class="ruby-keyword kw">end</span>
-1049:           
-1050:         <span class="ruby-keyword kw">end</span>
+      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1190</span>
+1190:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_owner_password?</span>(<span class="ruby-identifier">pass</span>, <span class="ruby-identifier">salt</span>)
+1191:         
+1192:           <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">5</span>
+1193:             <span class="ruby-identifier">user_password</span> = <span class="ruby-identifier">retrieve_user_password</span>(<span class="ruby-identifier">pass</span>)
+1194:             <span class="ruby-identifier">is_user_password?</span>(<span class="ruby-identifier">user_password</span>, <span class="ruby-identifier">salt</span>)
+1195:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">5</span>
+1196:             <span class="ruby-identifier">ovs</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span>[<span class="ruby-value">32</span>, <span class="ruby-value">8</span>]
+1197:             <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA256</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">pass</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ovs</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span>) <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span>[<span class="ruby-value">0</span>, <span class="ruby-value">32</span>]
+1198:           <span class="ruby-keyword kw">end</span>
+1199:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000257" class="method-detail">
-        <a name="M000257"></a>
+      <div id="method-M000265" class="method-detail">
+        <a name="M000265"></a>
 
         <div class="method-heading">
-          <a href="#M000257" class="method-signature">
-          <span class="method-name">set_owner_password</span><span class="method-args">(userpassword, ownerpassword = nil)</span>
+          <a href="#M000265" class="method-signature">
+          <span class="method-name">is_user_password?</span><span class="method-args">(pass, salt)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Set owner password.
+Checks user password. For version 2,3 and 4, <em>salt</em> is the document
+ID. For version 5, <em>salt</em> is the User Key Salt.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000257-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000257-source">
+            onclick="toggleCode('M000265-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000265-source">
 <pre>
-      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1020</span>
-1020:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_owner_password</span>(<span class="ruby-identifier">userpassword</span>, <span class="ruby-identifier">ownerpassword</span> = <span class="ruby-keyword kw">nil</span>)
-1021:           
-1022:           <span class="ruby-identifier">key</span> = <span class="ruby-identifier">compute_owner_encryption_key</span>(<span class="ruby-identifier">userpassword</span>, <span class="ruby-identifier">ownerpassword</span>)
-1023:           <span class="ruby-identifier">upadded</span> = <span class="ruby-identifier">pad_password</span>(<span class="ruby-identifier">userpassword</span>)
-1024:           
-1025:           <span class="ruby-identifier">owner_key</span> = <span class="ruby-constant">ARC4</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">upadded</span>)
-1026:           <span class="ruby-value">19</span>.<span class="ruby-identifier">times</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">owner_key</span> = <span class="ruby-constant">ARC4</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">xor</span>(<span class="ruby-identifier">key</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>), <span class="ruby-identifier">owner_key</span>) } <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">3</span>
-1027:           
-1028:           <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span> = <span class="ruby-identifier">owner_key</span>
-1029:         <span class="ruby-keyword kw">end</span>
+      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1173</span>
+1173:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_user_password?</span>(<span class="ruby-identifier">pass</span>, <span class="ruby-identifier">salt</span>)
+1174:           
+1175:           <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span> 
+1176:             <span class="ruby-identifier">compute_user_password</span>(<span class="ruby-identifier">pass</span>, <span class="ruby-identifier">salt</span>) <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span>
+1177:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span> <span class="ruby-keyword kw">or</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">4</span>
+1178:             <span class="ruby-identifier">compute_user_password</span>(<span class="ruby-identifier">pass</span>, <span class="ruby-identifier">salt</span>)[<span class="ruby-value">0</span>, <span class="ruby-value">16</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span>[<span class="ruby-value">0</span>, <span class="ruby-value">16</span>]
+1179:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">5</span>
+1180:             <span class="ruby-identifier">uvs</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span>[<span class="ruby-value">32</span>, <span class="ruby-value">8</span>]
+1181:             <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA256</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">pass</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">uvs</span>) <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span>[<span class="ruby-value">0</span>, <span class="ruby-value">32</span>]
+1182:           <span class="ruby-keyword kw">end</span>
+1183:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000258" class="method-detail">
-        <a name="M000258"></a>
+      <div id="method-M000267" class="method-detail">
+        <a name="M000267"></a>
 
         <div class="method-heading">
-          <a href="#M000258" class="method-signature">
-          <span class="method-name">set_user_password</span><span class="method-args">(userpassword, fileid = nil)</span>
+          <a href="#M000267" class="method-signature">
+          <span class="method-name">retrieve_user_password</span><span class="method-args">(ownerpassword)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Set user password.
+Retrieve user password from owner password. Cannot be used with revision 5.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000258-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000258-source">
+            onclick="toggleCode('M000267-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000267-source">
 <pre>
-      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1034</span>
-1034:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_user_password</span>(<span class="ruby-identifier">userpassword</span>, <span class="ruby-identifier">fileid</span> = <span class="ruby-keyword kw">nil</span>)
-1035:           
-1036:           <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span> = <span class="ruby-identifier">compute_user_password</span>(<span class="ruby-identifier">userpassword</span>, <span class="ruby-identifier">fileid</span>)
-1037:         <span class="ruby-keyword kw">end</span>
+      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1205</span>
+1205:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">retrieve_user_password</span>(<span class="ruby-identifier">ownerpassword</span>)
+1206:           <span class="ruby-identifier">key</span> = <span class="ruby-identifier">compute_owner_key</span>(<span class="ruby-identifier">ownerpassword</span>)
+1207: 
+1208:           <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
+1209:             <span class="ruby-constant">ARC4</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span>)
+1210:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span> <span class="ruby-keyword kw">or</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">4</span>
+1211:             <span class="ruby-identifier">user_password</span> = <span class="ruby-constant">ARC4</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">xor</span>(<span class="ruby-identifier">key</span>, <span class="ruby-value">19</span>), <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span>)
+1212:             <span class="ruby-value">19</span>.<span class="ruby-identifier">times</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">user_password</span> = <span class="ruby-constant">ARC4</span>.<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">xor</span>(<span class="ruby-identifier">key</span>, <span class="ruby-value">18</span><span class="ruby-operator">-</span><span class="ruby-identifier">i</span>), <span class="ruby-identifier">user_password</span>) }
+1213:             
+1214:             <span class="ruby-identifier">user_password</span> 
+1215:           <span class="ruby-keyword kw">end</span>
+1216:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000264" class="method-detail">
+        <a name="M000264"></a>
+
+        <div class="method-heading">
+          <a href="#M000264" class="method-signature">
+          <span class="method-name">set_passwords</span><span class="method-args">(ownerpassword, userpassword, salt = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set up document passwords.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000264-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000264-source">
+<pre>
+      <span class="ruby-comment cmt"># File origami/encryption.rb, line 1128</span>
+1128:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_passwords</span>(<span class="ruby-identifier">ownerpassword</span>, <span class="ruby-identifier">userpassword</span>, <span class="ruby-identifier">salt</span> = <span class="ruby-keyword kw">nil</span>)
+1129:           <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">5</span>
+1130:             <span class="ruby-identifier">key</span> = <span class="ruby-identifier">compute_owner_key</span>(<span class="ruby-identifier">ownerpassword</span>)
+1131:             <span class="ruby-identifier">upadded</span> = <span class="ruby-identifier">pad_password</span>(<span class="ruby-identifier">userpassword</span>)
+1132:             
+1133:             <span class="ruby-identifier">owner_key</span> = <span class="ruby-constant">ARC4</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">upadded</span>)
+1134:             <span class="ruby-value">19</span>.<span class="ruby-identifier">times</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">owner_key</span> = <span class="ruby-constant">ARC4</span>.<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">xor</span>(<span class="ruby-identifier">key</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>), <span class="ruby-identifier">owner_key</span>) } <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">3</span>
+1135:           
+1136:             <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span> = <span class="ruby-identifier">owner_key</span>
+1137:             <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span> = <span class="ruby-identifier">compute_user_password</span>(<span class="ruby-identifier">userpassword</span>, <span class="ruby-identifier">salt</span>)
+1138:           
+1139:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">R</span> <span class="ruby-operator">==</span> <span class="ruby-value">5</span>  
+1140:             <span class="ruby-identifier">upass</span> = <span class="ruby-identifier">password_to_utf8</span>(<span class="ruby-identifier">userpassword</span>)
+1141:             <span class="ruby-identifier">opass</span> = <span class="ruby-identifier">password_to_utf8</span>(<span class="ruby-identifier">ownerpassword</span>)
+1142: 
+1143:             <span class="ruby-identifier">uvs</span>, <span class="ruby-identifier">uks</span>, <span class="ruby-identifier">ovs</span>, <span class="ruby-identifier">oks</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">4</span>) { <span class="ruby-operator">::</span><span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">8</span>) { <span class="ruby-identifier">rand</span>(<span class="ruby-value">255</span>) }.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;C*&quot;</span>) }
+1144:             <span class="ruby-identifier">file_key</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">32</span>) { <span class="ruby-identifier">rand</span>(<span class="ruby-value">256</span>) }.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
+1145:             <span class="ruby-identifier">iv</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">AES</span><span class="ruby-operator">::</span><span class="ruby-constant">BLOCKSIZE</span>, <span class="ruby-value">0</span>).<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;C*&quot;</span>)
+1146: 
+1147:             <span class="ruby-identifier">ukey</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA256</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">upass</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">uks</span>)
+1148:             <span class="ruby-identifier">okey</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA256</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">opass</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">oks</span>)
+1149:             
+1150:             <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">UE</span> = <span class="ruby-constant">AES</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ukey</span>, <span class="ruby-identifier">iv</span>, <span class="ruby-keyword kw">false</span>).<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">file_key</span>)[<span class="ruby-identifier">iv</span>.<span class="ruby-identifier">size</span>, <span class="ruby-value">32</span>]
+1151:             <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">OE</span> = <span class="ruby-constant">AES</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">okey</span>, <span class="ruby-identifier">iv</span>, <span class="ruby-keyword kw">false</span>).<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">file_key</span>)[<span class="ruby-identifier">iv</span>.<span class="ruby-identifier">size</span>, <span class="ruby-value">32</span>]
+1152:             <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA256</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">upass</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">uvs</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">uvs</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">uks</span>
+1153:             <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">O</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA256</span>.<span class="ruby-identifier">digest</span>(<span class="ruby-identifier">opass</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ovs</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">U</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">ovs</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">oks</span>
+1154: 
+1155:             <span class="ruby-identifier">perms</span> = 
+1156:               [ <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">P</span> ].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;V&quot;</span>) <span class="ruby-operator">+</span>                              <span class="ruby-comment cmt"># 0-3</span>
+1157:               <span class="ruby-value str">&quot;\xff&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-value">4</span> <span class="ruby-operator">+</span>                                        <span class="ruby-comment cmt"># 4-7</span>
+1158:               (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">EncryptMetadata</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span> <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;T&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;F&quot;</span>) <span class="ruby-operator">+</span>        <span class="ruby-comment cmt"># 8</span>
+1159:               <span class="ruby-value str">&quot;adb&quot;</span> <span class="ruby-operator">+</span>                                             <span class="ruby-comment cmt"># 9-11</span>
+1160:               <span class="ruby-value str">&quot;\x00&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-value">4</span>                                          <span class="ruby-comment cmt"># 12-15</span>
+1161: 
+1162:             <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Perms</span> = <span class="ruby-constant">AES</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file_key</span>, <span class="ruby-identifier">iv</span>, <span class="ruby-keyword kw">false</span>).<span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">perms</span>)[<span class="ruby-identifier">iv</span>.<span class="ruby-identifier">size</span>, <span class="ruby-value">16</span>]
+1163: 
+1164:             <span class="ruby-identifier">file_key</span>
+1165:           <span class="ruby-keyword kw">end</span>
+1166:         <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

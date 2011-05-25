@@ -80,13 +80,13 @@
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000287">add_colorspace</a>&nbsp;&nbsp;
-      <a href="#M000286">add_extgstate</a>&nbsp;&nbsp;
-      <a href="#M000291">add_font</a>&nbsp;&nbsp;
-      <a href="#M000288">add_pattern</a>&nbsp;&nbsp;
-      <a href="#M000292">add_properties</a>&nbsp;&nbsp;
-      <a href="#M000289">add_shading</a>&nbsp;&nbsp;
-      <a href="#M000290">add_xobject</a>&nbsp;&nbsp;
+      <a href="#M000289">add_colorspace</a>&nbsp;&nbsp;
+      <a href="#M000288">add_extgstate</a>&nbsp;&nbsp;
+      <a href="#M000293">add_font</a>&nbsp;&nbsp;
+      <a href="#M000290">add_pattern</a>&nbsp;&nbsp;
+      <a href="#M000294">add_properties</a>&nbsp;&nbsp;
+      <a href="#M000291">add_shading</a>&nbsp;&nbsp;
+      <a href="#M000292">add_xobject</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -108,85 +108,29 @@
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000287" class="method-detail">
-        <a name="M000287"></a>
+      <div id="method-M000289" class="method-detail">
+        <a name="M000289"></a>
 
         <div class="method-heading">
-          <a href="#M000287" class="method-signature">
+          <a href="#M000289" class="method-signature">
           <span class="method-name">add_colorspace</span><span class="method-args">(name, colorspace)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000287-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000287-source">
+            onclick="toggleCode('M000289-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000289-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/page.rb, line 79</span>
-79:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_colorspace</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">colorspace</span>)
-80:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
-81: 
-82:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">ColorSpace</span> <span class="ruby-operator">||=</span> {}
-83:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">ColorSpace</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">colorspace</span>
-84:     
-85:       <span class="ruby-keyword kw">self</span>
-86:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000286" class="method-detail">
-        <a name="M000286"></a>
-
-        <div class="method-heading">
-          <a href="#M000286" class="method-signature">
-          <span class="method-name">add_extgstate</span><span class="method-args">(name, extgstate)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000286-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000286-source">
-<pre>
-    <span class="ruby-comment cmt"># File origami/page.rb, line 70</span>
-70:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_extgstate</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">extgstate</span>)
-71:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
-72: 
-73:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">ExtGState</span> <span class="ruby-operator">||=</span> {}
-74:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">ExtGState</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">extgstate</span>
-75: 
-76:       <span class="ruby-keyword kw">self</span>
-77:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000291" class="method-detail">
-        <a name="M000291"></a>
-
-        <div class="method-heading">
-          <a href="#M000291" class="method-signature">
-          <span class="method-name">add_font</span><span class="method-args">(name, font)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000291-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000291-source">
-<pre>
-     <span class="ruby-comment cmt"># File origami/page.rb, line 115</span>
-115:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_font</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">font</span>)
-116:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
-117: 
-118:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Font</span> <span class="ruby-operator">||=</span> {}
-119:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Font</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">font</span>
-120:     
-121:       <span class="ruby-keyword kw">self</span>
-122:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 104</span>
+104:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_colorspace</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">colorspace</span>)
+105:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
+106: 
+107:       <span class="ruby-identifier">csdir</span> = <span class="ruby-identifier">target</span>[<span class="ruby-identifier">:ColorSpace</span>] <span class="ruby-operator">||=</span> {}
+108:       (<span class="ruby-identifier">csdir</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Reference</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">csdir</span>.<span class="ruby-identifier">solve</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">csdir</span>)[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">colorspace</span>
+109:     
+110:       <span class="ruby-keyword kw">self</span>
+111:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -197,7 +141,7 @@
 
         <div class="method-heading">
           <a href="#M000288" class="method-signature">
-          <span class="method-name">add_pattern</span><span class="method-args">(name, pattern)</span>
+          <span class="method-name">add_extgstate</span><span class="method-args">(name, extgstate)</span>
           </a>
         </div>
       
@@ -206,71 +150,43 @@
             onclick="toggleCode('M000288-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000288-source">
 <pre>
-    <span class="ruby-comment cmt"># File origami/page.rb, line 88</span>
-88:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_pattern</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">pattern</span>)
-89:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
-90: 
-91:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Pattern</span> <span class="ruby-operator">||=</span> {}
-92:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Pattern</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">pattern</span>
-93:     
-94:       <span class="ruby-keyword kw">self</span>
-95:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 95</span>
+ 95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_extgstate</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">extgstate</span>)
+ 96:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
+ 97: 
+ 98:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">ExtGState</span> <span class="ruby-operator">||=</span> {}
+ 99:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">ExtGState</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">extgstate</span>
+100: 
+101:       <span class="ruby-keyword kw">self</span>
+102:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000292" class="method-detail">
-        <a name="M000292"></a>
+      <div id="method-M000293" class="method-detail">
+        <a name="M000293"></a>
 
         <div class="method-heading">
-          <a href="#M000292" class="method-signature">
-          <span class="method-name">add_properties</span><span class="method-args">(name, properties)</span>
+          <a href="#M000293" class="method-signature">
+          <span class="method-name">add_font</span><span class="method-args">(name, font)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000292-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000292-source">
+            onclick="toggleCode('M000293-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000293-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/page.rb, line 124</span>
-124:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_properties</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">properties</span>)
-125:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
-126: 
-127:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Properties</span> <span class="ruby-operator">||=</span> {}
-128:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Properties</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">properties</span>
-129:     
-130:       <span class="ruby-keyword kw">self</span>
-131:     <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000289" class="method-detail">
-        <a name="M000289"></a>
-
-        <div class="method-heading">
-          <a href="#M000289" class="method-signature">
-          <span class="method-name">add_shading</span><span class="method-args">(name, shading)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000289-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000289-source">
-<pre>
-     <span class="ruby-comment cmt"># File origami/page.rb, line 97</span>
- 97:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_shading</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">shading</span>)
- 98:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
- 99: 
-100:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Shading</span> <span class="ruby-operator">||=</span> {}
-101:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Shading</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">shading</span>
-102:     
-103:       <span class="ruby-keyword kw">self</span>
-104:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 140</span>
+140:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_font</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">font</span>)
+141:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
+142: 
+143:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Font</span> <span class="ruby-operator">||=</span> {}
+144:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Font</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">font</span>
+145:       
+146:       <span class="ruby-keyword kw">self</span>
+147:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -281,7 +197,7 @@
 
         <div class="method-heading">
           <a href="#M000290" class="method-signature">
-          <span class="method-name">add_xobject</span><span class="method-args">(name, xobject)</span>
+          <span class="method-name">add_pattern</span><span class="method-args">(name, pattern)</span>
           </a>
         </div>
       
@@ -290,15 +206,99 @@
             onclick="toggleCode('M000290-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000290-source">
 <pre>
-     <span class="ruby-comment cmt"># File origami/page.rb, line 106</span>
-106:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_xobject</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">xobject</span>)
-107:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
-108: 
-109:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">XObject</span> <span class="ruby-operator">||=</span> {}
-110:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">XObject</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">xobject</span>
-111:     
-112:       <span class="ruby-keyword kw">self</span>
-113:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 113</span>
+113:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_pattern</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">pattern</span>)
+114:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
+115: 
+116:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Pattern</span> <span class="ruby-operator">||=</span> {}
+117:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Pattern</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">pattern</span>
+118:     
+119:       <span class="ruby-keyword kw">self</span>
+120:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000294" class="method-detail">
+        <a name="M000294"></a>
+
+        <div class="method-heading">
+          <a href="#M000294" class="method-signature">
+          <span class="method-name">add_properties</span><span class="method-args">(name, properties)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000294-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000294-source">
+<pre>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 149</span>
+149:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_properties</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">properties</span>)
+150:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
+151: 
+152:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Properties</span> <span class="ruby-operator">||=</span> {}
+153:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Properties</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">properties</span>
+154:     
+155:       <span class="ruby-keyword kw">self</span>
+156:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000291" class="method-detail">
+        <a name="M000291"></a>
+
+        <div class="method-heading">
+          <a href="#M000291" class="method-signature">
+          <span class="method-name">add_shading</span><span class="method-args">(name, shading)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000291-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000291-source">
+<pre>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 122</span>
+122:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_shading</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">shading</span>)
+123:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
+124: 
+125:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Shading</span> <span class="ruby-operator">||=</span> {}
+126:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">Shading</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">shading</span>
+127:     
+128:       <span class="ruby-keyword kw">self</span>
+129:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000292" class="method-detail">
+        <a name="M000292"></a>
+
+        <div class="method-heading">
+          <a href="#M000292" class="method-signature">
+          <span class="method-name">add_xobject</span><span class="method-args">(name, xobject)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000292-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000292-source">
+<pre>
+     <span class="ruby-comment cmt"># File origami/page.rb, line 131</span>
+131:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_xobject</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">xobject</span>)
+132:       <span class="ruby-identifier">target</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Resources</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Resources</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Resources</span>.<span class="ruby-identifier">new</span>)
+133: 
+134:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">XObject</span> <span class="ruby-operator">||=</span> {}
+135:       <span class="ruby-identifier">target</span>.<span class="ruby-constant">XObject</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">xobject</span>
+136:     
+137:       <span class="ruby-keyword kw">self</span>
+138:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
