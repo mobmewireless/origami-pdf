@@ -7,7 +7,7 @@ require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s|
   s.name       = "origami"
-  s.version    = "1.0.1"
+  s.version    = "1.0.2"
   s.author     = "Guillaume Delugré"
   s.email      = "guillaume at security-labs dot org"
   s.homepage   = "http://seclabs.org/origami"

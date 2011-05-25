@@ -1,6 +1,6 @@
 # CHANGELOG
 
-1.0.1 (25/05/11):
+1.0.2 (25/05/11):
   - Added a Rakefile to run unit tests, build rdoc and build gem.
   - Added a Ruby shell for Origami.
   - Added a bin folder, with some very useful command-line tools.
