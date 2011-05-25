@@ -1,9 +1,10 @@
 # CHANGELOG
 
-beta4 (dev):
+1.0.1 (25/05/11):
   - Added a Rakefile to run unit tests, build rdoc and build gem.
   - Added a Ruby shell for Origami.
-  - Added a tools folder, with some very useful scripts.
+  - Added a bin folder, with some very useful command-line tools.
+  - Can now be installed as a RubyGem.
 
   |origami|:
     - AESV3 support (AES256 encryption/decryption).
