@@ -3,7 +3,7 @@
 begin
   require 'irb'
 rescue LoadError
-  STDERR.puts "Error: you need to install irb to run this application."
+  abort "Error: you need to install irb to run this application."
 end
 
 $:.unshift "#{File.dirname(__FILE__)}/shell" if RUBY_VERSION >= '1.9'

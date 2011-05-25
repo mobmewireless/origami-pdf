@@ -25,7 +25,11 @@
 
 =end
 
-require 'gtk2'
+begin
+  require 'gtk2'
+rescue LoadError
+  abort('Error: you need to install ruby-gtk2 to run this application')
+end
 include Gtk
 
 begin
