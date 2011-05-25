@@ -74,7 +74,7 @@ module Origami
      
      class Revision
       def to_s
-        colorprint("----------  Body  ----------\n", Colors::BRIGHT_WHITE, true)
+        colorprint("----------  Body  ----------\n", Colors::WHITE, true)
         @body.each_value { |obj|
           colorprint("#{obj.reference.to_s.rjust(8,' ')}".ljust(10), Colors::MAGENTA)
           colorprint("#{obj.type}\n", Colors::YELLOW)
@@ -89,7 +89,7 @@ module Origami
         #    }
         #  end
         #}
-        colorprint("---------- Trailer ---------\n", Colors::BRIGHT_WHITE, true) 
+        colorprint("---------- Trailer ---------\n", Colors::WHITE, true) 
         if not @trailer.dictionary
           set_fg_color(Colors::BLUE, true) {
             puts "  [x] No trailer found."
@@ -114,7 +114,7 @@ module Origami
     def to_s
       puts
       
-      colorprint("---------- Header ----------\n", Colors::BRIGHT_WHITE, true)
+      colorprint("---------- Header ----------\n", Colors::WHITE, true)
       colorprint("  [+] ", Colors::MAGENTA)
       colorprint("Major version: ", Colors::YELLOW)
       colorprint("#{@header.majorversion}\n", Colors::RED)

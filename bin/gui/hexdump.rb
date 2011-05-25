@@ -38,7 +38,7 @@ class String #:nodoc:
       bytes = ""
       linelen.times do |i|
         
-        byte = self[counter + i].to_s(base=16)
+        byte = self[counter + i].ord.to_s(16)
         if byte.size < 2 then byte.insert(0, "0") end
         bytes << byte
         bytes << " " unless i == bytesperline - 1
@@ -58,18 +58,17 @@ class String #:nodoc:
       
     end
 
-    return dump
-    
+    dump
   end
   
   def ascii_print
 
     printable = ""
-    self.each_byte { |c|
-      if c >= ' '[0] && c <= '~'[0] then printable << c else printable << '.' end
-    }
+    self.each_byte do |c|
+      if c >= ' '[0].ord && c <= '~'[0].ord then printable << c else printable << '.' end
+    end
 
-    return printable
+    printable
   end
   
 end

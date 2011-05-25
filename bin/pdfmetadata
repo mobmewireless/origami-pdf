@@ -108,7 +108,8 @@ begin
 
       metadata = pdf.get_metadata
       metadata.each_pair do |name, item|
-        puts "#{colorize(name.ljust(20,' '), Colors::GREEN)}: #{item}"
+        colorprint name.ljust(20, ' '), Colors::GREEN
+        puts ": #{item}"
       end
     end
   end

@@ -102,4 +102,3 @@ Origami.colorprint(DEFAULT_BANNER, Origami::Colors::GREEN)
 #set_completion
 set_prompt
 
-Dir.chdir File.expand_path("~")

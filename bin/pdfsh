@@ -6,6 +6,8 @@ rescue LoadError
   STDERR.puts "Error: you need to install irb to run this application."
 end
 
-Dir.chdir "#{File.dirname(__FILE__)}/shell"
+$:.unshift "#{File.dirname(__FILE__)}/shell" if RUBY_VERSION >= '1.9'
+ENV["IRBRC"] = "#{File.dirname(__FILE__)}/shell/.irbrc"
+
 IRB.start
 
