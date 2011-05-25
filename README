@@ -25,13 +25,13 @@ See the COPYING.LESSER file for more details.
 :: RELEASE
 ==========
 
-- Current : Version 1.0.0 beta3
+- Current : Version 1.0.2
 
 
 :: DEPENDENCIES
 ===============
 
-- Ruby 1.8 (actually not tested on 1.9)
+- Ruby 1.8 (actually not very tested on 1.9)
 - Ruby-GTK2 (only for GUI), http://ruby-gnome2.sourceforge.jp/
 
 
@@ -42,13 +42,10 @@ See the COPYING.LESSER file for more details.
 * Core scripts used to parse a PDF file. All objects and features are
   provided here.
 
-``walker/``
-* An unfinished GTK interface to analyze a PDF.
-
 ``samples/``
 * Many samples, mostly sorted to generate specially crafted PDFs.
 
-``tools/``
+``bin/``
 * Useful tools based on Origami.
 
 ``tests/``

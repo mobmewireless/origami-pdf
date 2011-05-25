@@ -10,7 +10,7 @@ spec = Gem::Specification.new do |s|
   s.version    = "1.0.2"
   s.author     = "Guillaume Delugré"
   s.email      = "guillaume at security-labs dot org"
-  s.homepage   = "http://seclabs.org/origami"
+  s.homepage   = "http://esec-lab.sogeti.com/dotclear/index.php?pages/Origami"
   s.platform   = Gem::Platform::RUBY
   
   s.summary    = "Origami aims at providing a scripting tool to generate and analyze malicious PDF files."
