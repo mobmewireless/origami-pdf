@@ -41,7 +41,7 @@ require 'yaml'
 require 'rexml/document'
 require 'digest/md5'
 
-DEFAULT_CONFIG_FILE = 'config/pdfcop.conf.yaml'
+DEFAULT_CONFIG_FILE = "#{File.dirname(__FILE__)}/config/pdfcop.conf.yml"
 DEFAULT_POLICY = "standard"
 SECURITY_POLICIES = {}
 

@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'gui/walker'
+
+PDFWalker::Walker.start
+

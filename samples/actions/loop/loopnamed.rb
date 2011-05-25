@@ -11,15 +11,11 @@ include Origami
 
 pdf = PDF.read("sample.pdf", :verbosity => Parser::VERBOSE_DEBUG )
 
-  pages = pdf.pages
-  pages.each { |page| 
-    page.onOpen(Action::Named.new(Action::Named::NEXTPAGE))
-  }
-  
-  pages.last.onOpen(Action::Named.new(Action::Named::FIRSTPAGE))
-  
-  infected_name = "loopnamed_" + pdf.filename
-  
-  pdf.save(infected_name)
-  
-  puts "Infected copy saved as #{infected_name}."
+pages = pdf.pages
+
+pages.each do |page| 
+  page.onOpen(Action::Named.new(Action::Named::NEXTPAGE)) unless page == pages.last
+end
+pages.last.onOpen(Action::Named.new(Action::Named::FIRSTPAGE))
+
+pdf.save("loopnamed_sample.pdf")

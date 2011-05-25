@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'irb'
+rescue LoadError
+  STDERR.puts "Error: you need to install irb to run this application."
+end
+
+Dir.chdir "#{File.dirname(__FILE__)}/shell"
+IRB.start
+

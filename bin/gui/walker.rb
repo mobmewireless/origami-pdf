@@ -28,20 +28,25 @@
 require 'gtk2'
 include Gtk
 
-ORIGAMIDIR = "#{File.dirname(__FILE__)}/.."
-$: << ORIGAMIDIR
+begin
+  require 'origami'
+rescue LoadError
+  ORIGAMIDIR = "#{File.dirname(__FILE__)}/../.."
+  $: << ORIGAMIDIR
+  require 'origami'
+end
 
-require 'walker/menu'
-require 'walker/about'
-require 'walker/file'
-require 'walker/hexview'
-require 'walker/treeview'
-require 'walker/textview'
-require 'walker/imgview'
-require 'walker/config'
-require 'walker/properties'
-require 'walker/xrefs'
-require 'walker/signing'
+require 'gui/menu'
+require 'gui/about'
+require 'gui/file'
+require 'gui/hexview'
+require 'gui/treeview'
+require 'gui/textview'
+require 'gui/imgview'
+require 'gui/config'
+require 'gui/properties'
+require 'gui/xrefs'
+require 'gui/signing'
 
 module PDFWalker  #:nodoc:all
 

@@ -1,7 +1,7 @@
 begin
   require 'origami'
 rescue LoadError
-  ORIGAMIDIR = "#{File.dirname(__FILE__)}/.."
+  ORIGAMIDIR = "#{File.dirname(__FILE__)}/../.."
   $: << ORIGAMIDIR
   require 'origami'
 end
@@ -10,7 +10,7 @@ include Origami
 require 'console.rb'
 require 'readline'
 
-DEFAULT_BANNER = "Welcome to the PDF shell (release #{Origami::VERSION})\n\n"
+DEFAULT_BANNER = "Welcome to the PDF shell (Origami release #{Origami::VERSION})\n\n"
 
 def set_completion
 
@@ -101,3 +101,5 @@ end
 Origami.colorprint(DEFAULT_BANNER, Origami::Colors::GREEN)
 #set_completion
 set_prompt
+
+Dir.chdir File.expand_path("~")

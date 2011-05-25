@@ -26,13 +26,16 @@ As well, it can be used to create on-the-fly customized PDFs, or to inject (evil
 DESC
 
   s.files             = FileList[
-    'README', 'COPYING.LESSER', 'VERSION', "origami.rb", "{origami,samples,scripts,tests,walker,templates}/**/*"
+    'README', 'COPYING.LESSER', 'VERSION', "origami.rb", "{origami,bin,tests,walker,templates}/**/*", "bin/shell/.irbrc"
   ].exclude(/\.pdf$/, /\.key$/, /\.crt$/, /\.conf$/).to_a
 
   s.require_path      = "."
   s.has_rdoc          = false
   s.test_file         = "tests/ts_pdf.rb"
   s.requirements      = "ruby-gtk2 if you plan to run the PDF Walker interface"
+
+  s.bindir            = "bin"
+  s.executables       = [ "pdfdecompress", "pdfdecrypt", "pdfencrypt", "pdfmetadata", "pdf2graph", "pdf2ruby", "pdfextract", "pdfcop", "pdfcocoon", "pdfsh", "pdfwalker" ]
 end
 
 task :default => [:package]

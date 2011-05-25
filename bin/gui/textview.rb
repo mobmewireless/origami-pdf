@@ -24,7 +24,7 @@
 =end
 
 require 'kconv'
-require 'hexdump.rb'
+require 'gui/hexdump'
 
 module PDFWalker
 

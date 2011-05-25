@@ -30,16 +30,27 @@ module PDFWalker
   class Walker < Window
     
     class Config
-      
+     
+      DEFAULT_CONFIG_FILE = "#{File.expand_path("~")}/.pdfwalker.conf.yml"
       DEFAULT_CONFIG = 
       { 
-        "Debug" => {"Profiling" => false, "ProfilingOutputDir" => "prof", "Verbosity" => Parser::VERBOSE_INSANE, "IgnoreFileHeader" => true}, 
-        "UI" => { "LastOpenedDocuments" => [] } 
+        "Debug" => 
+          {
+            "Profiling" => false, 
+            "ProfilingOutputDir" => "prof", 
+            "Verbosity" => Parser::VERBOSE_INSANE, 
+            "IgnoreFileHeader" => true
+          },
+
+        "UI" => 
+          { 
+            "LastOpenedDocuments" => [] 
+          } 
       }
       
       NLOG_RECENT_FILES = 5
       
-      def initialize(configfile = "#{File.dirname($0)}/walker.conf")
+      def initialize(configfile = DEFAULT_CONFIG_FILE)
         
         begin
           @conf = YAML.load(File.open(configfile)) or DEFAULT_CONFIG
@@ -52,25 +63,19 @@ module PDFWalker
       end
       
       def last_opened_file(filepath)
-        
         @conf["UI"]['LastOpenedDocuments'].push(filepath).uniq!
         @conf["UI"]['LastOpenedDocuments'].delete_at(0) while @conf["UI"]['LastOpenedDocuments'].size > NLOG_RECENT_FILES
         
         save
-        
       end
       
       def recent_files(n = NLOG_RECENT_FILES)
-        
         @conf["UI"]['LastOpenedDocuments'].last(n).reverse
-        
       end
       
       def set_profiling(bool)
-        
         @conf["Debug"]['Profiling'] = bool
         save
-      
       end
       
       def profile?
@@ -82,10 +87,8 @@ module PDFWalker
       end
       
       def set_ignore_header(bool)
-        
         @conf["Debug"]['IgnoreFileHeader'] = bool
         save
-        
       end
       
       def ignore_header?
@@ -100,15 +103,11 @@ module PDFWalker
       end
       
       def verbosity
-        
         @conf["Debug"]['Verbosity']
-        
       end
       
       def save
-        
         File.open(@filename, "w").write(@conf.to_yaml)
-        
       end
       
       private
@@ -117,17 +116,15 @@ module PDFWalker
         
         @conf ||= {}
         
-        DEFAULT_CONFIG.each_key { |cat|
+        DEFAULT_CONFIG.each_key do |cat|
           
           @conf[cat] = {} unless @conf.include?(cat)
           
-          DEFAULT_CONFIG[cat].each_pair { |key, value|
+          DEFAULT_CONFIG[cat].each_pair do |key, value|
             @conf[cat][key] = value unless @conf[cat].include?(key)
-          }
-        }
-        
+          end
+        end
       end
-    
     end
     
   end
