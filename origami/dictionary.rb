@@ -100,8 +100,8 @@ module Origami
         dict = 
           if Origami::OPTIONS[:enable_type_guessing]
             type = pairs[Name.new(:Type)]
-            if type.is_a?(Name) and @@dict_special_types.include?(type.value)
-              @@dict_special_types[type.value].new(pairs)
+            if type.is_a?(Name) and DICT_SPECIAL_TYPES.include?(type.value)
+              DICT_SPECIAL_TYPES[type.value].new(pairs)
             else
               Dictionary.new(pairs)
             end

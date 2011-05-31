@@ -92,11 +92,11 @@ begin
 
   if @options[:doc_info]
     if pdf.has_document_info?
-      colorprint "[*] Document information dictionary:\n", Colors::MAGENTA
+      Console.colorprint "[*] Document information dictionary:\n", Console::Colors::MAGENTA
 
       docinfo = pdf.get_document_info
       docinfo.each_pair do |name, item|
-        colorprint name.value.to_s.ljust(20, ' '), Colors::GREEN
+        Console.colorprint name.value.to_s.ljust(20, ' '), Console::Colors::GREEN
         puts ": #{item.solve.value}"
       end
       puts
@@ -105,11 +105,11 @@ begin
 
   if @options[:doc_stream]
     if pdf.has_metadata?
-      colorprint "[*] Metadata stream:\n", Colors::MAGENTA
+      Console.colorprint "[*] Metadata stream:\n", Console::Colors::MAGENTA
 
       metadata = pdf.get_metadata
       metadata.each_pair do |name, item|
-        colorprint name.ljust(20, ' '), Colors::GREEN
+        Console.colorprint name.ljust(20, ' '), Console::Colors::GREEN
         puts ": #{item}"
       end
     end

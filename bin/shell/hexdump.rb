@@ -61,7 +61,7 @@ class String #:nodoc:
       if RUBY_PLATFORM =~ /win32/
         dump << "#{offset if offsets}  #{bytes.to_s.ljust(bytesperline * 3 - 1)}  #{ascii}\n"
       else
-        dump << "#{Origami.colorize(offset, Colors::YELLOW) if offsets}  #{Origami.colorize(bytes.to_s.ljust(bytesperline * 3 - 1), Colors::BRIGHT_GREY)}  #{ascii}\n"
+        dump << "#{Console.colorize(offset, Console::Colors::YELLOW) if offsets}  #{Console.colorize(bytes.to_s.ljust(bytesperline * 3 - 1), Console::Colors::BRIGHT_GREY)}  #{ascii}\n"
       end
 
       counter += bytesperline

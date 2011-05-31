@@ -77,7 +77,7 @@ module Origami
     OPTIONS[:use_openssl] = false
   end
 
-  @@dict_special_types = 
+  DICT_SPECIAL_TYPES = #:nodoc:
   { 
     :Catalog => Catalog, 
     :Pages => PageTreeNode, 
@@ -110,7 +110,7 @@ module Origami
     :CuePoint => Annotation::RichMedia::CuePoint
   }
   
-  @@stm_special_types =
+  STM_SPECIAL_TYPES = #:nodoc:
   {
     :ObjStm => ObjectStream, 
     :EmbeddedFile => EmbeddedFileStream,
@@ -119,7 +119,7 @@ module Origami
     :"3D" => U3DStream
   }
   
-  @@stm_xobj_subtypes =
+  STM_XOBJ_SUBTYPES = #:nodoc:
   {
     :Image => Graphics::ImageXObject,
     :Form => Graphics::FormXObject

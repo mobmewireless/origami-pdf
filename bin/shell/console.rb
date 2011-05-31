@@ -74,10 +74,10 @@ module Origami
      
      class Revision
       def to_s
-        colorprint("----------  Body  ----------\n", Colors::WHITE, true)
+        Console.colorprint("----------  Body  ----------\n", Console::Colors::WHITE, true)
         @body.each_value { |obj|
-          colorprint("#{obj.reference.to_s.rjust(8,' ')}".ljust(10), Colors::MAGENTA)
-          colorprint("#{obj.type}\n", Colors::YELLOW)
+          Console.colorprint("#{obj.reference.to_s.rjust(8,' ')}".ljust(10), Console::Colors::MAGENTA)
+          Console.colorprint("#{obj.type}\n", Console::Colors::YELLOW)
         }
         #colorprint("---------- Xrefs -----------\n", Colors::BRIGHT_WHITE, true)
         #set_fg_color(Colors::BLUE, true) {
@@ -89,20 +89,20 @@ module Origami
         #    }
         #  end
         #}
-        colorprint("---------- Trailer ---------\n", Colors::WHITE, true) 
+        Console.colorprint("---------- Trailer ---------\n", Console::Colors::WHITE, true) 
         if not @trailer.dictionary
-          set_fg_color(Colors::BLUE, true) {
+          Console.set_fg_color(Console::Colors::BLUE, true) {
             puts "  [x] No trailer found."
           }
         else
           @trailer.dictionary.each_pair { |entry, value|
-            colorprint("  [*] ", Colors::MAGENTA)
-            colorprint("#{entry.to_s}: ", Colors::YELLOW)
-            colorprint("#{value.to_s}\n", Colors::RED)
+            Console.colorprint("  [*] ", Console::Colors::MAGENTA)
+            Console.colorprint("#{entry.to_s}: ", Console::Colors::YELLOW)
+            Console.colorprint("#{value.to_s}\n", Console::Colors::RED)
           }
-          colorprint("  [+] ", Colors::MAGENTA)
-          colorprint("startxref: ", Colors::YELLOW)
-          colorprint("#{@trailer.startxref}\n", Colors::RED)
+          Console.colorprint("  [+] ", Console::Colors::MAGENTA)
+          Console.colorprint("startxref: ", Console::Colors::YELLOW)
+          Console.colorprint("#{@trailer.startxref}\n", Console::Colors::RED)
         end
       end
       
@@ -114,13 +114,13 @@ module Origami
     def to_s
       puts
       
-      colorprint("---------- Header ----------\n", Colors::WHITE, true)
-      colorprint("  [+] ", Colors::MAGENTA)
-      colorprint("Major version: ", Colors::YELLOW)
-      colorprint("#{@header.majorversion}\n", Colors::RED)
-      colorprint("  [+] ", Colors::MAGENTA)
-      colorprint("Minor version: ", Colors::YELLOW)
-      colorprint("#{@header.minorversion}\n", Colors::RED)
+      Console.colorprint("---------- Header ----------\n", Console::Colors::WHITE, true)
+      Console.colorprint("  [+] ", Console::Colors::MAGENTA)
+      Console.colorprint("Major version: ", Console::Colors::YELLOW)
+      Console.colorprint("#{@header.majorversion}\n", Console::Colors::RED)
+      Console.colorprint("  [+] ", Console::Colors::MAGENTA)
+      Console.colorprint("Minor version: ", Console::Colors::YELLOW)
+      Console.colorprint("#{@header.minorversion}\n", Console::Colors::RED)
       
       @revisions.each { |revision|
         revision.to_s

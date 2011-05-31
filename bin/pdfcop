@@ -115,10 +115,10 @@ else
   TARGET = ARGV.shift 
 end
 
-def log(str, color = Colors::GREY)
+def log(str, color = Console::Colors::GREY)
   if @options[:colors]
-    colorprint("[#{Time.now}] ", Colors::CYAN, LOGGER)
-    colorprint(str, color, LOGGER)
+    Console.colorprint("[#{Time.now}] ", Console::Colors::CYAN, LOGGER)
+    Console.colorprint(str, color, LOGGER)
   else
     LOGGER.print("[#{Time.now}] #{str}")
   end
@@ -331,22 +331,22 @@ def analyze_action(action, triggered_at_opening, level = 0)
 end
 
 begin
-  log("PDFcop is running on target `#{TARGET}', policy = `#{@options[:policy]}'", Colors::GREEN)
-  log("  File size: #{File.size(TARGET)} bytes", Colors::MAGENTA)
-  log("  MD5: #{Digest::MD5.hexdigest(File.read(TARGET))}", Colors::MAGENTA)
+  log("PDFcop is running on target `#{TARGET}', policy = `#{@options[:policy]}'", Console::Colors::GREEN)
+  log("  File size: #{File.size(TARGET)} bytes", Console::Colors::MAGENTA)
+  log("  MD5: #{Digest::MD5.hexdigest(File.read(TARGET))}", Console::Colors::MAGENTA)
  
   @pdf = PDF.read(TARGET,
     :verbosity => Parser::VERBOSE_QUIET, 
     :ignore_errors => SECURITY_POLICIES["POLICY_#{@options[:policy].upcase}"]['allowParserErrors']
   )
 
-  log("> Inspecting document structure...", Colors::YELLOW)
+  log("> Inspecting document structure...", Console::Colors::YELLOW)
   if @pdf.is_encrypted?
     log("  . Encryption = YES")
     check_rights(:allowEncryption)
   end
 
-  log("> Inspecting document catalog...", Colors::YELLOW)
+  log("> Inspecting document catalog...", Console::Colors::YELLOW)
   catalog = @pdf.Catalog
   reject("Invalid document catalog") unless catalog.is_a?(Catalog)
 
@@ -383,23 +383,23 @@ begin
     end
   end
 
-  log("> Inspecting JavaScript names directory...", Colors::YELLOW)
+  log("> Inspecting JavaScript names directory...", Console::Colors::YELLOW)
   unless @pdf.ls_names(Names::Root::JAVASCRIPT).empty?
     check_rights(:allowJS)
     check_rights(:allowJSAtOpening)
   end
 
-  log("> Inspecting attachment names directory...", Colors::YELLOW)
+  log("> Inspecting attachment names directory...", Console::Colors::YELLOW)
   unless @pdf.ls_names(Names::Root::EMBEDDEDFILES).empty?
     check_rights(:allowAttachments)
   end
 
-  log("> Inspecting document pages...", Colors::YELLOW)
+  log("> Inspecting document pages...", Console::Colors::YELLOW)
   @pdf.each_page do |page|
     analyze_page(page, 1)
   end
 
-  log("> Inspecting document streams...", Colors::YELLOW)
+  log("> Inspecting document streams...", Console::Colors::YELLOW)
   @pdf.indirect_objects.find_all{|obj| obj.is_a?(Stream)}.each do |stream|
     if stream.dictionary.has_key?(:Filter)
       filters = stream.Filter
@@ -443,7 +443,7 @@ begin
   #       ...
   #
 
-  log("Document accepted by policy `#{@options[:policy]}'.", Colors::GREEN)
+  log("Document accepted by policy `#{@options[:policy]}'.", Console::Colors::GREEN)
 
 rescue SystemExit
 rescue Exception => e

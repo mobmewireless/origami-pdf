@@ -50,7 +50,7 @@ module Origami
       def initialize(majorversion = 1, minorversion = 4)
       
         #if majorversion.to_i != 1 || ! ((MINVERSION..MAXVERSION) === minorversion.to_i)
-        #  colorprint("[info ] Warning: Invalid file version : #{majorversion}.#{minorversion}\n", Colors::YELLOW, false, STDERR) 
+        #  Console.colorprint("[info ] Warning: Invalid file version : #{majorversion}.#{minorversion}\n", Console::Colors::YELLOW, false, STDERR) 
         #end
       
         @majorversion, @minorversion = majorversion, minorversion

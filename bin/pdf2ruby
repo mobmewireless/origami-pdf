@@ -100,8 +100,8 @@ def objectToRuby(obj, inclevel = 0, internalname = nil, do_convert = false)
       "'#{obj.value.gsub("'","\\\\'")}'"
     when Origami::Dictionary
       customtype = nil
-      if obj[:Type] and @@dict_special_types.include?(obj[:Type].value)
-        customtype = @@dict_special_types[obj[:Type].value]
+      if obj[:Type] and Origami::DICT_SPECIAL_TYPES.include?(obj[:Type].value)
+        customtype = Origami::DICT_SPECIAL_TYPES[obj[:Type].value]
       end
       dictionaryToRuby(obj, inclevel, internalname, customtype)
     when Origami::Array
@@ -259,11 +259,11 @@ def streamToRuby(stm, internalname)
   code
 end
 
-colorprint "[*] ", Colors::RED
+Console.colorprint "[*] ", Console::Colors::RED
 puts "Loading document '#{TARGET}'"
 verbosity = @options[:verbose] ? Parser::VERBOSE_INSANE : Parser::VERBOSE_QUIET
 target = PDF.read(TARGET, :verbosity => verbosity)
-colorprint "[*] ", Colors::RED
+Console.colorprint "[*] ", Console::Colors::RED
 puts "Document successfully loaded into Origami"
 
 Dir::mkdir(TARGET_DIR) unless File.directory? TARGET_DIR
@@ -295,7 +295,7 @@ OUTPUT = "\#{File.basename(__FILE__, '.rb')}.pdf"
 
 RUBY
 
-colorprint "[*] ", Colors::RED
+Console.colorprint "[*] ", Console::Colors::RED
 puts "Retrieving all indirect objects..."
 roots = target.root_objects
 roots.each do |obj|
@@ -303,14 +303,14 @@ roots.each do |obj|
   @var_hash[obj.reference] = varname
 end
 
-colorprint "[*] ", Colors::RED
+Console.colorprint "[*] ", Console::Colors::RED
 puts "Retrieving the document Catalog..."
 catalog = target.Catalog
 
 @var_hash[catalog.reference] = "#{DOCREF}.Catalog"
 @obj_route.push "#{DOCREF}.Catalog"
 
-colorprint "[*] ", Colors::RED
+Console.colorprint "[*] ", Console::Colors::RED
 puts "Processing the object hierarchy..."
 @current_idx = 0
 while @current_idx != @obj_route.size
@@ -346,7 +346,7 @@ fd.puts <<RUBY
 
 RUBY
 
-colorprint "[*] ", Colors::RED
+Console.colorprint "[*] ", Console::Colors::RED
 puts "Successfully generated script '#{TARGET_FILE}'"
 fd.close
 exit

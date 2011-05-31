@@ -98,7 +98,7 @@ def set_prompt
 
 end
 
-Origami.colorprint(DEFAULT_BANNER, Origami::Colors::GREEN)
+Console.colorprint(DEFAULT_BANNER, Console::Colors::GREEN)
 #set_completion
 set_prompt
 

@@ -22,73 +22,77 @@
 require 'strscan'
 
 module Origami
+
+  module Console
   
-  if RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
-    require "Win32API"
-  
-    getStdHandle = Win32API.new("kernel32", "GetStdHandle", ['L'], 'L')
-    @@setConsoleTextAttribute = Win32API.new("kernel32", "SetConsoleTextAttribute", ['L', 'N'], 'I')
-
-    @@hOut = getStdHandle.call(-11)
-  end
-
-  module Colors #:nodoc;
     if RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
-      BLACK     = 0
-      BLUE      = 1
-      GREEN     = 2
-      CYAN      = 3
-      RED       = 4
-      MAGENTA   = 5
-      YELLOW    = 6
-      GREY      = 7
-      WHITE     = 8
-    else
-      GREY      = '0;0'
-      BLACK     = '0;30'
-      RED       = '0;31'
-      GREEN     = '0;32'
-      YELLOW    = '0;33'
-      BLUE      = '0;34'
-      MAGENTA   = '0;35'
-      CYAN      = '0;36'
-      WHITE     = '0;37'
-      BRIGHT_GREY       = '1;30'
-      BRIGHT_RED        = '1;31'
-      BRIGHT_GREEN      = '1;32'
-      BRIGHT_YELLOW     = '1;33'
-      BRIGHT_BLUE       = '1;34'
-      BRIGHT_MAGENTA    = '1;35'
-      BRIGHT_CYAN       = '1;36'
-      BRIGHT_WHITE      = '1;37'
-    end
-  end
+      require "Win32API"
+    
+      getStdHandle = Win32API.new("kernel32", "GetStdHandle", ['L'], 'L')
+      @@setConsoleTextAttribute = Win32API.new("kernel32", "SetConsoleTextAttribute", ['L', 'N'], 'I')
 
-  def set_fg_color(color, bright = false, fd = STDOUT) #:nodoc:
-    if RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
-      if bright then color |= Colors::WHITE end
-      @@setConsoleTextAttribute.call(@@hOut, color)
-      yield
-      @@setConsoleTextAttribute.call(@@hOut, Colors::GREY)
-    else
-      col, nocol = [color, Colors::GREY].map! { |key| "\033[#{key}m" }
-      fd << col
-      yield
-      fd << nocol
+      @@hOut = getStdHandle.call(-11)
     end
-  end
 
-  unless RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
-    def colorize(text, color, bright = false)
-      col, nocol = [color, Colors::GREY].map! { |key| "\033[#{key}m" }
-      "#{col}#{text}#{nocol}"
+    module Colors #:nodoc;
+      if RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
+        BLACK     = 0
+        BLUE      = 1
+        GREEN     = 2
+        CYAN      = 3
+        RED       = 4
+        MAGENTA   = 5
+        YELLOW    = 6
+        GREY      = 7
+        WHITE     = 8
+      else
+        GREY      = '0;0'
+        BLACK     = '0;30'
+        RED       = '0;31'
+        GREEN     = '0;32'
+        YELLOW    = '0;33'
+        BLUE      = '0;34'
+        MAGENTA   = '0;35'
+        CYAN      = '0;36'
+        WHITE     = '0;37'
+        BRIGHT_GREY       = '1;30'
+        BRIGHT_RED        = '1;31'
+        BRIGHT_GREEN      = '1;32'
+        BRIGHT_YELLOW     = '1;33'
+        BRIGHT_BLUE       = '1;34'
+        BRIGHT_MAGENTA    = '1;35'
+        BRIGHT_CYAN       = '1;36'
+        BRIGHT_WHITE      = '1;37'
+      end
     end
-  end
 
-  def colorprint(text, color, bright = false, fd = STDOUT) #:nodoc:
-    set_fg_color(color, bright, fd) {
-      fd << text
-    }    
+    def self.set_fg_color(color, bright = false, fd = STDOUT) #:nodoc:
+      if RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
+        if bright then color |= Colors::WHITE end
+        @@setConsoleTextAttribute.call(@@hOut, color)
+        yield
+        @@setConsoleTextAttribute.call(@@hOut, Colors::GREY)
+      else
+        col, nocol = [color, Colors::GREY].map! { |key| "\033[#{key}m" }
+        fd << col
+        yield
+        fd << nocol
+      end
+    end
+
+    unless RUBY_PLATFORM =~ /win32/ or RUBY_PLATFORM =~ /mingw32/
+      def self.colorize(text, color, bright = false)
+        col, nocol = [color, Colors::GREY].map! { |key| "\033[#{key}m" }
+        "#{col}#{text}#{nocol}"
+      end
+    end
+
+    def self.colorprint(text, color, bright = false, fd = STDOUT) #:nodoc:
+      set_fg_color(color, bright, fd) {
+        fd << text
+      }    
+    end
+
   end
 
 	EOL = "\r\n" #:nodoc:
@@ -245,23 +249,23 @@ module Origami
     private
  
     def error(str = "") #:nodoc:
-      colorprint("[error] #{str}\n", Colors::RED, false, STDERR)
+      Console.colorprint("[error] #{str}\n", Console::Colors::RED, false, STDERR)
     end
 
     def warn(str = "") #:nodoc:
-      colorprint("[info ] Warning: #{str}\n", Colors::YELLOW, false, STDERR) if @options[:verbosity] >= VERBOSE_INFO
+      Console.colorprint("[info ] Warning: #{str}\n", Console::Colors::YELLOW, false, STDERR) if @options[:verbosity] >= VERBOSE_INFO
     end
 
     def info(str = "") #:nodoc:
-      (colorprint("[info ] ", Colors::GREEN, false, STDERR); STDERR << "#{str}\n") if @options[:verbosity] >= VERBOSE_INFO
+      (Console.colorprint("[info ] ", Console::Colors::GREEN, false, STDERR); STDERR << "#{str}\n") if @options[:verbosity] >= VERBOSE_INFO
     end
     
     def debug(str = "") #:nodoc:
-      (colorprint("[debug] ", Colors::MAGENTA, false, STDERR); STDERR << "#{str}\n") if @options[:verbosity] >= VERBOSE_DEBUG
+      (Console.colorprint("[debug] ", Console::Colors::MAGENTA, false, STDERR); STDERR << "#{str}\n") if @options[:verbosity] >= VERBOSE_DEBUG
     end
     
     def trace(str = "") #:nodoc:
-      (colorprint("[trace] ", Colors::CYAN, false, STDERR); STDERR << "#{str}\n") if @options[:verbosity] >= VERBOSE_INSANE
+      (Console.colorprint("[trace] ", Console::Colors::CYAN, false, STDERR); STDERR << "#{str}\n") if @options[:verbosity] >= VERBOSE_INSANE
     end
   end
 end

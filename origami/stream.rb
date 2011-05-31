@@ -123,11 +123,11 @@ module Origami
           type, subtype = dictionary[:Type], dictionary[:Subtype]
           
           if type.is_a?(Name)
-            if @@stm_special_types.include?(type.value)
-              @@stm_special_types[type.value].new("", dictionary.to_h)
+            if STM_SPECIAL_TYPES.include?(type.value)
+              STM_SPECIAL_TYPES[type.value].new("", dictionary.to_h)
             else
-              if type == :XObject and subtype.is_a?(Name) and @@stm_xobj_subtypes.include?(subtype.value)
-                @@stm_xobj_subtypes[subtype.value].new("", dictionary.to_h)
+              if type == :XObject and subtype.is_a?(Name) and STM_XOBJ_SUBTYPES.include?(subtype.value)
+                STM_XOBJ_SUBTYPES[subtype.value].new("", dictionary.to_h)
               else
                 Stream.new('', dictionary.to_h)
               end
