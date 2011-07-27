@@ -57,7 +57,7 @@ require 'origami/xfa'
 
 module Origami
 
-  VERSION   = "1.0.2"
+  VERSION   = "1.0.4"
   REVISION  = "$Revision$" #:nodoc:
   
   #

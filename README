@@ -25,7 +25,7 @@ See the COPYING.LESSER file for more details.
 :: RELEASE
 ==========
 
-- Current : Version 1.0.2
+- Current : Version 1.0.4
 
 
 :: DEPENDENCIES
@@ -65,8 +65,7 @@ Frédéric Raynal   <fred@security-labs.org>          - Contributor
 :: NOTES
 ========
 
-This is a beta release. It contains many bugs and many incomplete
-features. If you encounter a problem, feel free to report it by mail at
+If you encounter a problem, feel free to report it by mail at
 <guillaume [at] security-labs [dot] org>, with a short explanation of 
 what you did and any necessary PDF documents.
 
