@@ -24,7 +24,7 @@
 =end
 
 begin
-  require 'color'
+  require 'color' 
 rescue LoadError
 end
 
@@ -118,73 +118,73 @@ module Origami
 
   class PDF::Instruction
 
-    insn  'CS', Name do |gs, cs| gs.stroking_colorspace = cs end
-    insn  'cs', Name do |gs, cs| gs.nonstroking_colorspace = cs end
-    insn  'SC', '*' do |gs, *c| gs.stroking_color = c end
-    insn  'sc', '*' do |gs, *c| gs.nonstroking_color = c end
+    insn  'CS', Name do |canvas, cs| canvas.gs.stroking_colorspace = cs end
+    insn  'cs', Name do |canvas, cs| canvas.gs.nonstroking_colorspace = cs end
+    insn  'SC', '*' do |canvas, *c| canvas.gs.stroking_color = c end
+    insn  'sc', '*' do |canvas, *c| canvas.gs.nonstroking_color = c end
     
-    insn  'G', Real do |gs, c|
+    insn  'G', Real do |canvas, c|
       unless (0..1).include? c
         raise Graphics::InvalidColorError, 
           "Not a valid color for DeviceGray: #{c}"
       end
 
-      gs.stroking_colorspace = Graphics::Color::Space::DEVICE_GRAY
-      gs.stroking_color = [ c ]
+      canvas.gs.stroking_colorspace = Graphics::Color::Space::DEVICE_GRAY
+      canvas.gs.stroking_color = [ c ]
     end
     
-    insn  'g', Real do |gs, c|
+    insn  'g', Real do |canvas, c|
       unless (0..1).include? c
         raise Graphics::InvalidColorError, 
           "Not a valid color for DeviceGray: #{c}"
       end
 
-      gs.nonstroking_colorspace = Graphics::Color::Space::DEVICE_GRAY
-      gs.nonstroking_color = [ c ]
+      canvas.gs.nonstroking_colorspace = Graphics::Color::Space::DEVICE_GRAY
+      canvas.gs.nonstroking_color = [ c ]
     end
 
-    insn  'RG', Real, Real, Real do |gs, r,g,b|
+    insn  'RG', Real, Real, Real do |canvas, r,g,b|
       c = [ r, g, b ]
       unless c.all? {|b| (0..1).include? b}
         raise Graphics::InvalidColorError, 
           "Not a valid color for DeviceRGB: #{c.inspect}"
       end
 
-      gs.stroking_colorspace = Graphics::Color::Space::DEVICE_RGB
-      gs.stroking_color = c
+      canvas.gs.stroking_colorspace = Graphics::Color::Space::DEVICE_RGB
+      canvas.gs.stroking_color = c
     end
 
-    insn  'rg', Real, Real, Real do |gs, r,g,b|
+    insn  'rg', Real, Real, Real do |canvas, r,g,b|
       c = [ r, g, b ]
       unless c.all? {|b| (0..1).include? b}
         raise Graphics::InvalidColorError, 
           "Not a valid color for DeviceRGB: #{c.inspect}"
       end
 
-      gs.nonstroking_colorspace = Graphics::Color::Space::DEVICE_RGB
-      gs.nonstroking_color = c
+      canvas.gs.nonstroking_colorspace = Graphics::Color::Space::DEVICE_RGB
+      canvas.gs.nonstroking_color = c
     end
 
-    insn  'K', Real, Real, Real, Real do |gs, c,m,y,k|
+    insn  'K', Real, Real, Real, Real do |canvas, c,m,y,k|
       c = [ c, m, y, k ]
       unless c.all? {|b| (0..1).include? b}
         raise Graphics::InvalidColorError, 
           "Not a valid color for DeviceCMYK: #{c.inspect}"
       end
 
-      gs.stroking_colorspace = Graphics::Color::Space::DEVICE_CMYK
-      gs.stroking_color = c
+      canvas.gs.stroking_colorspace = Graphics::Color::Space::DEVICE_CMYK
+      canvas.gs.stroking_color = c
     end
 
-    insn  'k', Real, Real, Real, Real do |gs, c,m,y,k|
+    insn  'k', Real, Real, Real, Real do |canvas, c,m,y,k|
       c = [ c, m, y, k ]
       unless c.all? {|b| (0..1).include? b}
         raise Graphics::InvalidColorError, 
           "Not a valid color for DeviceCMYK: #{c.inspect}"
       end
 
-      gs.nonstroking_colorspace = Graphics::Color::Space::DEVICE_CMYK
-      gs.nonstroking_color = c
+      canvas.gs.nonstroking_colorspace = Graphics::Color::Space::DEVICE_CMYK
+      canvas.gs.nonstroking_color = c
     end
   end
 

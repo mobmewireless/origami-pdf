@@ -30,4 +30,5 @@ require 'origami/graphics/xobject'
 require 'origami/graphics/patterns'
 require 'origami/graphics/text'
 require 'origami/graphics/state'
+require 'origami/graphics/render'
 

@@ -40,7 +40,7 @@ endobj
 endobj
 4 0 obj
 <<
-	/Length 1257
+	/Length 1259
 >>stream
 BT
 /F1 30 Tf
@@ -72,7 +72,7 @@ BT
 75 600 Td
 0 Tr
 (Windows:) Tj
-(  - Foxit: runs calc.exe at the document opening without any user confirmation message \(!\)      ) '
+(  - Foxit 2: runs calc.exe at the document opening without any user confirmation message \(!\)      ) '
 (  - Acrobat Reader *:) '
 (      1. popup proposing to open "calc.exe" \(warning\)) '
 (      2.  starts  "calc.exe") '
@@ -111,5 +111,5 @@ trailer
 	/Size 5
 >>
 startxref
-1856
+1858
 %%EOF

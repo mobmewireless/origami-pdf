@@ -147,18 +147,18 @@ module Origami
   end #module Graphics 
  
   class PDF::Instruction
-    insn  'q' do |gs| gs.save; gs.reset end
-    insn  'Q' do |gs| gs.restore end
-    insn  'w', Real do |gs, lw| gs.line_width = lw end
-    insn  'J', Real do |gs, lc| gs.line_cap = lc end
-    insn  'j', Real do |gs, lj| gs.line_join = lj end
-    insn  'M', Real do |gs, ml| gs.miter_limit = ml end
+    insn  'q' do |canvas| canvas.gs.save; canvas.gs.reset end
+    insn  'Q' do |canvas| canvas.gs.restore end
+    insn  'w', Real do |canvas, lw| canvas.gs.line_width = lw end
+    insn  'J', Real do |canvas, lc| canvas.gs.line_cap = lc end
+    insn  'j', Real do |canvas, lj| canvas.gs.line_join = lj end
+    insn  'M', Real do |canvas, ml| canvas.gs.miter_limit = ml end
     
-    insn  'd', Array, Integer do |gs, array, phase| 
-      gs.dash_pattern = Graphics::DashPattern.new array, phase
+    insn  'd', Array, Integer do |canvas, array, phase| 
+      canvas.gs.dash_pattern = Graphics::DashPattern.new array, phase
     end
 
-    insn  'ri', Name do |gs, ri| gs.rendering_intent = ri end
+    insn  'ri', Name do |canvas, ri| canvas.gs.rendering_intent = ri end
   end
 end
 

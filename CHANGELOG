@@ -1,5 +1,9 @@
 # CHANGELOG
 
+1.1.0 (14/09/11):
+  |origami|
+    - Support for standard security handler revision 6.
+
 1.0.2 (25/05/11):
   - Added a Rakefile to run unit tests, build rdoc and build gem.
   - Added a Ruby shell for Origami.

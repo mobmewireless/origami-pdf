@@ -119,106 +119,124 @@ module Origami
 
   class PDF::Instruction
     # Text instructions definitions
-    insn  'Tc', Real do |gs, cS| gs.text_state.char_spacing = cS end
-    insn  'Tw', Real do |gs, wS| gs.text_state.word_spacing = wS end
-    insn  'Tz', Real do |gs, s| gs.text_state.scaling = s end
-    insn  'TL', Real do |gs, l| gs.text_state.leading = l end
+    insn  'Tc', Real do |canvas, cS| canvas.gs.text_state.char_spacing = cS end
+    insn  'Tw', Real do |canvas, wS| canvas.gs.text_state.word_spacing = wS end
+    insn  'Tz', Real do |canvas, s| canvas.gs.text_state.scaling = s end
+    insn  'TL', Real do |canvas, l| canvas.gs.text_state.leading = l end
     
-    insn  'Tf', Name, Real do |gs, font, size|
-      gs.text_state.font = font
-      gs.text_state.font_size = size
+    insn  'Tf', Name, Real do |canvas, font, size|
+      canvas.gs.text_state.font = font
+      canvas.gs.text_state.font_size = size
     end
 
-    insn  'Tr', Integer do |gs, r| gs.text_state.rendering_mode = r end
-    insn  'Ts', Real do |gs, s| gs.text_state.text_rise = s end
-    insn  'BT' do |gs| gs.text_state.begin_text_object end
-    insn  'ET' do |gs| gs.text_state.end_text_object end
+    insn  'Tr', Integer do |canvas, r| canvas.gs.text_state.rendering_mode = r end
+    insn  'Ts', Real do |canvas, s| canvas.gs.text_state.text_rise = s end
+    insn  'BT' do |canvas| canvas.gs.text_state.begin_text_object end
+    insn  'ET' do |canvas| canvas.gs.text_state.end_text_object end
     
-    insn  'Td', Real, Real do |gs, tx, ty|
-      unless gs.text_state.is_in_text_object?
+    insn  'Td', Real, Real do |canvas, tx, ty|
+      unless canvas.gs.text_state.is_in_text_object?
         raise TextStateError, 
           "Must be in a text object to use operator : Td"
       end
 
-      gs.text_state.text_matrix =
-      gs.text_state.text_line_matrix =
-      Matrix.rows([[1,0,0],[0,1,0],[tx, ty, 1]]) * gs.text_state.text_line_matrix
+      canvas.gs.text_state.text_matrix =
+      canvas.gs.text_state.text_line_matrix =
+      Matrix.rows([[1,0,0],[0,1,0],[tx, ty, 1]]) * canvas.gs.text_state.text_line_matrix
     end
 
-    insn  'TD', Real, Real do |gs, tx, ty|
-      unless gs.text_state.is_in_text_object?
+    insn  'TD', Real, Real do |canvas, tx, ty|
+      unless canvas.gs.text_state.is_in_text_object?
         raise TextStateError, 
           "Must be in a text object to use operator : TD"
       end
 
-      gs.text_state.leading = -ty
+      canvas.gs.text_state.leading = -ty
 
-      gs.text_state.text_matrix =
-      gs.text_state.text_line_matrix =
-      Matrix.rows([[1,0,0],[0,1,0],[tx,ty,1]]) * gs.text_state.text_line_matrix
+      canvas.gs.text_state.text_matrix =
+      canvas.gs.text_state.text_line_matrix =
+      Matrix.rows([[1,0,0],[0,1,0],[tx,ty,1]]) * canvas.gs.text_state.text_line_matrix
     end
 
-    insn  'Tm', Real, Real, Real, Real, Real, Real do |gs, a,b,c,d,e,f,g|
-      unless gs.text_state.is_in_text_object?
+    insn  'Tm', Real, Real, Real, Real, Real, Real do |canvas, a,b,c,d,e,f,g|
+      unless canvas.gs.text_state.is_in_text_object?
         raise TextStateError, 
           "Must be in a text object to use operator : Tm"
       end
 
-      gs.text_state.text_matrix =
-      gs.text_state.text_line_matrix = 
+      canvas.gs.text_state.text_matrix =
+      canvas.gs.text_state.text_line_matrix = 
       Matrix.rows([[a,b,0],[c,d,0],[e,f,1]])
     end
 
-    insn  'T*' do |gs|
-      unless gs.text_state.is_in_text_object?
+    insn  'T*' do |canvas|
+      unless canvas.gs.text_state.is_in_text_object?
         raise TextStateError, 
           "Must be in a text object to use operator : T*"
       end
 
-      tx, ty = 0, -gs.text_state.leading
+      tx, ty = 0, -canvas.gs.text_state.leading
 
-      gs.text_state.text_matrix =
-      gs.text_state.text_line_matrix =
-      Matrix.rows([[1,0,0],[0,1,0],[tx, ty, 1]]) * gs.text_state.text_line_matrix
+      canvas.gs.text_state.text_matrix =
+      canvas.gs.text_state.text_line_matrix =
+      Matrix.rows([[1,0,0],[0,1,0],[tx, ty, 1]]) * canvas.gs.text_state.text_line_matrix
     end
 
-    insn  'Tj', String do |gs, s|
-      unless gs.text_state.is_in_text_object?
+    insn  'Tj', String do |canvas, s|
+      unless canvas.gs.text_state.is_in_text_object?
         raise TextStateError, 
           "Must be in a text object to use operator : Tj"
       end
+
+      canvas.write_text(s)
     end
 
-    insn  "'", String do |gs, s|
-      unless gs.text_state.is_in_text_object?
+    insn  "'", String do |canvas, s|
+      unless canvas.gs.text_state.is_in_text_object?
         raise TextStateError, 
           "Must be in a text object to use operator : '"
       end
       
-      tx, ty = 0, -gs.text_state.leading
+      tx, ty = 0, -canvas.gs.text_state.leading
 
-      gs.text_state.text_matrix =
-      gs.text_state.text_line_matrix =
-      Matrix.rows([[1,0,0],[0,1,0],[tx, ty, 1]]) * gs.text_state.text_line_matrix
+      canvas.gs.text_state.text_matrix =
+      canvas.gs.text_state.text_line_matrix =
+      Matrix.rows([[1,0,0],[0,1,0],[tx, ty, 1]]) * canvas.gs.text_state.text_line_matrix
+
+      canvas.write_text(s)
     end 
 
-    insn  '"', Real, Real, String do |gs, w, c, s|
-      unless gs.text_state.is_in_text_object?
+    insn  '"', Real, Real, String do |canvas, w, c, s|
+      unless canvas.gs.text_state.is_in_text_object?
         raise TextStateError, 
           "Must be in a text object to use operator : \""
       end
       
-      gs.text_state.word_spacing = w
-      gs.text_state.char_spacing = c
+      canvas.gs.text_state.word_spacing = w
+      canvas.gs.text_state.char_spacing = c
 
       tx, ty = 0, -gs.text_state.leading
 
-      gs.text_state.text_matrix =
-      gs.text_state.text_line_matrix =
-      Matrix.rows([[1,0,0],[0,1,0],[tx, ty, 1]]) * gs.text_state.text_line_matrix
+      canvas.gs.text_state.text_matrix =
+      canvas.gs.text_state.text_line_matrix =
+      Matrix.rows([[1,0,0],[0,1,0],[tx, ty, 1]]) * canvas.gs.text_state.text_line_matrix
+
+      canvas.write_text(s)
     end
     
-    insn  'TJ', Array
+    insn  'TJ', Array do |canvas, arr|
+      arr.each do |g|
+        case g
+          when Fixnum,Float then
+            # XXX: handle this in text space ?
+          when ::String then
+            canvas.write_text(g)
+          else
+            raise InvalidPDFInstructionError, 
+              "Invalid component type `#{g.class}` in TJ operand"
+        end
+      end
+    end
   end
 
 end

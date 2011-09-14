@@ -1,74 +1,64 @@
-################################################################################
-#                                                                              #
-#                  Origami - Ruby PDF manipulation framework                   #
-#                                                                              #
-################################################################################
+NAME
 
-:: DESCRIPTION
-==============
+  origami
 
-Origami is a framework written in Ruby designed to parse, analyze, and forge PDF 
-documents.
-This is *NOT* a PDF rendering library, it aims at providing a scripting tool for 
-generating and analyzing malicious PDF files. As well, it can be used to create 
-on-the-fly customized PDFs, or to inject evil code into already existing 
-documents.
+DESCRIPTION
 
+  Origami is a framework written in Ruby designed to parse, analyze, and forge
+  PDF documents. This is not a PDF rendering library, it aims at providing a
+  scripting tool for generating and analyzing malicious PDF files. As well, it
+  can be used to create on-the-fly customized PDFs, or to inject evil code into
+  already existing documents.
 
-:: LICENSE
-==========
+VERSION
 
-This software is distributed under the LGPL license.
-See the COPYING.LESSER file for more details.
+  1.1
 
+DEPENDENCIES
 
-:: RELEASE
-==========
+  - Ruby-GTK2 (only for GUI), http://ruby-gnome2.sourceforge.jp/
 
-- Current : Version 1.0.2
+INSTALL
 
+  Stable: gem install origami
+  Devel:  hg clone https://origami-pdf.googlecode.com/hg/ origami
 
-:: DEPENDENCIES
-===============
+DIRECTORIES
 
-- Ruby 1.8 (actually not very tested on 1.9)
-- Ruby-GTK2 (only for GUI), http://ruby-gnome2.sourceforge.jp/
+  ``origami/``
+    Core scripts used to parse a PDF file. All objects and features are
+    provided here.
 
+  ``samples/``
+    Many samples, mostly sorted to generate specially crafted PDFs.
 
-:: DIRECTORIES
-==============
+  ``bin/``
+    Useful tools based on Origami.
 
-``origami/``
-* Core scripts used to parse a PDF file. All objects and features are
-  provided here.
+  ``tests/``
+    Test case units.
 
-``samples/``
-* Many samples, mostly sorted to generate specially crafted PDFs.
+  ``doc/``
+    Automated RubyDoc HTML documentation.
 
-``bin/``
-* Useful tools based on Origami.
+HOMEPAGE
 
-``tests/``
-* Test case units.
+  http://aslr.fr/pages/Origami
 
-``doc/``
-* Automated RubyDoc HTML documentation.
+CONTRIBUTORS
 
+  Guillaume Delugré <guillaume@security-labs.org>     - Author
+  Frédéric Raynal   <fred@security-labs.org>          - Contributor
 
-:: CONTRIBUTORS
-===============
+LICENSE
 
-Guillaume Delugré <guillaume@security-labs.org>     - Author
-Frédéric Raynal   <fred@security-labs.org>          - Contributor
+  This software is distributed under the LGPL license.
+  See the COPYING.LESSER file for more details.
 
+NOTES
 
-:: NOTES
-========
-
-This is a beta release. It contains many bugs and many incomplete
-features. If you encounter a problem, feel free to report it by mail at
-<guillaume [at] security-labs [dot] org>, with a short explanation of 
-what you did and any necessary PDF documents.
-
-Thanks.
+  It contains many bugs and many incomplete features. If you encounter a
+  problem, feel free to report it by mail at <guillaume [at] security-labs
+  [dot] org>, with a short explanation of what you did and any necessary PDF
+  documents. Thanks.
 

@@ -7,7 +7,7 @@ require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s|
   s.name       = "origami"
-  s.version    = "1.0.2"
+  s.version    = "1.1.0"
   s.author     = "Guillaume Delugré"
   s.email      = "guillaume at security-labs dot org"
   s.homepage   = "http://esec-lab.sogeti.com/dotclear/index.php?pages/Origami"
@@ -15,15 +15,8 @@ spec = Gem::Specification.new do |s|
   
   s.summary    = "Origami aims at providing a scripting tool to generate and analyze malicious PDF files."
   s.description = <<DESC
-This is NOT a PDF rendering library. It aims at providing a scripting tool to generate and analyze malicious PDF files. 
+Origami is a PDF-compliant parser. This is not a PDF rendering library, it aims at providing a scripting tool to generate and analyze malicious PDF files. 
 As well, it can be used to create on-the-fly customized PDFs, or to inject (evil) code into already existing documents.
-
-  - Create PDF documents from scratch.
-  - Parse existing documents, modify them and recompile them.
-  - Explore documents at the object level, going deep into the document structure, uncompressing PDF object streams and desobfuscating names and strings.
-  - High-level operations, such as encryption/decryption, signature, file attachments...
-  - A GTK interface to quickly browse into the document contents.
-  - A set of command-line tools for PDF analysis.
 DESC
 
   s.files             = FileList[
@@ -31,7 +24,7 @@ DESC
   ].exclude(/\.pdf$/, /\.key$/, /\.crt$/, /\.conf$/).to_a
 
   s.require_path      = "."
-  s.has_rdoc          = false
+  s.has_rdoc          = true
   s.test_file         = "tests/ts_pdf.rb"
   s.requirements      = "ruby-gtk2 if you plan to run the PDF Walker interface"
 

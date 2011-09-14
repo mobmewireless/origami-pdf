@@ -112,7 +112,6 @@ module Origami
       def initialize(script)
         super(:JS => script)
       end
-      
     end
 
     #

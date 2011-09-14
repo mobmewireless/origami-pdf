@@ -49,7 +49,6 @@ module Origami
    
     #
     # Decrypts the current document (only RC4 40..128 bits).
-    # TODO: AESv3
     # _passwd_:: The password to decrypt the document.
     #
     def decrypt(passwd = "")
@@ -209,6 +208,7 @@ module Origami
         :owner_passwd => '',
         :cipher => 'rc4',            # :RC4 or :AES
         :key_size => 128,            # Key size in bits
+        :hardened => false,          # Use newer password validation (since Reader X)
         :encrypt_metadata => true,   # Metadata shall be encrypted?
         :permissions => Encryption::Standard::Permissions::ALL    # Document permissions
       }.update(options)
@@ -234,7 +234,12 @@ module Origami
           if params[:key_size] == 128 
             version = revision = 4
           elsif params[:key_size] == 256
-            version = revision = 5
+            version = 5
+            if params[:hardened]
+              revision = 6
+            else
+              revision = 5
+            end
           else
             raise EncryptionError, "Invalid AES key length (Only 128 and 256 bits keys are supported)"
           end
@@ -1069,6 +1074,14 @@ module Origami
         field   :Perms,         :Type => String, :Version => '1.7', :ExtensionLevel => 3
         field   :P,             :Type => Integer, :Default => 0, :Required => true
         field   :EncryptMetadata, :Type => Boolean, :Default => true, :Version => "1.5"
+
+        def pdf_version_required #:nodoc:
+          if self.R > 5
+            [ 1.7, 8 ]
+          else
+            super
+          end
+        end
         
         #
         # Computes the key that will be used to encrypt/decrypt the document contents with user password.
@@ -1099,7 +1112,12 @@ module Origami
             passwd = password_to_utf8(userpassword)
             
             uks = self.U[40, 8]
-            ukey = Digest::SHA256.digest(passwd + uks)
+            
+            if self.R == 5
+              ukey = Digest::SHA256.digest(passwd + uks)
+            else
+              ukey = compute_hardened_hash(passwd, uks)
+            end
             
             iv = ::Array.new(AES::BLOCKSIZE, 0).pack("C*")
             AES.new(ukey, nil, false).decrypt(iv + self.UE.value)
@@ -1108,15 +1126,20 @@ module Origami
 
         #
         # Computes the key that will be used to encrypt/decrypt the document contents with owner password.
-        # Revision 5 only.
+        # Revision 5 and above.
         #
         def compute_owner_encryption_key(ownerpassword)
-          if self.R == 5
+          if self.R >= 5
             passwd = password_to_utf8(ownerpassword)
 
             oks = self.O[40, 8]
-            okey = Digest::SHA256.digest(passwd + oks)
-            
+
+            if self.R == 5
+              okey = Digest::SHA256.digest(passwd + oks)
+            else
+              okey = compute_hardened_hash(passwd, oks)
+            end
+
             iv = ::Array.new(AES::BLOCKSIZE, 0).pack("C*")
             AES.new(okey, nil, false).decrypt(iv + self.OE.value)
           end
@@ -1136,21 +1159,32 @@ module Origami
             self.O = owner_key
             self.U = compute_user_password(userpassword, salt)
           
-          elsif self.R == 5  
+          else
             upass = password_to_utf8(userpassword)
             opass = password_to_utf8(ownerpassword)
 
             uvs, uks, ovs, oks = ::Array.new(4) { ::Array.new(8) { rand(255) }.pack("C*") }
             file_key = ::Array.new(32) { rand(256) }.pack("C*")
             iv = ::Array.new(AES::BLOCKSIZE, 0).pack("C*")
-
-            ukey = Digest::SHA256.digest(upass + uks)
-            okey = Digest::SHA256.digest(opass + oks)
             
+            if self.R == 5
+              ukey = Digest::SHA256.digest(upass + uks)
+              okey = Digest::SHA256.digest(opass + oks)
+            else
+              ukey = compute_hardened_hash(upass, uks)
+              okey = compute_hardened_hash(upass, oks)
+            end
+
             self.UE = AES.new(ukey, iv, false).encrypt(file_key)[iv.size, 32]
             self.OE = AES.new(okey, iv, false).encrypt(file_key)[iv.size, 32]
-            self.U = Digest::SHA256.digest(upass + uvs) + uvs + uks
-            self.O = Digest::SHA256.digest(opass + ovs + self.U) + ovs + oks
+              
+            if self.R == 5
+              self.U = Digest::SHA256.digest(upass + uvs) + uvs + uks
+              self.O = Digest::SHA256.digest(opass + ovs + self.U) + ovs + oks
+            else
+              self.U = compute_hardened_hash(upass, uvs) + uvs + uks
+              self.O = compute_hardened_hash(opass, ovs, self.U) + ovs + oks
+            end
 
             perms = 
               [ self.P ].pack("V") +                              # 0-3
@@ -1168,7 +1202,7 @@ module Origami
         #
         # Checks user password.
         # For version 2,3 and 4, _salt_ is the document ID.
-        # For version 5, _salt_ is the User Key Salt.
+        # For version 5 and 6, _salt_ is the User Key Salt.
         #
         def is_user_password?(pass, salt)
           
@@ -1179,6 +1213,9 @@ module Origami
           elsif self.R == 5
             uvs = self.U[32, 8]
             Digest::SHA256.digest(pass + uvs) == self.U[0, 32]
+          elsif self.R == 6
+            uvs = self.U[32, 8]
+            compute_hardened_hash(pass, uvs) == self.U[0, 32]
           end
         end
         
@@ -1195,6 +1232,9 @@ module Origami
           elsif self.R == 5
             ovs = self.O[32, 8]
             Digest::SHA256.digest(pass + ovs + self.U) == self.O[0, 32]
+          elsif self.R == 6
+            ovs = self.O[32, 8]
+            compute_hardened_hash(pass, ovs, self.U[0,48]) == self.O[0, 32]
           end
         end
 
@@ -1257,6 +1297,55 @@ module Origami
             
             user_key.ljust(32, "\xFF")
           end
+        end
+
+        #
+        # Computes hardened hash used in revision 6 (extension level 8).
+        #
+        def compute_hardened_hash(password, salt, vector = '')
+          block_size = 32
+          input = Digest::SHA256.digest(password + salt + vector) + "\x00" * 32
+          key = input[0, 16]
+          iv = input[16, 16]
+          digest, aes, h, x = nil, nil, nil, nil
+
+          i = 0
+          while i < 64 or i < x[-1].ord + 32
+            j = 0
+            block = input[0, block_size]
+
+            if Origami::OPTIONS[:use_openssl]
+              aes = OpenSSL::Cipher::Cipher.new("aes-128-cbc").encrypt
+              aes.iv = iv
+              aes.key = key
+              aes.padding = 0
+            else
+              fail "You need OpenSSL support to encrypt/decrypt documents with this method"
+            end
+
+            64.times do |j|
+              x = aes.update(block)
+              unless vector.empty?
+                x += aes.update(vector)
+              end
+
+              if j == 0
+                block_size = 32 + (x.unpack("C16").inject(0) {|a,b| a+b} % 3) * 16
+                digest = Digest::SHA2.new(block_size << 3)
+              end
+
+              digest.update(x)
+            end
+
+            h = digest.digest
+            key = h[0, 16]
+            input[0, block_size] = h[0, block_size]
+            iv = h[16, 16]
+
+            i = i + 1
+          end
+
+          h[0, 32]
         end
         
         def xor(str, byte) #:nodoc:

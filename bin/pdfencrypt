@@ -37,7 +37,7 @@ require 'optparse'
 
 class OptParser
   BANNER = <<USAGE
-Usage: #{$0} [<PDF-file>] [-p <password>] [-c <cipher>] [-s <key-size>] [-o <output-file>]
+Usage: #{$0} [<PDF-file>] [-p <password>] [-c <cipher>] [-s <key-size>] [--hardened] [-o <output-file>]
 Encrypts a PDF document. Supports RC4 40 to 128 bits, AES128, AES256.
 Bug reports or feature requests at: http://origami-pdf.googlecode.com/
 
@@ -64,6 +64,10 @@ USAGE
         options[:key_size] = s.to_i
       end
 
+      opts.on("--hardened", "Use stronger key validation scheme (only AES-256)") do
+        options[:hardened] = true
+      end
+
       opts.on_tail("-h", "--help", "Show this message") do
         puts opts
         exit
@@ -77,7 +81,8 @@ USAGE
       :output => STDOUT,
       :password => '',
       :cipher => 'aes',
-      :key_size => 128
+      :key_size => 128,
+      :hardened => false
     }
 
     self.parser(options).parse!(args)
@@ -100,13 +105,14 @@ begin
     :user_password  => @options[:password], 
     :owner_password => @options[:password], 
     :cipher         => @options[:cipher], 
-    :key_size       => @options[:key_size]
+    :key_size       => @options[:key_size],
+    :hardened       => @options[:hardened]
   )
   pdf.save(@options[:output], :noindent => true)
 
 rescue SystemExit
 rescue Exception => e
-  STDERR.puts "#{e.class}: #{e.message}"
+  STDERR.puts "#{e.class}: #{e.message} #{e.backtrace}"
   exit 1
 end
 

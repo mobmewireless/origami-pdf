@@ -88,6 +88,7 @@ module Origami
     def each_named_page(&b)
       each_name(Names::Root::PAGES, &b) 
     end
+
   end
   
   module ResourcesHolder
@@ -375,6 +376,17 @@ module Origami
       super(hash)
       
       set_indirect(true)
+    end
+
+    def render(engine) #:nodoc:
+      contents = self.Contents
+      return unless contents.is_a? Stream
+      
+      unless contents.is_a? ContentStream
+        contents = ContentStream.new(contents.data)
+      end
+
+      contents.render(engine)
     end
 
     def pre_build

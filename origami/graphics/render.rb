@@ -1,11 +1,11 @@
 =begin
 
 = File
-	about.rb
+	graphics/render.rb
 
 = Info
 	This file is part of Origami, PDF manipulation framework for Ruby
-	Copyright (C) 2010	Guillaume Delugré <guillaume@security-labs.org>
+	Copyright (C) 2010	Guillaume DelugrÃ© <guillaume@security-labs.org>
 	All right reserved.
 	
   Origami is free software: you can redistribute it and/or modify
@@ -23,24 +23,47 @@
 
 =end
 
-module PDFWalker
+module Origami
+  
+  module Graphics
 
-  class Walker < Window
-    
-    def about
-      
-      AboutDialog.show(self, 
-        {
-          :name => "PDF Walker",
-          :program_name => "PDF Walker",
-          :version => Origami::VERSION,
-          :copyright => "Copyright (C) 2010\nGuillaume Delugre, Sogeti-ESEC R&D <guillaume@security-labs.org>\nAll right reserved.",
-          :comments => "A graphical PDF parser front-end",
-          :license => File.read("#{File.dirname(__FILE__)}/../../COPYING.LESSER")
-        })
-      
+    module Canvas
+      attr_reader :gs
+
+      def initialize
+        @gs = Graphics::State.new
+      end
+
+      def clear
+        @gs.reset
+      end
+
+      def write_text(s); end
+      def stroke_path; end
+      def fill_path; end
     end
-    
+
+    class DummyCanvas
+      include Canvas
+    end
+
+    class TextCanvas
+      include Canvas
+
+      def initialize(output = STDOUT, columns = 80, lines = 25)
+        super()
+
+        @output = output
+        @columns, @lines = columns, lines
+      end
+
+      def write_text(s)
+        @output.print(s)  
+      end
+
+    end
+
   end
 
 end
+

@@ -105,49 +105,83 @@ module Origami
   end
 
   class PDF::Instruction
-    insn  'm', Real, Real do |gs, x,y|
-      gs.current_path << (subpath = Graphics::Path.new)
+    insn  'm', Real, Real do |canvas, x,y|
+      canvas.gs.current_path << (subpath = Graphics::Path.new)
       subpath.current_point = [x,y]
     end
 
-    insn  'l', Real, Real do |gs, x,y|
-      if gs.current_path.empty? 
+    insn  'l', Real, Real do |canvas, x,y|
+      if canvas.gs.current_path.empty? 
         raise InvalidPathError, "No current point is defined"
       end
 
-      subpath = gs.current_path.last
+      subpath = canvas.gs.current_path.last
 
       from = subpath.current_point
       to = [x,y]
       subpath.add_segment(Graphics::Path::Line.new(from, to))
     end
 
-    insn  'h' do |gs|
-      unless gs.current_path.empty?
-        subpath = gs.current_path.last
+    insn  'h' do |canvas|
+      unless canvas.gs.current_path.empty?
+        subpath = canvas.gs.current_path.last
         subpath.close! unless subpath.is_closed?
       end
     end
 
-    insn  're', Real, Real, Real, Real do |gs, x,y,width,height|
+    insn  're', Real, Real, Real, Real do |canvas, x,y,width,height|
       tx = x + width
       ty = y + height
-      gs.current_path << (subpath = Graphics::Path.new)
+      canvas.gs.current_path << (subpath = Graphics::Path.new)
       subpath.segments << Graphics::Path::Line.new([x,y], [tx,y])
       subpath.segments << Graphics::Path::Line.new([tx,y], [tx, ty])
       subpath.segments << Graphics::Path::Line.new([tx, ty], [x, ty])
       subpath.close!
     end
 
-    insn  'S'
-    insn  's' do |gs| gs.current_path.last.close! end
-    insn  'f'
-    insn  'F'
-    insn  'f*'
-    insn  'B'
-    insn  'B*'
-    insn  'b' do |gs| gs.current_path.last.close! end
-    insn  'b*' do |gs| gs.current_path.last.close! end
+    insn  'S' do |canvas|
+      canvas.stroke_path
+    end
+
+    insn  's' do |canvas| 
+      canvas.gs.current_path.last.close! 
+      canvas.stroke_path
+    end
+
+    insn  'f' do |canvas|
+      canvas.fill_path
+    end
+
+    insn  'F' do |canvas|
+      canvas.fill_path
+    end
+
+    insn  'f*' do |canvas|
+      canvas.fill_path
+    end
+
+    insn  'B' do |canvas|
+      canvas.fill_path
+      canvas.stroke_path
+    end
+
+    insn  'B*' do |canvas|
+      canvas.fill_path
+      canvas.stroke_path
+    end
+
+    insn  'b' do |canvas| 
+      canvas.gs.current_path.last.close! 
+      canvas.fill_path
+      canvas.stroke_path
+    end
+    
+    insn  'b*' do |canvas| 
+      canvas.gs.current_path.last.close! 
+      canvas.fill_path
+      canvas.stroke_path
+    end
+    
     insn  'n'
   end
 

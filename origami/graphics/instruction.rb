@@ -31,7 +31,7 @@ module Origami
     attr_accessor :operands
 
     @@regexp = Regexp.new('([^ \\t\\r\\n\\0\\[\\]<>()%\\/]+)')
-    @insns = Hash.new(:operands => [], :proc => lambda{}, :callback => lambda{})
+    @insns = Hash.new(:operands => [], :render => lambda{})
 
     def initialize(operator, *operands)
       @operator = operator
@@ -47,17 +47,8 @@ module Origami
       end
     end
 
-    def update_state(gs)
-      self.class.get_proc(@operator)[gs, *operands] if self.class.has_proc?(@operator)
-      self
-    end
-
-    def render
-    end
-
-    def exec(gs)
-      update_state(gs)
-      self.class.get_callback(@operator)[gs] if self.class.has_callback?(@operator)
+    def render(canvas)
+      self.class.get_render_proc(@operator)[canvas, *@operands]
 
       self
     end
@@ -67,31 +58,18 @@ module Origami
     end
 
     class << self
-      def insn(operator, *operands, &p)
+      def insn(operator, *operands, &render_proc)
         @insns[operator] = {}
         @insns[operator][:operands] = operands
-        @insns[operator][:proc] = p if block_given?
+        @insns[operator][:render] = render_proc || lambda{}
       end
 
       def has_op?(operator)
         @insns.has_key? operator
       end
 
-      def has_proc?(operator)
-        self.has_op?(operator) and @insns[operator].has_key?(:proc)
-      end
-
-      def has_callback?(operator)
-        self.has_op?(operator) and @insns[operator].has_key?(:callback)
-      end
-
-      def set_callback(operator, &b)
-        raise RuntimeError, "Operator `#{operator}' does not exist" unless @insns.has_key?(operator)
-        @insns[operator][:callback] = b
-      end
-
-      def get_proc(operator)
-        @insns[operator][:proc]
+      def get_render_proc(operator)
+        @insns[operator][:render]
       end
 
       def get_operands(operator)

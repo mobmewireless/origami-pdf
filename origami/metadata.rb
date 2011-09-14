@@ -50,6 +50,15 @@ module Origami
       get_doc_attr :Info
     end
 
+    def title; get_document_info_field(:Title) end
+    def author; get_document_info_field(:Author) end
+    def subject; get_document_info_field(:Subject) end
+    def keywords; get_document_info_field(:Keywords) end
+    def creator; get_document_info_field(:Creator) end
+    def producer; get_document_info_field(:Producer) end
+    def creation_date; get_document_info_field(:CreationDate) end
+    def mod_date; get_document_info_field(:ModDate) end
+
     #
     # Returns a Hash of the information found in the metadata stream
     #
@@ -78,6 +87,21 @@ module Origami
         end
 
         return info
+      end
+    end
+
+    private
+
+    def get_document_info_field(field) #:nodoc:
+      if has_document_info?
+        doc_info = get_document_info
+
+        if doc_info.has_key?(field)
+          case obj = get_document_info[field].solve
+            when String then return obj.value
+            when Stream then return obj.data
+          end
+        end
       end
     end
 

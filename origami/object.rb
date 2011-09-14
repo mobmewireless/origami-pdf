@@ -403,7 +403,7 @@ module Origami
     def pdf
       if self.is_indirect? then @pdf
       else
-        @parent.pdf
+        @parent.pdf if @parent
       end
     end
 
