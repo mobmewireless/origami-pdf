@@ -127,7 +127,7 @@ def log(str, color = Console::Colors::GREY)
 end
 
 def reject(cause)
-  log("Document rejected by policy `#{@options[:policy]}', caused by #{cause.inspect}.", Colors::RED)
+  log("Document rejected by policy `#{@options[:policy]}', caused by #{cause.inspect}.", Console::Colors::RED)
   exit(1)
 end
 
