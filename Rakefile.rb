@@ -1,16 +1,16 @@
 # encoding: UTF-8
 
 require 'rubygems'
-require 'rake/rdoctask'
+require 'rdoc/task'
 require 'rake/testtask'
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 
 spec = Gem::Specification.new do |s|
   s.name       = "origami"
   s.version    = "1.1.0"
   s.author     = "Guillaume Delugré"
   s.email      = "guillaume at security-labs dot org"
-  s.homepage   = "http://esec-lab.sogeti.com/dotclear/index.php?pages/Origami"
+  s.homepage   = "http://aslr.fr/pages/Origami"
   s.platform   = Gem::Platform::RUBY
   
   s.summary    = "Origami aims at providing a scripting tool to generate and analyze malicious PDF files."
@@ -20,7 +20,7 @@ As well, it can be used to create on-the-fly customized PDFs, or to inject (evil
 DESC
 
   s.files             = FileList[
-    'README', 'COPYING.LESSER', 'VERSION', "origami.rb", "{origami,bin,tests,walker,templates}/**/*", "bin/shell/.irbrc"
+    'README', 'COPYING.LESSER', "origami.rb", "{origami,bin,tests,walker,templates}/**/*", "bin/shell/.irbrc"
   ].exclude(/\.pdf$/, /\.key$/, /\.crt$/, /\.conf$/).to_a
 
   s.require_path      = "."
@@ -34,7 +34,7 @@ end
 
 task :default => [:package]
 
-Rake::GemPackageTask.new(spec) do |pkg|
+Gem::PackageTask.new(spec) do |pkg|
   pkg.need_tar = true
 end
 
