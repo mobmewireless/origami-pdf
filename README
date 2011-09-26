@@ -14,9 +14,10 @@ VERSION
 
   1.1
 
-DEPENDENCIES
+OPTIONAL DEPENDENCIES
 
   - Ruby-GTK2 (only for GUI), http://ruby-gnome2.sourceforge.jp/
+  - Ruby with OpenSSL support
 
 INSTALL
 

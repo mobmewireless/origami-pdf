@@ -27,6 +27,9 @@ module Origami
 
   class PDF
 
+    class LinearizationError < Exception #:nodoc:
+    end
+
     #
     # Returns whether the current document is linearized.
     #
@@ -45,7 +48,7 @@ module Origami
     # This operation is xrefs destructive, should be fixed in the future to merge tables.
     #
     def delinearize!
-      raise RuntimeError, 'Not a linearized document' unless is_linearized?
+      raise LinearizationError, 'Not a linearized document' unless is_linearized?
       
       #
       # Saves the first trailer.
@@ -71,6 +74,27 @@ module Origami
       end
 
       #
+      # Update the trailer.
+      #
+      last_trailer = (@revisions.last.trailer ||= Trailer.new)
+
+      last_trailer.dictionary ||= Dictionary.new
+       
+      if prev_trailer.has_dictionary?
+        last_trailer.dictionary =
+          last_trailer.dictionary.merge(prev_trailer.dictionary)
+      else
+        xrefstm = get_object_by_offset(last_trailer.startxref)
+        raise LinearizationError, 
+          'Cannot find trailer info while delinearizing document' unless xrefstm.is_a?(XRefStream)
+
+        last_trailer.dictionary[:Root] = xrefstm[:Root]
+        last_trailer.dictionary[:Encrypt] = xrefstm[:Encrypt]
+        last_trailer.dictionary[:Info] = xrefstm[:Info]
+        last_trailer.dictionary[:ID] = xrefstm[:ID]
+      end
+
+      #
       # Remove all xrefs.
       # Fix: Should be merged instead.
       #
@@ -80,15 +104,6 @@ module Origami
       # Remove the linearization revision.
       #
       remove_revision(0)
-
-      #
-      # Update the trailer.
-      #
-      last_trailer = (@revisions.last.trailer ||= Trailer.new)
-
-      last_trailer.dictionary ||= Dictionary.new
-      last_trailer.dictionary =
-        last_trailer.dictionary.merge(prev_trailer.dictionary)
 
       self
     end

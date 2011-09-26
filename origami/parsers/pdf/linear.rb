@@ -39,7 +39,7 @@ module Origami
           @data.pos = @data.pos - 5
         end
 
-        pdf = PDF.new(false)
+        pdf = PDF.new(self)
 
         info "...Reading header..."
         begin

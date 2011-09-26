@@ -155,6 +155,7 @@ module Origami
           StringScanner.new(stream.read)
         end
       elsif stream.is_a? ::String
+        @filename = stream
         if ''.respond_to? :force_encoding
           StringScanner.new(File.open(stream, "r", :encoding => 'binary').binmode.read)
         else
@@ -244,6 +245,18 @@ module Origami
 
         raise
       end
+    end
+
+    def target_filename
+      @filename
+    end
+
+    def target_filesize
+      @data.string.size if @data
+    end
+
+    def target_data
+      @data.string.dup if @data
     end
 
     private

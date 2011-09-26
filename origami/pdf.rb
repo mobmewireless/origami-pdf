@@ -57,7 +57,7 @@ require 'origami/xfa'
 
 module Origami
 
-  VERSION   = "1.1.0"
+  VERSION   = "1.1.2"
   REVISION  = "$Revision$" #:nodoc:
   
   #
@@ -206,28 +206,56 @@ module Origami
     
     #
     # Creates a new PDF instance.
-    # _init_structure_:: If this flag is set, then some structures will be automatically generated while manipulating this PDF. Set it if you are creating a new PDF file, this _must_ _not_ be used when parsing an existing file.
+    # _parser_:: The Parser object creating the document. If none is specified, some default structures are automatically created to get a minimal working document. 
     #
-    def initialize(init_structure = true)
+    def initialize(parser = nil)
       @header = PDF::Header.new
       @revisions = []
       
       add_new_revision
       @revisions.first.trailer = Trailer.new
 
-      init if init_structure
+      if parser
+        @parser = parser
+      else
+        init
+      end
     end
     
+    #
+    # Original file name if parsed from disk, nil otherwise.
+    #
+    def original_filename
+      @parser.target_filename if @parser
+    end
+
+    #
+    # Original file size if parsed from a data stream, nil otherwise.
+    #
+    def original_filesize
+      @parser.target_filesize if @parser
+    end
+
+    #
+    # Original data parsed to create this document, nil if created from scratch.
+    #
+    def original_data
+      @parser.target_data if @parser
+    end
    
     #
-    # Serializes the current PDF
+    # Serializes the current PDF.
     #
     def serialize(filename)
-        Zlib::GzipWriter.open(filename) { |gz|
-          gz.write Marshal.dump(self)
-        }
-        
-        self
+      parser = @parser
+      @parser = nil # do not serialize the parser
+
+      Zlib::GzipWriter.open(filename) { |gz|
+        gz.write Marshal.dump(self)
+      }
+      
+      @parser = parser
+      self
     end
     
     #

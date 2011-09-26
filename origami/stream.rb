@@ -436,7 +436,7 @@ module Origami
         obj.set_indirect(true)
       end
       
-      @data = prolog + data
+      self.data = prolog + data
       
       @dictionary[:N] = @objects.size
       @dictionary[:First] = prolog.size

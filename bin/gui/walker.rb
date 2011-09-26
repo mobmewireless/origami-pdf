@@ -61,13 +61,13 @@ module PDFWalker  #:nodoc:all
     attr_reader :config
     attr_reader :filename
 
-    def self.start
+    def self.start(file = nil)
       Gtk.init
-      Walker.new
+      Walker.new(file)
       Gtk.main
     end
 
-    def initialize
+    def initialize(target_file = nil)
       super("PDF Walker")
       
       @config = Walker::Config.new
@@ -115,7 +115,7 @@ module PDFWalker  #:nodoc:all
       #maximize
       show_all
       
-      open
+      open(target_file)
     end
     
     def error(msg)

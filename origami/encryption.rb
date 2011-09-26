@@ -58,7 +58,7 @@ module Origami
       end
      
       encrypt_dict = get_doc_attr(:Encrypt)
-      handler = Encryption::Standard::Dictionary.new(encrypt_dict.copy)
+      handler = Encryption::Standard::Dictionary.new(encrypt_dict.dup)
 
       unless handler.Filter == :Standard
         raise EncryptionNotSupportedError, "Unknown security handler : '#{handler.Filter.to_s}'"

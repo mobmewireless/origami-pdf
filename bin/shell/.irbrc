@@ -10,7 +10,9 @@ include Origami
 require 'console.rb'
 require 'readline'
 
-DEFAULT_BANNER = "Welcome to the PDF shell (Origami release #{Origami::VERSION})\n\n"
+OPENSSL_SUPPORT = (defined?(OpenSSL).nil?) ? 'no' : 'yes'
+JAVASCRIPT_SUPPORT = (defined?(PDF::JavaScript::Engine).nil?) ? 'no' : 'yes'
+DEFAULT_BANNER = "Welcome to the PDF shell (Origami release #{Origami::VERSION}) [OpenSSL: #{OPENSSL_SUPPORT}, JavaScript: #{JAVASCRIPT_SUPPORT}]\n\n"
 
 def set_completion
 
