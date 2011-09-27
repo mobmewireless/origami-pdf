@@ -97,7 +97,7 @@ module Origami
         result = ""
         until stream[i].ord == EOD do
         
-          length = stream[i]
+          length = stream[i].ord
           if length < EOD
             result << stream[i + 1, length + 1]
             i = i + length + 2
