@@ -1,5 +1,9 @@
 # CHANGELOG
 
+1.2.0 (29/09/11):
+  |origami|:
+    - Support for JavaScript emulation based on V8 (requires therubyracer gem).
+
 1.1.0 (14/09/11):
   |origami|
     - Support for standard security handler revision 6.

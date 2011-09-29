@@ -166,7 +166,17 @@ module Origami
       end
       
       def [](key)
-        super(key.to_o)
+        #if key.is_a?(::Array) and key.size == 1
+        #  follow = true
+        #  key = key.first
+        #end
+
+        val = super(key.to_o)
+        #if follow and val.is_a?(Reference)
+        #  val.solve
+        #else
+        #  val
+        #end
       end
 
       def has_key?(key)

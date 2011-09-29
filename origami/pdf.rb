@@ -54,10 +54,11 @@ require 'origami/encryption'
 require 'origami/linearization'
 require 'origami/obfuscation'
 require 'origami/xfa'
+require 'origami/javascript'
 
 module Origami
 
-  VERSION   = "1.1.2"
+  VERSION   = "1.2.0"
   REVISION  = "$Revision$" #:nodoc:
   
   #
@@ -179,6 +180,7 @@ module Origami
       # Reads and parses a PDF file from disk.
       #
       def read(filename, options = {:verbosity => Parser::VERBOSE_INSANE})
+        filename = File.expand_path(filename) if filename.is_a?(::String)
         PDF::LinearParser.new(options).parse(filename)
       end
 

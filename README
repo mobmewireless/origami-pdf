@@ -12,12 +12,13 @@ DESCRIPTION
 
 VERSION
 
-  1.1
+  1.2
 
 OPTIONAL DEPENDENCIES
 
   - Ruby-GTK2 (only for GUI), http://ruby-gnome2.sourceforge.jp/
   - Ruby with OpenSSL support
+  - TheRubyRacer gem (only for JavaScript support)
 
 INSTALL
 
