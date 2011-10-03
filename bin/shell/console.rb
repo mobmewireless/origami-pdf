@@ -45,12 +45,12 @@ module Origami
     require 'tempfile'
 
     class Stream
-      def edit(editor = 'vim')
+      def edit(editor = ENV['EDITOR'])
         tmpfile = Tempfile.new("origami")
         tmpfile.write(self.data)
         tmpfile.close
 
-        Process.wait Kernel.spawn "#{editor} #{tmpfile.path}"
+        Process.wait Kernel.spawn "#{editor or 'vim'} #{tmpfile.path}"
         
         self.data = File.read(tmpfile.path)
         tmpfile.unlink
@@ -71,6 +71,20 @@ module Origami
   end
   
   class PDF
+
+    if defined?(PDF::JavaScript::Engine)
+      class JavaScript::Engine
+        def shell
+          while (print 'js> '; line = gets)
+            begin
+              puts exec(line)
+            rescue V8::JSError => e
+              puts "Error: #{e.message}"
+            end
+          end
+        end
+      end
+    end
      
      class Revision
       def to_s

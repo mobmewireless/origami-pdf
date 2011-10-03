@@ -662,8 +662,12 @@ module Origami
         #
         # Binds the V8 remote debugging agent on the specified TCP _port_.
         #
-        def enable_debugger(port)
+        def enable_debugger(port = 5858)
           V8::C::Debug.EnableAgent("Origami", port)
+        end
+
+        def debugger_break
+          exec 'debugger'
         end
       end
     
