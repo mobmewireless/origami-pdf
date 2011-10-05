@@ -200,9 +200,9 @@ module Origami
       unless browsed_nodes.any? {|browsed| browsed.equal?(node)}
         browsed_nodes.push(node)
         if node.has_key?(:Names) # leaf node
-          children.concat(node[:Names].solve)
+          children.concat(node.Names)
         elsif node.has_key?(:Kids) # intermediate node
-          node[:Kids].solve.each do |kid|
+          node.Kids.each do |kid|
             children.concat(names_from_node(kid.solve, browsed_nodes))
           end
         end
@@ -216,26 +216,25 @@ module Origami
         browsed_nodes.push(node)
 
         if node.has_key?(:Names) # leaf node
-          limits = node[:Limits]
+          limits = node.Limits
 
           if limits
-            limits = limits.solve
             min, max = limits[0].value, limits[1].value          
             if (min..max) === name.to_str
-              names = Hash[*node[:Names].solve]
+              names = Hash[*node.Names]
               target = names[name]
               return target && target.solve
             end
           else
-            names = Hash[*node[:Names].solve]
+            names = Hash[*node.Names]
             target = names[name]
             return target && target.solve
           end
 
         elsif node.has_key?(:Kids) # intermediate node
-          node[:Kids].solve.each do |kid|
+          node.Kids.each do |kid|
             kid = kid.solve
-            limits = kid[:Limits].solve
+            limits = kid.Limits
             min, max = limits[0].value, limits[1].value          
             
             if (min..max) === name.to_str
@@ -248,12 +247,12 @@ module Origami
 
     def each_name_from_node(node, browsed_nodes = [], &b) #:nodoc:
       if node.has_key?(:Names) # leaf node
-        names = Hash[*node[:Names].solve]
+        names = Hash[*node.Names]
         names.each_pair do |name, value|
           b.call(name, value.solve)
         end
       elsif node.has_key?(:Kids) # intermediate node
-        node[:Kids].solve.each do |kid|
+        node.Kids.each do |kid|
           each_name_from_node(kid.solve, browsed_nodes, &b)
         end
       end

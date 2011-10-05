@@ -318,12 +318,8 @@ module Origami
           def dataObjects
             data_objs = []
             @pdf.ls_names(Names::Root::EMBEDDEDFILES).each do |name, file_desc|
-              if file_desc
-                ef = file_desc[:EF].solve
-                if ef
-                  f = ef[:F].solve
-                  data_objs.push Data.new(@engine, name, f.data.size) if f.is_a?(Stream)
-                end
+              if file_desc and file_desc.EF and (f = file_desc.EF.F)
+                data_objs.push Data.new(@engine, name, f.data.size) if f.is_a?(Stream)
               end
 
             end
@@ -339,16 +335,10 @@ module Origami
             Arg[:name => 'cName', :type => ::String, :required => true] do |cName|
               file_desc = @pdf.resolve_name(Names::Root::EMBEDDEDFILES, cName)
 
-              if file_desc
-                ef = file_desc[:EF].solve
-                if ef
-                  f = ef[:F].solve
-                else raise TypeError
-                end
+              if file_desc and file_desc.EF and (f = file_desc.EF.F)
+                Data.new(@engine, cName, f.data.size) if f.is_a?(Stream)
               else raise TypeError
               end
-
-              Data.new(@engine, cName, f.data.size) if f.is_a?(Stream)
             end
 
           acro_method 'getDataObjectContents',
@@ -356,16 +346,10 @@ module Origami
             Arg[:name => 'bAllowAuth', :default => false] do |cName, bAllowAuth|
               file_desc = @pdf.resolve_name(Names::Root::EMBEDDEDFILES, cName)
 
-              if file_desc
-                ef = file_desc[:EF].solve
-                if ef
-                  f = ef[:F].solve
-                else raise TypeError
-                end
+              if file_desc and file_desc.EF and (f = file_desc.EF.F)
+                ReadStream.new(@engine, f.data) if f.is_a?(Stream)
               else raise TypeError
               end
-
-              ReadStream.new(@engine, f.data) if f.is_a?(Stream)
             end
 
           acro_method 'exportDataObject',
@@ -375,12 +359,7 @@ module Origami
             Arg[:name => 'nLaunch'] do |cName, cDIPath, bAllowAuth, nLaunch|
               file_desc = @pdf.resolve_name(Names::Root::EMBEDDEDFILES, cName)
 
-              if file_desc
-                ef = file_desc[:EF].solve
-                if ef
-                  f = ef[:F].solve
-                else raise TypeError
-                end
+              if file_desc and file_desc.EF and (f = file_desc.EF.F)
               else raise TypeError
               end
 
@@ -495,11 +474,11 @@ module Origami
 
           def doc; Doc.new(@field.pdf) end
           def name
-            (@field[:T].solve.value if @field.has_key?(:T)).to_s
+            (@field.T.value if @field.has_key?(:T)).to_s
           end
           
           def value
-            @field[:V].solve.value if @field.has_key?(:V)
+            @field.V.value if @field.has_key?(:V)
           end
 
           def valueAsString
@@ -508,10 +487,10 @@ module Origami
 
           def type
             (if @field.has_key?(:FT)
-              case @field[:FT].solve.value
+              case @field.FT.value
                 when PDF::Field::Type::BUTTON
                   if @fields.has_key?(:Ff)
-                    flags = @fields[:Ff].solve.value
+                    flags = @field.Ff.value
 
                     if (flags & Origami::Annotation::Widget::Button::Flags::PUSHBUTTON) != 0
                       'button'
@@ -525,7 +504,7 @@ module Origami
                 when PDF::Field::Type::SIGNATURE then 'signature'
                 when PDF::Field::Type::CHOICE
                   if @field.has_key?(:Ff)
-                    if (@field[:Ff].solve.value & Origami::Annotation::Widget::Choice::Flags::COMBO).zero?
+                    if (@field.Ff.value & Origami::Annotation::Widget::Choice::Flags::COMBO).zero?
                       'listbox'
                     else
                       'combobox'

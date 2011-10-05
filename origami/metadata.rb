@@ -40,7 +40,7 @@ module Origami
     # Returns true if the document has a catalog metadata stream.
     #
     def has_metadata?
-      self.Catalog.has_key? :Metadata 
+      self.Catalog.Metadata.is_a?(Stream)
     end
 
     #
@@ -74,7 +74,7 @@ module Origami
           
           description.attributes.each_attribute do |attr|
             case attr.prefix
-              when 'pdf','xap','pdf'
+              when 'pdf','xap'
                 info[attr.name] = attr.value
             end
           end
@@ -86,8 +86,51 @@ module Origami
 
         end
 
-        return info
+        info
       end
+    end
+
+    #
+    # Modifies or creates a metadata stream.
+    #
+    def create_metadata(info = {})
+      skeleton = <<-XMP
+<?packet begin="#{"\xef\xbb\xbf"}" id="W5M0MpCehiHzreSzNTczkc9d"?>
+  <x:xmpmeta xmlns:x="adobe:ns:meta/">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="" xmlns:pdf="http://ns.adobe.com/pdf/1.3/">
+      </rdf:Description>
+    </rdf:RDF>
+  </x:xmpmeta>
+<?xpacket end="w"?>
+      XMP
+
+      xml =
+        if self.Catalog.Metadata.is_a?(Stream)
+          self.Catalog.Metadata.data
+        else
+          skeleton
+        end
+
+      doc = REXML::Document.new(xml)
+      desc = doc.elements['*/*/rdf:Description']
+  
+      info.each do |name, value|
+        elt = REXML::Element.new "pdf:#{name}"
+        elt.text = value
+
+        desc.elements << elt
+      end
+
+      xml = ""; doc.write(xml, 3)
+
+      if self.Catalog.Metadata.is_a?(Stream)
+        self.Catalog.Metadata.data = xml
+      else
+        self.Catalog.Metadata = Stream.new(xml)
+      end
+
+      self.Catalog.Metadata
     end
 
     private
@@ -98,8 +141,8 @@ module Origami
 
         if doc_info.has_key?(field)
           case obj = get_document_info[field].solve
-            when String then return obj.value
-            when Stream then return obj.data
+            when String then obj.value
+            when Stream then obj.data
           end
         end
       end

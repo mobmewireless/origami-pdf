@@ -55,6 +55,7 @@ require 'origami/linearization'
 require 'origami/obfuscation'
 require 'origami/xfa'
 require 'origami/javascript'
+require 'origami/outputintents'
 
 module Origami
 
@@ -294,6 +295,7 @@ module Origami
         fd = File.open(path, 'w').binmode
       end
       
+      intents_as_pdfa1 if options[:intent] =~ /pdf[\/-]?A1?/i
       self.delinearize! if options[:delinearize] and self.is_linearized?
       self.compile(options) if options[:recompile]
 
