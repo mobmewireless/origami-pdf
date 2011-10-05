@@ -166,17 +166,7 @@ module Origami
       end
       
       def [](key)
-        #if key.is_a?(::Array) and key.size == 1
-        #  follow = true
-        #  key = key.first
-        #end
-
-        val = super(key.to_o)
-        #if follow and val.is_a?(Reference)
-        #  val.solve
-        #else
-        #  val
-        #end
+        super(key.to_o)
       end
 
       def has_key?(key)
@@ -192,7 +182,16 @@ module Origami
       def real_type ; Dictionary end
 
       alias value to_h
-    
+
+      def method_missing(field, *args) #:nodoc:
+        if field.to_s[-1,1] == '='
+          self[field.to_s[0..-2].to_sym] = args.first
+        else
+          obj = self[field]; 
+          obj.is_a?(Reference) ? obj.solve : obj
+        end
+      end
+
     end #class
  
 end # Origami
