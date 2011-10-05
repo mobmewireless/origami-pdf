@@ -61,7 +61,13 @@ module Origami
     def intents_as_pdfa1
       unless self.is_a_pdfa1?
         self.Catalog.OutputIntents ||= []
-        self.Catalog.OutputIntents << OutputIntent.new(:S => OutputIntent::Intent::PDFA1)
+        self.Catalog.OutputIntents << self.insert(
+          OutputIntent.new(
+            :Type => :OutputIntent,
+            :S => OutputIntent::Intent::PDFA1,
+            :OutputConditionIdentifier => "RGB"
+          )
+        )
 
         metadata = self.create_metadata
         doc = REXML::Document.new(metadata.data)

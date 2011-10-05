@@ -59,7 +59,7 @@ require 'origami/outputintents'
 
 module Origami
 
-  VERSION   = "1.2.0"
+  VERSION   = "1.2.1"
   REVISION  = "$Revision$" #:nodoc:
   
   #
@@ -92,6 +92,7 @@ module Origami
     :Annot => Annotation,
     :Border => Annotation::BorderStyle,
     :Outlines => Outline,
+    :OutputIntent => OutputIntent,
     :Sig => Signature::DigitalSignature,
     :SigRef => Signature::Reference,
     :SigFieldLock => Field::SignatureLock,
