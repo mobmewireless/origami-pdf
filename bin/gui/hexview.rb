@@ -49,7 +49,7 @@ module PDFWalker
 
         @valuebuffer.create_tag( "HexView",
           :weight => Pango::WEIGHT_BOLD, 
-          :foreground => "black", 
+          #:foreground => "black", 
           :family => "Courier", 
           :scale => Pango::AttrScale::LARGE
         )

@@ -33,9 +33,7 @@ module PDFWalker
     private
     
     def create_objectview
-      
       @objectview = ObjectView.new(self)
-      
     end
     
     class ObjectView < Notebook
@@ -56,14 +54,18 @@ module PDFWalker
         @pdfpanel.add_with_viewport @pdfview
         append_page(@pdfpanel, Label.new("PDF Code"))
         
-        @pdfbuffer.create_tag("Object", { :weight => Pango::WEIGHT_BOLD, :foreground => "darkblue", :family => "Courier", :scale => Pango::AttrScale::LARGE })
+        @pdfbuffer.create_tag("Object", 
+          :weight => Pango::WEIGHT_BOLD, 
+          :foreground => "darkblue", 
+          :family => "Courier", 
+          :scale => Pango::AttrScale::LARGE
+        )
         
       end
       
       def load(object)
       
         begin
-        
           self.clear
         
           pdftag = "Object"

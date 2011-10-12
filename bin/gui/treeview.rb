@@ -59,7 +59,7 @@ module PDFWalker
     FGCOL = 4
     BGCOL = 5
     
-    @@appearance = Hash.new({ :Color => "black", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_NORMAL })
+    @@appearance = Hash.new(:Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_NORMAL)
     
     attr_reader :parent
     
@@ -368,7 +368,7 @@ module PDFWalker
     
     def reset_appearance
       
-      @@appearance[:Filename] = {:Color => "black", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:Filename] = {:Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
       @@appearance[:Header] = {:Color => "darkgreen", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
       @@appearance[:Revision] = {:Color => "blue", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
       @@appearance[:Body] = {:Color => "purple", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
@@ -376,7 +376,7 @@ module PDFWalker
       @@appearance[:XRefSubSection] = {:Color => "brown", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
       @@appearance[:XRef] = {:Color => "gray20", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
       @@appearance[:Trailer] = {:Color => "purple", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
-      @@appearance[:StartXref] = {:Color => "black", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
+      @@appearance[:StartXref] = {:Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
       @@appearance[:String] = {:Color => "red", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_ITALIC}
       @@appearance[:Name] = {:Color => "gray", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_ITALIC}
       @@appearance[:Number] = {:Color => "orange", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_NORMAL}
@@ -384,7 +384,7 @@ module PDFWalker
       @@appearance[:Stream] = {:Color => "darkcyan", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
       @@appearance[:StreamData] = {:Color => "darkcyan", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_OBLIQUE}
       @@appearance[:Array] = {:Color => "darkgreen", :Weight => Pango::WEIGHT_BOLD, :Style => Pango::STYLE_NORMAL}
-      @@appearance[:Reference] = {:Color => "black", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_OBLIQUE}
+      @@appearance[:Reference] = {:Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_OBLIQUE}
       @@appearance[:Boolean] = {:Color => "deeppink", :Weight => Pango::WEIGHT_NORMAL, :Style => Pango::STYLE_NORMAL}
       
     end

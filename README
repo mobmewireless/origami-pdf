@@ -27,7 +27,7 @@ INSTALL
 
 DIRECTORIES
 
-  ``origami/``
+  ``lib/``
     Core scripts used to parse a PDF file. All objects and features are
     provided here.
 
