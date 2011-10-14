@@ -363,7 +363,6 @@ module Origami
       # Decodes data using CCITT-facsimile compression method.
       #
       def decode(stream)
-        
         if @params.has_key?(:K) and @params.K != 0
           raise NotImplementedError, "CCITT encoding scheme not supported"
         end

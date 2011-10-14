@@ -1205,17 +1205,16 @@ module Origami
         # For version 5 and 6, _salt_ is the User Key Salt.
         #
         def is_user_password?(pass, salt)
-          
           if self.R == 2 
             compute_user_password(pass, salt) == self.U
           elsif self.R == 3 or self.R == 4
             compute_user_password(pass, salt)[0, 16] == self.U[0, 16]
           elsif self.R == 5
             uvs = self.U[32, 8]
-            Digest::SHA256.digest(pass + uvs) == self.U[0, 32]
+            Digest::SHA256.digest(password_to_utf8(pass) + uvs) == self.U[0, 32]
           elsif self.R == 6
             uvs = self.U[32, 8]
-            compute_hardened_hash(pass, uvs) == self.U[0, 32]
+            compute_hardened_hash(password_to_utf8(pass), uvs) == self.U[0, 32]
           end
         end
         
@@ -1231,10 +1230,10 @@ module Origami
             is_user_password?(user_password, salt)
           elsif self.R == 5
             ovs = self.O[32, 8]
-            Digest::SHA256.digest(pass + ovs + self.U) == self.O[0, 32]
+            Digest::SHA256.digest(password_to_utf8(pass) + ovs + self.U) == self.O[0, 32]
           elsif self.R == 6
             ovs = self.O[32, 8]
-            compute_hardened_hash(pass, ovs, self.U[0,48]) == self.O[0, 32]
+            compute_hardened_hash(password_to_utf8(pass), ovs, self.U[0,48]) == self.O[0, 32]
           end
         end
 
@@ -1358,7 +1357,9 @@ module Origami
         end
 
         def password_to_utf8(passwd) #:nodoc:
-          Origami::ByteString.new(passwd).to_utf8[0, 127]
+          p=Origami::ByteString.new(passwd).to_utf8[0, 127]
+          hexprint p
+          p
         end
       
       end
@@ -1369,6 +1370,7 @@ module Origami
 
 end
 
+__END__
 def hexprint(str)
   hex = "" 
   str.each_byte do |b|

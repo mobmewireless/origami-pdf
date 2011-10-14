@@ -32,36 +32,58 @@ module Origami
 
   module Graphics
 
-    module RenderingIntent
-      ABSOLUTE_COLORIMETRIC = :AbsoluteColorimetric
-      RELATIVE_COLORIMETRIC = :RelativeColorimetric
-      SATURATION = :Saturation
-      PERCEPTUAL = :Perceptual
-    end
-
-    module BlendMode
-      NORMAL      = :Normal
-      COMPATIBLE  = :Compatible
-      MULTIPLY    = :Multiply
-      SCREEN      = :Screen
-      OVERLAY     = :Overlay
-      DARKEN      = :Darken
-      LIGHTEN     = :Lighten
-      COLORDODGE  = :ColorDodge
-      COLORBURN   = :ColorBurn
-      HARDLIGHT   = :HardLight
-      SOFTLIGHt   = :SoftLight
-      DIFFERENCE  = :Difference
-      EXCLUSION   = :Exclusion
-    end
-
     class InvalidColorError < Exception; end
     module Color
+
+      module Intent
+        ABSOLUTE = :AbsoluteColorimetric
+        RELATIVE = :RelativeColorimetric
+        SATURATION = :Saturation
+        PERCEPTUAL = :Perceptual
+      end
+
+      module BlendMode
+        NORMAL      = :Normal
+        COMPATIBLE  = :Compatible
+        MULTIPLY    = :Multiply
+        SCREEN      = :Screen
+        OVERLAY     = :Overlay
+        DARKEN      = :Darken
+        LIGHTEN     = :Lighten
+        COLORDODGE  = :ColorDodge
+        COLORBURN   = :ColorBurn
+        HARDLIGHT   = :HardLight
+        SOFTLIGHt   = :SoftLight
+        DIFFERENCE  = :Difference
+        EXCLUSION   = :Exclusion
+      end
 
       module Space
         DEVICE_GRAY   = :DeviceGray
         DEVICE_RGB    = :DeviceRGB
         DEVICE_CMYK   = :DeviceCMYK
+      end
+
+      def self.cmyk_to_rgb(c, m, y, k)
+        r = 1 - (( c * ( 1 - k ) + k ))
+        g = 1 - (( m * ( 1 - k ) + k ))
+        b = 1 - (( y * ( 1 - k ) + k ))
+  
+        [ r, g, b ]
+      end
+
+      def self.gray_to_rgb(g)
+        [ g, g, g ]
+      end
+
+      #
+      # Class representing an embedded ICC Profile stream.
+      #
+      class ICCProfile < Stream
+        field :N,           :Type => Integer, :Required => true, :Version => '1.3'
+        field :Alternate,   :Type => [ Name, Array ]
+        field :Range,       :Type => Array
+        field :Metadata,    :Type => Stream, :Version => '1.4'
       end
 
       class GrayScale

@@ -42,7 +42,7 @@ require 'rexml/document'
 class OptParser
   BANNER = <<USAGE
 Usage: #{$0} <PDF-file> [-afjms] [-d <output-directory>]
-Extracts various data out of a document (streams, scripts, fonts, metadata, attachments).
+Extracts various data out of a document (streams, scripts, images, fonts, metadata, attachments).
 Bug reports or feature requests at: http://origami-pdf.googlecode.com/
 
 Options:
@@ -76,6 +76,10 @@ USAGE
         options[:metadata] = true
       end
 
+      opts.on("-i", "--images", "Extracts embedded images") do
+        options[:images] = true
+      end
+
       opts.on_tail("-h", "--help", "Show this message") do
         puts opts
         exit
@@ -104,11 +108,12 @@ begin
     target = ARGV.shift
   end
 
-  unless [:streams,:javascript,:attachments,:fonts,:metadata].any? {|opt| @options[opt]} 
+  unless [:streams,:javascript,:attachments,:fonts,:metadata,:images].any? {|opt| @options[opt]} 
     @options[:streams] =
     @options[:javascript] =
     @options[:fonts] =
-    @options[:attachments] = true
+    @options[:attachments] = 
+    @options[:images] = true
   end
 
   if @options[:output_dir].nil?
@@ -125,17 +130,26 @@ begin
   pdf = PDF.read(target, params)
 
   if @options[:streams]
+    nstreams = 0
+    Dir::mkdir("#{OUTPUT_DIR}/streams") unless File.directory?("#{OUTPUT_DIR}/streams")
+    
     pdf.root_objects.find_all{|obj| obj.is_a?(Stream)}.each do |stream|
-      stream_file = "#{OUTPUT_DIR}/stream_#{stream.reference.refno}.dmp" 
+      stream_file = "#{OUTPUT_DIR}/streams/stream_#{stream.reference.refno}.dmp"
       File.open(stream_file, "w") do |fd|
         fd.write(stream.data)
       end
+      nstreams += 1
     end
+
+    puts "Extracted #{nstreams} PDF streams to '#{OUTPUT_DIR}/streams'."
   end
 
   if @options[:javascript]
+    nscripts = 0
+    Dir::mkdir("#{OUTPUT_DIR}/scripts") unless File.directory?("#{OUTPUT_DIR}/scripts")
+
     pdf.ls(/^JS$/).each do |script|
-      script_file = "#{OUTPUT_DIR}/script_#{script.hash}.js"
+      script_file = "#{OUTPUT_DIR}/scripts/script_#{script.hash}.js"
       File.open(script_file, "w") do |fd|
         fd.write(
           case script
@@ -146,6 +160,7 @@ begin
           end
         )
       end
+      nscripts += 1
     end
 
     # Also checking for presence of JavaScript in XML forms.
@@ -175,42 +190,88 @@ begin
         File.open(script_file, 'w') do |fd|
           fd.write(script.text)
         end
+        nscripts += 1
       end
     end
+
+    puts "Extracted #{nscripts} scripts to '#{OUTPUT_DIR}/scripts'."
   end
 
   if @options[:attachments]
+    nattach = 0
+    Dir::mkdir("#{OUTPUT_DIR}/attachments") unless File.directory?("#{OUTPUT_DIR}/attachments")
+    
     pdf.ls_names(Names::Root::EMBEDDEDFILES).each do |name, attachment|
-      attached_file = "#{OUTPUT_DIR}/attached_#{File.basename(name)}"
+      attached_file = "#{OUTPUT_DIR}/attachments/attached_#{File.basename(name)}"
       spec = attachment.solve
-      ef = spec[:EF].solve
-      f = ef[:F].solve
-
-      File.open(attached_file, "w") do |fd|
-        fd.write(f.data)
+      if spec and spec.EF and f = spec.EF.F and f.is_a?(Stream)
+        File.open(attached_file, "w") do |fd|
+          fd.write(f.data)
+        end
+        nattach += 1
       end
     end
+    
+    puts "Extracted #{nattach} attachments to '#{OUTPUT_DIR}/attachments'."
   end
 
   if @options[:fonts]
+    nfonts = 0
+    Dir::mkdir("#{OUTPUT_DIR}/fonts") unless File.directory?("#{OUTPUT_DIR}/fonts")
+    
     pdf.root_objects.find_all{|obj| obj.is_a?(Stream)}.each do |stream|
       font = stream.xrefs.find{|obj| obj.is_a?(FontDescriptor)}
       if font
-        font_file = "#{OUTPUT_DIR}/font_#{File.basename(font.FontName.value.to_s)}"
+        font_file = "#{OUTPUT_DIR}/fonts/font_#{File.basename(font.FontName.value.to_s)}"
         File.open(font_file, "w") do |fd|
           fd.write(stream.data)
         end
+        nfonts += 1
       end
     end
+
+    puts "Extracted #{nfonts} fonts to '#{OUTPUT_DIR}/fonts'."
   end
 
   if @options[:metadata]
+    nmeta = 0
+    Dir::mkdir("#{OUTPUT_DIR}/metadata") unless File.directory?("#{OUTPUT_DIR}/metadata")
+
     pdf.root_objects.find_all{|obj| obj.is_a?(MetadataStream)}.each do |stream|
-      metadata_file = "#{OUTPUT_DIR}/metadata_#{stream.reference.refno}.xml"
+      metadata_file = "#{OUTPUT_DIR}/metadata/metadata_#{stream.reference.refno}.xml"
       File.open(metadata_file, "w") do |fd|
         fd.write(stream.data)
       end
+      nmeta += 1
     end
+
+    puts "Extracted #{nmeta} metadata streams to '#{OUTPUT_DIR}/metadata'."
+  end
+
+  if @options[:images]
+    nimages = 0
+    Dir::mkdir("#{OUTPUT_DIR}/images") unless File.directory?("#{OUTPUT_DIR}/images")
+    
+    pdf.root_objects.find_all{|obj| obj.is_a?(Graphics::ImageXObject)}.each do |stream|
+      begin
+        ext, image_data = stream.to_image_file
+        image_file = "#{OUTPUT_DIR}/images/image_#{stream.reference.refno}.#{ext}"
+
+        if ext != 'png' and stream.ColorSpace == Graphics::Color::Space::DEVICE_CMYK
+          STDERR.puts "Warning: file '#{image_file}' is intended to be viewed in CMYK color space."
+        end
+
+        File.open(image_file, "w") do |fd|
+          fd.write(image_data)
+        end
+        nimages += 1
+
+      rescue Exception => e
+        STDERR.puts "Unable to decode image (stream #{stream.reference.refno}). #{e.message}"
+      end
+    end
+    
+    puts "Extracted #{nimages} images to '#{OUTPUT_DIR}/images'."
   end
 
 rescue SystemExit

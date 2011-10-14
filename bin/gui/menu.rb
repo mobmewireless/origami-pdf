@@ -152,14 +152,14 @@ module PDFWalker
         :Sensitive => true,
         :Callback => lambda { |widget, viewer, path|
           stm = viewer.model.get_value(viewer.model.get_iter(path), viewer.class::OBJCOL)
-          w,h = stm[:Width], stm[:Height]
-          bpp = stm[:BitsPerComponent] || 8
-          bpr = (bpp >> 3) * 3 * w
+          w,h = stm.Width, stm.Height
+          bpc = stm.BitsPerComponent || 8
+          bpr = (bpc >> 3) * 3 * w
           data = stm.data
 
           begin
             imgview = ImgViewer.new
-            if stm[:Filter] == :DCTDecode or (stm[:Filter].is_a?(Array) and stm[:Filter][0] == :DCTDecode)
+            if stm.Filter == :DCTDecode or (stm.Filter.is_a?(Array) and stm.Filter[0] == :DCTDecode)
               imgview.show_compressed_img data
             else
               imgview.show_raw_img data, w, h, bpp, bpr

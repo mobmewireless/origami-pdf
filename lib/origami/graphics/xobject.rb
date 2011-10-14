@@ -492,6 +492,225 @@ module Origami
       field   :Measure,           :Type => Dictionary, :Version => "1.7", :ExtensionLevel => 3
       field   :PtData,            :Type => Dictionary, :Version => "1.7", :ExtensionLevel => 3
 
+      #
+      # Converts an ImageXObject stream into an image file data.
+      # Output format depends on the stream encoding: 
+      #   * JPEG for DCTDecode
+      #   * JPEG2000 for JPXDecode
+      #   * JBIG2 for JBIG2Decode
+      #   * PNG for everything else
+      #
+      #   Returns an array of the form [ _format_, _data_ ]
+      #
+      def to_image_file
+        encoding = self.Filter
+        encoding = encoding[0] if encoding.is_a? ::Array
+
+        case (encoding && encoding.value)
+          when :DCTDecode then [ 'jpg', self.data ]
+          when :JBIG2Decode then [ 'jbig2', self.data ]
+          when :JPXDecode then [ 'jp2', self.data ]
+
+        else
+          raise InvalidColorError, "No colorspace specified" unless self.ColorSpace
+
+          case cs = self.ColorSpace.value
+            when Color::Space::DEVICE_GRAY
+              colortype = 0
+              components = 1
+            when Color::Space::DEVICE_RGB
+              colortype = 2
+              components = 3
+            when ::Array
+              cstype = cs[0].is_a?(Reference) ? cs[0].solve : cs[0]
+              case cstype.value
+                when :Indexed
+                  colortype = 3
+                  components = 3
+                  csbase = cs[1].is_a?(Reference) ? cs[1].solve : cs[1]
+                  lookup = cs[3].is_a?(Reference) ? cs[3].solve : cs[3]
+
+                when :ICCBased
+                  iccprofile = cs[1].is_a?(Reference) ? cs[1].solve : cs[1]
+                  raise InvalidColorError, 
+                    "Invalid ICC Profile parameter" unless iccprofile.is_a?(Stream)
+                  
+                  case iccprofile.N
+                    when 1
+                      colortype = 0
+                      components = 1
+                    when 3
+                      colortype = 2
+                      components = 3
+                  else
+                    raise InvalidColorError,
+                      "Invalid number of components in ICC profile: #{iccprofile.N}"
+                  end
+              else
+                raise InvalidColorError, "Unsupported color space: #{self.ColorSpace}"
+              end
+          else
+            raise InvalidColorError, "Unsupported color space: #{self.ColorSpace}"
+          end
+
+          bpc = self.BitsPerComponent || 8
+          w,h = self.Width, self.Height
+          pixels = self.data
+          
+          hdr = [137, 80, 78, 71, 13, 10, 26, 10].pack('C*')
+          chunks = []
+
+          chunks <<
+          [
+            'IHDR',
+            [
+              w, h,
+              bpc, colortype, 0, 0, 0
+            ].pack("N2C5")
+          ]
+
+
+          if self.Intents
+            intents =
+              case self.Intents.value
+                when Intents::PERCEPTUAL then 0
+                when Intents::RELATIVE then 1
+                when Intents::SATURATION then 2
+                when Intents::ABSOLUTE then 3
+              else
+                3
+              end
+
+            chunks <<
+            [
+              'sRGB',
+              [ intents ].pack('C')
+            ]
+
+            chunks << [ 'gAMA', [ 45455 ].pack("N") ]
+            chunks << 
+            [ 
+              'cHRM', 
+              [ 
+                31270,
+                32900,
+                64000,
+                33000,
+                30000,
+                60000,
+                15000,
+                6000
+              ].pack("N8") 
+            ]
+          end
+
+          if colortype == 3
+            lookup =
+              case lookup
+                when Stream then lookup.data
+                when String then lookup.value
+              else 
+                raise InvalidColorError, "Invalid indexed palette table"
+              end
+
+            raise InvalidColorError, "Invalid base color space" unless csbase
+            palette = ""
+
+            case csbase.value
+              when Color::Space::DEVICE_GRAY
+                lookup.each_byte do |g|
+                  palette << Color.gray_to_rgb(g).pack("C3")
+                end              
+              when Color::Space::DEVICE_RGB
+                palette << lookup[0, (lookup.size / 3) * 3]
+              when Color::Space::DEVICE_CMYK
+                (lookup.size / 4).times do |i|
+                  cmyk = lookup[i * 4, 4].unpack("C4").map!{|c| c.to_f / 255}
+                  palette << Color.cmyk_to_rgb(*cmyk).map!{|c| (c * 255).to_i}.pack("C3")
+                end
+              when ::Array
+                case csbase[0].solve.value
+                  when :ICCBased
+                    iccprofile = csbase[1].solve
+                    raise InvalidColorError, 
+                      "Invalid ICC Profile parameter" unless iccprofile.is_a?(Stream)
+                    
+                    case iccprofile.N
+                      when 1
+                        lookup.each_byte do |g|
+                          palette << Color.gray_to_rgb(g).pack("C3")
+                        end
+                      when 3
+                        palette << lookup[0, (lookup.size / 3) * 3]
+                    else
+                      raise InvalidColorError,
+                        "Invalid number of components in ICC profile: #{iccprofile.N}"
+                    end
+                else
+                  raise InvalidColorError, "Unsupported color space: #{csbase}"
+                end
+            else
+              raise InvalidColorError, "Unsupported color space: #{csbase}"
+            end
+
+            if iccprofile
+              chunks <<
+              [
+                'iCCP',
+                'ICC Profile' + "\x00\x00" + Zlib::Deflate.deflate(iccprofile.data, Zlib::BEST_COMPRESSION)
+              ]
+            end
+
+            chunks <<
+            [
+              'PLTE',
+              palette
+            ]
+
+            bpr = w
+          else
+
+            if iccprofile
+              chunks <<
+              [
+                'iCCP',
+                'ICC Profile' + "\x00\x00" + Zlib::Deflate.deflate(iccprofile.data, Zlib::BEST_COMPRESSION)
+              ]
+            end
+
+            bpr = (bpc >> 3) * components * w
+          end
+
+          require 'zlib'
+           
+          nrows = pixels.size / bpr
+          nrows.times do |irow|
+            pixels.insert(irow * bpr + irow, "\x00")
+          end
+          
+          chunks <<
+          [
+            'IDAT',
+             Zlib::Deflate.deflate(pixels, Zlib::BEST_COMPRESSION)
+          ]
+
+          if self.Metadata.is_a?(Stream)
+            chunks <<
+            [
+              'tEXt',
+              "XML:com.adobe.xmp" + "\x00" + self.Metadata.data
+            ]
+          end
+
+          chunks << [ 'IEND', '' ]
+  
+          [ 'png', 
+            hdr + chunks.map!{ |chk|
+              [ chk[1].size, chk[0], chk[1], Zlib.crc32(chk[0] + chk[1]) ].pack("NA4A*N")
+            }.join
+          ]
+        end
+      end
     end
 
     class ReferenceDictionary < Dictionary

@@ -69,9 +69,9 @@ module Origami
         @line_join = LineJoinStyle::MITER_JOIN
         @miter_limit = 10.0
         @dash_pattern = DashPattern.new([], 0)
-        @rendering_intent = RenderingIntent::RELATIVE_COLORIMETRIC
+        @rendering_intent = Color::Intent::RELATIVE
         @stroke_adjustment = false
-        @blend_mode = BlendMode::NORMAL
+        @blend_mode = Color::BlendMode::NORMAL
         @soft_mask = :None
         @alpha_constant = 1.0
         @alpha_source = false

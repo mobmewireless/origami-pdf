@@ -315,8 +315,6 @@ module Origami
     include Enumerable
     include StandardObject
 
-    attr_reader :xrefs
- 
     #
     # Xref fields
     #

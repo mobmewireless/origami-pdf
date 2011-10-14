@@ -362,7 +362,6 @@ module Origami
         end
       end
 
-      p xref_cache.keys
       xref_cache[self.reference]
     end
 

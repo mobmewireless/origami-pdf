@@ -92,6 +92,15 @@ module Origami
  
       super
     end
+
+    def method_missing(field, *args) #:nodoc:
+      if field.to_s[-1,1] == '='
+        self[field.to_s[0..-2].to_sym] = args.first
+      else
+        obj = self[field]; 
+        obj.is_a?(Reference) ? obj.solve : obj
+      end
+    end
     
     def self.parse(stream) #:nodoc:
       
