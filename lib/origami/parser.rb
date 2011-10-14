@@ -94,15 +94,7 @@ module Origami
     end
 
   end
-
-	EOL = "\r\n" #:nodoc:
-  DEFINED_TOKENS = "[<\\[(%\\/)\\]>]" #:nodoc:
-  WHITESPACES = "([ \\f\\t\\r\\n\\0]|%[^\\n]*\\n)*" #:nodoc:
-  WHITECHARS = "[ \\f\\t\\r\\n\\0]*" #:nodoc:
-  WHITECHARS_NORET = "[ \\f\\t\\0]*" #:nodoc:
   
-  REGEXP_WHITESPACES = Regexp.new(WHITESPACES) #:nodoc:
-
   class Parser #:nodoc:
 
     class ParsingError < Exception #:nodoc:
@@ -138,9 +130,6 @@ module Origami
         :verbosity => VERBOSE_INFO, # Verbose level.
         :ignore_errors => true,     # Try to keep on parsing when errors occur.
         :callback => Proc.new {},   # Callback procedure whenever a structure is read.
-        :password => '',            # Default password being tried when opening a protected document.
-        :prompt_password => Proc.new { print "Password: "; gets.chomp }, # Callback procedure to prompt password when document is encrypted.
-        :force => false             # Force PDF header detection
       }
      
       @options.update(options)
@@ -170,47 +159,47 @@ module Origami
       @data = data
       @data.pos = 0
     end
-    
-    def parse_objects(file) #:nodoc:
-      begin
-        loop do 
-          obj = Object.parse(@data)
-          return if obj.nil?
 
-          trace "Read #{obj.type} object#{if obj.type != obj.real_type then " (" + obj.real_type.to_s.split('::').last + ")" end}, #{obj.reference}"
-          
-          file << obj
-                    
-          @options[:callback].call(obj)
-        end
+    def parse_object(pos = @data.pos) #:nodoc:
+      @data.pos = pos
+      
+      begin
+        obj = Object.parse(@data)
+        return if obj.nil?
         
+        trace "Read #{obj.type} object#{if obj.type != obj.real_type then " (" + obj.real_type.to_s.split('::').last + ")" end}, #{obj.reference}"
+
+        @options[:callback].call(obj)
+        obj
+
       rescue UnterminatedObjectError => e
         error e.message
-        file << e.obj
-
-        @options[:callback].call(e.obj)
+        obj = e.obj
 
         Object.skip_until_next_obj(@data)
-        retry
+        @options[:callback].call(obj)
+        obj
 
       rescue Exception => e
         error "Breaking on: #{(@data.peek(10) + "...").inspect} at offset 0x#{@data.pos.to_s(16)}"
         error "Last exception: [#{e.class}] #{e.message}"
-        debug "-> Stopped reading body : #{file.revisions.last.body.size} indirect objects have been parsed" if file.is_a?(PDF)
         abort("Manually fix the file or set :ignore_errors parameter.") if not @options[:ignore_errors]
 
         debug 'Skipping this indirect object.'
         raise(e) if not Object.skip_until_next_obj(@data)
             
-        retry
       end
     end
     
-    def parse_xreftable(file) #:nodoc:
+    def parse_xreftable(pos = @data.pos) #:nodoc:
+      @data.pos = pos
+
       begin
         info "...Parsing xref table..."
-        file.revisions.last.xreftable = XRef::Section.parse(@data)
-        @options[:callback].call(file.revisions.last.xreftable)
+        xreftable = XRef::Section.parse(@data)
+        @options[:callback].call(xreftable)
+
+        xreftable
       rescue Exception => e
         debug "Exception caught while parsing xref table : " + e.message
         warn "Unable to parse xref table! Xrefs might be stored into an XRef stream."
@@ -219,23 +208,15 @@ module Origami
       end
     end
     
-    def parse_trailer(file) #:nodoc:
+    def parse_trailer(pos = @data.pos) #:nodoc:
+      @data.pos = pos
+
       begin
         info "...Parsing trailer..."
         trailer = Trailer.parse(@data)
 
-        if file.is_a?(PDF)
-          xrefstm = file.get_object_by_offset(trailer.startxref) || 
-          (file.get_object_by_offset(trailer.XRefStm) if trailer.has_field? :XRefStm)
-        end
-
-        if not xrefstm.nil?
-          debug "Found a XRefStream for this revision at #{xrefstm.reference}"
-          file.revisions.last.xrefstm = xrefstm
-        end
-
-        file.revisions.last.trailer = trailer
-        @options[:callback].call(file.revisions.last.trailer)
+        @options[:callback].call(trailer)
+        trailer
        
       rescue Exception => e
         debug "Exception caught while parsing trailer : " + e.message

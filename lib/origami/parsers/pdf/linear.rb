@@ -30,29 +30,12 @@ module Origami
     #
     # Create a new PDF linear Parser.
     #
-    class LinearParser < Origami::Parser
+    class LinearParser < Parser
       def parse(stream)
         super
         
-        if @options[:force] == true
-          @data.skip_until(/%PDF-/).nil?
-          @data.pos = @data.pos - 5
-        end
+        pdf = parse_initialize
 
-        pdf = PDF.new(self)
-
-        info "...Reading header..."
-        begin
-          pdf.header = PDF::Header.parse(@data)
-          @options[:callback].call(pdf.header)
-        rescue InvalidHeaderError => e
-          if @options[:ignore_errors] == true
-            warn "PDF header is invalid, ignoring..."
-          else
-            raise e
-          end
-        end
-        
         #
         # Parse each revision
         #
@@ -60,15 +43,28 @@ module Origami
         until @data.eos? do
           
           begin
-            
             pdf.add_new_revision unless revision.zero?
-            revision = revision.succ
+            revision = revision + 1
             
             info "...Parsing revision #{pdf.revisions.size}..."
-            parse_objects(pdf)
-            parse_xreftable(pdf)
-            parse_trailer(pdf)
+            loop do
+              break if (object = parse_object).nil?
+              pdf.insert(object)
+            end
             
+            pdf.revisions.last.xreftable = parse_xreftable
+            
+            trailer = parse_trailer
+            pdf.revisions.last.trailer = trailer
+
+            xrefstm = pdf.get_object_by_offset(trailer.startxref) || 
+              (pdf.get_object_by_offset(trailer.XRefStm) if trailer.has_field? :XRefStm)
+
+            if not xrefstm.nil?
+              debug "Found a XRefStream for this revision at #{xrefstm.reference}"
+              pdf.revisions.last.xrefstm = xrefstm
+            end
+
           rescue SystemExit
             raise
           rescue Exception => e
@@ -80,32 +76,7 @@ module Origami
           
         end
 
-        warn "This file has been linearized." if pdf.is_linearized?
-
-        #
-        # Decrypt encrypted file contents
-        #
-        if pdf.is_encrypted?
-          warn "This document contains encrypted data!"
-        
-          passwd = @options[:password]
-          begin
-            pdf.decrypt(passwd)
-          rescue EncryptionInvalidPasswordError
-            if passwd.empty?
-              passwd = @options[:prompt_password].call
-              retry unless passwd.empty?
-            end
-
-            raise EncryptionInvalidPasswordError
-          end
-        end
-
-        if pdf.is_signed?
-          warn "This document has been signed!"
-        end
-
-        pdf
+        parse_finalize(pdf)
       end
     end
   end

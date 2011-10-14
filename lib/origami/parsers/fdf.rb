@@ -20,11 +20,10 @@
 =end
 
 require 'origami/parser'
-require 'origami/adobe/fdf'
 
 module Origami
 
-  class Adobe::FDF
+  class FDF
     class Parser < Origami::Parser
       def parse(stream) #:nodoc:
         super
@@ -33,11 +32,15 @@ module Origami
         fdf.header = Adobe::FDF::Header.parse(stream)
         @options[:callback].call(fdf.header)
         
-        parse_objects(fdf)
-        parse_xreftable(fdf)
-        parse_trailer(fdf)
+        loop do 
+          break if (object = parse_object).nil?
+          fdf << object
+        end
+        
+        fdf.revisions.first.xreftable = parse_xreftable
+        fdf.revisions.first.trailer = parse_trailer
 
-        addrbk
+        fdf
       end
     end
   end

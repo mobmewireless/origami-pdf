@@ -20,63 +20,70 @@
 =end
 
 require 'origami/parser'
-require 'origami/adobe/ppklite'
 
 module Origami
 
-  class Adobe::PPKLite
-    class Parser < Origami::Parser
-      def parse(stream) #:nodoc:
-        super
+  module Adobe
 
-        addrbk = Adobe::PPKLite.new
-        addrbk.header = Adobe::PPKLite::Header.parse(stream)
-        @options[:callback].call(addrbk.header)
-        
-        parse_objects(addrbk)
-        parse_xreftable(addrbk)
-        parse_trailer(addrbk)
-        book_specialize_entries(addrbk)
+    class PPKLite
 
-        addrbk
-      end
-      
-      def book_specialize_entries(addrbk) #:nodoc:
-        addrbk.revisions.first.body.each_pair do |ref, obj|
+      class Parser < Origami::Parser
+        def parse(stream) #:nodoc:
+          super
+
+          addrbk = Adobe::PPKLite.new
+          addrbk.header = Adobe::PPKLite::Header.parse(stream)
+          @options[:callback].call(addrbk.header)
           
-          if obj.is_a?(Dictionary)
-            
-            if obj[:Type] == :Catalog
-              
-              o = Adobe::PPKLite::Catalog.new(obj)
-              o.generation, o.no, o.file_offset = obj.generation, obj.no, obj.file_offset
-              
-              if o.PPK.is_a?(Dictionary) and o.PPK[:Type] == :PPK
-                o.PPK = Adobe::PPKLite::PPK.new(o.PPK)
-                
-                if o.PPK.User.is_a?(Dictionary) and o.PPK.User[:Type] == :User
-                  o.PPK.User = Adobe::PPKLite::UserList.new(o.PPK.User)
-                end
-                
-                if o.PPK.AddressBook.is_a?(Dictionary) and o.PPK.AddressBook[:Type] == :AddressBook
-                  o.PPK.AddressBook = Adobe::PPKLite::AddressList.new(o.PPK.AddressBook)
-                end
-              end
-              
-              addrbk.revisions.first.body[ref] = o
-              
-            elsif obj[:ABEType] == Adobe::PPKLite::Descriptor::USER
-              o = Adobe::PPKLite::User.new(obj)
-              o.generation, o.no, o.file_offset = obj.generation, obj.no, obj.file_offset
-              
-              addrbk.revisions.first.body[ref] = o
-            elsif obj[:ABEType] == Adobe::PPKLite::Descriptor::CERTIFICATE
-              o = Adobe::PPKLite::Certificate.new(obj)
-              o.generation, o.no, o.file_offset = obj.generation, obj.no, obj.file_offset
-              
-              addrbk.revisions.first.body[ref] = o
-            end
+          loop do
+            break if (object = parse_object).nil?
+            addrbk << object
+          end
 
+          addrbk.revisions.first.xreftable = parse_xreftable
+          addrbm.revisions.first.trailer = parse_trailer
+          book_specialize_entries(addrbk)
+
+          addrbk
+        end
+        
+        def book_specialize_entries(addrbk) #:nodoc:
+          addrbk.revisions.first.body.each_pair do |ref, obj|
+            
+            if obj.is_a?(Dictionary)
+              
+              if obj[:Type] == :Catalog
+                
+                o = Adobe::PPKLite::Catalog.new(obj)
+                o.generation, o.no, o.file_offset = obj.generation, obj.no, obj.file_offset
+                
+                if o.PPK.is_a?(Dictionary) and o.PPK[:Type] == :PPK
+                  o.PPK = Adobe::PPKLite::PPK.new(o.PPK)
+                  
+                  if o.PPK.User.is_a?(Dictionary) and o.PPK.User[:Type] == :User
+                    o.PPK.User = Adobe::PPKLite::UserList.new(o.PPK.User)
+                  end
+                  
+                  if o.PPK.AddressBook.is_a?(Dictionary) and o.PPK.AddressBook[:Type] == :AddressBook
+                    o.PPK.AddressBook = Adobe::PPKLite::AddressList.new(o.PPK.AddressBook)
+                  end
+                end
+                
+                addrbk.revisions.first.body[ref] = o
+                
+              elsif obj[:ABEType] == Adobe::PPKLite::Descriptor::USER
+                o = Adobe::PPKLite::User.new(obj)
+                o.generation, o.no, o.file_offset = obj.generation, obj.no, obj.file_offset
+                
+                addrbk.revisions.first.body[ref] = o
+              elsif obj[:ABEType] == Adobe::PPKLite::Descriptor::CERTIFICATE
+                o = Adobe::PPKLite::Certificate.new(obj)
+                o.generation, o.no, o.file_offset = obj.generation, obj.no, obj.file_offset
+                
+                addrbk.revisions.first.body[ref] = o
+              end
+
+            end
           end
         end
       end

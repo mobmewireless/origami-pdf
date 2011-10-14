@@ -1,7 +1,7 @@
 =begin
 
 = File
-	adobe/ppklite.rb
+	formats/ppklite.rb
 
 = Info
 	This file is part of Origami, PDF manipulation framework for Ruby
@@ -33,6 +33,8 @@ require 'origami/string'
 require 'origami/array'
 require 'origami/trailer'
 require 'origami/xreftable'
+
+require 'origami/parsers/ppklite'
 
 require 'openssl'
 

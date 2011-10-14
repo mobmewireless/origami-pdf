@@ -30,7 +30,7 @@ if RUBY_VERSION < '1.9'
   end
 end
 
-require 'origami/parsers/pdf'
-require 'origami/parsers/fdf'
-require 'origami/parsers/ppklite'
+require 'origami/pdf'
+require 'origami/extensions/fdf'
+require 'origami/extensions/ppklite'
 

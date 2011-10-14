@@ -23,5 +23,83 @@
 
 =end
 
+require 'origami/parser'
+
+module Origami
+  
+  class PDF
+    class Parser < Origami::Parser
+      def initialize(params = {})
+        options =
+        {
+          :password => '',            # Default password being tried when opening a protected document.
+          :prompt_password => Proc.new { 
+            print "Password: "
+            gets.chomp 
+          },                          # Callback procedure to prompt password when document is encrypted.
+          :force => false             # Force PDF header detection
+        }.update(params)
+
+        super(options)
+      end
+
+      private
+
+      def parse_initialize #:nodoc:
+        if @options[:force] == true
+          @data.skip_until(/%PDF-/).nil?
+          @data.pos = @data.pos - 5
+        end
+
+        pdf = PDF.new(self)
+
+        info "...Reading header..."
+        begin
+          pdf.header = PDF::Header.parse(@data)
+          @options[:callback].call(pdf.header)
+        rescue InvalidHeaderError => e
+          if @options[:ignore_errors] == true
+            warn "PDF header is invalid, ignoring..."
+          else
+            raise e
+          end
+        end
+
+        pdf
+      end
+
+      def parse_finalize(pdf) #:nodoc:
+        warn "This file has been linearized." if pdf.is_linearized?
+
+        #
+        # Decrypt encrypted file contents
+        #
+        if pdf.is_encrypted?
+          warn "This document contains encrypted data!"
+        
+          passwd = @options[:password]
+          begin
+            pdf.decrypt(passwd)
+          rescue EncryptionInvalidPasswordError
+            if passwd.empty?
+              passwd = @options[:prompt_password].call
+              retry unless passwd.empty?
+            end
+
+            raise EncryptionInvalidPasswordError
+          end
+        end
+
+        if pdf.is_signed?
+          warn "This document has been signed!"
+        end
+
+        pdf
+      end
+    end
+  end
+
+end
+
 require 'origami/parsers/pdf/linear'
 

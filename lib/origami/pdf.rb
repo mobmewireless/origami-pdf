@@ -57,6 +57,8 @@ require 'origami/xfa'
 require 'origami/javascript'
 require 'origami/outputintents'
 
+require 'origami/parsers/pdf'
+
 module Origami
 
   VERSION   = "1.2.2"

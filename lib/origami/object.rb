@@ -234,6 +234,12 @@ module Origami
     end
   end
 
+  WHITESPACES = "([ \\f\\t\\r\\n\\0]|%[^\\n]*\\n)*" #:nodoc:
+  WHITECHARS_NORET = "[ \\f\\t\\0]*" #:nodoc:
+  EOL = "\r\n" #:nodoc:
+  WHITECHARS = "[ \\f\\t\\r\\n\\0]*" #:nodoc:
+  REGEXP_WHITESPACES = Regexp.new(WHITESPACES) #:nodoc:
+    
   #
   # Parent module representing a PDF Object.
   # PDF specification declares a set of primitive object types :
@@ -248,9 +254,8 @@ module Origami
   # * Stream
   #
   module Object
-    
+
     TOKENS = %w{ obj endobj } #:nodoc:
-    
     @@regexp_obj = Regexp.new(WHITESPACES + "(\\d+)" + WHITESPACES + "(\\d+)" + WHITESPACES + TOKENS.first + WHITESPACES)
     @@regexp_endobj = Regexp.new(WHITESPACES + TOKENS.last + WHITESPACES)
 
