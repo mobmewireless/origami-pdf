@@ -130,6 +130,8 @@ module Origami
         :verbosity => VERBOSE_INFO, # Verbose level.
         :ignore_errors => true,     # Try to keep on parsing when errors occur.
         :callback => Proc.new {},   # Callback procedure whenever a structure is read.
+        :logger => STDERR,          # Where to output parser messages.
+        :colorize_log => true       # Colorize parser output?
       }
      
       @options.update(options)
@@ -156,6 +158,7 @@ module Origami
         raise TypeError
       end
     
+      @logger = @options[:logger]
       @data = data
       @data.pos = 0
     end
@@ -167,7 +170,11 @@ module Origami
         obj = Object.parse(@data)
         return if obj.nil?
         
-        trace "Read #{obj.type} object#{if obj.type != obj.real_type then " (" + obj.real_type.to_s.split('::').last + ")" end}, #{obj.reference}"
+        trace "Read #{obj.type} object#{
+          if obj.type != obj.real_type
+            " (" + obj.real_type.to_s.split('::').last + ")" 
+          end
+        }, #{obj.reference}"
 
         @options[:callback].call(obj)
         obj
@@ -183,11 +190,15 @@ module Origami
       rescue Exception => e
         error "Breaking on: #{(@data.peek(10) + "...").inspect} at offset 0x#{@data.pos.to_s(16)}"
         error "Last exception: [#{e.class}] #{e.message}"
-        abort("Manually fix the file or set :ignore_errors parameter.") if not @options[:ignore_errors]
+        if not @options[:ignore_errors]
+          error "Manually fix the file or set :ignore_errors parameter."
+          raise
+        end
 
         debug 'Skipping this indirect object.'
-        raise(e) if not Object.skip_until_next_obj(@data)
+        raise if not Object.skip_until_next_obj(@data)
             
+        retry
       end
     end
     
@@ -243,23 +254,54 @@ module Origami
     private
  
     def error(str = "") #:nodoc:
-      Console.colorprint("[error] #{str}\n", Console::Colors::RED, false, STDERR)
+      if @options[:colorize_log]
+        Console.colorprint("[error] #{str}\n", Console::Colors::RED, false, @logger)
+      else
+        @logger.puts "[error] #{str}"
+      end
     end
 
     def warn(str = "") #:nodoc:
-      Console.colorprint("[info ] Warning: #{str}\n", Console::Colors::YELLOW, false, STDERR) if @options[:verbosity] >= VERBOSE_INFO
+      if @options[:verbosity] >= VERBOSE_INFO
+        if @options[:colorize_log]
+          Console.colorprint("[info ] Warning: #{str}\n", Console::Colors::YELLOW, false, @logger) 
+        else
+          @logger.puts "[info ] #{str}"
+        end
+      end
     end
 
     def info(str = "") #:nodoc:
-      (Console.colorprint("[info ] ", Console::Colors::GREEN, false, STDERR); STDERR << "#{str}\n") if @options[:verbosity] >= VERBOSE_INFO
+      if @options[:verbosity] >= VERBOSE_INFO 
+        if @options[:colorize_log]
+          Console.colorprint("[info ] ", Console::Colors::GREEN, false, @logger)
+          @logger.puts str
+        else
+          @logger.puts "[info ] #{str}"
+        end
+      end
     end
     
     def debug(str = "") #:nodoc:
-      (Console.colorprint("[debug] ", Console::Colors::MAGENTA, false, STDERR); STDERR << "#{str}\n") if @options[:verbosity] >= VERBOSE_DEBUG
+      if @options[:verbosity] >= VERBOSE_DEBUG
+        if @options[:colorize_log]
+          Console.colorprint("[debug] ", Console::Colors::MAGENTA, false, @logger)
+          @logger.puts str 
+        else
+          @logger.puts "[debug] #{str}"
+        end
+      end
     end
     
     def trace(str = "") #:nodoc:
-      (Console.colorprint("[trace] ", Console::Colors::CYAN, false, STDERR); STDERR << "#{str}\n") if @options[:verbosity] >= VERBOSE_INSANE
+      if @options[:verbosity] >= VERBOSE_INSANE
+        if @options[:colorize_log]
+          Console.colorprint("[trace] ", Console::Colors::CYAN, false, @logger)
+          @logger.puts str
+        else
+          @logger.puts "[trace] #{str}"
+        end
+      end
     end
   end
 end

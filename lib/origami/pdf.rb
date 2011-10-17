@@ -183,7 +183,7 @@ module Origami
       #
       # Reads and parses a PDF file from disk.
       #
-      def read(filename, options = {:verbosity => Parser::VERBOSE_INSANE})
+      def read(filename, options = {})
         filename = File.expand_path(filename) if filename.is_a?(::String)
         PDF::LinearParser.new(options).parse(filename)
       end
