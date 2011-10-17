@@ -22,6 +22,9 @@
 module Origami
 
   class PDF
+
+    class SignatureError < Exception #:nodoc:
+    end
     
     #
     # Sign the document with the given key and x509 certificate.
@@ -29,11 +32,21 @@ module Origami
     # _key_:: The private key associated with the certificate.
     # _ca_:: Optional CA certificates used to sign the user certificate.
     #
-    def sign(certificate, key, ca = [], annotation = nil, location = nil, contact = nil, reason = nil)
+    def sign(certificate, key, options = {})
       
       unless Origami::OPTIONS[:use_openssl]
         fail "OpenSSL is not present or has been disabled."
       end
+
+      params =
+      {
+        :method => :"adbe.pkcs7.detached",
+        :ca => [],
+        :annotation => nil,
+        :location => nil,
+        :contact => nil,
+        :reason => nil
+      }.update(options)
       
       unless certificate.is_a?(OpenSSL::X509::Certificate)
         raise TypeError, "A OpenSSL::X509::Certificate object must be passed."
@@ -43,12 +56,18 @@ module Origami
         raise TypeError, "A OpenSSL::PKey::RSA object must be passed."
       end
       
+      ca = params[:ca]
       unless ca.is_a?(::Array)
         raise TypeError, "Expected an Array of CA certificate."
       end
       
+      annotation = params[:annotation]
       unless annotation.nil? or annotation.is_a?(Annotation::Widget::Signature)
         raise TypeError, "Expected a Annotation::Widget::Signature object."
+      end
+
+      unless [ :'adbe.pkcs7.detached' ].include? params[:method]
+        raise SignatureError, "Unsupported method #{params[:method]}"
       end
       
       def signfield_size(certificate, key, ca = []) #;nodoc:
@@ -71,12 +90,12 @@ module Origami
       digsig.Type = :Sig #:nodoc:
       digsig.Contents = HexaString.new("\x00" * signfield_size(certificate, key, ca)) #:nodoc:
       digsig.Filter = Name.new("Adobe.PPKMS") #:nodoc:
-      digsig.SubFilter = Name.new("adbe.pkcs7.detached") #:nodoc:
+      digsig.SubFilter = params[:method] #:nodoc:
       digsig.ByteRange = [0, 0, 0, 0] #:nodoc:
       
-      digsig.Location = HexaString.new(location) if location
-      digsig.ContactInfo = HexaString.new(contact) if contact
-      digsig.Reason = HexaString.new(reason) if reason
+      digsig.Location = HexaString.new(params[:location]) if params[:location]
+      digsig.ContactInfo = HexaString.new(params[:contact]) if params[:contact]
+      digsig.Reason = HexaString.new(params[:reason]) if params[:reason]
       
       #
       #  Flattening the PDF to get file view.

@@ -23,7 +23,12 @@ require 'stringio'
         @target.append_page(page = Page.new)
         page.add_annot(sigannot)
 
-        @target.sign(@cert, @key, [], sigannot, "France", "fred@security-labs.org", "Proof of Concept (owned)")
+        @target.sign(@cert, @key, 
+          :annotation => sigannot, 
+          :location => "France", 
+          :contact => "fred@security-labs.org", 
+          :reason => "Proof of Concept"
+        )
       end
 
       assert @target.frozen?
