@@ -25,6 +25,36 @@ module Origami
 
     class SignatureError < Exception #:nodoc:
     end
+
+    #
+    # Verify a document signature.
+    #   Options:
+    #     _:trusted_: an array of trusted X509 certificates.
+    #   If no argument is passed, embedded certificates are treated as trusted.
+    #
+    def verify(options = {})
+      params =
+      {
+        :trusted => []
+      }.update(options)
+
+      digsig = self.signature
+      unless digsig.SubFilter == :'adbe.pkcs7.detached'
+        raise SignatureError, "Unsupported method #{digsig.SubFilter}"
+      end
+
+      store = OpenSSL::X509::Store.new
+      params[:trusted].each do |ca| store.add_cert(ca) end
+      flags = OpenSSL::PKCS7::DETACHED 
+      flags |= OpenSSL::PKCS7::NOVERIFY if params[:trusted].empty?
+
+      s1,l1,s2,l2 = digsig.ByteRange
+
+      data = self.original_data[s1,l1] + self.original_data[s2,l2]
+      p7 = OpenSSL::PKCS7.new(digsig.Contents.value)
+      
+      p7.verify([], store, data, flags)
+    end
     
     #
     # Sign the document with the given key and x509 certificate.
@@ -239,6 +269,18 @@ module Origami
     
     def has_usage_rights?
       not self.Catalog.Perms.nil? and (not self.Catalog.Perms.has_key?(:UR3) or not self.Catalog.Perms.has_key?(:UR))
+    end
+
+    def signature
+      raise SignatureError, "Not a signed document" unless self.is_signed?
+
+      self.each_field do |field|
+        if field.FT == :Sig and field.V.is_a?(Dictionary)
+          return field.V
+        end
+      end
+
+      raise SignatureError, "Cannot find digital signature"
     end
 
   end

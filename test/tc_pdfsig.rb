@@ -7,8 +7,8 @@ require 'stringio'
       @target = PDF.read("test/dataset/calc.pdf", :ignore_errors => false, :verbosity => Parser::VERBOSE_QUIET)
       @output = StringIO.new
  
-      @cert = OpenSSL::X509::Certificate.new(File.open("test/dataset/test.dummycrt").read)
-      @key = OpenSSL::PKey::RSA.new(File.open("test/dataset/test.dummykey").read)
+      @cert = OpenSSL::X509::Certificate.new(File.read("test/dataset/test.dummycrt"))
+      @key = OpenSSL::PKey::RSA.new(File.read("test/dataset/test.dummykey"))
     end
 
     # def teardown
@@ -37,6 +37,7 @@ require 'stringio'
         @target.save(@output)
       end
 
+      assert PDF.read(@output.reopen(@output.string,'r'), :verbosity => Parser::VERBOSE_QUIET).verify
     end
 
 end
