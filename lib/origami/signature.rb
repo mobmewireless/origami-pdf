@@ -68,19 +68,20 @@ module Origami
       end
 
       data = self.original_data[s1,l1] + self.original_data[s2,l2]
-      p7 = OpenSSL::PKCS7.new(digsig[:Contents].value)
       
       case digsig.SubFilter.value.to_s 
         when 'adbe.pkcs7.detached'
-          raise SignatureError, "Not a PKCS7 detached signature" unless p7.detached?
           flags |= OpenSSL::PKCS7::DETACHED 
+          p7 = OpenSSL::PKCS7.new(digsig[:Contents].value)
+          raise SignatureError, "Not a PKCS7 detached signature" unless p7.detached?
           p7.verify([], store, data, flags)
 
         when 'adbe.pkcs7.sha1'          
+          p7 = OpenSSL::PKCS7.new(digsig[:Contents].value)
           p7.verify([], store, nil, flags) and p7.data == Digest::SHA1.digest(data)
           
       else
-        raise SignatureError, "Unsupported method #{digsig.SubFilter}"
+        raise NotImplementedError, "Unsupported method #{digsig.SubFilter}"
       end
     end
     
@@ -98,7 +99,7 @@ module Origami
 
       params =
       {
-        :method => :"adbe.pkcs7.detached",
+        :method => "adbe.pkcs7.detached",
         :ca => [],
         :annotation => nil,
         :location => nil,
@@ -147,8 +148,18 @@ module Origami
               OpenSSL::PKCS7::BINARY
             ).to_der.size + 128
           }
+
+        when 'adbe.x509.rsa_sha1'
+          signfield_size = lambda{|crt,key,ca|
+            datatest = "abcdefghijklmnopqrstuvwxyz"
+            key.private_encrypt(
+              Digest::SHA1.digest(datatest)
+            ).size + 128
+          }
+          raise NotImplementedError, "Unsupported method #{params[:method].inspect}"
+          
       else
-        raise SignatureError, "Unsupported method #{params[:method].inspect}"
+        raise NotImplementedError, "Unsupported method #{params[:method].inspect}"
       end
 
       digsig = Signature::DigitalSignature.new.set_indirect(true)
@@ -173,6 +184,15 @@ module Origami
       digsig.ContactInfo = HexaString.new(params[:contact]) if params[:contact]
       digsig.Reason = HexaString.new(params[:reason]) if params[:reason]
       
+      if params[:method] == 'adbe.x509.rsa_sha1'
+        digsig.Cert =
+          if ca.empty?
+            HexaString.new(certificate.to_der)
+          else
+            [ HexaString.new(certificate.to_der) ] + ca.map{ |crt| HexaString.new(crt.to_der) }
+          end
+      end
+
       #
       #  Flattening the PDF to get file view.
       #
@@ -220,6 +240,9 @@ module Origami
               ca,
               OpenSSL::PKCS7::BINARY
             ).to_der
+
+          when 'adbe.x509.rsa_sha1'
+            key.private_encrypt(Digest::SHA1.digest(signable_data))
         end
 
       digsig.Contents[0, signature.size] = signature
@@ -245,10 +268,10 @@ module Origami
     #
     def enable_usage_rights(cert, pkey, *rights)
       
-      def signfield_size(certificate, key, ca = []) #:nodoc:
+      signfield_size = lambda{|crt, key, ca|
         datatest = "abcdefghijklmnopqrstuvwxyz"
-        OpenSSL::PKCS7.sign(certificate, key, datatest, ca, OpenSSL::PKCS7::DETACHED | OpenSSL::PKCS7::BINARY).to_der.size + 128
-      end
+        OpenSSL::PKCS7.sign(crt, key, datatest, ca, OpenSSL::PKCS7::DETACHED | OpenSSL::PKCS7::BINARY).to_der.size + 128
+      }
       
       unless Origami::OPTIONS[:use_openssl]
         fail "OpenSSL is not present or has been disabled."
@@ -269,7 +292,7 @@ module Origami
       #self.Catalog.AcroForm.SigFlags = InteractiveForm::SigFlags::APPENDONLY
       
       digsig.Type = :Sig #:nodoc:
-      digsig.Contents = HexaString.new("\x00" * signfield_size(certificate, key, [])) #:nodoc:
+      digsig.Contents = HexaString.new("\x00" * signfield_size[certificate, key, []]) #:nodoc:
       digsig.Filter = Name.new("Adobe.PPKLite") #:nodoc:
       digsig.Name = "ARE Acrobat Product v8.0 P23 0002337" #:nodoc:
       digsig.SubFilter = Name.new("adbe.pkcs7.detached") #:nodoc:
