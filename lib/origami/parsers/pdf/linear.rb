@@ -53,7 +53,7 @@ module Origami
             end
             
             pdf.revisions.last.xreftable = parse_xreftable
-            
+           
             trailer = parse_trailer
             pdf.revisions.last.trailer = trailer
 

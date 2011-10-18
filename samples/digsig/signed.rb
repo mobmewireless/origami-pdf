@@ -34,6 +34,7 @@ page.add_annot(sigannot)
 
 # Sign the PDF with the specified keys
 pdf.sign(cert, key, 
+  :method => 'adbe.pkcs7.sha1',
   :annotation => sigannot, 
   :location => "France", 
   :contact => "fred@security-labs.org", 

@@ -65,7 +65,7 @@ module Origami
     USED = "n"
     FIRSTFREE = 65535
 
-    @@regexp = /(\d{10}) (\d{5}) (n|f)(\r| )\n/
+    @@regexp = /(\d{10}) (\d{5}) (n|f)(\r\n| \r| \n)/
     
     attr_accessor :offset, :generation, :state
     
@@ -76,9 +76,7 @@ module Origami
     # _state_:: The state of the referenced Object (FREE or USED).
     #
     def initialize(offset, generation, state)
-    
       @offset, @generation, @state = offset, generation, state
-    
     end
     
     def self.parse(stream) #:nodoc:
@@ -155,9 +153,9 @@ module Origami
         size = stream[2].to_i
         
         xrefs = []
-        size.times {
+        size.times do
           xrefs << XRef.parse(stream)
-        }
+        end
         
         XRef::Subsection.new(start, xrefs)
       end

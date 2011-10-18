@@ -145,7 +145,7 @@ module Origami
       RIGHT = 2
     end
       
-    def self.included(receiver)
+    def self.included(receiver) #:nodoc:
 
       receiver.field   :FT,     :Type => Name, :Default => Type::TEXT, :Required => true
       receiver.field   :Parent, :Type => Dictionary
@@ -166,7 +166,7 @@ module Origami
         
     end
    
-    def pre_build
+    def pre_build #:nodoc:
       
       if not self.T
         self.T = "undef#{::Array.new(5) {(0x30 + rand(10)).chr}.join}"

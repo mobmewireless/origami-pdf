@@ -216,6 +216,8 @@ module Origami
         warn "Unable to parse xref table! Xrefs might be stored into an XRef stream."
 
         @data.pos -= 'trailer'.length unless @data.skip_until(/trailer/).nil?
+
+        nil
       end
     end
     

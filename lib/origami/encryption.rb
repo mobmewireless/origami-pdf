@@ -168,7 +168,7 @@ module Origami
               obj.extend(Encryption::EncryptedString)
               obj.encryption_handler = handler
               obj.encryption_key = encryption_key
-              obj.algorithm = stm_algo
+              obj.algorithm = str_algo
               obj.decrypted = false
               obj.decrypt!
 
