@@ -128,6 +128,8 @@ module Origami
     def self.contract(name) #:nodoc:
      
       i = 0
+      name = name.dup
+
       while i < name.length
 
         if name[i,1] == "#"
@@ -156,11 +158,9 @@ module Origami
       
       forbiddenchars = /[ #\t\r\n\0\[\]<>()%\/]/
       
-      name.gsub!(forbiddenchars) do |c|
+      name.gsub(forbiddenchars) do |c|
         "#" + c[0].ord.to_s(16).rjust(2,"0")
       end
-      
-      name
     end
     
     def real_type ; Name end

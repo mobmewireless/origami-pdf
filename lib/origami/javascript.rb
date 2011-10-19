@@ -211,7 +211,7 @@ module Origami
 
           acro_method 'read',
             Arg[:name => 'nBytes', :type => Numeric, :required => true] do |nBytes|
-              @data.slice!(0, nBytes)
+              @data.slice!(0, nBytes).unpack("H*")[0]
             end
         end
 
