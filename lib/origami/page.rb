@@ -428,7 +428,7 @@ module Origami
     #
     def annotations
       annots = self.Annots
-      return unless annots.is_a?(Array)
+      return [] unless annots.is_a?(Array)
       
       annots.map{|annot| annot.solve} 
     end

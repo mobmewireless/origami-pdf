@@ -61,7 +61,7 @@ require 'origami/parsers/pdf'
 
 module Origami
 
-  VERSION   = "1.2.2"
+  VERSION   = "1.2.3"
   REVISION  = "$Revision$" #:nodoc:
   
   #
