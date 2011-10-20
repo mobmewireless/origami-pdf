@@ -48,7 +48,7 @@ module Origami
         fd = path
         params[:EmbeddedName] ||= ''
       else
-        fd = File.open(path, 'r').binmode
+        fd = File.open(File.expand_path(path), 'r').binmode
         params[:EmbeddedName] ||= File.basename(path)
       end
       

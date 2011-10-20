@@ -265,13 +265,6 @@ module Origami
     end
     
     #
-    # Returns the virtual file size as it would be taking on disk.
-    #
-    def filesize
-      self.to_bin(:rebuildxrefs => false).size
-    end
-    
-    #
     # Saves the current document. 
     # _filename_:: The path where to save this PDF.
     #
@@ -301,9 +294,9 @@ module Origami
       
       intents_as_pdfa1 if options[:intent] =~ /pdf[\/-]?A1?/i
       self.delinearize! if options[:delinearize] and self.is_linearized?
-      self.compile(options) if options[:recompile]
+      compile(options) if options[:recompile]
 
-      fd.write self.to_bin(options)
+      fd.write output(options)
       fd.close
       
       self
@@ -542,266 +535,6 @@ module Origami
     end
 
     #
-    # Returns a new number/generation for future object.
-    #
-    def alloc_new_object_number
-      no = 1
-
-      # Deprecated number allocation policy (first available)
-      #no = no + 1 while get_object(no)
-
-      objset = self.indirect_objects
-      self.indirect_objects.find_all{|obj| obj.is_a?(ObjectStream)}.each do |objstm|
-        objstm.each{|obj| objset << obj}
-      end
-
-      allocated = objset.collect{|obj| obj.no}.compact
-      no = allocated.max + 1 unless allocated.empty?
-
-      [ no, 0 ]
-    end
-    
-    #
-    # This method is meant to recompute, verify and correct main PDF structures, in order to output a proper file.
-    # * Allocates objects references.
-    # * Sets some objects missing required values.
-    #
-    def compile(options = {})
-
-      #
-      # A valid document must have at least one page.
-      #
-      append_page if pages.empty?
-     
-      #
-      # Allocates object numbers and creates references.
-      # Invokes object finalization methods.
-      #
-      if self.is_a?(Encryption::EncryptedDocument)
-        physicalize(options)
-      else
-        physicalize
-      end
-            
-      #
-      # Sets the PDF version header.
-      #
-      version, level = version_required
-      @header.majorversion = version[0,1].to_i
-      @header.minorversion = version[2,1].to_i
-
-      set_extension_level(version, level) if level > 0
-      
-      self
-    end
-    
-    #
-    # Returns the final binary representation of the current document.
-    # _rebuildxrefs_:: Computes xrefs while writing objects (default true).
-    # _obfuscate_:: Do some basic syntactic object obfuscation.
-    #
-    def to_bin(params = {})
-   
-      has_objstm = self.indirect_objects.any?{|obj| obj.is_a?(ObjectStream)}
-
-      options =
-      {
-        :rebuildxrefs => true,
-        :noindent => false,
-        :obfuscate => false,
-        :use_xrefstm => has_objstm,
-        :use_xreftable => (not has_objstm),
-        :up_to_revision => @revisions.size
-      }
-      options.update(params)
-
-      options[:up_to_revision] = @revisions.size if options[:up_to_revision] > @revisions.size
-
-      # Reset to default params if no xrefs are chosen (hybrid files not supported yet)
-      if options[:use_xrefstm] == options[:use_xreftable]
-        options[:use_xrefstm] = has_objstm
-        options[:use_xreftable] = (not has_objstm)
-      end
-
-      # Get trailer dictionary
-      trailer_info = get_trailer_info
-      if trailer_info.nil?
-        raise InvalidPDFError, "No trailer information found"
-      end
-      trailer_dict = trailer_info.dictionary
- 
-      prev_xref_offset = nil
-      xrefstm_offset = nil
-      xreftable_offset = nil
-    
-      # Header
-      bin = ""
-      bin << @header.to_s
-      
-      # For each revision
-      @revisions[0, options[:up_to_revision]].each do |rev|
-        
-        # Create xref table/stream.
-        if options[:rebuildxrefs] == true
-          lastno_table, lastno_stm = 0, 0
-          brange_table, brange_stm = 0, 0
-          
-          xrefs_stm = [ XRef.new(0, 0, XRef::FREE) ]
-          xrefs_table = [ XRef.new(0, XRef::FIRSTFREE, XRef::FREE) ]
-
-          if options[:use_xreftable] == true
-            xrefsection = XRef::Section.new
-          end
-
-          if options[:use_xrefstm] == true
-            xrefstm = rev.xrefstm || XRefStream.new
-            if xrefstm == rev.xrefstm
-              xrefstm.clear
-            else
-              add_to_revision(xrefstm, rev) 
-            end
-          end
-        end
-       
-        objset = rev.objects
-        
-        objset.find_all{|obj| obj.is_a?(ObjectStream)}.each do |objstm|
-          objset |= objstm.objects
-        end if options[:rebuildxrefs] == true and options[:use_xrefstm] == true
-
-        # For each object, in number order
-        objset.sort.each do |obj|
-         
-          # Create xref entry.
-          if options[:rebuildxrefs] == true
-           
-            # Adding subsections if needed
-            if options[:use_xreftable] and (obj.no - lastno_table).abs > 1
-              xrefsection << XRef::Subsection.new(brange_table, xrefs_table)
-
-              xrefs_table.clear
-              brange_table = obj.no
-            end
-            if options[:use_xrefstm] and (obj.no - lastno_stm).abs > 1
-              xrefs_stm.each do |xref| xrefstm << xref end
-              xrefstm.Index ||= []
-              xrefstm.Index << brange_stm << xrefs_stm.length
-
-              xrefs_stm.clear
-              brange_stm = obj.no
-            end
-
-            # Process embedded objects
-            if options[:use_xrefstm] and obj.parent != obj and obj.parent.is_a?(ObjectStream)
-              index = obj.parent.index(obj.no)
-             
-              xrefs_stm << XRefToCompressedObj.new(obj.parent.no, index)
-              
-              lastno_stm = obj.no
-            else
-              xrefs_stm << XRef.new(bin.size, obj.generation, XRef::USED)
-              xrefs_table << XRef.new(bin.size, obj.generation, XRef::USED)
-
-              lastno_table = lastno_stm = obj.no
-            end
-
-          end
-         
-          if obj.parent == obj or not obj.parent.is_a?(ObjectStream)
-           
-            # Finalize XRefStm
-            if options[:rebuildxrefs] == true and options[:use_xrefstm] == true and obj == xrefstm
-              xrefstm_offset = bin.size
-   
-              xrefs_stm.each do |xref| xrefstm << xref end
-
-              xrefstm.W = [ 1, (xrefstm_offset.to_s(2).size + 7) >> 3, 2 ]
-              if xrefstm.DecodeParms.is_a?(Dictionary) and xrefstm.DecodeParms.has_key?(:Columns)
-                xrefstm.DecodeParms[:Columns] = xrefstm.W[0] + xrefstm.W[1] + xrefstm.W[2]
-              end
-
-              xrefstm.Index ||= []
-              xrefstm.Index << brange_stm << xrefs_stm.size
-   
-              xrefstm.dictionary = xrefstm.dictionary.merge(trailer_dict) 
-              xrefstm.Prev = prev_xref_offset
-              rev.trailer.dictionary = nil
-
-              add_to_revision(xrefstm, rev)
-
-              xrefstm.pre_build
-              xrefstm.post_build
-            end
-
-            # Output object code
-            if (obj.is_a?(Dictionary) or obj.is_a?(Stream)) and options[:noindent]
-              bin << obj.to_s(0)
-            else
-              bin << obj.to_s
-            end
-          end
-        end
-      
-        rev.trailer ||= Trailer.new
-        
-        # XRef table
-        if options[:rebuildxrefs] == true
- 
-          if options[:use_xreftable] == true
-            table_offset = bin.size
-            
-            xrefsection << XRef::Subsection.new(brange_table, xrefs_table)
-            rev.xreftable = xrefsection
- 
-            rev.trailer.dictionary = trailer_dict
-            rev.trailer.Size = objset.size + 1
-            rev.trailer.Prev = prev_xref_offset
-
-            rev.trailer.XRefStm = xrefstm_offset if options[:use_xrefstm] == true
-          end
-
-          startxref = options[:use_xreftable] == true ? table_offset : xrefstm_offset
-          rev.trailer.startxref = prev_xref_offset = startxref
-
-        end # end each rev
-        
-        # Trailer
-        bin << rev.xreftable.to_s if options[:use_xreftable] == true
-        bin << (options[:obfuscate] == true ? rev.trailer.to_obfuscated_str : rev.trailer.to_s)
-        
-      end
-      
-      bin
-    end
-    
-    #
-    # Compute and update XRef::Section for each Revision.
-    #
-    def rebuildxrefs
-      
-      size = 0
-      startxref = @header.to_s.size
-      
-      @revisions.each do |revision|
-      
-        revision.objects.each do |object|
-          startxref += object.to_s.size
-        end
-        
-        size += revision.body.size
-        revision.xreftable = buildxrefs(revision.objects)
-        
-        revision.trailer ||= Trailer.new
-        revision.trailer.Size = size + 1
-        revision.trailer.startxref = startxref
-        
-        startxref += revision.xreftable.to_s.size + revision.trailer.to_s.size
-      end
-      
-      self
-    end
-    
-    #
     # Ends the current Revision, and starts a new one.
     #
     def add_new_revision
@@ -926,6 +659,139 @@ module Origami
     alias :[] :get_object
   
     #
+    # Returns a new number/generation for future object.
+    #
+    def alloc_new_object_number
+      no = 1
+
+      # Deprecated number allocation policy (first available)
+      #no = no + 1 while get_object(no)
+
+      objset = self.indirect_objects
+      self.indirect_objects.find_all{|obj| obj.is_a?(ObjectStream)}.each do |objstm|
+        objstm.each{|obj| objset << obj}
+      end
+
+      allocated = objset.collect{|obj| obj.no}.compact
+      no = allocated.max + 1 unless allocated.empty?
+
+      [ no, 0 ]
+    end
+    
+    ##########################
+    private
+    ##########################
+    
+    #
+    # Compute and update XRef::Section for each Revision.
+    #
+    def rebuildxrefs
+      
+      size = 0
+      startxref = @header.to_s.size
+      
+      @revisions.each do |revision|
+      
+        revision.objects.each do |object|
+          startxref += object.to_s.size
+        end
+        
+        size += revision.body.size
+        revision.xreftable = buildxrefs(revision.objects)
+        
+        revision.trailer ||= Trailer.new
+        revision.trailer.Size = size + 1
+        revision.trailer.startxref = startxref
+        
+        startxref += revision.xreftable.to_s.size + revision.trailer.to_s.size
+      end
+      
+      self
+    end
+    
+    #
+    # This method is meant to recompute, verify and correct main PDF structures, in order to output a proper file.
+    # * Allocates objects references.
+    # * Sets some objects missing required values.
+    #
+    def compile(options = {})
+
+      #
+      # A valid document must have at least one page.
+      #
+      append_page if pages.empty?
+     
+      #
+      # Allocates object numbers and creates references.
+      # Invokes object finalization methods.
+      #
+      if self.is_a?(Encryption::EncryptedDocument)
+        physicalize(options)
+      else
+        physicalize
+      end
+            
+      #
+      # Sets the PDF version header.
+      #
+      version, level = version_required
+      @header.majorversion = version[0,1].to_i
+      @header.minorversion = version[2,1].to_i
+
+      set_extension_level(version, level) if level > 0
+      
+      self
+    end
+    
+    #
+    # Cleans the document from its references.
+    # Indirects objects are made direct whenever possible.
+    # TODO: Circuit-checking to avoid infinite induction
+    #
+    def logicalize #:nodoc:
+
+      fail "Not yet supported"
+
+      processed = []
+      
+      def convert(root) #:nodoc:
+
+        replaced = []
+        if root.is_a?(Dictionary) or root.is_a?(Array)
+          
+          root.each { |obj|
+            convert(obj)
+          }
+
+          root.map! { |obj|
+            if obj.is_a?(Reference)
+              target = obj.solve
+              # Streams can't be direct objects
+              if target.is_a?(Stream)
+                obj
+              else
+                replaced << obj
+                target
+              end
+            else
+              obj
+            end
+          }
+          
+        end
+
+        replaced
+      end
+
+      @revisions.each do |revision|
+        revision.objects.each do |obj|
+          processed.concat(convert(obj))
+        end
+      end
+
+    end
+    
+    #
     # Converts a logical PDF view into a physical view ready for writing.
     #
     def physicalize
@@ -982,56 +848,181 @@ module Origami
     end
 
     #
-    # Cleans the document from its references.
-    # Indirects objects are made direct whenever possible.
-    # TODO: Circuit-checking to avoid infinite induction
+    # Returns the final binary representation of the current document.
     #
-    def logicalize #:nodoc:
+    def output(params = {})
+   
+      has_objstm = self.indirect_objects.any?{|obj| obj.is_a?(ObjectStream)}
 
-      fail "Not yet supported"
+      options =
+      {
+        :rebuildxrefs => true,
+        :noindent => false,
+        :obfuscate => false,
+        :use_xrefstm => has_objstm,
+        :use_xreftable => (not has_objstm),
+        :up_to_revision => @revisions.size
+      }
+      options.update(params)
 
-      processed = []
-      
-      def convert(root) #:nodoc:
+      options[:up_to_revision] = @revisions.size if options[:up_to_revision] > @revisions.size
 
-        replaced = []
-        if root.is_a?(Dictionary) or root.is_a?(Array)
-          
-          root.each { |obj|
-            convert(obj)
-          }
-
-          root.map! { |obj|
-            if obj.is_a?(Reference)
-              target = obj.solve
-              # Streams can't be direct objects
-              if target.is_a?(Stream)
-                obj
-              else
-                replaced << obj
-                target
-              end
-            else
-              obj
-            end
-          }
-          
-        end
-
-        replaced
+      # Reset to default params if no xrefs are chosen (hybrid files not supported yet)
+      if options[:use_xrefstm] == options[:use_xreftable]
+        options[:use_xrefstm] = has_objstm
+        options[:use_xreftable] = (not has_objstm)
       end
 
-      @revisions.each do |revision|
-        revision.objects.each do |obj|
-          processed.concat(convert(obj))
-        end
+      # Get trailer dictionary
+      trailer_info = get_trailer_info
+      if trailer_info.nil?
+        raise InvalidPDFError, "No trailer information found"
       end
-
-    end
+      trailer_dict = trailer_info.dictionary
+ 
+      prev_xref_offset = nil
+      xrefstm_offset = nil
+      xreftable_offset = nil
     
-    ##########################
-    private
-    ##########################
+      # Header
+      bin = ""
+      bin << @header.to_s
+      
+      # For each revision
+      @revisions[0, options[:up_to_revision]].each do |rev|
+        
+        # Create xref table/stream.
+        if options[:rebuildxrefs] == true
+          lastno_table, lastno_stm = 0, 0
+          brange_table, brange_stm = 0, 0
+          
+          xrefs_stm = [ XRef.new(0, 0, XRef::FREE) ]
+          xrefs_table = [ XRef.new(0, XRef::FIRSTFREE, XRef::FREE) ]
+
+          if options[:use_xreftable] == true
+            xrefsection = XRef::Section.new
+          end
+
+          if options[:use_xrefstm] == true
+            xrefstm = rev.xrefstm || XRefStream.new
+            if xrefstm == rev.xrefstm
+              xrefstm.clear
+            else
+              add_to_revision(xrefstm, rev) 
+            end
+          end
+        end
+       
+        objset = rev.objects
+        
+        objset.find_all{|obj| obj.is_a?(ObjectStream)}.each do |objstm|
+          objset.concat objstm.objects
+        end if options[:rebuildxrefs] == true and options[:use_xrefstm] == true
+
+        # For each object, in number order
+        objset.sort.each do |obj|
+         
+          # Create xref entry.
+          if options[:rebuildxrefs] == true
+           
+            # Adding subsections if needed
+            if options[:use_xreftable] and (obj.no - lastno_table).abs > 1
+              xrefsection << XRef::Subsection.new(brange_table, xrefs_table)
+
+              xrefs_table.clear
+              brange_table = obj.no
+            end
+            if options[:use_xrefstm] and (obj.no - lastno_stm).abs > 1
+              xrefs_stm.each do |xref| xrefstm << xref end
+              xrefstm.Index ||= []
+              xrefstm.Index << brange_stm << xrefs_stm.length
+
+              xrefs_stm.clear
+              brange_stm = obj.no
+            end
+
+            # Process embedded objects
+            if options[:use_xrefstm] and obj.parent != obj and obj.parent.is_a?(ObjectStream)
+              index = obj.parent.index(obj.no)
+             
+              xrefs_stm << XRefToCompressedObj.new(obj.parent.no, index)
+              
+              lastno_stm = obj.no
+            else
+              xrefs_stm << XRef.new(bin.size, obj.generation, XRef::USED)
+              xrefs_table << XRef.new(bin.size, obj.generation, XRef::USED)
+
+              lastno_table = lastno_stm = obj.no
+            end
+
+          end
+         
+          if obj.parent == obj or not obj.parent.is_a?(ObjectStream)
+           
+            # Finalize XRefStm
+            if options[:rebuildxrefs] == true and options[:use_xrefstm] == true and obj == xrefstm
+              xrefstm_offset = bin.size
+   
+              xrefs_stm.each do |xref| xrefstm << xref end
+
+              xrefstm.W = [ 1, (xrefstm_offset.to_s(2).size + 7) >> 3, 2 ]
+              if xrefstm.DecodeParms.is_a?(Dictionary) and xrefstm.DecodeParms.has_key?(:Columns)
+                xrefstm.DecodeParms[:Columns] = xrefstm.W[0] + xrefstm.W[1] + xrefstm.W[2]
+              end
+
+              xrefstm.Index ||= []
+              xrefstm.Index << brange_stm << xrefs_stm.size
+   
+              xrefstm.dictionary = xrefstm.dictionary.merge(trailer_dict) 
+              xrefstm.Prev = prev_xref_offset
+              rev.trailer.dictionary = nil
+
+              add_to_revision(xrefstm, rev)
+
+              xrefstm.pre_build
+              xrefstm.post_build
+            end
+
+            # Output object code
+            if (obj.is_a?(Dictionary) or obj.is_a?(Stream)) and options[:noindent]
+              bin << obj.to_s(0)
+            else
+              bin << obj.to_s
+            end
+          end
+        end
+      
+        rev.trailer ||= Trailer.new
+        
+        # XRef table
+        if options[:rebuildxrefs] == true
+ 
+          if options[:use_xreftable] == true
+            table_offset = bin.size
+            
+            xrefsection << XRef::Subsection.new(brange_table, xrefs_table)
+            rev.xreftable = xrefsection
+ 
+            rev.trailer.dictionary = trailer_dict
+            rev.trailer.Size = objset.size + 1
+            rev.trailer.Prev = prev_xref_offset
+
+            rev.trailer.XRefStm = xrefstm_offset if options[:use_xrefstm] == true
+          end
+
+          startxref = options[:use_xreftable] == true ? table_offset : xrefstm_offset
+          rev.trailer.startxref = prev_xref_offset = startxref
+
+        end # end each rev
+        
+        # Trailer
+        bin << rev.xreftable.to_s if options[:use_xreftable] == true
+        bin << (options[:obfuscate] == true ? rev.trailer.to_obfuscated_str : rev.trailer.to_s)
+        
+      end
+      
+      bin
+    end
     
     #
     # Instanciates basic structures required for a valid PDF file.
@@ -1042,6 +1033,10 @@ module Origami
       @revisions.last.trailer.Root = catalog.reference
 
       self
+    end
+    
+    def filesize #:nodoc:
+      output(:rebuildxrefs => false).size
     end
     
     def version_required #:nodoc:

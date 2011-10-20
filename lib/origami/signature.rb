@@ -196,7 +196,7 @@ module Origami
       #
       #  Flattening the PDF to get file view.
       #
-      self.compile
+      compile
       
       #
       # Creating an empty Xref table to compute signature byte range.
@@ -218,7 +218,7 @@ module Origami
       #
       rebuildxrefs
       
-      filedata = self.to_bin
+      filedata = output()
       signable_data = filedata[digsig.ByteRange[0],digsig.ByteRange[1]] + filedata[digsig.ByteRange[2],digsig.ByteRange[3]]
       
       signature = 
@@ -321,7 +321,7 @@ module Origami
       #
       #  Flattening the PDF to get file view.
       #
-      self.compile
+      compile
       
       #
       # Creating an empty Xref table to compute signature byte range.
@@ -343,7 +343,7 @@ module Origami
       #
       rebuildxrefs
       
-      filedata = self.to_bin
+      filedata = output()
       signable_data = filedata[digsig.ByteRange[0],digsig.ByteRange[1]] + filedata[digsig.ByteRange[2],digsig.ByteRange[3]]
       
       signature = OpenSSL::PKCS7.sign(certificate, key, signable_data, [], OpenSSL::PKCS7::DETACHED | OpenSSL::PKCS7::BINARY).to_der

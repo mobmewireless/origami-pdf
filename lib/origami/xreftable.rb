@@ -336,6 +336,15 @@ module Origami
       @xrefs = nil
     end
 
+    def entries
+      load! if @xrefs.nil?
+
+      @xrefs
+    end
+
+    #
+    # Returns XRef entries present in this stream.
+    #
     def pre_build #:nodoc:
       load! if @xrefs.nil?
 
@@ -386,7 +395,7 @@ module Origami
     end
 
     def clear
-      @rawdata, @data = nil, ''
+      self.data = ''
       @xrefs = []
       self.Index = []
     end
@@ -410,11 +419,11 @@ module Origami
         entrymask = "B#{type_w << 3}B#{field1_w << 3}B#{field2_w << 3}"
         size = @data.size / (type_w + field1_w + field2_w)
 
-        entries = @data.unpack(entrymask * size).map!{|field| field.to_i(2) }
+        xentries = @data.unpack(entrymask * size).map!{|field| field.to_i(2) }
 
         @xrefs = []
         size.times do |i|
-          type,field1,field2 = entries[i*3],entries[i*3+1],entries[i*3+2]
+          type,field1,field2 = xentries[i*3].ord,xentries[i*3+1].ord,xentries[i*3+2].ord
           case type
             when XREF_FREE
               @xrefs << XRef.new(field1, field2, XRef::FREE)
@@ -430,7 +439,7 @@ module Origami
     end
 
     def save! #:nodoc:
-      @data = ""
+      self.data = ""
 
       type_w, field1_w, field2_w = self.W
       @xrefs.each do |xref| @data << xref.to_xrefstm_data(type_w, field1_w, field2_w) end

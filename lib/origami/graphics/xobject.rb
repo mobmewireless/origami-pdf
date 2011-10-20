@@ -78,6 +78,17 @@ module Origami
       @instructions
     end
 
+    def draw_image(name, attr = {})
+      load! if @instructions.nil?
+
+      x, y = attr[:x], attr[:y]
+
+      @instructions << PDF::Instruction.new('q')
+      @instructions << PDF::Instruction.new('cm', 300, 0, 0, 300, x, y)
+      @instructions << PDF::Instruction.new('Do', name)
+      @instructions << PDF::Instruction.new('Q')
+    end
+
     #
     # Draw a straight line from the point at coord _from_, to the point at coord _to_.
     #
@@ -491,6 +502,45 @@ module Origami
       field   :OC,                :Type => Dictionary, :Version => "1.5"
       field   :Measure,           :Type => Dictionary, :Version => "1.7", :ExtensionLevel => 3
       field   :PtData,            :Type => Dictionary, :Version => "1.7", :ExtensionLevel => 3
+
+      def self.from_image_file(path, format = nil)
+
+        if path.respond_to?(:read)
+          fd = path
+        else
+          fd = File.open(File.expand_path(path), 'r').binmode
+          format ||= File.extname(path) 
+          format.slice!(0) if format and format[0,1] == '.'
+        end
+     
+        data = fd.read
+        fd.close
+
+        image = ImageXObject.new
+
+        raise ArgumentError, "Missing file format" if format.nil?
+        case format.downcase
+          when 'jpg', 'jpeg', 'jpe', 'jif', 'jfif', 'jfi'
+            image.setFilter :DCTDecode    
+            image.rawdata = data
+
+            image
+
+          when 'jp2','jpx','j2k','jpf','jpm','mj2'
+            image.setFilter :JPXDecode
+            image.rawdata = data
+            
+            image
+
+          when 'jb2', 'jbig', 'jbig2'
+            image.setFilter :JBIG2Decode
+            image.rawdata = data
+
+            image
+        else
+          raise NotImplementedError, "Unknown file format: '#{format}'"
+        end
+      end
 
       #
       # Converts an ImageXObject stream into an image file data.

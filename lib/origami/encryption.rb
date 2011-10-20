@@ -302,6 +302,8 @@ module Origami
       attr_writer :stm_algo
       attr_writer :str_algo
 
+      private
+
       def physicalize(options = {})
 
         def build(obj, revision, options) #:nodoc:
@@ -1357,9 +1359,7 @@ module Origami
         end
 
         def password_to_utf8(passwd) #:nodoc:
-          p=Origami::ByteString.new(passwd).to_utf8[0, 127]
-          hexprint p
-          p
+          Origami::ByteString.new(passwd).to_utf8[0, 127]
         end
       
       end

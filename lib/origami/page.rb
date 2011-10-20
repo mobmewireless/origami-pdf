@@ -424,6 +424,16 @@ module Origami
     end
 
     #
+    # Returns the array of Annotation objects of the Page.
+    #
+    def annotations
+      annots = self.Annots
+      return unless annots.is_a?(Array)
+      
+      annots.map{|annot| annot.solve} 
+    end
+
+    #
     # Embed a SWF Flash application in the page.
     #
     def add_flash_application(swfspec, params = {})
