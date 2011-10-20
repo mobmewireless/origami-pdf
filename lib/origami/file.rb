@@ -53,7 +53,13 @@ module Origami
       end
       
       fstream = EmbeddedFileStream.new
-      fstream.data = fd.read
+
+      if ''.respond_to? :force_encoding
+        fstream.data = fd.read.force_encoding('binary') # 1.9
+      else
+        fstream.data = fd.read
+      end
+
       fstream.setFilter(params[:Filter])
       
       name = params[:EmbeddedName]

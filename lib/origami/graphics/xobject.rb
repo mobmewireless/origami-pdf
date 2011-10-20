@@ -513,7 +513,12 @@ module Origami
           format.slice!(0) if format and format[0,1] == '.'
         end
      
-        data = fd.read
+        if ''.respond_to? :force_encoding
+          data = fd.read.force_encoding('binary') # 1.9
+        else
+          data = fd.read
+        end
+
         fd.close
 
         image = ImageXObject.new
