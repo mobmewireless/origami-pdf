@@ -30,16 +30,7 @@ module Origami
   
   module Filter
 
-    class InvalidFlateDataError < Exception #:nodoc:
-      attr_reader :zlib_stream, :zlib_except
-
-      def initialize(zlib_stream, zlib_except)
-        super(zlib_except.message)
-
-        @zlib_stream = zlib_stream
-        @zlib_except = zlib_except
-      end
-    end
+    class InvalidFlateDataError < InvalidFilterDataError; end #:nodoc:
     
     #
     # Class representing a Filter used to encode and decode data with zlib/Flate compression algorithm.
@@ -92,7 +83,7 @@ module Origami
         begin
           uncompressed = zlib_stream.inflate(stream)
         rescue Zlib::DataError => zlib_except
-          raise InvalidFlateDataError.new(zlib_stream, zlib_except)
+          raise InvalidFlateDataError.new(zlibexcept.message, zlib_stream.flush_next_out)
         end
 
         if @params.Predictor.is_a?(Integer)

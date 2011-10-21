@@ -29,7 +29,7 @@ module Origami
 
   module Filter
 
-    class InvalidLZWDataError < Exception #:nodoc:
+    class InvalidLZWDataError < InvalidFilterDataError #:nodoc:
     end
     
     #
@@ -131,8 +131,10 @@ module Origami
             when 4095
               if byte != CLEARTABLE
               then
-                raise InvalidLZWDataError, 
-                  "LZW table is full and no clear flag was set (codeword #{byte.to_s(2).rjust(codesize,'0')} at bit #{bstring.pos - codesize}/#{bstring.size})"
+                raise InvalidLZWDataError.new(
+                  "LZW table is full and no clear flag was set (codeword #{byte.to_s(2).rjust(codesize,'0')} at bit #{bstring.pos - codesize}/#{bstring.size})",
+                  result
+                )
               end
           end
 
@@ -150,6 +152,11 @@ module Origami
               result << table.key(byte)
               redo
             else
+              raise InvalidLZWDataError.new(
+                "No entry for codeword #{prevbyte.to_s(2).rjust(codesize,'0')}.",
+                result
+              ) unless table.key(prevbyte)
+
               if table.has_value?(byte)
                 entry = table.key(byte)
               else

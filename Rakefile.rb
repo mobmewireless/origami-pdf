@@ -7,7 +7,7 @@ require 'rubygems/package_task'
 
 spec = Gem::Specification.new do |s|
   s.name       = "origami"
-  s.version    = "1.2.2"
+  s.version    = "1.2.4"
   s.author     = "Guillaume Delugré"
   s.email      = "guillaume at security-labs dot org"
   s.homepage   = "http://aslr.fr/pages/Origami"

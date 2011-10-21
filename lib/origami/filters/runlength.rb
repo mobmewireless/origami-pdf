@@ -27,7 +27,7 @@ module Origami
   
   module Filter
     
-    class InvalidRunLengthDataError < Exception #:nodoc:
+    class InvalidRunLengthDataError < InvalidFilterDataError #:nodoc:
     end
     
     #

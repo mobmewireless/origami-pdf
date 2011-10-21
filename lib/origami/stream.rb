@@ -249,11 +249,19 @@ module Origami
               filters = [ filters ] unless filters.is_a?(::Array)
           
               @data = @rawdata.dup
+              @data.freeze
+
               filters.length.times do |layer|
                 params = dparams[layer].is_a?(Dictionary) ? dparams[layer] : {}
                 filter = filters[layer]
 
-                @data = decode_data(@data, filter, params)
+                begin
+                  @data = decode_data(@data, filter, params)
+                rescue Filter::InvalidFilterDataError => e
+                  @data = e.decoded_data if e.decoded_data
+                  raise InvalidStreamObjectError, 
+                    "Error while decoding stream #{self.reference}\n\t-> [#{e.class}] #{e.message}"
+                end
               end
             else
               raise InvalidStreamObjectError, "Invalid Filter type parameter"
@@ -357,15 +365,8 @@ module Origami
         raise InvalidStreamObjectError, "Unknown filter : #{filter}"
       end
 
-      begin
-        Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).decode(data, params)
+      Origami::Filter.const_get(filter.value.to_s.sub(/Decode$/,"")).decode(data, params)
       
-      rescue Filter::InvalidFlateDataError => flate_e
-        return flate_e.zlib_stream.flush_next_out   
-      
-      rescue Exception => e
-        raise InvalidStreamObjectError, "Error while decoding stream #{self.reference}\n\t-> [#{e.class}] #{e.message}"
-      end
     end
     
     def encode_data(data, filter, params) #:nodoc:

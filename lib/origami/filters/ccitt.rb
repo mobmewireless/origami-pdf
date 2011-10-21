@@ -27,7 +27,7 @@ module Origami
 
   module Filter
 
-    class InvalidCCITTFaxDataError < Exception #:nodoc:
+    class InvalidCCITTFaxDataError < InvalidFilterDataError #:nodoc:
     end
 
     class CCITTFaxFilterError < Exception #:nodoc:
@@ -404,7 +404,10 @@ module Origami
 
           # checking for the presence of EOL
           if bitr.peek(EOL[1]) != EOL[0]
-            raise CCITTFaxFilterError, "No end-of-line pattern found (at bit pos #{bitr.pos}/#{bitr.size}})" if has_eol
+            raise InvalidCCITTFaxDataError.new(
+              "No end-of-line pattern found (at bit pos #{bitr.pos}/#{bitr.size}})",
+              bitw.final.to_s
+            )if has_eol
           else
             bitr.pos += EOL[1]
           end
@@ -417,10 +420,16 @@ module Origami
               bit_length = get_black_bits(bitr)
             end
 
-            raise CCITTFaxFilterError, "Unfinished line (at bit pos #{bitr.pos}/#{bitr.size}})" if bit_length.nil?
+            raise InvalidCCITTFaxDataError.new(
+              "Unfinished line (at bit pos #{bitr.pos}/#{bitr.size}})",
+              bitw.final.to_s
+            ) if bit_length.nil?
             
             line_length += bit_length
-            raise CCITTFaxFilterError, "Line is too long (at bit pos #{bitr.pos}/#{bitr.size}})" if line_length > columns
+            raise InvalidCCITTFaxDataError.new(
+              "Line is too long (at bit pos #{bitr.pos}/#{bitr.size}})",
+              bitw.final.to_s
+            ) if line_length > columns
 
             write_bit_range(bitw, current_color, bit_length)
             current_color ^= 1

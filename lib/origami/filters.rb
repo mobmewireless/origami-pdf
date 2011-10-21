@@ -30,6 +30,16 @@ module Origami
   #
   module Filter
 
+    class InvalidFilterDataError < Exception # :nodoc:
+      attr_reader :decoded_data
+
+      def initialize(message, decoded_data = nil)
+        super(message)
+
+        @decoded_data = decoded_data
+      end
+    end
+
     module Utils
       
       class BitWriterError < Exception #:nodoc:

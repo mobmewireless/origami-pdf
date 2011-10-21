@@ -27,7 +27,7 @@ module Origami
 
   module Filter
     
-    class InvalidASCIIHexStringError < Exception #:nodoc:
+    class InvalidASCIIHexStringError < InvalidFilterDataError #:nodoc:
     end
     
     #
@@ -64,7 +64,7 @@ module Origami
       
     end
     
-    class InvalidASCII85StringError < Exception #:nodoc:
+    class InvalidASCII85StringError < InvalidFilterDataError #:nodoc:
     end
     
     #
@@ -141,7 +141,7 @@ module Origami
             codelen = 5
             
             if input.length - i < 5
-              raise InvalidASCII85StringError, "Invalid length" if input.length - i == 1
+              raise InvalidASCII85StringError.new("Invalid length", result) if input.length - i == 1
               
               addend = 5 - (input.length - i)
               input << "u" * addend
@@ -152,15 +152,20 @@ module Origami
             # Checking if this string is in base85
             5.times do |j|
               if input[i+j].ord > "u"[0].ord or input[i+j].ord < "!"[0].ord
-                raise InvalidASCII85StringError, "Invalid character sequence: #{input[i,5].inspect}"
+                raise InvalidASCII85StringError.new(
+                  "Invalid character sequence: #{input[i,5].inspect}",
+                  result
+                )
               else
                 inblock += (input[i+j].ord - "!"[0].ord) * 85 ** (4 - j)
               end
             end
           
-            if inblock >= 2**32
-              raise InvalidASCII85StringError, "Invalid value (#{inblock}) for block #{input[i,5].inspect}"
-            end
+            
+            raise InvalidASCII85StringError.new(
+              "Invalid value (#{inblock}) for block #{input[i,5].inspect}",
+              result
+            ) if inblock >= 2**32
           
           end
         
