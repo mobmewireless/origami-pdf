@@ -4,22 +4,22 @@
 	menu.rb
 
 = Info
-	This file is part of Origami, PDF manipulation framework for Ruby
+	This file is part of PDF Walker, a graphical PDF file browser
 	Copyright (C) 2010	Guillaume Delugré <guillaume@security-labs.org>
 	All right reserved.
 	
-  Origami is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Lesser General Public License as published by
+  PDF Walker is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
 
-  Origami is distributed in the hope that it will be useful,
+  PDF Walker is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Lesser General Public License for more details.
+  GNU General Public License for more details.
 
-  You should have received a copy of the GNU Lesser General Public License
-  along with Origami.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with PDF Walker.  If not, see <http://www.gnu.org/licenses/>.
 
 =end
 
@@ -266,7 +266,7 @@ module PDFWalker
       
       AccelMap.add_entry("<PDF Walker>/File/Open", Gdk::Keyval::GDK_O, Gdk::Window::CONTROL_MASK)
       AccelMap.add_entry("<PDF Walker>/File/Refresh", Gdk::Keyval::GDK_R, Gdk::Window::CONTROL_MASK)
-      AccelMap.add_entry("<PDF Walker>/File/Close", Gdk::Keyval::GDK_X, Gdk::Window::CONTROL_MASK)
+      AccelMap.add_entry("<PDF Walker>/File/Close", Gdk::Keyval::GDK_W, Gdk::Window::CONTROL_MASK)
       AccelMap.add_entry("<PDF Walker>/File/Save", Gdk::Keyval::GDK_S, Gdk::Window::CONTROL_MASK)
       AccelMap.add_entry("<PDF Walker>/File/Quit", Gdk::Keyval::GDK_Q, Gdk::Window::CONTROL_MASK)
       AccelMap.add_entry("<PDF Walker>/Document/Search", Gdk::Keyval::GDK_F, Gdk::Window::CONTROL_MASK)

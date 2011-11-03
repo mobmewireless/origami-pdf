@@ -4,26 +4,26 @@
 	hexview.rb
 
 = Info
-	This file is part of Origami, PDF manipulation framework for Ruby
+	This file is part of PDF Walker, a graphical PDF file browser
 	Copyright (C) 2010	Guillaume Delugré <guillaume@security-labs.org>
 	All right reserved.
 	
-  Origami is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Lesser General Public License as published by
+  PDF Walker is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
 
-  Origami is distributed in the hope that it will be useful,
+  PDF Walker is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Lesser General Public License for more details.
+  GNU General Public License for more details.
 
-  You should have received a copy of the GNU Lesser General Public License
-  along with Origami.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with PDF Walker.  If not, see <http://www.gnu.org/licenses/>.
 
 =end
 
-require 'gui/hexdump'
+require 'gui/gtkhex'
 
 module PDFWalker
 
@@ -44,21 +44,15 @@ module PDFWalker
         set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
         @current_obj = nil
-        @valuebuffer = TextBuffer.new
-        @valueview = TextView.new(@valuebuffer).set_editable(false).set_cursor_visible(false).set_left_margin(5).set_right_margin(5)
+        
+        @view = HexEditor.new
+        @view.show_offsets(true)
 
-        @valuebuffer.create_tag( "HexView",
-          :weight => Pango::WEIGHT_BOLD, 
-          #:foreground => "black", 
-          :family => "Courier", 
-          :scale => Pango::AttrScale::LARGE
-        )
-
-        add_with_viewport @valueview
+        add_with_viewport @view
       end
 
       def clear
-        @valuebuffer.set_text("")
+        @view.set_data ''
       end
 
       def load(object)
@@ -69,14 +63,13 @@ module PDFWalker
 
           case object
             when Origami::Stream
-              @valuebuffer.set_text(object.data.to_s.hexdump)
+              @view.set_data(object.data)
             when Origami::HexaString
-              @valuebuffer.set_text(object.value.to_s.hexdump)
+              @view.set_data(object.data.to_s)
             when Origami::ByteString
-              @valuebuffer.set_text(object.to_utf8)
+              @view.set_data(object.data.to_s)
           end
 
-          @valuebuffer.apply_tag("HexView", @valuebuffer.start_iter, @valuebuffer.end_iter)
           @current_obj = object
 
         rescue Exception => e 

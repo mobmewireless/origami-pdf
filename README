@@ -37,11 +37,8 @@ DIRECTORIES
   ``bin/``
     Useful tools based on Origami.
 
-  ``tests/``
+  ``test/``
     Test case units.
-
-  ``doc/``
-    Automated RubyDoc HTML documentation.
 
 HOMEPAGE
 
@@ -56,6 +53,10 @@ LICENSE
 
   This software is distributed under the LGPL license.
   See the COPYING.LESSER file for more details.
+
+  Exception is for the PDF Walker graphical interface located in subdirectory
+  bin/gui, which is distributed under the GPL license.
+  See bin/gui/COPYING file for more details.
 
 NOTES
 
