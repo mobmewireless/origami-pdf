@@ -64,10 +64,8 @@ module PDFWalker
           case object
             when Origami::Stream
               @view.set_data(object.data)
-            when Origami::HexaString
-              @view.set_data(object.data.to_s)
-            when Origami::ByteString
-              @view.set_data(object.data.to_s)
+            when Origami::String
+              @view.set_data(object.value)
           end
 
           @current_obj = object
