@@ -115,16 +115,15 @@ module Origami
         doc_id = doc_id.first
       end
 
-      if handler.is_owner_password?(passwd, doc_id)
+      if handler.is_user_password?(passwd, doc_id)
+        encryption_key = handler.compute_user_encryption_key(passwd, doc_id)
+      elsif handler.is_owner_password?(passwd, doc_id)
         if handler.V.to_i < 5
           user_passwd = handler.retrieve_user_password(passwd)
           encryption_key = handler.compute_user_encryption_key(user_passwd, doc_id)
         else
           encryption_key = handler.compute_owner_encryption_key(passwd)
         end
-      
-      elsif handler.is_user_password?(passwd, doc_id)
-        encryption_key = handler.compute_user_encryption_key(passwd, doc_id)
       else
         raise EncryptionInvalidPasswordError
       end
@@ -1325,10 +1324,10 @@ module Origami
             end
 
             64.times do |j|
-              x = aes.update(block)
-              unless vector.empty?
-                x += aes.update(vector)
-              end
+              x = ''
+              x += aes.update(password) unless password.empty?
+              x += aes.update(block)
+              x += aes.update(vector) unless vector.empty?
 
               if j == 0
                 block_size = 32 + (x.unpack("C16").inject(0) {|a,b| a+b} % 3) * 16
