@@ -61,7 +61,7 @@ module Origami
               (pdf.get_object_by_offset(trailer.XRefStm) if trailer.has_field? :XRefStm)
 
             if not xrefstm.nil?
-              debug "Found a XRefStream for this revision at #{xrefstm.reference}"
+              warn "Found a XRefStream for this revision at #{xrefstm.reference}"
               pdf.revisions.last.xrefstm = xrefstm
             end
 
