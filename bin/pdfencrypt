@@ -102,8 +102,8 @@ begin
 
   pdf = PDF.read(target, params)
   pdf.encrypt(
-    :user_password  => @options[:password], 
-    :owner_password => @options[:password], 
+    :user_passwd  => @options[:password], 
+    :owner_passwd => @options[:password], 
     :cipher         => @options[:cipher], 
     :key_size       => @options[:key_size],
     :hardened       => @options[:hardened]
