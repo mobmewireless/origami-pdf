@@ -490,13 +490,15 @@ module Origami
       end
 
       def skip_until_next_obj(stream) #:nodoc:
-        stream.pos += 1 until stream.match?(@@regexp_obj) or 
-          stream.match?(/xref/) or stream.match?(/trailer/) or stream.match?(/startxref/) or
-          stream.eos?
+        [ @@regexp_obj, /xref/, /trailer/, /startxref/ ].each do |re|
+          if stream.scan_until(re)
+            stream.pos -= stream.matched_size
+            return true
+          end
+        end
         
-        not stream.eos?
+        false
       end
-      
     end
     
     def pdf_version_required #:nodoc:

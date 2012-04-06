@@ -45,15 +45,15 @@ module Origami
           begin
             pdf.add_new_revision unless revision.zero?
             revision = revision + 1
-            
+
             info "...Parsing revision #{pdf.revisions.size}..."
             loop do
               break if (object = parse_object).nil?
               pdf.insert(object)
             end
-            
+
             pdf.revisions.last.xreftable = parse_xreftable
-           
+
             trailer = parse_trailer
             pdf.revisions.last.trailer = trailer
 
@@ -70,10 +70,10 @@ module Origami
           rescue Exception => e
             error "Cannot read : " + (@data.peek(10) + "...").inspect
             error "Stopped on exception : " + e.message
-            
+
             break
           end
-          
+
         end
 
         parse_finalize(pdf)
