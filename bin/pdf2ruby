@@ -26,11 +26,11 @@
 =end
 
 require 'optparse'
-require 'ftools'
+require 'fileutils'
 begin
+  ORIGAMIDIR = "#{File.dirname(__FILE__)}/../lib"
   require 'origami'
 rescue LoadError
-  ORIGAMIDIR = "#{File.dirname(__FILE__)}/../lib"
   $: << ORIGAMIDIR
   require 'origami'
 end
@@ -315,7 +315,11 @@ puts "Processing the object hierarchy..."
 @current_idx = 0
 while @current_idx != @obj_route.size
   varname = @obj_route[@current_idx]
-  obj = target[@var_hash.index(varname)]
+  if RUBY_VERSION < '1.9'
+    obj = target[@var_hash.index(varname)]
+  else
+    obj = target[@var_hash.key(varname)]
+  end
   
   @code_hash[varname] ||= {}
   @code_hash[varname][:body] = objectToRuby(obj, 0, varname, true)
