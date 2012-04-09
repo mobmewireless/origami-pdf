@@ -388,8 +388,8 @@ module Origami
         bitr = Utils::BitReader.new(stream)
         bitw = Utils::BitWriter.new
 
-        current_color = white
         until bitr.eod? or rows == 0
+          current_color = white
           
           # realign the read line on a 8-bit boundary if required
           if aligned and bitr.pos % 8 != 0
