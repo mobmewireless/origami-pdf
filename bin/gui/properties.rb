@@ -54,21 +54,34 @@ module PDFWalker
         super("Document properties", parent, Dialog::MODAL, [Stock::CLOSE, Dialog::RESPONSE_NONE])
         
         docframe = Frame.new(" File properties ")
-        
-        i = Iconv.new("UTF-8//IGNORE//TRANSLIT", "ISO-8859-1")
-        
         stat = File.stat(parent.filename)
+        
+        if RUBY_VERSION < '1.9'
+          require 'iconv'
+          i = Iconv.new("UTF-8//IGNORE//TRANSLIT", "ISO-8859-1")
+
+          creation_date = i.iconv(stat.ctime.to_s)
+          last_modified = i.iconv(stat.mtime.to_s)
+          fd = File.open(parent.filename, 'rb')
+          md5sum = Digest::MD5.hexdigest(fd.read)
+          fd.close
+          i.close
+        else
+          creation_date = stat.ctime.to_s.encode("utf-8", :invalid => :replace, :undef => :replace)
+          last_modified = stat.mtime.to_s.encode("utf-8", :invalid => :replace, :undef => :replace)
+          md5sum = Digest::MD5.hexdigest(File.binread(parent.filename))
+        end
+        
         labels = 
         [ 
           [ "Filename:", parent.filename ],
           [ "File size:", "#{File.size(parent.filename)} bytes" ],
-          [ "MD5:", Digest::MD5.hexdigest(File.open(parent.filename).read) ],
+          [ "MD5:", md5sum ],
           [ "Read-only:", "#{not stat.writable?}" ],
-          [ "Creation date:", i.iconv("#{stat.ctime}") ],
-          [ "Last modified:", i.iconv("#{stat.mtime}") ]
+          [ "Creation date:", creation_date ],
+          [ "Last modified:", last_modified ]
         ]
-        i.close
-        
+
         doctable = Table.new(labels.size + 1, 3)
         
         row = 0

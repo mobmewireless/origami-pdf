@@ -41,7 +41,7 @@ module Origami
     end
   end
 
-  unless (RUBY_VERSION < '1.9' and RUBY_PLATFORM =~ /win32/)
+  unless RUBY_VERSION < '1.9'
     require 'tempfile'
 
     class Stream
@@ -50,7 +50,7 @@ module Origami
         tmpfile.write(self.data)
         tmpfile.close
 
-        Process.wait Kernel.spawn "#{editor or 'vim'} #{tmpfile.path}"
+        Process.wait Kernel.spawn "#{editor} #{tmpfile.path}"
         
         self.data = File.read(tmpfile.path)
         tmpfile.unlink

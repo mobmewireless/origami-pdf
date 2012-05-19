@@ -25,7 +25,6 @@
 
 require 'digest/md5'
 require 'digest/sha2'
-require 'iconv'
 
 module Origami
 

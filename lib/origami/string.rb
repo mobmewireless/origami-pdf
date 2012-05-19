@@ -125,12 +125,16 @@ module Origami
     # Convert String object to an UTF8 encoded Ruby string.
     #
     def to_utf8
-      require 'iconv'
-
       infer_encoding
-      i = Iconv.new("UTF-8", "UTF-16")
-        utf8str = i.iconv(self.encoding.to_utf16be(self.value))
-      i.close
+
+      if RUBY_VERSION < '1.9'
+        require 'iconv'
+        i = Iconv.new("UTF-8", "UTF-16")
+          utf8str = i.iconv(self.encoding.to_utf16be(self.value))
+        i.close
+      else
+        utf8str = self.encoding.to_utf16be(self.value).encode("utf-8", "utf-16")
+      end
 
       utf8str
     end
