@@ -83,7 +83,7 @@ module Origami
         begin
           uncompressed = zlib_stream.inflate(stream)
         rescue Zlib::DataError => zlib_except
-          raise InvalidFlateDataError.new(zlibexcept.message, zlib_stream.flush_next_out)
+          raise InvalidFlateDataError.new(zlib_except.message, zlib_stream.flush_next_out)
         end
 
         if @params.Predictor.is_a?(Integer)
