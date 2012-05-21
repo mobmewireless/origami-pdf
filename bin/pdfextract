@@ -135,7 +135,7 @@ begin
     
     pdf.root_objects.find_all{|obj| obj.is_a?(Stream)}.each do |stream|
       stream_file = "#{OUTPUT_DIR}/streams/stream_#{stream.reference.refno}.dmp"
-      File.open(stream_file, "w") do |fd|
+      File.open(stream_file, "wb") do |fd|
         fd.write(stream.data)
       end
       nstreams += 1
@@ -150,7 +150,7 @@ begin
 
     pdf.ls(/^JS$/).each do |script|
       script_file = "#{OUTPUT_DIR}/scripts/script_#{script.hash}.js"
-      File.open(script_file, "w") do |fd|
+      File.open(script_file, "wb") do |fd|
         fd.write(
           case script
             when Stream then
@@ -187,7 +187,7 @@ begin
       xfadoc = REXML::Document.new(xml)
       REXML::XPath.match(xfadoc, "//script").each do |script|
         script_file = "#{OUTPUT_DIR}/script_#{script.hash}.js"
-        File.open(script_file, 'w') do |fd|
+        File.open(script_file, "wb") do |fd|
           fd.write(script.text)
         end
         nscripts += 1
@@ -205,7 +205,7 @@ begin
       attached_file = "#{OUTPUT_DIR}/attachments/attached_#{File.basename(name)}"
       spec = attachment.solve
       if spec and spec.EF and f = spec.EF.F and f.is_a?(Stream)
-        File.open(attached_file, "w") do |fd|
+        File.open(attached_file, "wb") do |fd|
           fd.write(f.data)
         end
         nattach += 1
@@ -223,7 +223,7 @@ begin
       font = stream.xrefs.find{|obj| obj.is_a?(FontDescriptor)}
       if font
         font_file = "#{OUTPUT_DIR}/fonts/font_#{File.basename(font.FontName.value.to_s)}"
-        File.open(font_file, "w") do |fd|
+        File.open(font_file, "wb") do |fd|
           fd.write(stream.data)
         end
         nfonts += 1
@@ -239,7 +239,7 @@ begin
 
     pdf.root_objects.find_all{|obj| obj.is_a?(MetadataStream)}.each do |stream|
       metadata_file = "#{OUTPUT_DIR}/metadata/metadata_#{stream.reference.refno}.xml"
-      File.open(metadata_file, "w") do |fd|
+      File.open(metadata_file, "wb") do |fd|
         fd.write(stream.data)
       end
       nmeta += 1
@@ -261,7 +261,7 @@ begin
           STDERR.puts "Warning: file '#{image_file}' is intended to be viewed in CMYK color space."
         end
 
-        File.open(image_file, "w") do |fd|
+        File.open(image_file, "wb") do |fd|
           fd.write(image_data)
         end
         nimages += 1
