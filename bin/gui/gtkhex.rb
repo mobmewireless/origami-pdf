@@ -312,7 +312,7 @@ module Gtk
       @adisp.show
 
       @adj = Gtk::Adjustment.new(0, 0, 0, 0, 0, 0)
-      @scrollbar = VScrollbar.new(@adj)
+      @scrollbar = Gtk::VScrollbar.new(@adj)
       @adj.signal_connect 'value_changed' do |adj|
         unless @xdisp_gc.nil? or @adisp_gc.nil? or not @xdisp.drawable? or not @adisp.drawable?
           

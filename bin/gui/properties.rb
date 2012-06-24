@@ -23,7 +23,6 @@
 
 =end
 
-require 'iconv'
 require 'digest/md5'
 
 module PDFWalker

@@ -7,10 +7,10 @@ require 'rubygems/package_task'
 
 spec = Gem::Specification.new do |s|
   s.name       = "origami"
-  s.version    = "1.2.4"
-  s.author     = "Guillaume Delugré"
+  s.version    = "1.2.5"
+  s.author     = "Guillaume Delugre"
   s.email      = "guillaume at security-labs dot org"
-  s.homepage   = "http://aslr.fr/pages/Origami"
+  s.homepage   = "http://code.google.com/p/origami-pdf"
   s.platform   = Gem::Platform::RUBY
   
   s.summary    = "Origami aims at providing a scripting tool to generate and analyze malicious PDF files."

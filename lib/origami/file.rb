@@ -41,30 +41,38 @@ module Origami
       {
         :Register => true,                      # Shall the file be registered in the name directory ?
         :EmbeddedName => nil,                   # The inner filename of the attachment.
-        :Filter => :FlateDecode                 # The stream filter used to store data.
+        :Filter => :FlateDecode,                # The stream filter used to store data.
       }.update(options)
 
-      if path.respond_to?(:read)
-        fd = path
+      if path.is_a? FileSpec
+        filespec = path
         params[:EmbeddedName] ||= ''
       else
-        fd = File.open(File.expand_path(path), 'r').binmode
-        params[:EmbeddedName] ||= File.basename(path)
-      end
+        if path.respond_to?(:read)
+          fd = path
+          params[:EmbeddedName] ||= ''
+        else
+          fd = File.open(File.expand_path(path), 'r').binmode
+          params[:EmbeddedName] ||= File.basename(path)
+        end
       
-      fstream = EmbeddedFileStream.new
+        fstream = EmbeddedFileStream.new
 
-      if ''.respond_to? :force_encoding
-        fstream.data = fd.read.force_encoding('binary') # 1.9
-      else
-        fstream.data = fd.read
+        if ''.respond_to? :force_encoding
+          fstream.data = fd.read.force_encoding('binary') # 1.9
+        else
+          fstream.data = fd.read
+        end
+
+        fd.close
+
+        fstream.setFilter(params[:Filter])
+        filespec = FileSpec.new(:F => fstream)
       end
 
-      fstream.setFilter(params[:Filter])
-      
       name = params[:EmbeddedName]
       fspec = FileSpec.new.setType(:Filespec).setF(name.dup).setEF(
-        FileSpec.new(:F => fstream)
+        filespec
       )
       
       register(
@@ -73,8 +81,6 @@ module Origami
         fspec
       ) if params[:Register] == true
       
-      fd.close
-
       fspec
     end
 
