@@ -20,6 +20,7 @@
 =end
 
 require 'openssl'
+require 'base64'
 require 'digest/sha1'
 
 module Origami
@@ -372,6 +373,176 @@ module Origami
       raise SignatureError, "Cannot find digital signature"
     end
 
+
+
+
+    #@author Sajith Amma
+
+    #method will make a PDF ready for sign, and return the signable data in base64encoded format
+
+    def prepare_for_sign(options = {})
+      
+
+      
+
+      unless Origami::OPTIONS[:use_openssl]
+        fail "OpenSSL is not present or has been disabled."
+      end
+
+
+      #merging the default options with options passed
+      params =
+      {
+        :method => "adbe.pkcs7.detached",
+        :ca => [],
+        :annotation => nil,
+        :location => nil,
+        :contact => nil,
+        :reason => nil
+      }.update(options)
+      
+     
+      
+      #Optional CA Certificate Parameters
+      ca = params[:ca]
+      unless ca.is_a?(::Array)
+        raise TypeError, "Expected an Array of CA certificate."
+      end
+      
+      #Custom annotation widgets, if passed, it should a a valid Annotation::Widget
+      annotation = params[:annotation]
+      unless annotation.nil? or annotation.is_a?(Annotation::Widget::Signature)
+        raise TypeError, "Expected a Annotation::Widget::Signature object."
+      end
+
+      
+      #calcualte the signfiled size to insert inside the ByteRange
+      signfield_size = 1111 + 128
+
+
+
+      digsig = Signature::DigitalSignature.new.set_indirect(true)
+     
+      #Create an invisible Annotation Widget if it is not passed through options
+      if annotation.nil?
+        
+        annotation = Origami::Annotation::Widget::Signature.new
+        annotation.Rect = Origami::Rectangle[:llx => 89.0, :lly => 386.0, :urx => 190.0, :ury => 353.0]
+
+        page = Origami::Page.new
+        self.append_page(page)
+        page.add_annot(annotation)
+
+
+      end
+      
+      annotation.V = digsig
+      add_fields(annotation)
+      self.Catalog.AcroForm.SigFlags = 
+        InteractiveForm::SigFlags::SIGNATURESEXIST | InteractiveForm::SigFlags::APPENDONLY
+
+      
+      #set all PDF nodocs
+
+      digsig.Type = :Sig #:nodoc:
+      digsig.Contents = HexaString.new("\x00" * signfield_size ) #:nodoc:
+      digsig.Filter = Name.new("Adobe.PPKMS") #:nodoc:
+      digsig.SubFilter = Name.new(params[:method]) #:nodoc:
+      digsig.ByteRange = [0, 0, 0, 0] #:nodoc:
+      
+      digsig.Location = HexaString.new(params[:location]) if params[:location]
+      digsig.ContactInfo = HexaString.new(params[:contact]) if params[:contact]
+      digsig.Reason = HexaString.new(params[:reason]) if params[:reason]
+      
+
+
+      #
+      #  Flattening the PDF to get file view.
+      #
+      compile
+      
+      #
+      # Creating an empty Xref table to compute signature byte range.
+      #
+      rebuild_dummy_xrefs
+      
+      sigoffset = get_object_offset(digsig.no, digsig.generation) + digsig.sigOffset
+      
+      digsig.ByteRange[0] = 0 
+      digsig.ByteRange[1] = sigoffset
+      digsig.ByteRange[2] = sigoffset + digsig.Contents.size
+      
+      digsig.ByteRange[3] = filesize - digsig.ByteRange[2] until digsig.ByteRange[3] == filesize - digsig.ByteRange[2]
+      
+      # From that point the file size remains constant
+      
+      #
+      # Correct Xrefs variations caused by ByteRange modifications.
+      #
+      rebuildxrefs
+      
+
+      filedata = output()
+
+
+
+      signable_data = filedata[digsig.ByteRange[0],digsig.ByteRange[1]] + filedata[digsig.ByteRange[2],digsig.ByteRange[3]]
+      
+      
+      
+      return Base64.encode64(Digest::SHA1.digest(signable_data))
+    
+      
+
+
+    end
+
+
+
+    #@author Sajith Amma
+    #signature_base64 should be base64 encoded format of the signature digest (PKCS #7 format)
+    #PDF should be ready for sign in mode.
+    #Call prepare_for_sign before this function call
+    def insert_sign(signature_base64)
+      
+
+      #convert the base64 encoded signature to binary
+      signature = Base64.decode64 signature_base64
+
+
+      unless Origami::OPTIONS[:use_openssl]
+        fail "OpenSSL is not present or has been disabled."
+      end
+
+
+      begin
+        
+        digsig = self.signature
+
+      rescue  SignatureError
+
+        raise "Document is not prepared for insert sign, call method prepare_for_sign first"
+
+      end
+     
+      
+      #insert signature to Contents field
+      #digsig.Contents[0, signature.size] = signature
+      signature = OpenSSL::PKCS7.new(signature).to_der
+      digsig.Contents[0, signature.size] = signature
+      
+      #
+      # No more modification are allowed after signing.
+      #
+      self.freeze
+      
+
+
+    end
+
+
+
+
   end
   
   class Perms < Dictionary
@@ -619,6 +790,8 @@ module Origami
       end
 
     end
+
+
     
   end
 

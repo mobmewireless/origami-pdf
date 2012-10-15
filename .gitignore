@@ -1,0 +1,5 @@
+vendor
+Gemfile.lock
+.rvmrc
+.bundle
+.DS_Store
