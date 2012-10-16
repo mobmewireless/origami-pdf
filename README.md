@@ -40,15 +40,16 @@ All other Origami details can be found in "README" file, in the root directory
 
   )
 
-  ```
+ 
 
-  An Optional parameter :signature_size can be passed, if the signature has different size (default it is: 1111)
+  #An Optional parameter :signature_size can be passed, if the signature has different size (default it is: 1111)
 
   #send this hash_to_be_signed to a 3rd party application to sign (output must be in PKC#7 format )
 
   #save the PDF for inserting signature later
   mypdf.save('prepared.pdf')
 
+ ```
 
 ### Insert a signed data inside the prepared PDF
 
