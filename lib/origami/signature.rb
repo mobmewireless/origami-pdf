@@ -379,8 +379,10 @@ module Origami
     #@author Sajith Amma
 
     #method will make a PDF ready for sign, and return the signable data in base64encoded format
+    # Pass signature_size to set the placeholder for signature
 
-    def prepare_for_sign(options = {})
+
+    def prepare_for_sign( options = {})
       
 
       
@@ -398,7 +400,8 @@ module Origami
         :annotation => nil,
         :location => nil,
         :contact => nil,
-        :reason => nil
+        :reason => nil,
+        :signature_size => 1111
       }.update(options)
       
      
@@ -417,7 +420,7 @@ module Origami
 
       
       #calcualte the signfiled size to insert inside the ByteRange
-      signfield_size = 1111 + 128
+      signfield_size = params[:signature_size] + 128
 
 
 

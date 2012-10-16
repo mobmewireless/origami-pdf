@@ -20,107 +20,120 @@ describe Origami::PDF do
     let(:wrong_signature_pkcs7 ) { File.expand_path("../../fixtures/wrong_signature_pkcs7", File.dirname(__FILE__)) }
 
     
-
-    it "can prepare and save a PDF ready for sign" do
-
-      mypdf = Origami::PDF.read file_to_be_signed
-      
-      hash_to_be_signed = mypdf.prepare_for_sign(   
-      
-            :location => "India", 
-            :contact => "sajith@mobme.in", 
-            :reason => "Proof of Concept Sajith Vishnu" 
-            )
-
+    describe ".prepare_for_sign" do
     
-      mypdf.save( prepared_pdf );
-      
-      #mypdf.signature should not raise_error
-      expect { mypdf.signature  }.to_not raise_error
+        it "can prepare PDF ready for sign" do
 
-      
+          mypdf = Origami::PDF.read file_to_be_signed
+          
+          hash_to_be_signed = mypdf.prepare_for_sign(   
+          
+                :location => "India", 
+                :contact => "sajith@mobme.in", 
+                :reason => "Proof of Concept Sajith Vishnu" 
+                )
+
+        
+          mypdf.save( prepared_pdf );
+          
+          #mypdf.signature should not raise_error (if prepared, the pdf must have a signture field)
+          expect { mypdf.signature  }.to_not raise_error
+
+          Base64.decode64(hash_to_be_signed).size.should eql 20 
+
+          
+
+        end
+
+    end 
+
+
+    describe ".insert_sign" do
+
+        
+      context "when a prepared PDF is passed" do
+
+        it "can attach a sign" do 
+
+          mypdf = Origami::PDF.read prepared_and_waiting_pdf
+
+          signature_base64 = File.read(base64encoded_signature_pkcs7)
+
+          mypdf.insert_sign( signature_base64)
+
+          mypdf.is_signed?.should eql true
+
+          mypdf.verify.should eql true
+
+          
+
+
+        end
+
+      end  
+
+      context "when a normal PDF is passed" do
+
+        it "throws invalid PDF exception" do 
+
+          mypdf = Origami::PDF.read file_to_be_signed
+
+          signature_base64 = File.read(base64encoded_signature_pkcs7)
+
+          expect { mypdf.insert_sign( signature_base64) }.to raise_error
+
+            
+        end
+
+      end
+
+
+
+        it "returns invalid PDF for wrong signature" do 
+
+          mypdf = Origami::PDF.read prepared_and_waiting_pdf
+
+          signature_base64 = File.read(wrong_signature_pkcs7)
+
+          mypdf.insert_sign( signature_base64)
+
+          mypdf.is_signed?.should eql true
+
+          mypdf.verify.should eql false
+
+
+        end
 
     end
 
+    it "can verify a change in signed PDF" do
 
-
-    it "can prepare and return a valid base64 encoded SHA1 hash signable data" do
-
-      mypdf = Origami::PDF.read file_to_be_signed
-      
-      hash_to_be_signed = mypdf.prepare_for_sign(   
-      
-            :location => "India", 
-            :contact => "sajith@mobme.in", 
-            :reason => "Proof of Concept Sajith Vishnu" 
-            )
-
-    
-
-      #hash_to_be_signed should be a base64 encoded hash with lenght = 20
-      Base64.decode64(hash_to_be_signed).size.should eql 20 
-
-
-    end
-
-
-    it "can attach a sign inside a prepared PDF document" do 
-
-      mypdf = Origami::PDF.read prepared_and_waiting_pdf
-
-      signature_base64 = File.read(base64encoded_signature_pkcs7)
-
-      mypdf.insert_sign( signature_base64)
-
+      #Open a signed PDF file
+      mypdf = Origami::PDF.read signed_pdf_path
       mypdf.is_signed?.should eql true
 
+      #verify the signature, to make sure it is signed validly
       mypdf.verify.should eql true
 
       
+      #add some extra content
+      contents = ContentStream.new
+      contents.write "Adding extra data",
+        :x => 250, :y => 750, :rendering => Text::Rendering::FILL, :size => 30
+      mypdf.append_page Page.new.setContents(contents)
 
 
-    end
+      #save the edited version somewhere
+      mypdf.saveas( signed_pdf_path + "_duplicate.pdf" )
 
 
-    it "can verify a wrong signature attachment" do 
+      #load the edited version
+      edited_pdf =  Origami::PDF.read signed_pdf_path + "_duplicate.pdf"
 
-      mypdf = Origami::PDF.read prepared_and_waiting_pdf
+      #verification should through exeception
+      expect { edited_pdf.verify }.to raise_error
 
-      signature_base64 = File.read(wrong_signature_pkcs7)
-
-      mypdf.insert_sign( signature_base64)
-
-      mypdf.is_signed?.should eql true
-
-      mypdf.verify.should eql false
-
-
-    end
-
-
-    it "can detect a change in signed PDF" do
-
-      mypdf = Origami::PDF.read prepared_and_waiting_pdf
-
-      signature_base64 = File.read(base64encoded_signature_pkcs7)
-
-      mypdf.insert_sign( signature_base64)
-
-      mypdf.is_signed?.should eql true
-
-      mypdf.verify.should eql true
-
-      mypdf.save(signed_pdf_path)
-
-      #adding a new page
-      page = Origami::Page.new
-      mypdf.append_page(page)
-
-      mypdf.save(signed_pdf_path)
-
-      #mypdf.verify.should eql false
-
-      true
+      
 
 
     end 
