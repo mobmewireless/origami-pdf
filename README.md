@@ -22,6 +22,8 @@ All other Origami details can be found in "README" file, in the root directory
 
 ### Prepare a PDF for signing 
 
+```ruby
+
   require 'origami' 
 
   #load a sample PDF file
@@ -29,6 +31,7 @@ All other Origami details can be found in "README" file, in the root directory
   mypdf = Origami::PDF.read "./sample.pdf"
 
   # location, contact, reason etc are optional parameters
+
   hash_to_be_signed = mypdf.prepare_for_sign (   
   
       :location => "Your Location", 
@@ -36,6 +39,8 @@ All other Origami details can be found in "README" file, in the root directory
       :reason => "Your Reason for signing here," 
 
   )
+
+  ```
 
   An Optional parameter :signature_size can be passed, if the signature has different size (default it is: 1111)
 
@@ -46,6 +51,8 @@ All other Origami details can be found in "README" file, in the root directory
 
 
 ### Insert a signed data inside the prepared PDF
+
+```ruby
 
 require 'origami'
 
@@ -62,11 +69,13 @@ signature_base64 =
 
 
 # insert the signature inside the PDF
+
 mypdf.insert_sign( signature_base64)
 
 # Save the signed PDF
+
 mypdf.save('sign-attached.pdf')
 
-
+```
 
 
