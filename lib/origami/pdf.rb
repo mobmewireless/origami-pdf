@@ -272,8 +272,8 @@ module Origami
       
       options = 
       {
-        :delinearize => true,
-        :recompile => true,
+        :delinearize => false,
+        :recompile => false,
         :decrypt => false
       }
       options.update(params)
