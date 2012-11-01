@@ -79,4 +79,18 @@ mypdf.save('sign-attached.pdf')
 
 ```
 
+## Check whether a PDF is valid for sign
+
+All PDF are not valid PDF for sign in.
+
+* Current library do not support linearized PDF 
+
+* It also do not support XREFed PDF
+
+The method 'valid_pdf_for_sign?' helps to find out whether a PDF is valid for sign in
+
+You need to call this method before calling prepare_for_sign method. 
+
+'prepare_for_sign' method raise exception if the PDF is not valid
+
 

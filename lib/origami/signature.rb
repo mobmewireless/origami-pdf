@@ -381,11 +381,30 @@ module Origami
     #method will make a PDF ready for sign, and return the signable data in base64encoded format
     # Pass signature_size to set the placeholder for signature
 
+    def valid_pdf_for_sign?
+
+
+      #current version do no support linearized or xref tabled PDF
+      if self.is_linearized? || self.revisions.last.xrefstm.nil? == false
+
+        return false
+
+      end 
+
+      true
+
+    end
+    
 
     def prepare_for_sign( options = {})
       
 
-      
+      unless self.valid_pdf_for_sign?
+
+        raise Origami::PDF::LinearizationError 
+        
+      end
+
 
       unless Origami::OPTIONS[:use_openssl]
         fail "OpenSSL is not present or has been disabled."
