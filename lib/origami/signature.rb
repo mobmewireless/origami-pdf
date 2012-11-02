@@ -30,6 +30,10 @@ module Origami
     class SignatureError < Exception #:nodoc:
     end
 
+    #@author Sajith
+    class FPDFError < Exception #:nodoc:
+    end
+
     #
     # Verify a document signature.
     #   Options:
@@ -375,15 +379,66 @@ module Origami
 
 
 
+     #method to check whether a command is availble in shell
+    def self.command?(command)
+           system("which #{ command} > /dev/null 2>&1")
+    end
+
+
 
     #@author Sajith Amma
 
     #method will make a PDF ready for sign, and return the signable data in base64encoded format
     # Pass signature_size to set the placeholder for signature
 
+    #convert_to_signable convert linearized and xref-streamed PDFs to normal PDF
+
+
+    def self.convert_to_signable(input, output)
+
+      #if qpdf is not installed, raise exception
+      unless command? 'qpdf'
+        
+        raise FPDFError
+      
+      end
+
+      mypdf = self.read input
+
+      if mypdf.is_linearized?
+
+        command = "qpdf  #{input} --normalize-content=y #{output}"
+
+        system("#{ command} > /dev/null ")
+
+        mypdf = self.read output
+
+
+      end 
+
+      if mypdf.revisions.last.xrefstm.nil? == false
+
+        command = "qpdf  #{input} --ignore-xref-streams  #{output}"
+
+        system("#{ command} > /dev/null ")
+
+        mypdf = self.read output
+
+
+      end
+
+
+      mypdf.save output
+
+      true
+
+    end
+
+
+    #future method to validate a pdf before sign, so call validate_pdf_for_sign before call prepare sign
     def valid_pdf_for_sign?
 
-
+        
       #current version do no support linearized or xref tabled PDF
       if self.is_linearized? || self.revisions.last.xrefstm.nil? == false
 
@@ -394,21 +449,32 @@ module Origami
       true
 
     end
+
+
+
+   
     
+
+
+    #method to prepare a pdf ready for adapting a signature
 
     def prepare_for_sign( options = {})
       
 
+      
+
+      #if the PDF is not valid to sign, raise exception
       unless self.valid_pdf_for_sign?
 
-        raise Origami::PDF::LinearizationError 
-        
+        raise Origami::PDF::InvalidPDFError 
+
       end
 
 
       unless Origami::OPTIONS[:use_openssl]
         fail "OpenSSL is not present or has been disabled."
       end
+
 
 
       #merging the default options with options passed

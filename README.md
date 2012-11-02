@@ -79,18 +79,14 @@ mypdf.save('sign-attached.pdf')
 
 ```
 
-## Check whether a PDF is valid for sign
+## Convert PDF ready for sign
 
 All PDF are not valid PDF for sign in.
 
-* Current library do not support linearized PDF 
+Origami library do not directly support linearized PDF and XREF-streamed PDF
 
-* It also do not support XREFed PDF
+When upload a PDF, use the below method to convert PDF to be ready for sign
 
-The method 'valid_pdf_for_sign?' helps to find out whether a PDF is valid for sign in
 
-You need to call this method before calling prepare_for_sign method. 
-
-'prepare_for_sign' method raise exception if the PDF is not valid
-
+Origami::PDF.convert_to_signable input_pdf_file_path, output_pdf_file_path
 

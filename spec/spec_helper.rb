@@ -8,3 +8,5 @@ rescue LoadError
   require 'origami'
 end
 include Origami
+
+require 'mobile_express/valimo_signature_api'

@@ -28,8 +28,17 @@ describe Origami::PDF do
     let(:xrefed_pdf_path ) { File.expand_path("../../fixtures/xrefed.pdf", File.dirname(__FILE__)) }
     
 
+    let(:normal_pdf_signed ) { File.expand_path("../../fixtures/normal-pdf-signed.pdf", File.dirname(__FILE__)) }
+    
+    let(:linearized_pdf_signed ) { File.expand_path("../../fixtures/linearized-pdf-signed.pdf", File.dirname(__FILE__)) }
+    
+    let(:xrefstreamed_pdf_signed ) { File.expand_path("../../fixtures/xrefstreamed_pdf_signed.pdf", File.dirname(__FILE__)) }
+    
+
     describe ".prepare_for_sign" do
     
+        
+
         it "can prepare PDF ready for sign" do
 
           mypdf = Origami::PDF.read file_to_be_signed
@@ -58,7 +67,8 @@ describe Origami::PDF do
 
     describe ".insert_sign" do
 
-        
+      
+
       context "when a prepared PDF is passed" do
 
         it "can attach a sign" do 
@@ -151,6 +161,8 @@ describe Origami::PDF do
 
     describe ".valid_pdf_for_sign?" do
 
+      
+
         context "when a linearized PDF is passed" do
 
             it "returns false" do
@@ -165,6 +177,23 @@ describe Origami::PDF do
         end
 
 
+        context "when a linearized PDF after converted to normal is passed" do
+
+            it "returns success" do
+
+              #Open a signed PDF file
+
+              Origami::PDF.convert_to_signable(linearized_pdf_path,  linearized_pdf_path + ".dup.pdf")
+
+              mypdf = Origami::PDF.read linearized_pdf_path + ".dup.pdf"
+
+              mypdf.valid_pdf_for_sign?.should eql true
+
+            end
+
+        end
+
+
         context "when a XREFed PDF is passed" do
 
             it "returns false" do
@@ -173,6 +202,21 @@ describe Origami::PDF do
               mypdf = Origami::PDF.read xrefed_pdf_path
 
               mypdf.valid_pdf_for_sign?.should eql false
+
+            end
+
+        end
+
+
+         context "when a XREFed PDF after convert to normal is passed" do
+
+            it "returns true" do
+
+              Origami::PDF.convert_to_signable xrefed_pdf_path, xrefed_pdf_path + ".dup.pdf" 
+              #Open a signed PDF file
+              mypdf = Origami::PDF.read xrefed_pdf_path + ".dup.pdf" 
+
+              mypdf.valid_pdf_for_sign?.should eql true
 
             end
 
@@ -197,7 +241,97 @@ describe Origami::PDF do
     end
       
 
+    
+    describe "an end-to-end sign" do
 
+        context "with a normal pdf" do
+
+        
+
+          it "should sign a valid normal pdf" do
+
+
+              mXsign(file_to_be_signed, normal_pdf_signed)
+
+              
+
+          end
+
+        end  
+
+
+        context "with a linearized pdf" do
+
+
+
+          it "should sign as a valid normal pdf" do
+
+
+              mXsign(linearized_pdf_path, linearized_pdf_signed)
+
+              
+
+          end
+
+        end  
+
+
+        context "with a xref-streamed pdf" do
+
+          it "should sign as a valid normal pdf" do
+
+
+              mXsign(xrefed_pdf_path, xrefstreamed_pdf_signed)
+
+              
+
+          end
+
+        end  
+
+    end
+
+
+
+    #mobile express sign, local method
+    def mXsign(input, output)
+        
+              Origami::PDF.convert_to_signable input, input + ".dup.pdf" 
+
+              mypdf = Origami::PDF.read input + ".dup.pdf"
+              
+              hash_to_be_signed = mypdf.prepare_for_sign(   
+              
+                    :location => "India", 
+                    :contact => "sajith@mobme.in", 
+                    :reason => "Proof of Concept Sajith Vishnu" 
+                    )
+
+
+              client = MobileExpress::ValimoSignatureAPI::Client.new("14.140.176.42", 8082, application_id: "in.mobileexpress.valimo", api_token: "5973d7ff5948c467b16c981ff217693e2c6d0192") 
+
+              request = client.request_signature_for("+911234567890", :sign_hash => hash_to_be_signed , :display => "Sign this file?")
+
+              response = {}
+
+              until :signature_valid == response[:status] do
+                response = client.signature_status_for(request[:transaction_id])
+                p 'waiting for signature ...'
+                sleep 3
+
+              end
+
+              signature_base64 =  response[:signature]
+
+              mypdf.insert_sign( signature_base64 )
+
+
+              mypdf.save(output)
+
+              mypdf
+
+
+    end 
 
 
 end
