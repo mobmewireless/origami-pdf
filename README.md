@@ -18,6 +18,12 @@ A third party application can sign the generated hash and the signed data in PKC
 
 All other Origami details can be found in "README" file, in the root directory
 
+## Dependancies
+
+This library need QPDF
+
+* http://qpdf.sourceforge.net/
+
 ## Usage
 
 ### Prepare a PDF for signing 
