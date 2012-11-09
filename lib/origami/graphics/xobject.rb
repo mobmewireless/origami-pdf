@@ -7,7 +7,7 @@
 	This file is part of Origami, PDF manipulation framework for Ruby
 	Copyright (C) 2010	Guillaume Delugré <guillaume@security-labs.org>
 	All right reserved.
-	
+
   Origami is free software: you can redistribute it and/or modify
   it under the terms of the GNU Lesser General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -29,7 +29,7 @@ module Origami
   # A class representing a Stream containing the contents of a Page.
   #
   class ContentStream < Stream
-    
+
     DEFAULT_SIZE = 12
     DEFAULT_FONT = :F1
     DEFAULT_LEADING = 20
@@ -42,9 +42,9 @@ module Origami
 
     attr_reader :instructions
     attr_accessor :canvas
-    
+
     def initialize(rawdata = "", dictionary = {})
-    
+
       @instructions = nil
       @canvas = Graphics::DummyCanvas.new
 
@@ -68,7 +68,7 @@ module Origami
       end
 
       @data = @instructions.join
-      
+
       super
     end
 
@@ -81,10 +81,11 @@ module Origami
     def draw_image(name, attr = {})
       load! if @instructions.nil?
 
-      x, y = attr[:x], attr[:y]
+      # @author Akhil
+      x, y, width, height = attr[:x], attr[:y], attr[:width], attr[:height]
 
       @instructions << PDF::Instruction.new('q')
-      @instructions << PDF::Instruction.new('cm', 300, 0, 0, 300, x, y)
+      @instructions << PDF::Instruction.new('cm', width, 0, 0, height, x, y)
       @instructions << PDF::Instruction.new('Do', name)
       @instructions << PDF::Instruction.new('Q')
     end
@@ -112,7 +113,7 @@ module Origami
       stroke        = attr[:stroke].nil? ? true : attr[:stroke]
       fill          = attr[:fill].nil? ? false : attr[:fill]
 
-      stroke = true if fill == false and stroke == false 
+      stroke = true if fill == false and stroke == false
 
       set_fill_color(fill_color) if fill
       set_stroke_color(stroke_color) if stroke
@@ -120,7 +121,7 @@ module Origami
       set_line_cap(line_cap)
       set_line_join(line_join)
       set_dash_pattern(dash_pattern)
-   
+
       if @canvas.gs.text_state.is_in_text_object?
         @instructions << PDF::Instruction.new('ET').render(@canvas)
       end
@@ -165,7 +166,7 @@ module Origami
       stroke        = attr[:stroke].nil? ? true : attr[:stroke]
       fill          = attr[:fill].nil? ? false : attr[:fill]
 
-      stroke = true if fill == false and stroke == false 
+      stroke = true if fill == false and stroke == false
 
       set_fill_color(fill_color) if fill
       set_stroke_color(stroke_color) if stroke
@@ -179,7 +180,7 @@ module Origami
       end
 
       @instructions << PDF::Instruction.new('re', x,y,width,height).render(@canvas)
-  
+
       @instructions << (i =
         if stroke and not fill
           PDF::Instruction.new('S')
@@ -191,7 +192,7 @@ module Origami
       )
 
       i.render(@canvas)
-      
+
       self
     end
 
@@ -203,7 +204,7 @@ module Origami
     def write(text, attr = {})
       load! if @instructions.nil?
 
-      x,y       = attr[:x], attr[:y] 
+      x,y       = attr[:x], attr[:y]
       font      = attr[:font] || DEFAULT_FONT
       size      = attr[:size] || DEFAULT_SIZE
       leading   = attr[:leading] || DEFAULT_LEADING
@@ -218,7 +219,7 @@ module Origami
 
       @instructions << PDF::Instruction.new('ET').render(@canvas) if (x or y) and @canvas.gs.text_state.is_in_text_object?
 
-      unless @canvas.gs.text_state.is_in_text_object? 
+      unless @canvas.gs.text_state.is_in_text_object?
         @instructions << PDF::Instruction.new('BT').render(@canvas)
       end
 
@@ -231,11 +232,11 @@ module Origami
       set_text_word_spacing(word_spacing) if word_spacing
       set_text_char_spacing(char_spacing) if char_spacing
       set_fill_color(color)
-      set_stroke_color(stroke_color) 
+      set_stroke_color(stroke_color)
       set_line_width(line_width)
 
       write_text_block(text)
-     
+
       self
     end
 
@@ -258,7 +259,7 @@ module Origami
     def set_text_pos(tx,ty)
       load! if @instructions.nil?
       @instructions << PDF::Instruction.new('Td', tx, ty).render(@canvas)
-      
+
       self
     end
 
@@ -285,7 +286,7 @@ module Origami
       if rise != @canvas.gs.text_state.text_rise
         @instructions << PDF::Instruction.new('Ts', rise).render(@canvas)
       end
-      
+
       self
     end
 
@@ -303,7 +304,7 @@ module Origami
       if word_spacing != @canvas.gs.text_state.word_spacing
         @instructions << PDF::Instruction.new('Tw', word_spacing).render(@canvas)
       end
-      
+
       self
     end
 
@@ -318,7 +319,7 @@ module Origami
 
     def set_fill_color(color)
       load! if @instructions.nil?
-      
+
       @instructions << ( i =
         if (color.respond_to? :r and color.respond_to? :g and color.respond_to? :b) or (color.is_a?(::Array) and color.size == 3)
           r = (color.respond_to?(:r) ? color.r : color[0]).to_f / 255
@@ -332,8 +333,8 @@ module Origami
           y = (color.respond_to?(:y) ? color.y : color[2]).to_f
           k = (color.respond_to?(:k) ? color.k : color[3]).to_f
           PDF::Instruction.new('k', c, m, y, k) if @canvas.gs.nonstroking_color != [c,m,y,k]
-          
-        elsif color.respond_to?:g or (0.0..1.0) === color 
+
+        elsif color.respond_to?:g or (0.0..1.0) === color
           g = color.respond_to?(:g) ? color.g : color
           PDF::Instruction.new('g', g) if @canvas.gs.nonstroking_color != [ g ]
 
@@ -343,12 +344,12 @@ module Origami
       )
 
       i.render(@canvas) if i
-      self 
+      self
     end
-    
+
     def set_stroke_color(color)
       load! if @instructions.nil?
-      
+
       @instructions << ( i =
         if (color.respond_to? :r and color.respond_to? :g and color.respond_to? :b) or (color.is_a?(::Array) and color.size == 3)
           r = (color.respond_to?(:r) ? color.r : color[0]).to_f / 255
@@ -362,8 +363,8 @@ module Origami
           y = (color.respond_to?(:y) ? color.y : color[2]).to_f
           k = (color.respond_to?(:k) ? color.k : color[3]).to_f
           PDF::Instruction.new('K', c, m, y, k) if @canvas.gs.stroking_color != [c,m,y,k]
-          
-        elsif color.respond_to?:g or (0.0..1.0) === color 
+
+        elsif color.respond_to?:g or (0.0..1.0) === color
           g = color.respond_to?(:g) ? color.g : color
           PDF::Instruction.new('G', g) if @canvas.gs.stroking_color != [ g ]
 
@@ -373,7 +374,7 @@ module Origami
       )
 
       i.render(@canvas) if i
-      self 
+      self
     end
 
     def set_dash_pattern(pattern)
@@ -402,7 +403,7 @@ module Origami
 
       self
     end
-    
+
     def set_line_join(join)
       load! if @instructions.nil?
       if @canvas.gs.line_join != join
@@ -419,26 +420,26 @@ module Origami
 
       code = StringScanner.new self.data
       @instructions = []
-      
+
       until code.eos?
         insn = PDF::Instruction.parse(code)
         @instructions << insn if insn
       end
-      
+
       self
     end
 
     def write_text_block(text)
-      
+
       lines = text.split("\n").map!{|line| line.to_s}
-      
+
       @instructions << PDF::Instruction.new('Tj', lines.slice!(0)).render(@canvas)
       lines.each do |line|
         @instructions << PDF::Instruction.new("'", line).render(@canvas)
       end
-      
+
     end
-    
+
   end #class ContentStream
 
   module Graphics
@@ -509,10 +510,10 @@ module Origami
           fd = path
         else
           fd = File.open(File.expand_path(path), 'r').binmode
-          format ||= File.extname(path) 
+          format ||= File.extname(path)
           format.slice!(0) if format and format[0,1] == '.'
         end
-     
+
         if ''.respond_to? :force_encoding
           data = fd.read.force_encoding('binary') # 1.9
         else
@@ -526,7 +527,7 @@ module Origami
         raise ArgumentError, "Missing file format" if format.nil?
         case format.downcase
           when 'jpg', 'jpeg', 'jpe', 'jif', 'jfif', 'jfi'
-            image.setFilter :DCTDecode    
+            image.setFilter :DCTDecode
             image.rawdata = data
 
             image
@@ -534,7 +535,7 @@ module Origami
           when 'jp2','jpx','j2k','jpf','jpm','mj2'
             image.setFilter :JPXDecode
             image.rawdata = data
-            
+
             image
 
           when 'jb2', 'jbig', 'jbig2'
@@ -549,7 +550,7 @@ module Origami
 
       #
       # Converts an ImageXObject stream into an image file data.
-      # Output format depends on the stream encoding: 
+      # Output format depends on the stream encoding:
       #   * JPEG for DCTDecode
       #   * JPEG2000 for JPXDecode
       #   * JBIG2 for JBIG2Decode
@@ -587,9 +588,9 @@ module Origami
 
                 when :ICCBased
                   iccprofile = cs[1].is_a?(Reference) ? cs[1].solve : cs[1]
-                  raise InvalidColorError, 
+                  raise InvalidColorError,
                     "Invalid ICC Profile parameter" unless iccprofile.is_a?(Stream)
-                  
+
                   case iccprofile.N
                     when 1
                       colortype = 0
@@ -611,7 +612,7 @@ module Origami
           bpc = self.BitsPerComponent || 8
           w,h = self.Width, self.Height
           pixels = self.data
-          
+
           hdr = [137, 80, 78, 71, 13, 10, 26, 10].pack('C*')
           chunks = []
 
@@ -643,10 +644,10 @@ module Origami
             ]
 
             chunks << [ 'gAMA', [ 45455 ].pack("N") ]
-            chunks << 
-            [ 
-              'cHRM', 
-              [ 
+            chunks <<
+            [
+              'cHRM',
+              [
                 31270,
                 32900,
                 64000,
@@ -655,7 +656,7 @@ module Origami
                 60000,
                 15000,
                 6000
-              ].pack("N8") 
+              ].pack("N8")
             ]
           end
 
@@ -664,7 +665,7 @@ module Origami
               case lookup
                 when Stream then lookup.data
                 when String then lookup.value
-              else 
+              else
                 raise InvalidColorError, "Invalid indexed palette table"
               end
 
@@ -675,7 +676,7 @@ module Origami
               when Color::Space::DEVICE_GRAY
                 lookup.each_byte do |g|
                   palette << Color.gray_to_rgb(g).pack("C3")
-                end              
+                end
               when Color::Space::DEVICE_RGB
                 palette << lookup[0, (lookup.size / 3) * 3]
               when Color::Space::DEVICE_CMYK
@@ -687,9 +688,9 @@ module Origami
                 case csbase[0].solve.value
                   when :ICCBased
                     iccprofile = csbase[1].solve
-                    raise InvalidColorError, 
+                    raise InvalidColorError,
                       "Invalid ICC Profile parameter" unless iccprofile.is_a?(Stream)
-                    
+
                     case iccprofile.N
                       when 1
                         lookup.each_byte do |g|
@@ -737,12 +738,12 @@ module Origami
           end
 
           require 'zlib'
-           
+
           nrows = pixels.size / bpr
           nrows.times do |irow|
             pixels.insert(irow * bpr + irow, "\x00")
           end
-          
+
           chunks <<
           [
             'IDAT',
@@ -758,8 +759,8 @@ module Origami
           end
 
           chunks << [ 'IEND', '' ]
-  
-          [ 'png', 
+
+          [ 'png',
             hdr + chunks.map!{ |chk|
               [ chk[1].size, chk[0], chk[1], Zlib.crc32(chk[0] + chk[1]) ].pack("NA4A*N")
             }.join

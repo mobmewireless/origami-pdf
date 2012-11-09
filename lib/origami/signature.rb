@@ -64,7 +64,7 @@ module Origami
       stream.terminate
 
       s1,l1,s2,l2 = digsig.ByteRange
-      if s1.value != 0 or 
+      if s1.value != 0 or
         (s2.value + l2.value) != self.original_data.size or
         (s1.value + l1.value) != digsig[:Contents].file_offset or
         s2.value != endofsig_offset
@@ -73,23 +73,23 @@ module Origami
       end
 
       data = self.original_data[s1,l1] + self.original_data[s2,l2]
-      
-      case digsig.SubFilter.value.to_s 
+
+      case digsig.SubFilter.value.to_s
         when 'adbe.pkcs7.detached'
-          flags |= OpenSSL::PKCS7::DETACHED 
+          flags |= OpenSSL::PKCS7::DETACHED
           p7 = OpenSSL::PKCS7.new(digsig[:Contents].value)
           raise SignatureError, "Not a PKCS7 detached signature" unless p7.detached?
           p7.verify([], store, data, flags)
 
-        when 'adbe.pkcs7.sha1'          
+        when 'adbe.pkcs7.sha1'
           p7 = OpenSSL::PKCS7.new(digsig[:Contents].value)
           p7.verify([], store, nil, flags) and p7.data == Digest::SHA1.digest(data)
-          
+
       else
         raise NotImplementedError, "Unsupported method #{digsig.SubFilter}"
       end
     end
-    
+
     #
     # Sign the document with the given key and x509 certificate.
     # _certificate_:: The X509 certificate containing the public key.
@@ -97,7 +97,7 @@ module Origami
     # _ca_:: Optional CA certificates used to sign the user certificate.
     #
     def sign(certificate, key, options = {})
-      
+
       unless Origami::OPTIONS[:use_openssl]
         fail "OpenSSL is not present or has been disabled."
       end
@@ -111,20 +111,20 @@ module Origami
         :contact => nil,
         :reason => nil
       }.update(options)
-      
+
       unless certificate.is_a?(OpenSSL::X509::Certificate)
         raise TypeError, "A OpenSSL::X509::Certificate object must be passed."
       end
-      
+
       unless key.is_a?(OpenSSL::PKey::RSA)
         raise TypeError, "A OpenSSL::PKey::RSA object must be passed."
       end
-      
+
       ca = params[:ca]
       unless ca.is_a?(::Array)
         raise TypeError, "Expected an Array of CA certificate."
       end
-      
+
       annotation = params[:annotation]
       unless annotation.nil? or annotation.is_a?(Annotation::Widget::Signature)
         raise TypeError, "Expected a Annotation::Widget::Signature object."
@@ -135,10 +135,10 @@ module Origami
           signfield_size = lambda{|crt,key,ca|
             datatest = "abcdefghijklmnopqrstuvwxyz"
             OpenSSL::PKCS7.sign(
-              crt, 
-              key, 
-              datatest, 
-              ca, 
+              crt,
+              key,
+              datatest,
+              ca,
               OpenSSL::PKCS7::DETACHED | OpenSSL::PKCS7::BINARY
             ).to_der.size + 128
           }
@@ -146,10 +146,10 @@ module Origami
           signfield_size = lambda{|crt,key,ca|
             datatest = "abcdefghijklmnopqrstuvwxyz"
             OpenSSL::PKCS7.sign(
-              crt, 
-              key, 
-              Digest::SHA1.digest(datatest), 
-              ca, 
+              crt,
+              key,
+              Digest::SHA1.digest(datatest),
+              ca,
               OpenSSL::PKCS7::BINARY
             ).to_der.size + 128
           }
@@ -162,33 +162,33 @@ module Origami
             ).size + 128
           }
           raise NotImplementedError, "Unsupported method #{params[:method].inspect}"
-          
+
       else
         raise NotImplementedError, "Unsupported method #{params[:method].inspect}"
       end
 
       digsig = Signature::DigitalSignature.new.set_indirect(true)
-     
+
       if annotation.nil?
         annotation = Annotation::Widget::Signature.new
-        annotation.Rect = Rectangle[:llx => 0.0, :lly => 0.0, :urx => 0.0, :ury => 0.0]        
+        annotation.Rect = Rectangle[:llx => 0.0, :lly => 0.0, :urx => 0.0, :ury => 0.0]
       end
-      
+
       annotation.V = digsig
       add_fields(annotation)
-      self.Catalog.AcroForm.SigFlags = 
+      self.Catalog.AcroForm.SigFlags =
         InteractiveForm::SigFlags::SIGNATURESEXIST | InteractiveForm::SigFlags::APPENDONLY
-      
+
       digsig.Type = :Sig #:nodoc:
       digsig.Contents = HexaString.new("\x00" * signfield_size[certificate, key, ca]) #:nodoc:
       digsig.Filter = Name.new("Adobe.PPKMS") #:nodoc:
       digsig.SubFilter = Name.new(params[:method]) #:nodoc:
       digsig.ByteRange = [0, 0, 0, 0] #:nodoc:
-      
+
       digsig.Location = HexaString.new(params[:location]) if params[:location]
       digsig.ContactInfo = HexaString.new(params[:contact]) if params[:contact]
       digsig.Reason = HexaString.new(params[:reason]) if params[:reason]
-      
+
       if params[:method] == 'adbe.x509.rsa_sha1'
         digsig.Cert =
           if ca.empty?
@@ -202,38 +202,38 @@ module Origami
       #  Flattening the PDF to get file view.
       #
       compile
-      
+
       #
       # Creating an empty Xref table to compute signature byte range.
       #
       rebuild_dummy_xrefs
-      
+
       sigoffset = get_object_offset(digsig.no, digsig.generation) + digsig.sigOffset
-      
-      digsig.ByteRange[0] = 0 
+
+      digsig.ByteRange[0] = 0
       digsig.ByteRange[1] = sigoffset
       digsig.ByteRange[2] = sigoffset + digsig.Contents.size
-      
+
       digsig.ByteRange[3] = filesize - digsig.ByteRange[2] until digsig.ByteRange[3] == filesize - digsig.ByteRange[2]
-      
+
       # From that point the file size remains constant
-      
+
       #
       # Correct Xrefs variations caused by ByteRange modifications.
       #
       rebuildxrefs
-      
+
       filedata = output()
       signable_data = filedata[digsig.ByteRange[0],digsig.ByteRange[1]] + filedata[digsig.ByteRange[2],digsig.ByteRange[3]]
-      
-      signature = 
+
+      signature =
         case params[:method]
           when 'adbe.pkcs7.detached'
             OpenSSL::PKCS7.sign(
-              certificate, 
-              key, 
-              signable_data, 
-              ca, 
+              certificate,
+              key,
+              signable_data,
+              ca,
               OpenSSL::PKCS7::DETACHED | OpenSSL::PKCS7::BINARY
             ).to_der
 
@@ -251,116 +251,116 @@ module Origami
         end
 
       digsig.Contents[0, signature.size] = signature
-      
+
       #
       # No more modification are allowed after signing.
       #
       self.freeze
     end
-    
+
     #
     # Returns whether the document contains a digital signature.
     #
     def is_signed?
-      not self.Catalog.AcroForm.nil? and 
-      self.Catalog.AcroForm.has_key?(:SigFlags) and 
+      not self.Catalog.AcroForm.nil? and
+      self.Catalog.AcroForm.has_key?(:SigFlags) and
       (self.Catalog.AcroForm.SigFlags & InteractiveForm::SigFlags::SIGNATURESEXIST != 0)
     end
-    
+
     #
     # Enable the document Usage Rights.
     # _rights_:: list of rights defined in UsageRights::Rights
     #
     def enable_usage_rights(cert, pkey, *rights)
-      
+
       signfield_size = lambda{|crt, key, ca|
         datatest = "abcdefghijklmnopqrstuvwxyz"
         OpenSSL::PKCS7.sign(crt, key, datatest, ca, OpenSSL::PKCS7::DETACHED | OpenSSL::PKCS7::BINARY).to_der.size + 128
       }
-      
+
       unless Origami::OPTIONS[:use_openssl]
         fail "OpenSSL is not present or has been disabled."
       end
-      
+
       #
       # Load key pair
       #
       key = pkey.is_a?(OpenSSL::PKey::RSA) ? pkey : OpenSSL::PKey::RSA.new(pkey)
       certificate = cert.is_a?(OpenSSL::X509::Certificate) ? cert : OpenSSL::X509::Certificate.new(cert)
-      
+
       #
       # Forge digital signature dictionary
       #
       digsig = Signature::DigitalSignature.new.set_indirect(true)
-      
+
       self.Catalog.AcroForm ||= InteractiveForm.new
       #self.Catalog.AcroForm.SigFlags = InteractiveForm::SigFlags::APPENDONLY
-      
+
       digsig.Type = :Sig #:nodoc:
       digsig.Contents = HexaString.new("\x00" * signfield_size[certificate, key, []]) #:nodoc:
       digsig.Filter = Name.new("Adobe.PPKLite") #:nodoc:
       digsig.Name = "ARE Acrobat Product v8.0 P23 0002337" #:nodoc:
       digsig.SubFilter = Name.new("adbe.pkcs7.detached") #:nodoc:
       digsig.ByteRange = [0, 0, 0, 0] #:nodoc:
-      
+
       sigref = Signature::Reference.new #:nodoc:
       sigref.Type = :SigRef #:nodoc:
       sigref.TransformMethod = :UR3 #:nodoc:
       sigref.Data = self.Catalog
-      
+
       sigref.TransformParams = UsageRights::TransformParams.new
       sigref.TransformParams.P = true #:nodoc:
       sigref.TransformParams.Type = :TransformParams #:nodoc:
       sigref.TransformParams.V = UsageRights::TransformParams::VERSION
-      
+
       rights.each do |right|
         sigref.TransformParams[right.first] ||= []
         sigref.TransformParams[right.first].concat(right[1..-1])
       end
-      
+
       digsig.Reference = [ sigref ]
-      
+
       self.Catalog.Perms ||= Perms.new
       self.Catalog.Perms.UR3 = digsig
-      
+
       #
       #  Flattening the PDF to get file view.
       #
       compile
-      
+
       #
       # Creating an empty Xref table to compute signature byte range.
       #
       rebuild_dummy_xrefs
-      
+
       sigoffset = get_object_offset(digsig.no, digsig.generation) + digsig.sigOffset
-      
-      digsig.ByteRange[0] = 0 
+
+      digsig.ByteRange[0] = 0
       digsig.ByteRange[1] = sigoffset
       digsig.ByteRange[2] = sigoffset + digsig.Contents.size
-      
+
       digsig.ByteRange[3] = filesize - digsig.ByteRange[2] until digsig.ByteRange[3] == filesize - digsig.ByteRange[2]
-      
+
       # From that point the file size remains constant
-      
+
       #
       # Correct Xrefs variations caused by ByteRange modifications.
       #
       rebuildxrefs
-      
+
       filedata = output()
       signable_data = filedata[digsig.ByteRange[0],digsig.ByteRange[1]] + filedata[digsig.ByteRange[2],digsig.ByteRange[3]]
-      
+
       signature = OpenSSL::PKCS7.sign(certificate, key, signable_data, [], OpenSSL::PKCS7::DETACHED | OpenSSL::PKCS7::BINARY).to_der
       digsig.Contents[0, signature.size] = signature
-      
+
       #
       # No more modification are allowed after signing.
       #
       self.freeze
-      
+
     end
-    
+
     def has_usage_rights?
       not self.Catalog.Perms.nil? and (not self.Catalog.Perms.has_key?(:UR3) or not self.Catalog.Perms.has_key?(:UR))
     end
@@ -398,9 +398,9 @@ module Origami
 
       #if qpdf is not installed, raise exception
       unless command? 'qpdf'
-        
+
         raise FPDFError
-      
+
       end
 
       mypdf = self.read input
@@ -414,7 +414,7 @@ module Origami
         mypdf = self.read output
 
 
-      end 
+      end
 
       if mypdf.revisions.last.xrefstm.nil? == false
 
@@ -438,35 +438,89 @@ module Origami
     #future method to validate a pdf before sign, so call validate_pdf_for_sign before call prepare sign
     def valid_pdf_for_sign?
 
-        
+
       #current version do no support linearized or xref tabled PDF
       if self.is_linearized? || self.revisions.last.xrefstm.nil? == false
 
         return false
 
-      end 
+      end
 
       true
 
     end
 
+    # Generates a page with signature annotation plus some mobile express branding!
+    #
+    # @author Akhil Stanislavose <akhil@mobme.in>
+    # @param  [Hash] options the options tag which incluedes text to be written inside annotation
+    # @return [Array] the page created and the annotation used in the page
+    #
+    def signature_page(options={})
+
+      # Setup signature annotation and define its area
+      box = { x: 175, y:490, width: 500, height: 125 }
+      annotation = Origami::Annotation::Widget::Signature.new
+      annotation.Rect = Origami::Rectangle[
+        :llx => box[:x],
+        :lly => box[:y],
+        :urx => box[:x] + box[:width],
+        :ury => box[:y] + box[:height]
+      ]
+
+      # Apperance stream will hold the content you want to draw/write inside your annotation
+      appstm = Origami::Annotation::AppearanceStream.new
+      appstm.BBox = [ 0, 0, box[:width], box[:height] ]
+      appstm.Matrix = [ 1, 0, 0, 1, 0, 0 ]
+
+      # Load stamp
+      stamp_options = { x: 10, y: 10, width: 100, height: 100 }
+      stamp = Origami::Graphics::ImageXObject.from_image_file("#{File.dirname(__FILE__)}/../../data/stamp.jpg")
+      stamp.Width  = stamp_options[:width]
+      stamp.Height = stamp_options[:height]
+      stamp.ColorSpace = Origami::Graphics::Color::Space::DEVICE_RGB
+      stamp.BitsPerComponent = 8
+      stamp.Interpolate = true
+
+      # Insert stamp
+      appstm.Resources = { :XObject => { :stamp => stamp } }.to_o
+      appstm.draw_image(:stamp, stamp_options)
+
+      # Write stuff!
+      text = "Signed by: #{options[:name]}\nEmail: #{options[:contact]}"
+      appstm.write(text, {
+        :x => 150,
+        :y => 70,
+        :rendering => Origami::Text::Rendering::FILL,
+        :size => 20,
+        :leading => 30
+      })
+
+      # Configure annotation to use the appearence stream
+      annotation.set_normal_appearance(appstm)
+
+      # Create a new page and add the annotation
+      page = Origami::Page.new
+      page.add_annot(annotation)
+
+      [page, annotation]
+    end
 
 
-   
-    
+
 
 
     #method to prepare a pdf ready for adapting a signature
 
     def prepare_for_sign( options = {})
-      
 
-      
+
+
 
       #if the PDF is not valid to sign, raise exception
       unless self.valid_pdf_for_sign?
 
-        raise Origami::PDF::InvalidPDFError 
+        raise Origami::PDF::InvalidPDFError
 
       end
 
@@ -486,50 +540,45 @@ module Origami
         :location => nil,
         :contact => nil,
         :reason => nil,
-        :signature_size => 1111
+        :signature_size => 1111,
+        :name => 'Mobile Express'
       }.update(options)
-      
-     
-      
+
+
+
       #Optional CA Certificate Parameters
       ca = params[:ca]
       unless ca.is_a?(::Array)
         raise TypeError, "Expected an Array of CA certificate."
       end
-      
+
       #Custom annotation widgets, if passed, it should a a valid Annotation::Widget
       annotation = params[:annotation]
       unless annotation.nil? or annotation.is_a?(Annotation::Widget::Signature)
         raise TypeError, "Expected a Annotation::Widget::Signature object."
       end
 
-      
+
       #calcualte the signfiled size to insert inside the ByteRange
       signfield_size = params[:signature_size] + 128
 
 
 
       digsig = Signature::DigitalSignature.new.set_indirect(true)
-     
+
       #Create an invisible Annotation Widget if it is not passed through options
       if annotation.nil?
-        
-        annotation = Origami::Annotation::Widget::Signature.new
-        annotation.Rect = Origami::Rectangle[:llx => 89.0, :lly => 386.0, :urx => 190.0, :ury => 353.0]
-
-        page = Origami::Page.new
+        # @author akhil stanislavose
+        page, annotation = signature_page(params)
         self.append_page(page)
-        page.add_annot(annotation)
-
-
       end
-      
+
       annotation.V = digsig
       add_fields(annotation)
-      self.Catalog.AcroForm.SigFlags = 
+      self.Catalog.AcroForm.SigFlags =
         InteractiveForm::SigFlags::SIGNATURESEXIST | InteractiveForm::SigFlags::APPENDONLY
 
-      
+
       #set all PDF nodocs
 
       digsig.Type = :Sig #:nodoc:
@@ -537,50 +586,50 @@ module Origami
       digsig.Filter = Name.new("Adobe.PPKMS") #:nodoc:
       digsig.SubFilter = Name.new(params[:method]) #:nodoc:
       digsig.ByteRange = [0, 0, 0, 0] #:nodoc:
-      
+
       digsig.Location = HexaString.new(params[:location]) if params[:location]
       digsig.ContactInfo = HexaString.new(params[:contact]) if params[:contact]
       digsig.Reason = HexaString.new(params[:reason]) if params[:reason]
-      
+
 
 
       #
       #  Flattening the PDF to get file view.
       #
       compile
-      
+
       #
       # Creating an empty Xref table to compute signature byte range.
       #
       rebuild_dummy_xrefs
-      
+
       sigoffset = get_object_offset(digsig.no, digsig.generation) + digsig.sigOffset
-      
-      digsig.ByteRange[0] = 0 
+
+      digsig.ByteRange[0] = 0
       digsig.ByteRange[1] = sigoffset
       digsig.ByteRange[2] = sigoffset + digsig.Contents.size
-      
+
       digsig.ByteRange[3] = filesize - digsig.ByteRange[2] until digsig.ByteRange[3] == filesize - digsig.ByteRange[2]
-      
+
       # From that point the file size remains constant
-      
+
       #
       # Correct Xrefs variations caused by ByteRange modifications.
       #
       rebuildxrefs
-      
+
 
       filedata = output()
 
 
 
       signable_data = filedata[digsig.ByteRange[0],digsig.ByteRange[1]] + filedata[digsig.ByteRange[2],digsig.ByteRange[3]]
-      
-      
-      
+
+
+
       return Base64.encode64(Digest::SHA1.digest(signable_data))
-    
-      
+
+
 
 
     end
@@ -592,7 +641,7 @@ module Origami
     #PDF should be ready for sign in mode.
     #Call prepare_for_sign before this function call
     def insert_sign(signature_base64)
-      
+
 
       #convert the base64 encoded signature to binary
       signature = Base64.decode64 signature_base64
@@ -604,7 +653,7 @@ module Origami
 
 
       begin
-        
+
         digsig = self.signature
 
       rescue  SignatureError
@@ -612,18 +661,18 @@ module Origami
         raise "Document is not prepared for insert sign, call method prepare_for_sign first"
 
       end
-     
-      
+
+
       #insert signature to Contents field
       #digsig.Contents[0, signature.size] = signature
       signature = OpenSSL::PKCS7.new(signature).to_der
       digsig.Contents[0, signature.size] = signature
-      
+
       #
       # No more modification are allowed after signing.
       #
       self.freeze
-      
+
 
 
     end
@@ -632,11 +681,11 @@ module Origami
 
 
   end
-  
+
   class Perms < Dictionary
-    
+
     include StandardObject
-   
+
     field   :DocMDP,          :Type => Dictionary
     field   :UR,              :Type => Dictionary
     field   :UR3,             :Type => Dictionary, :Version => "1.6"
@@ -649,9 +698,9 @@ module Origami
     # Class representing a digital signature.
     #
     class DigitalSignature < Dictionary
-      
+
       include StandardObject
-  
+
       field   :Type,            :Type => Name, :Default => :Sig
       field   :Filter,          :Type => Name, :Default => "Adobe.PPKMS".to_sym, :Required => true
       field   :SubFilter,       :Type => Name
@@ -670,60 +719,60 @@ module Origami
       field   :Prop_Build,      :Type => Dictionary, :Version => "1.5"
       field   :Prop_AuthTime,   :Type => Integer, :Version => "1.5"
       field   :Prop_AuthType,   :Type => Name, :Version => "1.5"
-      
+
       def pre_build #:nodoc:
         self.M = Origami::Date.now
         self.Prop_Build ||= BuildProperties.new.pre_build
-        
+
         super
       end
-      
+
       def to_s(dummy_param = nil) #:nodoc:
         indent = 1
         pairs = self.to_a
         content = TOKENS.first + EOL
-        
+
         pairs.sort_by{ |k| k.to_s }.reverse.each do |pair|
           key, value = pair[0].to_o, pair[1].to_o
-            
+
           content << "\t" * indent + key.to_s + " " + (value.is_a?(Dictionary) ? value.to_s(indent + 1) : value.to_s) + EOL
         end
-        
+
         content << "\t" * (indent - 1) + TOKENS.last
-        
+
         output(content)
       end
-      
+
       def sigOffset #:nodoc:
         base = 1
         pairs = self.to_a
         content = "#{no} #{generation} obj" + EOL + TOKENS.first + EOL
-        
+
         pairs.sort_by{ |k| k.to_s }.reverse.each do |pair|
           key, value = pair[0].to_o, pair[1].to_o
-          
+
           if key == :Contents
             content << "\t" * base + key.to_s + " "
-            
+
             return content.size
           else
             content << "\t" * base + key.to_s + " " + (value.is_a?(Dictionary) ? value.to_s(base+1) : value.to_s) + EOL
           end
         end
-          
+
         nil
       end
-      
+
     end
-    
+
     #
     # Class representing a signature which can be embedded in DigitalSignature dictionary.
-    # It must be a direct object. 
+    # It must be a direct object.
     #
     class Reference < Dictionary
-      
+
       include StandardObject
-     
+
       field   :Type,            :Type => Name, :Default => :SigRef
       field   :TransformMethod, :Type => Name, :Default => :DocMDP, :Required => true
       field   :TransformParams, :Type => Dictionary
@@ -738,11 +787,11 @@ module Origami
         super(hash)
       end
     end
-    
+
     class BuildProperties < Dictionary
-      
+
       include StandardObject
-      
+
       field   :Filter,          :Type => Dictionary, :Version => "1.5"
       field   :PubSec,          :Type => Dictionary, :Version => "1.5"
       field   :App,             :Type => Dictionary, :Version => "1.5"
@@ -755,36 +804,36 @@ module Origami
       end
 
       def pre_build #:nodoc:
-        
+
         self.Filter ||= BuildData.new
         self.Filter.Name ||= Name.new("Adobe.PPKMS")
         self.Filter.R ||= 0x2001D
         self.Filter.Date ||= Time.now.to_s
-        
+
         self.SigQ ||= SigQData.new
         self.SigQ.Preview ||= false
         self.SigQ.R ||= 0x2001D
-        
+
         self.PubSec ||= BuildData.new
         self.PubSec.NonEFontNoWarn ||= false
         self.PubSec.Date ||= Time.now.to_s
         self.PubSec.R ||= 0x2001D
-        
+
         self.App ||= AppData.new
         self.App.TrustedMode ||= false
         self.App.OS ||= [ :Win ]
         self.App.R ||= 0x70000
         self.App.Name ||= Name.new("Exchange-Pro")
-        
+
         super
       end
-      
+
     end
-    
+
     class BuildData < Dictionary
-      
+
       include StandardObject
-     
+
       field   :Name,              :Type => Name,  :Version => "1.5"
       field   :Date,              :Type => String, :Version => "1.5"
       field   :R,                 :Type => Number, :Version => "1.5"
@@ -799,26 +848,26 @@ module Origami
 
         super(hash)
       end
-      
+
     end
-    
+
     class AppData < BuildData
       field   :REx,               :Type => String, :Version => "1.6"
     end
-    
+
     class SigQData < BuildData
       field   :Preview,           :Type => Boolean, :Default => false, :Version => "1.7"
     end
 
   end
-  
+
   module UsageRights
-    
+
     module Rights
-      
+
       DOCUMENT_FULLSAVE = [:Document, :FullSave]
       DOCUMENT_ALL = DOCUMENT_FULLSAVE
-      
+
       ANNOTS_CREATE = [:Annots, :Create]
       ANNOTS_DELETE = [:Annots, :Delete]
       ANNOTS_MODIFY = [:Annots, :Modify]
@@ -828,7 +877,7 @@ module Origami
       ANNOTS_ONLINE = [:Annots, :Online]
       ANNOTS_SUMMARYVIEW = [:Annots, :SummaryView]
       ANNOTS_ALL = [ :Annots, :Create, :Modify, :Copy, :Import, :Export, :Online, :SummaryView ]
-      
+
       FORM_FILLIN = [:Form, :FillIn]
       FORM_IMPORT = [:Form, :Import]
       FORM_EXPORT = [:Form, :Export]
@@ -837,29 +886,29 @@ module Origami
       FORM_BARCODEPLAINTEXT = [:Form, :BarcodePlaintext]
       FORM_ONLINE = [:Form, :Online]
       FORM_ALL = [:Form, :FillIn, :Import, :Export, :SubmitStandAlone, :SpawnTemplate, :BarcodePlaintext, :Online]
-      
+
       FORMEX_BARCODEPLAINTEXT = [:FormEx, :BarcodePlaintext]
       FORMEX_ALL = FORMEX_BARCODEPLAINTEXT
-      
+
       SIGNATURE_MODIFY = [:Signature, :Modify]
       SIGNATURE_ALL = SIGNATURE_MODIFY
-      
+
       EF_CREATE = [:EF, :Create]
       EF_DELETE = [:EF, :Delete]
       EF_MODIFY = [:EF, :Modify]
       EF_IMPORT = [:EF, :Import]
       EF_ALL = [:EF, :Create, :Delete, :Modify, :Import]
-      
+
       ALL = [ DOCUMENT_ALL, ANNOTS_ALL, FORM_ALL, SIGNATURE_ALL, EF_ALL ]
-      
+
     end
-    
+
     class TransformParams < Dictionary
-      
+
       include StandardObject
-      
+
       VERSION = Name.new("2.2")
-     
+
       field   :Type,              :Type => Name, :Default => :TransformParams
       field   :Document,          :Type => Array
       field   :Msg,               :Type => String
@@ -880,7 +929,7 @@ module Origami
     end
 
 
-    
+
   end
 
 end

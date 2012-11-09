@@ -4,74 +4,74 @@ describe Origami::PDF do
 
     #the path of original PDF to be signed
     let(:file_to_be_signed ) { File.expand_path("../../fixtures/test_file.pdf", File.dirname(__FILE__)) }
-    
+
     #the path where PDF prepared for sign to be saved
     let(:prepared_pdf ) { File.expand_path("../../fixtures/prepared.pdf", File.dirname(__FILE__)) }
-    
+
     #PDF in which the signature hash is prepared and waiting for sign  from 3rd party
     let(:prepared_and_waiting_pdf ) { File.expand_path("../../fixtures/prepared-and-waiting.pdf", File.dirname(__FILE__)) }
-    
+
     let(:signed_pdf_path) { File.expand_path("../../fixtures/signed-pdf.pdf", File.dirname(__FILE__)) }
 
-    #path for base64 encode signature 
+    #path for base64 encode signature
     let(:base64encoded_signature_pkcs7 ) { File.expand_path("../../fixtures/signature_pkcs7", File.dirname(__FILE__)) }
-    
+
     #a signature altered path
     let(:wrong_signature_pkcs7 ) { File.expand_path("../../fixtures/wrong_signature_pkcs7", File.dirname(__FILE__)) }
 
-    
+
      #the path of linearized pdf
     let(:linearized_pdf_path ) { File.expand_path("../../fixtures/linear.pdf", File.dirname(__FILE__)) }
-    
+
 
     #the path of xrefed_pdf
     let(:xrefed_pdf_path ) { File.expand_path("../../fixtures/xrefed.pdf", File.dirname(__FILE__)) }
-    
+
 
     let(:normal_pdf_signed ) { File.expand_path("../../fixtures/normal-pdf-signed.pdf", File.dirname(__FILE__)) }
-    
+
     let(:linearized_pdf_signed ) { File.expand_path("../../fixtures/linearized-pdf-signed.pdf", File.dirname(__FILE__)) }
-    
+
     let(:xrefstreamed_pdf_signed ) { File.expand_path("../../fixtures/xrefstreamed_pdf_signed.pdf", File.dirname(__FILE__)) }
-    
+
 
     describe ".prepare_for_sign" do
-    
-        
+
+
 
         it "can prepare PDF ready for sign" do
 
           mypdf = Origami::PDF.read file_to_be_signed
-          
-          hash_to_be_signed = mypdf.prepare_for_sign(   
-          
-                :location => "India", 
-                :contact => "sajith@mobme.in", 
-                :reason => "Proof of Concept Sajith Vishnu" 
+
+          hash_to_be_signed = mypdf.prepare_for_sign(
+
+                :location => "India",
+                :contact => "sajith@mobme.in",
+                :reason => "Proof of Concept Sajith Vishnu"
                 )
 
-        
+
           mypdf.save( prepared_pdf );
-          
+
           #mypdf.signature should not raise_error (if prepared, the pdf must have a signture field)
           expect { mypdf.signature  }.to_not raise_error
 
-          Base64.decode64(hash_to_be_signed).size.should eql 20 
+          Base64.decode64(hash_to_be_signed).size.should eql 20
 
-          
+
 
         end
 
-    end 
+    end
 
 
     describe ".insert_sign" do
 
-      
+
 
       context "when a prepared PDF is passed" do
 
-        it "can attach a sign" do 
+        it "can attach a sign" do
 
           mypdf = Origami::PDF.read prepared_and_waiting_pdf
 
@@ -83,16 +83,16 @@ describe Origami::PDF do
 
           mypdf.verify.should eql true
 
-          
+
 
 
         end
 
-      end  
+      end
 
       context "when a normal PDF is passed" do
 
-        it "throws invalid PDF exception" do 
+        it "throws invalid PDF exception" do
 
           mypdf = Origami::PDF.read file_to_be_signed
 
@@ -100,14 +100,14 @@ describe Origami::PDF do
 
           expect { mypdf.insert_sign( signature_base64) }.to raise_error
 
-            
+
         end
 
       end
 
 
 
-        it "returns invalid PDF for wrong signature" do 
+        it "returns invalid PDF for wrong signature" do
 
           mypdf = Origami::PDF.read prepared_and_waiting_pdf
 
@@ -126,7 +126,7 @@ describe Origami::PDF do
 
     it "can verify a change in signed PDF" do
 
-      
+
 
       #Open a signed PDF file
       mypdf = Origami::PDF.read signed_pdf_path
@@ -135,7 +135,7 @@ describe Origami::PDF do
       #verify the signature, to make sure it is signed validly
       mypdf.verify.should eql true
 
-      
+
       #add some extra content @todo, make this work properly
       #contents = ContentStream.new
       #contents.write "Adding extra data",
@@ -157,11 +157,11 @@ describe Origami::PDF do
       true
 
 
-    end 
+    end
 
     describe ".valid_pdf_for_sign?" do
 
-      
+
 
         context "when a linearized PDF is passed" do
 
@@ -212,9 +212,9 @@ describe Origami::PDF do
 
             it "returns true" do
 
-              Origami::PDF.convert_to_signable xrefed_pdf_path, xrefed_pdf_path + ".dup.pdf" 
+              Origami::PDF.convert_to_signable xrefed_pdf_path, xrefed_pdf_path + ".dup.pdf"
               #Open a signed PDF file
-              mypdf = Origami::PDF.read xrefed_pdf_path + ".dup.pdf" 
+              mypdf = Origami::PDF.read xrefed_pdf_path + ".dup.pdf"
 
               mypdf.valid_pdf_for_sign?.should eql true
 
@@ -231,33 +231,33 @@ describe Origami::PDF do
         #Open a signed PDF file
           mypdf = Origami::PDF.read linearized_pdf_path
 
-          expect { mypdf.prepare_for_sign(   
-          
-                :location => "India", 
-                :contact => "sajith@mobme.in", 
-                :reason => "Proof of Concept Sajith Vishnu" 
-                ) }.to raise_error
-    
-    end
-      
+          expect { mypdf.prepare_for_sign(
 
-    
+                :location => "India",
+                :contact => "sajith@mobme.in",
+                :reason => "Proof of Concept Sajith Vishnu"
+                ) }.to raise_error
+
+    end
+
+
+
     describe "an end-to-end sign" do
 
         context "with a normal pdf" do
 
-        
+
 
           it "should sign a valid normal pdf" do
 
 
               mXsign(file_to_be_signed, normal_pdf_signed)
 
-              
+
 
           end
 
-        end  
+        end
 
 
         context "with a linearized pdf" do
@@ -269,11 +269,11 @@ describe Origami::PDF do
 
               mXsign(linearized_pdf_path, linearized_pdf_signed)
 
-              
+
 
           end
 
-        end  
+        end
 
 
         context "with a xref-streamed pdf" do
@@ -283,11 +283,11 @@ describe Origami::PDF do
 
               mXsign(xrefed_pdf_path, xrefstreamed_pdf_signed)
 
-              
+
 
           end
 
-        end  
+        end
 
     end
 
@@ -295,20 +295,20 @@ describe Origami::PDF do
 
     #mobile express sign, local method
     def mXsign(input, output)
-        
-              Origami::PDF.convert_to_signable input, input + ".dup.pdf" 
+
+              Origami::PDF.convert_to_signable input, input + ".dup.pdf"
 
               mypdf = Origami::PDF.read input + ".dup.pdf"
-              
-              hash_to_be_signed = mypdf.prepare_for_sign(   
-              
-                    :location => "India", 
-                    :contact => "sajith@mobme.in", 
-                    :reason => "Proof of Concept Sajith Vishnu" 
+
+              hash_to_be_signed = mypdf.prepare_for_sign(
+
+                    :location => "India",
+                    :contact => "sajith@mobme.in",
+                    :reason => "Proof of Concept Sajith Vishnu"
                     )
 
 
-              client = MobileExpress::ValimoSignatureAPI::Client.new("14.140.176.42", 8082, application_id: "in.mobileexpress.valimo", api_token: "5973d7ff5948c467b16c981ff217693e2c6d0192") 
+              client = MobileExpress::ValimoSignatureAPI::Client.new("192.168.1.41", 8080, application_id: "in.mobileexpress.valimo", api_token: "5973d7ff5948c467b16c981ff217693e2c6d0192")
 
               request = client.request_signature_for("+911234567890", :sign_hash => hash_to_be_signed , :display => "Sign this file?")
 
@@ -331,7 +331,7 @@ describe Origami::PDF do
               mypdf
 
 
-    end 
+    end
 
 
 end
