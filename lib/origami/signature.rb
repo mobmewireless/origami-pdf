@@ -458,8 +458,44 @@ module Origami
     #
     def signature_page(options={})
 
-      # Setup signature annotation and define its area
+      # Define the attributes of a box where we will put our annotation + mox logo + description
       box = { x: 175, y:490, width: 500, height: 125 }
+
+      # Create a new page and contentsream to hold the text/image content to be put the page
+      page     = Origami::Page.new
+      contents = Origami::ContentStream.new
+
+      # Load stamp and add reference to the page
+      stamp_options = {
+        x: box[:x] + 10,
+        y: box[:y] + 10,
+        width: 100,
+        height: 100
+      }
+      stamp = Origami::Graphics::ImageXObject.from_image_file("#{File.dirname(__FILE__)}/../../data/stamp.jpg")
+      stamp.Width  = stamp_options[:width]
+      stamp.Height = stamp_options[:height]
+      stamp.ColorSpace = Origami::Graphics::Color::Space::DEVICE_RGB
+      stamp.BitsPerComponent = 8
+      stamp.Interpolate = true
+      page.add_xobject(:stamp, stamp)
+
+      # Draw the image inside the box area
+      contents.draw_image(:stamp, stamp_options)
+
+      # Write the description text inside the box area
+      contents.write("Signed by: #{options[:name]}\nEmail: #{options[:contact]}", {
+        :x => box[:x] + stamp_options[:width] + 30,
+        :y => box[:y] + 50,
+        :rendering => Origami::Text::Rendering::FILL,
+        :size => 20,
+        :leading => 30
+      })
+
+      # Set the contentstream with (logo + text) as the contents of the page
+      page.setContents(contents)
+
+      # Create the signature annotaion over the content area box
       annotation = Origami::Annotation::Widget::Signature.new
       annotation.Rect = Origami::Rectangle[
         :llx => box[:x],
@@ -468,39 +504,7 @@ module Origami
         :ury => box[:y] + box[:height]
       ]
 
-      # Apperance stream will hold the content you want to draw/write inside your annotation
-      appstm = Origami::Annotation::AppearanceStream.new
-      appstm.BBox = [ 0, 0, box[:width], box[:height] ]
-      appstm.Matrix = [ 1, 0, 0, 1, 0, 0 ]
-
-      # Load stamp
-      stamp_options = { x: 10, y: 10, width: 100, height: 100 }
-      stamp = Origami::Graphics::ImageXObject.from_image_file("#{File.dirname(__FILE__)}/../../data/stamp.jpg")
-      stamp.Width  = stamp_options[:width]
-      stamp.Height = stamp_options[:height]
-      stamp.ColorSpace = Origami::Graphics::Color::Space::DEVICE_RGB
-      stamp.BitsPerComponent = 8
-      stamp.Interpolate = true
-
-      # Insert stamp
-      appstm.Resources = { :XObject => { :stamp => stamp } }.to_o
-      appstm.draw_image(:stamp, stamp_options)
-
-      # Write stuff!
-      text = "Signed by: #{options[:name]}\nEmail: #{options[:contact]}"
-      appstm.write(text, {
-        :x => 150,
-        :y => 70,
-        :rendering => Origami::Text::Rendering::FILL,
-        :size => 20,
-        :leading => 30
-      })
-
-      # Configure annotation to use the appearence stream
-      annotation.set_normal_appearance(appstm)
-
-      # Create a new page and add the annotation
-      page = Origami::Page.new
+      # Add the signature annotation to the page
       page.add_annot(annotation)
 
       [page, annotation]
