@@ -1,68 +1,58 @@
-## Name
+# Origami (Extended)
 
-Origami - Extended
+## Authors
 
-## Author
-
-Sajith Amma
+*  Credits to the authors of the [Origami project](http://esec-lab.sogeti.com/pages/Origami) (http://esec-lab.sogeti.com/pages/Origami)
+*  Sajith Amma (Extensions)
+*  Akhil Stanislavose (Extensions)
 
 ## Version
 
-1.2.1 (Origami alone is 1.2 )
+This extended version is adapted from Origami 1.2
 
 ## Description
 
-This library is an extended version of Origami with additional features for signing a PDF. Using this extended library, we can prepare a PDF document for signature and genereate the signable hash.
+This library is an extended version of Origami, with additional features for signing a PDF. Using this extended library, we can prepare a PDF document for signature and generate the signable hash.
 
-A third party application can sign the generated hash and the signed data in PKCS #7 format can be inserted back to the prepared PDF
+A third party application can sign the generated hash and the signed data in PKCS #7 format can be inserted back to the prepared PDF.
 
-All other Origami details can be found in "README" file, in the root directory
+The original `README` file of the Origami library is stored alongside this file, in the root directory.
 
-## Dependancies
+## Dependencies
 
-This library need QPDF
-
-* http://qpdf.sourceforge.net/
+This library requires [QPDF](http://qpdf.sourceforge.net/).
 
 ## Usage
 
 ### Prepare a PDF for signing 
 
 ```ruby
+require 'origami'
 
-  require 'origami' 
+# load a sample PDF file
 
-  #load a sample PDF file
+mypdf = Origami::PDF.read "./sample.pdf"
 
-  mypdf = Origami::PDF.read "./sample.pdf"
+# location, contact, reason etc are optional parameters
 
-  # location, contact, reason etc are optional parameters
+hash_to_be_signed = mypdf.prepare_for_sign (
+  :location => "Your Location",
+  :contact => "sample@email.com",
+  :reason => "Your Reason for signing here,"
+)
 
-  hash_to_be_signed = mypdf.prepare_for_sign (   
-  
-      :location => "Your Location", 
-      :contact => "sample@email.com", 
-      :reason => "Your Reason for signing here," 
+#An Optional parameter :signature_size can be passed, if the signature has different size (default it is: 1111)
 
-  )
+#send this hash_to_be_signed to a 3rd party application to sign (output must be in PKC#7 format )
 
- 
-
-  #An Optional parameter :signature_size can be passed, if the signature has different size (default it is: 1111)
-
-  #send this hash_to_be_signed to a 3rd party application to sign (output must be in PKC#7 format )
-
-  #save the PDF for inserting signature later
-  mypdf.save('prepared.pdf')
-
- ```
+#save the PDF for inserting signature later
+mypdf.save('prepared.pdf')
+```
 
 ### Insert a signed data inside the prepared PDF
 
 ```ruby
-
 require 'origami'
-
 
 mypdf = Origami::PDF.read "prepared.pdf"
 
@@ -82,17 +72,16 @@ mypdf.insert_sign( signature_base64)
 # Save the signed PDF
 
 mypdf.save('sign-attached.pdf')
-
 ```
 
 ## Convert PDF ready for sign
 
-All PDF are not valid PDF for sign in.
+All PDF-s are not signable by default. The Origami library does not directly support linearized PDF and XREF-streamed PDF.
 
-Origami library do not directly support linearized PDF and XREF-streamed PDF
+When uploading a PDF, use the method mentioned below to make a PDF signable:
 
-When upload a PDF, use the below method to convert PDF to be ready for sign
-
+```ruby
 
 Origami::PDF.convert_to_signable input_pdf_file_path, output_pdf_file_path
 
+```
